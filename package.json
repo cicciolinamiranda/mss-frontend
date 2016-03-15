@@ -1,0 +1,15 @@
+{
+  "name": "employee-frontend",
+  "version": "0.0.1",
+  "description": "Frontend for Employee operational data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://bensarmiento@23.251.135.145:7990/scm/gs/employee-frontend.git"
+  },
+  "author": "",
+  "license": "UNLICENSED"
+}
