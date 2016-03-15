@@ -11,5 +11,8 @@
     "url": "http://bensarmiento@23.251.135.145:7990/scm/gs/employee-frontend.git"
   },
   "author": "",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "webpack": "^1.12.14"
+  }
 }
