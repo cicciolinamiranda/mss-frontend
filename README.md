@@ -1,3 +1,3 @@
-# employee-frontend
+# mss-frontend
 
-`webpack-dev-server --config webpack.config.dev.js --content-base app`
+Run `npm start` to develop locally
