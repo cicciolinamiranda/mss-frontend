@@ -6,5 +6,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'app'),
     filename: 'bundle.js',
+  },
+  module: {
+    loaders: [
+      {test: /\.js$/, exclude: ['node_modules'], loaders: ['ng-annotate']}
+    ]
   }
 };

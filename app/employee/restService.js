@@ -2,8 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('EmployeeRestSvc', restService);
 };
 
-restService.$inject = [];
-
 function restService() {
+  "ngInject";
   this.bar = "Hello World";
 }

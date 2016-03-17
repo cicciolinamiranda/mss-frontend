@@ -2,12 +2,8 @@ module.exports = function(ngModule) {
   ngModule.config(routes);
 }
 
-routes.$inject = [
-  '$routeProvider',
-  '$locationProvider'
-];
-
 function routes($routeProvider, $locationProvider) {
+  "ngInject";
   $routeProvider
     .when('/', {
       templateUrl: '/employee/list.html',
