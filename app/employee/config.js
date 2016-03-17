@@ -4,5 +4,5 @@ module.exports = function(ngModule) {
 
 function config($gapiProvider) {
   "ngInject";
-  $gapiProvider.api_base = 'https://cs-javelin-mss-dev.appspot.com/_ah/api';
+  $gapiProvider.api_base = 'https://cs-javelin-mss-team-2.appspot.com/_ah/api';
 }
