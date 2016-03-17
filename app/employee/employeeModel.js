@@ -5,8 +5,11 @@ module.exports = function(ngModule) {
 function employeeModel() {
   "ngInject";
 
-  function Employee() {
+  function Employee(data) {
+  	angular.extend(this, data);
   }
+
+  
 
   return Employee;
 }
