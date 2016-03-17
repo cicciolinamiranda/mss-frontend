@@ -7,6 +7,7 @@ var ngApp = angular.module('employeeApp', [
   'eydis.gapi'
 ]);
 
+require('./config')(ngApp);
 require('./routes')(ngApp);
 require('./restService')(ngApp);
 require('./listController')(ngApp);
