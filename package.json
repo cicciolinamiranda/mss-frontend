@@ -4,7 +4,7 @@
   "description": "Frontend for Employee operational data",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.dev.js --content-base app",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --content-base app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,10 +14,15 @@
   "author": "",
   "license": "UNLICENSED",
   "devDependencies": {
+    "css-loader": "^0.23.1",
+    "ng-annotate-loader": "^0.1.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "angular": "^1.5.0"
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.1"
   }
 }
