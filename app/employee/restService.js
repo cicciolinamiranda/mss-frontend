@@ -20,4 +20,10 @@ function restService($q, $gapi) {
     });
   };
 
+  this.getEmployee = function(id) {
+    return loadApi.then(function(){
+      return $gapi.client.employee.employees.get({id: id});
+    });
+  };
+
 }
