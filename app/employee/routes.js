@@ -6,8 +6,8 @@ function routes($routeProvider, $locationProvider) {
   "ngInject";
   $routeProvider
     .when('/', {
-      template: require('./list.html'),
-      controller: 'EmployeeListCtrl',
+      template: require('./index.html'),
+      controller: 'EmployeeMainCtrl',
       controllerAs: 'vm'
     })
     .otherwise({

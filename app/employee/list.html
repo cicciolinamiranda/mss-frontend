@@ -1,3 +1,5 @@
 <div>
-  {{vm.foo}}
+  <ul ng-repeat="employee in vm.employees">
+    <li ng-bind="employee.firstname"></li>
+  </ul>
 </div>

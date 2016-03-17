@@ -14,7 +14,6 @@ function restService($q, $gapi) {
     return deferred.resolve();
   });
 
-  // TODO: simplify chaining
   this.listEmployees = function() {
     return loadApi.then(function(){
       return $gapi.client.employee.employees.list();
