@@ -9,6 +9,7 @@ var ngApp = angular.module('employeeApp', [
 
 require('./config')(ngApp);
 require('./routes')(ngApp);
+require('./employeeModel')(ngApp);
 require('./restService')(ngApp);
 require('./employeeService')(ngApp);
 require('./listController')(ngApp);
