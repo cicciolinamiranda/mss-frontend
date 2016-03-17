@@ -12,5 +12,7 @@ require('./routes')(ngApp);
 require('./restService')(ngApp);
 require('./employeeService')(ngApp);
 require('./listController')(ngApp);
+require('./listComponent')(ngApp);
+require('./mainController')(ngApp);
 
 module.exports = ngApp;
