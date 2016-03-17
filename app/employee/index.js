@@ -1,8 +1,10 @@
 var angular = require('angular');
 require('angular-route');
+require('eydis-gapi');
 
-var ngApp = angular.module('app', [
-  'ngRoute'
+var ngApp = angular.module('employeeApp', [
+  'ngRoute',
+  'eydis.gapi'
 ]);
 
 require('./routes')(ngApp);
