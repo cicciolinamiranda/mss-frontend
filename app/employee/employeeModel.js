@@ -1,7 +1,13 @@
 module.exports = function(ngModule) {
-  ngModule.service('Employee', employeeModel);
+  ngModule.factory('Employee', employeeModel);
 };
 
 function employeeModel() {
   "ngInject";
+
+  function Employee(data) {
+  	angular.extend(this, data);
+  }
+
+  return Employee;
 }
