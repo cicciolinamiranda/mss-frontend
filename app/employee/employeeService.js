@@ -11,4 +11,12 @@ function employeeService(EmployeeRest, Employee) {
       });
     });
   };
+
+  this.get = function(id) {
+		return EmployeeRest.getEmployee(id).then(function(data){
+		return new Employee(data);
+	});
+  };
 }
+
+

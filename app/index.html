@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <base href="/">
   <title>MSS</title>
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 </head>
 <body>
-  <h1>MSS</h1>
-  <ng-view></ng-view>
-  <script src="bundle.js"></script>
-  <script src="https://apis.google.com/js/client.js?onload=_gapi_load_callback"></script>
+	<div ng-include="'employee/partials/header.html'"></div>
+	<h1>MSS</h1>
+	<ng-view></ng-view>
+	<script src="bundle.js"></script>
+	<script src="https://apis.google.com/js/client.js?onload=_gapi_load_callback"></script>
 </body>
 </html>

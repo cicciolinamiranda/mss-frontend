@@ -15,5 +15,6 @@ require('./employeeService')(ngApp);
 require('./listController')(ngApp);
 require('./listComponent')(ngApp);
 require('./mainController')(ngApp);
+require('./viewController')(ngApp);
 
 module.exports = ngApp;
