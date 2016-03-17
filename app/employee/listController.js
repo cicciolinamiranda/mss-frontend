@@ -2,7 +2,6 @@ module.exports = function(ngModule) {
   ngModule.controller('EmployeeListCtrl', listCtrl);
 };
 
-function listCtrl(EmployeeRestSvc) {
+function listCtrl() {
   "ngInject";
-  this.foo = EmployeeRestSvc.bar;
 }

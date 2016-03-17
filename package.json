@@ -2,7 +2,7 @@
   "name": "mss-frontend",
   "version": "0.0.1",
   "description": "Frontend for Employee operational data",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --content-base app",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "angular": "^1.5.0",
-    "angular-route": "^1.5.1"
+    "angular-route": "^1.5.1",
+    "eydis-gapi": "git+https://github.com/yowmamasita/Eydis-GAPI.git"
   }
 }
