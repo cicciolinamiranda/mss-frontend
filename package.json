@@ -4,7 +4,7 @@
   "description": "Frontend for Employee operational data",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.dev.js --content-base app",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --content-base app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +18,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "angular": "^1.5.0"
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.1"
   }
 }
