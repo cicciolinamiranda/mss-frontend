@@ -1,15 +1,23 @@
 {
-  "name": "employee-frontend",
+  "name": "mss-frontend",
   "version": "0.0.1",
   "description": "Frontend for Employee operational data",
   "main": "index.js",
   "scripts": {
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.dev.js --content-base app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "http://bensarmiento@23.251.135.145:7990/scm/gs/employee-frontend.git"
+    "url": "http://23.251.135.145:7990/scm/gs/mss-frontend.git"
   },
   "author": "",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.0"
+  }
 }
