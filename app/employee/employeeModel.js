@@ -9,7 +9,5 @@ function employeeModel() {
   	angular.extend(this, data);
   }
 
-  
-
   return Employee;
 }
