@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --content-base app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack --config webpack.config.prod.js --content-base app"
   },
   "repository": {
     "type": "git",
