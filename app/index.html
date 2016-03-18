@@ -6,10 +6,18 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 </head>
 <body>
-  <ng-include src="'employee/templates/header.html'"></ng-include>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#/"><img src="img/g4s-logo.png"></a>
+      </div>
+    </div>
+  </nav>
+
   <div class="container">
     <ng-view></ng-view>
   </div>
+
 	<script src="bundle.js"></script>
 	<script src="https://apis.google.com/js/client.js?onload=_gapi_load_callback"></script>
 </body>
