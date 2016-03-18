@@ -1,24 +1,28 @@
-
 <div class="panel panel-default">
-<h4>List Employees</h4>
-<table class="table table-striped">
-  <thead>
-  	<tr>
-  		<th>ID</th>
-  		<th>Title</th>
-  		<th>Surname</th>
-  		<th>First Names</th>
-   		<th>Rank</th>
-   		<th>E-mail</th>
-  	</tr>
-  </thead>
-  <tr ng-repeat= "employee in vm.employees">
-  	<td> <a href="#/viewEmployee/{{employee.id}}">{{employee.id}}</a></td>
-  	<td>{{employee.title}}</td>
-  	<td>{{employee.surname}}</td>
-  	<td>{{employee.firstname}}</td>
-  	<td>{{employee.rank}}</td>
-  	<td>{{employee.emailAddress}}</td>
-  </tr>
-</table>
+  <table class="table table-striped">
+    <thead>
+    	<tr>
+    		<th>ID</th>
+    		<th>Title</th>
+    		<th>Surname</th>
+    		<th>First Names</th>
+     		<th>Rank</th>
+     		<th>E-mail</th>
+        <th></th>
+    	</tr>
+    </thead>
+    <tr ng-repeat= "employee in vm.employees">
+    	<td ng-bind="employee.id || '-'"></td>
+    	<td ng-bind="employee.title || '-'"></td>
+    	<td ng-bind="employee.surname || '-'"></td>
+    	<td ng-bind="employee.firstname || '-'"></td>
+    	<td ng-bind="employee.rank || '-'"></td>
+    	<td ng-bind="employee.emailAddress || '-'"></td>
+      <td>
+        <a class="btn btn-info btn-xs" href="#/viewEmployee/{{employee.id}}" role="button">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View Profile
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
