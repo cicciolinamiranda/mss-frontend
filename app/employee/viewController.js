@@ -1,19 +1,15 @@
 module.exports = function(ngModule) {
-  ngModule.controller('ViewEmployeeCtrl', viewCtrl);
+  ngModule.controller('EmployeeViewCtrl', viewCtrl);
 };
 
-function viewCtrl(EmployeeSvc,$routeParams) {
+function viewCtrl(EmployeeSvc, $stateParams) {
   "ngInject";
   var vm = this;
 
   function init(){
-  	var id = $routeParams.id;
-  	EmployeeSvc.get(id).then(function(employee){
-		vm.employee = employee;
-	});
-    // EmployeeSvc.list().then(function(employees){
-    //   vm.employees = employees;
-    // });
+  	EmployeeSvc.get($stateParams.employeeId).then(function(employee){
+  		vm.employee = employee;
+  	});
   }
 
   init();

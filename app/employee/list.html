@@ -19,7 +19,7 @@
     	<td ng-bind="employee.rank || '-'"></td>
     	<td ng-bind="employee.emailAddress || '-'"></td>
       <td>
-        <a class="btn btn-info btn-xs" href="#/viewEmployee/{{employee.id}}" role="button">
+        <a class="btn btn-info btn-xs" ui-sref="employee.view({employeeId: employee.id})" role="button">
           <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View Profile
         </a>
       </td>

@@ -1,5 +1,9 @@
 var angular = require('angular');
 
-angular.bootstrap(document, [
+var ngApp = angular.module('mainApp', [
   require('./employee/index').name
 ]);
+
+require('./routes')(ngApp);
+
+angular.bootstrap(document, [ngApp.name]);
