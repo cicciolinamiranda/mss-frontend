@@ -9,8 +9,14 @@ function routes($routeProvider, $locationProvider) {
       template: require('./index.html'),
       controller: 'EmployeeMainCtrl',
       controllerAs: 'vm'
+    }).when('/viewEmployee/:id',{
+      template: require('./view.html'),
+      controller: 'ViewEmployeeCtrl',
+      controllerAs: 'vm'
     })
     .otherwise({
       redirectTo: '/'
     });
+
+    $locationProvider.html5Mode(false);
 }
