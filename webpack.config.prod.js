@@ -20,7 +20,7 @@ module.exports = {
     // new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
       { from: 'app/index.html' },
-      { from: 'app/app.yaml' },
+      { from: 'app.yaml' },
       { from: 'app/img', to: 'img' },
     ])
   ]
