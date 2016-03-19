@@ -1,6 +1,4 @@
-module.exports = function(ngModule) {
-  ngModule.controller('EmployeeViewCtrl', viewCtrl);
-};
+module.exports = viewCtrl;
 
 function viewCtrl(EmployeeSvc, $stateParams) {
   "ngInject";

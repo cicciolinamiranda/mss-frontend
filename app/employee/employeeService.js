@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
 
 function employeeService(EmployeeRest, Employee) {
   "ngInject";
+  // TODO: cache the list
   this.list = function() {
     return EmployeeRest.listEmployees().then(function(data){
       return data.employees.map(function(item){
@@ -12,6 +13,7 @@ function employeeService(EmployeeRest, Employee) {
     });
   };
 
+  // TODO: cache the data
   this.get = function(id) {
 		return EmployeeRest.getEmployee(id).then(function(data){
   		return new Employee(data);

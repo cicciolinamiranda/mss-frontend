@@ -11,7 +11,7 @@
         <th></th>
     	</tr>
     </thead>
-    <tr ng-repeat= "employee in vm.employees">
+    <tr ng-repeat= "employee in $ctrl.employees">
     	<td ng-bind="employee.id || '-'"></td>
     	<td ng-bind="employee.title || '-'"></td>
     	<td ng-bind="employee.surname || '-'"></td>
