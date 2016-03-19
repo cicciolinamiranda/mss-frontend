@@ -5,10 +5,10 @@ module.exports = function(ngModule) {
 function restService($q, $gapi) {
   "ngInject";
 
-  var loadGApi = $gapi.loaded;
   var deferred = $q.defer();
   var loadApi = deferred.promise;
-  loadGApi.then(function(){
+
+  $gapi.loaded.then(function(){
     return $gapi.load('employee', 'v1', true);
   }).then(function(){
     return deferred.resolve();
