@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -17,7 +18,8 @@ module.exports = {
     ]
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
+    new CleanWebpackPlugin(['dist']),
+    new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
       { from: 'app/index.html' },
       { from: 'app.yaml' },
