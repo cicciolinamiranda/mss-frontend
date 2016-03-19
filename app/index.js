@@ -1,7 +1,11 @@
 var angular = require('angular');
 
 var ngApp = angular.module('mainApp', [
-  require('./employee/index').name
+  // app modules
+  require('./employee/index').name,
+
+  // 3rd-party libs
+  require('angular-ui-router')
 ]);
 
 require('./routes')(ngApp);
