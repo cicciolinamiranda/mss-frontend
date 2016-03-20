@@ -14,8 +14,8 @@ function employeeService(EmployeeRest, Employee, $q) {
     var deferred = $q.defer();
     deferred.resolve(listCache);
 
-    EmployeeRest.listEmployees().then(function(data){
-      data.employees.map(function(item){
+    EmployeeRest.listEmployees().then(function(data) {
+      data.employees.map(function(item) {
         listCache[item.id] = new Employee(item);
       });
     });
@@ -29,7 +29,7 @@ function employeeService(EmployeeRest, Employee, $q) {
     if (!employeeCache.hasOwnProperty(id)) employeeCache[id] = {};
     deferred.resolve(employeeCache[id]);
 
-    EmployeeRest.getEmployee(id).then(function(data){
+    EmployeeRest.getEmployee(id).then(function(data) {
       angular.extend(employeeCache[id], new Employee(data));
     });
 
