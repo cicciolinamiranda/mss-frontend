@@ -4,21 +4,22 @@ module.exports = function(ngModule) {
 
 function employeeService(EmployeeRest, Employee, $q) {
   "ngInject";
-  var employeeCache = {};
 
+  var listCache = {};
   this.list = function() {
     var deferred = $q.defer();
-    deferred.resolve(employeeCache);
+    deferred.resolve(listCache);
 
     EmployeeRest.listEmployees().then(function(data){
       data.employees.map(function(item){
-        employeeCache[item.id] = new Employee(item);
+        listCache[item.id] = new Employee(item);
       });
     });
 
     return deferred.promise;
   };
 
+  var employeeCache = {};
   this.get = function(id) {
     var deferred = $q.defer();
     if (!employeeCache.hasOwnProperty(id)) employeeCache[id] = {};
