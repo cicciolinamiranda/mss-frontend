@@ -5,7 +5,6 @@ var ngApp = angular.module('employeeViewApp', [
   'eydis.gapi'
 ]);
 
-require('./viewRest')(ngApp);
 require('./viewService')(ngApp);
 require('./viewComponent')(ngApp);
 

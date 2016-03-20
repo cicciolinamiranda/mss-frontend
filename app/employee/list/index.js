@@ -5,7 +5,6 @@ var ngApp = angular.module('employeeListApp', [
   'eydis.gapi'
 ]);
 
-require('./listRest')(ngApp);
 require('./listService')(ngApp);
 require('./listComponent')(ngApp);
 
