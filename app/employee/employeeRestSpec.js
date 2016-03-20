@@ -4,8 +4,8 @@ describe("Employee Rest Service", function() {
   var EmployeeRest, $scope;
   var sample_employee = {
     id: '123',
-    firstname: '',
-    surname: ''
+    firstname: 'Auntie',
+    surname: 'Anne'
   };
   beforeEach(angular.mock.module(app.name));
   // mock $gapi to inject to EmployeeRest
