@@ -23,7 +23,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'app/index.html' },
       { from: 'app.yaml' },
-      { from: 'app/img', to: 'img' },
+      { from: 'app/static', to: 'static' },
     ])
   ]
 };
