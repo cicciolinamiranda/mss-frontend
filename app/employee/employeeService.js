@@ -5,6 +5,10 @@ module.exports = function(ngModule) {
 function employeeService(EmployeeRest, Employee, $q) {
   "ngInject";
 
+  /**
+  TODO: since this is a list where order is relevant,
+    we should pass an array instead of the cache obj
+  */
   var listCache = {};
   this.list = function() {
     var deferred = $q.defer();
