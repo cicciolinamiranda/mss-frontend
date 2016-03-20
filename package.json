@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "angular": "^1.5.0",
-    "angular-route": "^1.5.1",
     "angular-ui-router": "^0.2.18",
     "eydis-gapi": "git+https://github.com/yowmamasita/Eydis-GAPI.git"
   }
