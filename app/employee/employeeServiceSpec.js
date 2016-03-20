@@ -1,7 +1,9 @@
+var app = require('./index');
+
 describe("Employee Service", function() {
   var EmployeeSvc;
-  beforeEach(module('app'));
-  beforeEach(inject(function(_EmployeeSvc_){
+  beforeEach(angular.mock.module(app.name));
+  beforeEach(angular.mock.inject(function(_EmployeeSvc_){
     EmployeeSvc = _EmployeeSvc_;
   }));
 

@@ -1,6 +1,3 @@
-var webpackConfig = require('./webpack.config.dev');
-var entry = webpackConfig.entry;
-
 module.exports = function(config) {
   config.set({
 
@@ -15,8 +12,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/**/*Spec.js',
-      'test/**/*Spec.js'
+      'app/rootSpec.js'
     ],
 
 
@@ -28,11 +24,10 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'app/**/*Spec.js': ['webpack'],
-      'test/**/*Spec.js': ['webpack']
+      'app/rootSpec.js': ['webpack', 'sourcemap']
     },
 
-    webpack: webpackConfig,
+    webpack: require('./webpack.config.test'),
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -73,7 +68,8 @@ module.exports = function(config) {
     plugins: [
       require('karma-webpack'),
       'karma-jasmine',
-      'karma-phantomjs-launcher'
+      'karma-phantomjs-launcher',
+      'karma-sourcemap-loader'
     ]
   })
 }
