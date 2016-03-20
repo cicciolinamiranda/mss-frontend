@@ -2,21 +2,32 @@ module.exports = function(ngModule) {
   ngModule.service('EmployeeSvc', employeeService);
 };
 
-function employeeService(EmployeeRest, Employee) {
+function employeeService(EmployeeRest, Employee, $q) {
   "ngInject";
-  // TODO: cache the list
+  var employeeCache = {};
+
   this.list = function() {
-    return EmployeeRest.listEmployees().then(function(data){
-      return data.employees.map(function(item){
-        return new Employee(item);
+    var deferred = $q.defer();
+    deferred.resolve(employeeCache);
+
+    EmployeeRest.listEmployees().then(function(data){
+      data.employees.map(function(item){
+        employeeCache[item.id] = new Employee(item);
       });
     });
+
+    return deferred.promise;
   };
 
-  // TODO: cache the data
   this.get = function(id) {
-		return EmployeeRest.getEmployee(id).then(function(data){
-  		return new Employee(data);
-  	});
+    var deferred = $q.defer();
+    if (!employeeCache.hasOwnProperty(id)) employeeCache[id] = {};
+    deferred.resolve(employeeCache[id]);
+
+    EmployeeRest.getEmployee(id).then(function(data){
+      angular.extend(employeeCache[id], new Employee(data));
+    });
+
+    return deferred.promise;
   };
 }
