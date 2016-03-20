@@ -14,13 +14,13 @@ function restService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.listEmployees = function() {
+  this.listEmployees = function listEmployees() {
     return loadApi.then(function(){
       return $gapi.client.employee.employees.list();
     });
   };
 
-  this.getEmployee = function(id) {
+  this.getEmployee = function getEmployee(id) {
     return loadApi.then(function(){
       return $gapi.client.employee.employees.get({id: id});
     });

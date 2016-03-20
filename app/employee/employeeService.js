@@ -10,7 +10,7 @@ function employeeService(EmployeeRest, Employee, $q) {
     we should pass an array instead of the cache obj
   */
   var listCache = {};
-  this.list = function() {
+  this.list = function list() {
     var deferred = $q.defer();
     deferred.resolve(listCache);
 
@@ -24,7 +24,7 @@ function employeeService(EmployeeRest, Employee, $q) {
   };
 
   var employeeCache = {};
-  this.get = function(id) {
+  this.get = function get(id) {
     var deferred = $q.defer();
     if (!employeeCache.hasOwnProperty(id)) employeeCache[id] = {};
     deferred.resolve(employeeCache[id]);
