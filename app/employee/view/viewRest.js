@@ -1,5 +1,5 @@
 module.exports = function(ngModule) {
-  ngModule.service('EmployeeRest', restService);
+  ngModule.service('EmployeeViewRest', restService);
 };
 
 function restService($q, $gapi) {
@@ -13,12 +13,6 @@ function restService($q, $gapi) {
   }).then(function() {
     return deferred.resolve();
   });
-
-  this.listEmployees = function listEmployees() {
-    return loadApi.then(function() {
-      return $gapi.client.employee.employees.list();
-    });
-  };
 
   this.getEmployee = function getEmployee(id) {
     return loadApi.then(function() {

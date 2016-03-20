@@ -1,11 +1,11 @@
 module.exports = listCtrl;
 
-function listCtrl(EmployeeSvc) {
+function listCtrl(EmployeeListSvc) {
   "ngInject";
   var _this = this;
 
-  function init(){
-    EmployeeSvc.list().then(function(employees){
+  function init() {
+    EmployeeListSvc.list().then(function(employees){
       _this.employees = employees;
     });
   }
