@@ -4,9 +4,9 @@
   "description": "Frontend for Employee operational data",
   "main": "app/index.js",
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --content-base app",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/webpack/bin/webpack.js --config webpack.config.prod.js --content-base app"
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot",
+    "test": "./node_modules/.bin/karma start",
+    "build": "./node_modules/.bin/webpack --config webpack.config.prod.js --content-base app"
   },
   "repository": {
     "type": "git",
@@ -15,10 +15,18 @@
   "author": "",
   "license": "UNLICENSED",
   "devDependencies": {
+    "angular-mocks": "^1.5.2",
     "clean-webpack-plugin": "^0.1.8",
     "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
     "ng-annotate-loader": "^0.1.0",
+    "phantomjs-prebuilt": "^2.1.6",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
