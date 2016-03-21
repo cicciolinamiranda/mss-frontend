@@ -36,3 +36,4 @@ jspm_packages
 *.orig
 bower_components
 dist
+.appengine_data
