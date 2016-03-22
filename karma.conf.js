@@ -32,7 +32,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
@@ -67,9 +67,14 @@ module.exports = function(config) {
 
     plugins: [
       require('karma-webpack'),
-      'karma-jasmine',
-      'karma-phantomjs-launcher',
-      'karma-sourcemap-loader'
-    ]
+      require('karma-jasmine'),
+      require('karma-phantomjs-launcher'),
+      require('karma-sourcemap-loader'),
+      require('karma-coverage')
+    ],
+
+    coverageReporter: {
+      type: 'lcov'
+    }
   })
 }
