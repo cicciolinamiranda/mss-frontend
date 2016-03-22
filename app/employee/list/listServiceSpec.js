@@ -19,20 +19,11 @@ describe("Employee List Service", function() {
           },
           client: {
             employee: {
-              employees: {}
-            }
-          }
-        };
-        gapi.client.employee.employees = {
-          list: function() {
-            return $q.resolve({
-              employees: [sample_employee]});
-          },
-          get: function(params) {
-            if (params.id === '123') {
-              return $q.resolve(sample_employee);
-            } else {
-              return $q.reject('Employee not found');
+              employees: {
+                list: function() {
+                  return $q.resolve({employees: [sample_employee]});
+                }
+              }
             }
           }
         };
