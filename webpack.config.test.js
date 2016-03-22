@@ -1,12 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-
 module.exports = {
-  entry: './app/index',
-  output: {
-    path: path.join(__dirname, 'app'),
-    filename: 'bundle.js',
-  },
+  devtool: 'inline-source-map',
+  entry: {},
+  output: {},
   module: {
     loaders: [
       {test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/},

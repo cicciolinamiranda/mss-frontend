@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -12,16 +13,18 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/},
+      {test: /\.css$/, loader: 'style!css', exclude: /node_modules/},
       {test: /\.html$/, loader: 'raw', exclude: /node_modules/},
-      {test: /\.css$/, loader: 'style!css', exclude: /node_modules/}
+      {test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, loader: 'file', exclude: /node_modules/}
     ]
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
+    new CleanWebpackPlugin(['dist']),
+    new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
       { from: 'app/index.html' },
       { from: 'app.yaml' },
-      { from: 'app/img', to: 'img' },
+      { from: 'app/static', to: 'static' },
     ])
   ]
 };

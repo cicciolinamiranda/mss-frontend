@@ -1,22 +1,24 @@
 module.exports = function(ngModule) {
   ngModule.config(routes);
-}
+};
 
-function routes($routeProvider, $locationProvider) {
+function routes($stateProvider, $urlRouterProvider) {
   "ngInject";
-  $routeProvider
-    .when('/', {
-      template: require('./index.html'),
-      controller: 'EmployeeMainCtrl',
-      controllerAs: 'vm'
-    }).when('/viewEmployee/:id',{
-      template: require('./view.html'),
-      controller: 'ViewEmployeeCtrl',
-      controllerAs: 'vm'
+  $stateProvider
+    .state({
+      name: 'employee',
+      url: '/employees',
+      abstract: true,
+      template: '<ui-view/>'
     })
-    .otherwise({
-      redirectTo: '/'
+    .state({
+      name: 'employee.list',
+      url: '',
+      template: '<employee-list/>'
+    })
+    .state({
+      name: 'employee.view',
+      url: '/:employeeId',
+      template: '<employee-view/>'
     });
-
-    $locationProvider.html5Mode(false);
 }
