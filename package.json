@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot",
-    "test": "./node_modules/.bin/karma start",
+    "test": "./node_modules/.bin/karma start --single-run",
+    "tdd": "./node_modules/.bin/karma start",
     "build": "./node_modules/.bin/webpack --config webpack.config.prod.js --content-base app"
   },
   "repository": {

@@ -1,15 +1,11 @@
 module.exports = function(ngModule) {
-  ngModule.service('EmployeeListSvc', employeeService);
+  ngModule.service('EmployeeListSvc', listService);
 };
 
-function employeeService($q, $gapi) {
+function listService($q, $gapi) {
   "ngInject";
 
-  /**
-  TODO: since this is a list where order is relevant,
-    we should pass an array instead of the cache obj
-  */
-  var cache = {};
+  var cache = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
@@ -19,18 +15,20 @@ function employeeService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.list = function list() {
+  this.list = function list(pageNum) {
+    pageNum = typeof pageNum !== 'undefined' ?  pageNum - 1 : 0;
     var deferred2 = $q.defer();
-    deferred2.resolve(cache);
-
-    loadApi.then(function() {
-      return $gapi.client.employee.employees.list();
-    }).then(function(data) {
-      data.employees.map(function(item) {
-        cache[item.id] = item;
+    if (cache[pageNum]) {
+      deferred2.resolve(cache[pageNum]);
+    }
+    else {
+      loadApi.then(function() {
+        return $gapi.client.employee.employees.list();
+      }).then(function(data) {
+        cache[pageNum] = data.employees;
+        deferred2.resolve(cache[pageNum]);
       });
-    });
-
+    }
     return deferred2.promise;
   };
 }

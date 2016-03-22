@@ -1,8 +1,8 @@
 module.exports = function(ngModule) {
-  ngModule.service('EmployeeViewSvc', employeeService);
+  ngModule.service('EmployeeViewSvc', viewService);
 };
 
-function employeeService($q, $gapi) {
+function viewService($q, $gapi) {
   "ngInject";
   var cache = {};
   var deferred = $q.defer();
@@ -16,15 +16,18 @@ function employeeService($q, $gapi) {
 
   this.get = function get(id) {
     var deferred2 = $q.defer();
-    if (!cache.hasOwnProperty(id)) cache[id] = {};
-    deferred2.resolve(cache[id]);
-
-    loadApi.then(function() {
-      return $gapi.client.employee.employees.get({id: id});
-    }).then(function(data) {
-      angular.extend(cache[id], data);
-    });
-
+    if (cache.hasOwnProperty(id)) {
+      deferred2.resolve(cache[id]);
+    }
+    else {
+      cache[id] = {};
+      loadApi.then(function() {
+        return $gapi.client.employee.employees.get({id: id});
+      }).then(function(data) {
+        angular.extend(cache[id], data);
+        deferred2.resolve(cache[id]);
+      });
+    }
     return deferred2.promise;
   };
 }

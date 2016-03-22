@@ -1,14 +1,14 @@
-var app = require('./index');
+var component = require('./index');
 
-describe("Employee Rest Service", function() {
-  var EmployeeRest, $scope;
+describe("Employee View Service", function() {
+  var EmployeeViewSvc, $scope;
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
     surname: 'Anne'
   };
-  beforeEach(angular.mock.module(app.name));
-  // mock $gapi to inject to EmployeeRest
+  beforeEach(angular.mock.module(component.name));
+  // mock $gapi to inject to EmployeeViewSvc
   beforeEach(function() {
     angular.mock.module(function($provide) {
       $provide.service('$gapi', function($q) {
@@ -40,33 +40,21 @@ describe("Employee Rest Service", function() {
       });
     });
   });
-  beforeEach(angular.mock.inject(function(_EmployeeRest_, $injector){
-    EmployeeRest = _EmployeeRest_;
+  beforeEach(angular.mock.inject(function(_EmployeeViewSvc_, $injector){
+    EmployeeViewSvc = _EmployeeViewSvc_;
     $scope = $injector.get('$rootScope').$new();
   }));
   beforeEach(function() {
-    spyOn(EmployeeRest, 'listEmployees').and.callThrough();
-    spyOn(EmployeeRest, 'getEmployee').and.callThrough();
-  });
-
-  describe("List employees", function() {
-    it("returns a promise that resolves with list of employees", function(done) {
-      EmployeeRest.listEmployees().then(function(data) {
-        expect(data.employees[0]).toBe(sample_employee);
-        done();
-      });
-      expect(EmployeeRest.listEmployees).toHaveBeenCalled();
-      $scope.$digest();
-    });
+    spyOn(EmployeeViewSvc, 'get').and.callThrough();
   });
 
   describe("Get employee", function() {
     it("returns a promise that resolves with employee data", function(done) {
-      EmployeeRest.getEmployee('123').then(function(data) {
-        expect(data.firstname).toBe(sample_employee.firstname);
+      EmployeeViewSvc.get('123').then(function(employee) {
+        expect(employee.firstname).toBe(sample_employee.firstname);
         done();
       });
-      expect(EmployeeRest.getEmployee).toHaveBeenCalledWith('123');
+      expect(EmployeeViewSvc.get).toHaveBeenCalledWith('123');
       $scope.$digest();
     });
   });
