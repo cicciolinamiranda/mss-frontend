@@ -8,6 +8,12 @@ function routes($stateProvider, $urlRouterProvider) {
     .state({
       name: 'location',
       url: '/locations',
-      template: '<map-display/>'
+      abstract: true,
+      template: '<ui-view/>'
+    })
+    .state({
+      name: 'location.create',
+      url: '/create',
+      template: '<location-create/>'
     });
 }

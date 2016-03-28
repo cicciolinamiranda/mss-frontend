@@ -1,0 +1,231 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Create Location</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <map-display>
+    </map-display>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" name="address" id="address"/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="startDate">Start Date</label>
+        <input type="date" class="form-control" name="startDate" id="startDate"/>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" name="endDate" id="endDate" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="standardOps">Standard Operation Procedures</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+          <input type="text" class="form-control" name="standardOps" id="standardOps"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="locInstructionsApproval">Location Instructions Approval</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+          <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="healthSafetySurvey">Health and Safety Survey</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+          <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="technicalSurvey">Technical (Site) Survey</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+          <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="locationSurvey">Location Survey</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+          <input type="text" class="form-control" name="locationSurvey" id="locationSurvey" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="floorPlan">Floor Plan</label>
+        <input type="file" class="form-control" name="floorPlan" id="floorPlan" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="barredEmployees">Barred Employees</label>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+            <span>Darryl Ong</span>&nbsp;
+            <span class="text-muted">03/23/2016</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </li>
+        </ul>
+        <button type="button" class="btn btn-block btn-default">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="personalProtectiveEquips">Personal Protective Equipment</label>
+        <input type="text" class="form-control" name="ppeSearch" placeholder="Search for protective equipments.." />
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
+            <span>Kevlar Vest</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <label class="text-muted pull-right">
+              <input type="checkbox"> Billed&nbsp;
+            </label>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
+            <span>Helmet</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <label class="text-muted pull-right">
+              <input type="checkbox"> Billed&nbsp;
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="modesOfTransport">Modes of Transport</label>
+        <input type="text" class="form-control" name="motSearch" placeholder="Search for modes of transport.." />
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+            <span>Armored Van</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <label class="text-muted pull-right">
+              <input type="checkbox"> Billed&nbsp;
+            </label>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+            <span>Private Jet</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <label class="text-muted pull-right">
+              <input type="checkbox"> Billed&nbsp;
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="modesOfTransport">Site Skills</label>
+        <input type="text" class="form-control" name="siteSkillSearch" placeholder="Search for skills.." />
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+            <span>Guarding</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="isSupervised">Supervised Post?</label>
+        <div class="form-group">
+          <label class="radio-inline">
+            <input type="radio" name="isSupervised" value="self_managed" checked="checked">
+            Self-Managed
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="isSupervised" value="self_managed">
+            Supervised
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="isSupervised">Proof of Duty</label>
+        <div class="form-group">
+          <select class="form-control">
+            <option>Selfie</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="isSupervised">Method of Recording Time and Attendance</label>
+        <div class="form-group">
+          <select class="form-control">
+            <option>Online</option>
+            <option>Bundy Clock</option>
+            <option>IVR</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="contacts">Contacts</label>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <input type="text" class="form-control" placeholder="Name" />
+          </div>
+          <div class="form-group col-md-3">
+            <input type="text" class="form-control" placeholder="Phone" />
+          </div>
+          <div class="form-group col-md-4">
+            <input type="text" class="form-control" placeholder="Email" />
+          </div>
+          <div class="form-group col-md-1">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-block btn-default">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-right">
+    <hr />
+    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-danger">Cancel</button>
+  </div>
+</div>
