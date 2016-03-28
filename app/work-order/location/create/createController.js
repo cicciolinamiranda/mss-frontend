@@ -8,7 +8,6 @@ function viewCtrl() {
   _this.location = {};
 
   function init() {
-    console.log("DAWI!");
   	_this.location.startDate = moment().toDate();
   }
 
