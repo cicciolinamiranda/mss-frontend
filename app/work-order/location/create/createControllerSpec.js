@@ -18,4 +18,18 @@ describe("Create Location Component", function() {
     expect(controller.location).toBeDefined();
     expect(moment(controller.location.startDate).diff(moment(), 'days')).toBe(0);
   });
+
+  it("must have its link type input fields undefined on page load", function() {
+    expect(controller.location).toBeDefined();
+    expect(controller.location.locationSurvey).toEqual('');
+    expect(controller.location.standardOps).toEqual('');
+    expect(controller.location.locInstructions).toEqual('');
+    expect(controller.location.healthSafetySurvey).toEqual('');
+    expect(controller.location.technicalSurvey).toEqual('');
+  });
+
+  it("must have its survey review date initialized to current date", function() {
+    expect(controller.location).toBeDefined();
+    expect(moment(controller.location.surveyReviewDate).diff(moment(), 'days')).toBe(0);
+  });
 });
