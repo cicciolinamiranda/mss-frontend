@@ -26,7 +26,6 @@ function mapCtrl($scope, NgMap) {
       //position textbox within map
       _this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     });
-
     geolocate();
   }
 
