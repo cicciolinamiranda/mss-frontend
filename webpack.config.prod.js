@@ -19,6 +19,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en)$/),
     new CleanWebpackPlugin(['dist']),
     new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
