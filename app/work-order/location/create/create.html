@@ -26,7 +26,7 @@
         <label for="standardOps">Standard Operation Procedures</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-          <input type="text" class="form-control" name="standardOps" id="standardOps"/>
+          <input type="text" class="form-control" name="standardOps" id="standardOps" ng-model="$ctrl.location.standardOps"/>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
         <label for="locInstructionsApproval">Location Instructions Approval</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-          <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" />
+          <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" ng-model="$ctrl.location.locInstructions"/>
         </div>
       </div>
     </div>
@@ -44,7 +44,8 @@
         <label for="healthSafetySurvey">Health and Safety Survey</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-          <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey" />
+          <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey"
+            ng-model="$ctrl.location.healthSafetySurvey"/>
         </div>
       </div>
     </div>
@@ -53,7 +54,8 @@
         <label for="technicalSurvey">Technical (Site) Survey</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-          <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey" />
+          <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey"
+            ng-model="$ctrl.location.technicalSurvey"/>
         </div>
       </div>
     </div>
@@ -62,8 +64,16 @@
         <label for="locationSurvey">Location Survey</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-          <input type="text" class="form-control" name="locationSurvey" id="locationSurvey" />
+          <input type="text" class="form-control" name="locationSurvey" id="locationSurvey"
+            ng-model="$ctrl.location.locationSurvey"/>
         </div>
+      </div>
+    </div>
+    <div class="row" ng-show="$ctrl.location.locationSurvey">
+      <div class="form-group col-md-12">
+        <label for="surveyReviewDate">Survey Review Date</label>
+        <input type="date" class="form-control" name="surveyReviewDate" id="surveyReviewDate"
+              ng-model="$ctrl.location.surveyReviewDate"/>
       </div>
     </div>
     <div class="row">
