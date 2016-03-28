@@ -8,6 +8,7 @@ function mapCtrl($scope, NgMap) {
   _this.latitude;
   _this.longitude;
   _this.showAddressDiv = false;
+  _this.draggable = false;
   _this.alertMessage;
   _this.onMarkerDragEnd = onMarkerDragEnd;
   _this.placeChanged = placeChanged;
@@ -61,6 +62,7 @@ function mapCtrl($scope, NgMap) {
   function placeChanged(){
     _this.showAddressDiv = true;
     _this.alertMessage = "";
+    _this.draggable = true;
 
     var place = this.getPlace();
 
@@ -95,6 +97,7 @@ function mapCtrl($scope, NgMap) {
       setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
       reverseGeocode(_this.initialCoordinates);
     }
+
       $scope.$apply();
   }
 
@@ -106,10 +109,10 @@ function mapCtrl($scope, NgMap) {
             lng: position.coords.longitude
           };
         }, function() {
-          //TO DO: error handling here
+          _this.alertMessage = "No results found";
         });
       } else {
-        //TO DO: error handling here
+        _this.alertMessage = "Your browser does not support Geolocation. Please use another browser or update your current browser.";
       }
   }
 

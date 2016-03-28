@@ -38,8 +38,8 @@
         on-place-changed="$ctrl.placeChanged()">
     <div id="mapDiv" map-lazy-load="http://maps.google.com/maps/api/js?libraries=places">
       <ng-map center="current-location" zoom="17">
-        <marker on-dragend="$ctrl.onMarkerDragEnd()"
-            position="{{$ctrl.markerPosition}}" draggable="true"></marker>
+        <marker id="mapMarker" on-dragend="$ctrl.onMarkerDragEnd()"
+            position="{{$ctrl.markerPosition}}" draggable="{{$ctrl.draggable}}"></marker>
       </ng-map>
     </div>
   </div>
