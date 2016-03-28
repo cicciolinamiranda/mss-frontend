@@ -1,7 +1,7 @@
 var component = require('./index');
 
 describe("Employee View Controller", function() {
-  var $controller, $q, $scope;
+  var $controller, $q, $rootScope;
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
@@ -18,10 +18,10 @@ describe("Employee View Controller", function() {
   };
 
   beforeEach(angular.mock.module(component.name));
-  beforeEach(angular.mock.inject(function(_$controller_, _$q_, $injector){
+  beforeEach(angular.mock.inject(function(_$controller_, _$q_, _$rootScope_){
     $controller = _$controller_;
     $q = _$q_;
-    $scope = $injector.get('$rootScope').$new();
+    $rootScope = _$rootScope_;
   }));
 
   describe("Employee list", function() {
@@ -30,7 +30,7 @@ describe("Employee View Controller", function() {
         EmployeeViewSvc: mockEmployeeViewSvc,
         $stateParams: {employeeId: sample_employee.id}
       });
-      $scope.$digest();
+      $rootScope.$digest();
       expect(controller.employee.firstname).toEqual(sample_employee.firstname);
     });
   });
