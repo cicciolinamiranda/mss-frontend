@@ -2,7 +2,7 @@ var angular = require('angular');
 require('eydis-gapi');
 require('ngmap');
 
-var ngApp = angular.module('commonLocationApp', [
+var ngApp = angular.module('mapModule', [
   'eydis.gapi',
   'ngMap'
 ]);

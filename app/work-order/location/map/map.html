@@ -10,7 +10,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   }
 
-  #pac-input {
+  #txtAutocomplete {
     background-color: #fff;
     font-family: Roboto;
     font-size: 15px;
@@ -21,14 +21,43 @@
     width: 300px;
   }
 
-  #pac-input:focus {
+  #txtAutocomplete:focus {
     border-color: #4d90fe;
   }
 </style>
-<input id="pac-input" class="controls" type="text"
-    placeholder="Enter a location" >
-<div id="mapDiv" map-lazy-load="http://maps.google.com/maps/api/js?libraries=places">
-  <ng-map center="current-location" zoom="17">
-    <marker ng-model="$ctrl.marker" on-dragend="$ctrl.onMarkerDragEnd()" position="current-location" draggable="true"></marker>
-  </ng-map>
+
+<div class="row alert alert-info" id="alertDiv" ng-show="$ctrl.alertMessage">
+  <p ng-bind="$ctrl.alertMessage"></p>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <input id="txtAutocomplete" class="controls" type="text"
+        placeholder="Enter a location"
+        places-auto-complete
+        on-place-changed="$ctrl.placeChanged()">
+    <div id="mapDiv" map-lazy-load="http://maps.google.com/maps/api/js?libraries=places">
+      <ng-map center="current-location" zoom="17">
+        <marker id="mapMarker" on-dragend="$ctrl.onMarkerDragEnd()"
+            position="{{$ctrl.markerPosition}}" draggable="{{$ctrl.draggable}}"></marker>
+      </ng-map>
+    </div>
+  </div>
+</div>
+<div class="row" id="addressDiv" style="display: block" ng-show="$ctrl.showAddressDiv">
+  <div class="col-md-12">
+    <label for="address">Address:</label>
+    <input id="address" ng-model="$ctrl.address" type="text" placeholder="Address" class="form-control">
+  </div>
+  <div class="form-group col-md-12" >
+    <label for="coordinates">Coordinates:</label>
+    <div class="row">
+      <div class="form-group col-md-4">
+        <input id="lat" ng-model="$ctrl.latitude" type="text" placeholder="Latitude"  class="form-control" size=10 disabled>
+      </div>
+      <div class="form-group col-md-4">
+        <input id="lng" ng-model="$ctrl.longitude" type="text" placeholder="Longitude"  class="form-control" size=10 disabled>
+      </div>
+    </div>
+  </div>
 </div>
