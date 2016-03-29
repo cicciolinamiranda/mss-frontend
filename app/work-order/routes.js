@@ -2,7 +2,7 @@ module.exports = function(ngModule) {
   ngModule.config(routes);
 };
 
-function routes($stateProvider, $urlRouterProvider) {
+function routes($stateProvider) {
   "ngInject";
   $stateProvider
     .state({
