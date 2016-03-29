@@ -4,9 +4,9 @@ module.exports = viewCtrl;
   var _this = this;
 
   function init() {
-  	EmployeeViewSvc.get($stateParams.employeeId).then(function(employee){
-  		_this.employee = employee;
-  	});
+    EmployeeViewSvc.get($stateParams.employeeId).then(function(employee){
+    _this.employee = employee;
+    });
   }
 
   init();
