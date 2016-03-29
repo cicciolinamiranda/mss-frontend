@@ -128,22 +128,18 @@
     <div class="row">
       <div class="form-group col-md-12">
         <label for="modesOfTransport">Modes of Transport</label>
-        <input type="text" class="form-control" name="motSearch" placeholder="Search for modes of transport.." />
-        <ul class="list-group">
-          <li class="list-group-item">
+        <input type="text" class="form-control"
+          placeholder="Search for modes of transport.." />
+
+        <ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
+          <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport">
             <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-            <span>Armored Van</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <span>{{transport.transport_name}}</span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;" ng-click="$ctrl.removeModeOfTransport(transport.id)">
+              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            </button>
             <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
-            </label>
-          </li>
-          <li class="list-group-item">
-            <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-            <span>Private Jet</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-            <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
+              <input type="checkbox" ng-check="transport.billed"> Billed&nbsp;
             </label>
           </li>
         </ul>

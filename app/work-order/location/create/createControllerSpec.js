@@ -8,6 +8,11 @@ describe("Create Location Component", function() {
     {name: "Name2", phone: "Phone2", email: "Email2@email.com", index: 1},
     {name: "Name3", phone: "Phone3", email: "Email3@email.com", index: 2}
   ];
+  var modeOfTransport =
+    {"id": 1, "transport_name": "Van", "billed": false},
+    {"id": 2, "transport_name": "Private Jet", "billed": true},
+    {"id": 3, "transport_name": "Armored Van", "billed": false}
+  ];
 
   beforeEach(angular.mock.module(component.name));
   beforeEach(angular.mock.inject(function($rootScope, $compile){
@@ -65,7 +70,6 @@ describe("Create Location Component", function() {
   it("must remove another element when removeFromContactsList() is called", function(){
     controller.location.siteContactDetails = [];
     controller.location.siteContactDetails = controller.location.siteContactDetails.concat(siteContactData);
-    controller.location.siteContactDetails = siteContactData;
     expect(controller.location.siteContactDetails.length).toEqual(3);
 
     controller.removeFromContactsList(1);
@@ -74,6 +78,18 @@ describe("Create Location Component", function() {
     expect(controller.location.siteContactDetails.length).toEqual(2);
     expect(controller.location.siteContactDetails[1].name).toEqual("Name3");
     expect(controller.location.siteContactDetails[1].index).toEqual(1);
+
+  })
+
+  it("must remove an element when removeModeOfTransport() is called", function(){
+    controller.location.modeOfTransport = [];
+    controller.location.modeOfTransport = controller.location.modeOfTransport.concat(modeOfTransport);
+    expect(controller.location.modeOfTransport.length).toEqual(3);
+
+    controller.removeModeOfTransport(1);
+    scope.$apply();
+
+    expect(controller.location.modeOfTransport.length).toEqual(2);
 
   })
 

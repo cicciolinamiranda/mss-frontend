@@ -5,6 +5,7 @@ var ngApp = angular.module('locationCreateApp', [
   'angularFileUpload'
 ]);
 
+require('./createService')(ngApp);
 require('./createComponent')(ngApp);
 
 module.exports = ngApp;
