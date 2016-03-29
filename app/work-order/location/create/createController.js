@@ -2,8 +2,7 @@ module.exports = viewCtrl;
 
 var moment = require('moment');
 
-function viewCtrl(FileUploader) {
-  "ngInject";
+/*@ngInject*/ function viewCtrl(FileUploader) {
   var _this = this;
   _this.location = {
     siteContactDetails: [
@@ -15,7 +14,7 @@ function viewCtrl(FileUploader) {
   _this.removeFromContactsList = removeFromContactsList;
 
   function init() {
-  	_this.location.startDate = moment().toDate();
+    _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.locationSurvey = "";
     _this.location.standardOps = "";

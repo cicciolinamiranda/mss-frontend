@@ -1,7 +1,6 @@
 module.exports = mapCtrl;
 
-function mapCtrl($scope, NgMap) {
-  "ngInject";
+/*@ngInject*/ function mapCtrl($scope, NgMap) {
   var _this = this;
   _this.initialCoordinates = {};
   _this.markerPosition;
@@ -15,7 +14,6 @@ function mapCtrl($scope, NgMap) {
 
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('txtAutocomplete'));
-  var autocomplete;
 
   function init() {
     _this.googleMapsUrl="https://maps.google.com/maps/api/js?libraries=places";
