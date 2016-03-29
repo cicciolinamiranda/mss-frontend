@@ -13,7 +13,7 @@ function listService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.list = function list(pageNum) {
+  this.list = function(pageNum) {
     pageNum = typeof pageNum !== 'undefined' ?  pageNum - 1 : 0;
     var deferred2 = $q.defer();
     if (cache[pageNum]) {
