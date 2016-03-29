@@ -32,4 +32,9 @@ describe("Create Location Component", function() {
     expect(controller.location).toBeDefined();
     expect(moment(controller.location.surveyReviewDate).diff(moment(), 'days')).toBe(0);
   });
+
+  it("must have its survey review date initialized to current date", function() {
+    expect(controller.location).toBeDefined();
+    expect(controller.location.floorPlanUploader).toBeDefined();
+  });
 });
