@@ -1,7 +1,7 @@
 var component = require('./index');
 
 describe("Employee View Component", function() {
-  var $compile, $q, $rootScope;
+  var $compile, $rootScope;
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
@@ -39,7 +39,7 @@ describe("Employee View Component", function() {
       });
     });
   });
-  beforeEach(angular.mock.inject(function(_$compile_, _$q_, _$rootScope_){
+  beforeEach(angular.mock.inject(function(_$compile_, _$rootScope_){
     $compile = _$compile_;
     $rootScope = _$rootScope_;
   }));
