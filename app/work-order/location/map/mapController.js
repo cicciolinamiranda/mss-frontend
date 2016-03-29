@@ -14,7 +14,6 @@ module.exports = mapCtrl;
 
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('txtAutocomplete'));
-  var autocomplete;
 
   function init() {
     _this.googleMapsUrl="https://maps.google.com/maps/api/js?libraries=places";
