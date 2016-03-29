@@ -2,8 +2,7 @@ module.exports = viewCtrl;
 
 var moment = require('moment');
 
-function viewCtrl() {
-  "ngInject";
+/*@ngInject*/ function viewCtrl() {
   var _this = this;
   _this.location = {};
 

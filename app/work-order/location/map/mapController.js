@@ -1,7 +1,6 @@
 module.exports = mapCtrl;
 
-function mapCtrl($scope, NgMap) {
-  "ngInject";
+/*@ngInject*/ function mapCtrl($scope, NgMap) {
   var _this = this;
   _this.initialCoordinates = {};
   _this.markerPosition;

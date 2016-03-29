@@ -1,7 +1,6 @@
 module.exports = viewCtrl;
 
-function viewCtrl(EmployeeViewSvc, $stateParams) {
-  "ngInject";
+/*@ngInject*/ function viewCtrl(EmployeeViewSvc, $stateParams) {
   var _this = this;
 
   function init() {

@@ -3,7 +3,6 @@ module.exports = function(ngModule) {
 };
 
 function viewService($q, $gapi) {
-  "ngInject";
   var cache = {};
   var deferred = $q.defer();
   var loadApi = deferred.promise;

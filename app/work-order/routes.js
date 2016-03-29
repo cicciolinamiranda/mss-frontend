@@ -3,7 +3,6 @@ module.exports = function(ngModule) {
 };
 
 function routes($stateProvider) {
-  "ngInject";
   $stateProvider
     .state({
       name: 'location',
