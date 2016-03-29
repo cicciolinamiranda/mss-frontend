@@ -13,7 +13,7 @@ function viewService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.get = function get(id) {
+  this.get = function(id) {
     var deferred2 = $q.defer();
     if (cache.hasOwnProperty(id)) {
       deferred2.resolve(cache[id]);
