@@ -11,11 +11,17 @@ var moment = require('moment');
   };
   _this.transportChoices;
   _this.selectedTransport;
+  _this.siteSkillsChoices;
+  _this.selectedSiteSkills;
+  _this.protectiveEquipmentChoices;
+  _this.selectedProtectiveEquipment;
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
-  _this.removeModeOfTransport = removeModeOfTransport;
-  _this.selecModeOfTransport = selecModeOfTransport;
   _this.refreshMotSearch = refreshMotSearch;
+  _this.refreshSkillsSearch = refreshSkillsSearch;
+  _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
+  _this.removeFromArray = removeFromArray;
+  _this.addToArray = addToArray;
   _this.costTypeChoices;
   _this.errMessage;
 
@@ -29,6 +35,8 @@ var moment = require('moment');
     _this.location.technicalSurvey = "";
     _this.location.floorPlanUploader = new FileUploader();
     _this.location.modeOfTransport = [];
+    _this.location.siteSkills = [];
+    _this.location.protectiveEquipment = [];
 
     CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
@@ -53,16 +61,16 @@ var moment = require('moment');
     }
   }
 
-  function removeModeOfTransport(modeOfTransportId){
-    for(i= 0; i < _this.location.modeOfTransport.length; i++){
-      if(_this.location.modeOfTransport[i].id === modeOfTransportId){
-        _this.location.modeOfTransport.splice(i, 1);
+  function removeFromArray(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        array.splice(i, 1);
       }
     }
   }
 
-  function selecModeOfTransport(){
-    _this.location.modeOfTransport.push(_this.selectedTransport);
+  function addToArray(array, item){
+    array.push(item);
   }
 
   function refreshMotSearch(keyword){
@@ -73,4 +81,23 @@ var moment = require('moment');
     });
   }
 
+  function refreshSkillsSearch(keyword){
+    CreateLocationSvc.searchSiteSkills(keyword).then(function(response){
+      _this.siteSkillsChoices = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function refreshProtectiveEquipmentSearch(keyword){
+    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
+      _this.protectiveEquipmentChoices = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  _this.test = function(){
+    console.log(_this.location);
+  }
 }

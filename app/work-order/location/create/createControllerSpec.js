@@ -9,17 +9,27 @@ describe("Create Location Component", function() {
     {name: "Name3", phone: "Phone3", email: "Email3@email.com", index: 2}
   ];
   var modeOfTransport = [
-    {"id": 1, "transport_name": "Van", "billed": false, "cost_type_id": ""},
-    {"id": 2, "transport_name": "Private Jet", "billed": false, "cost_type_id": "" },
-    {"id": 3, "transport_name": "Armored Van", "billed": false, "cost_type_id": ""}
+    {"id": 1, "transportName": "Van", "billed": false, "costTypeId": ""},
+    {"id": 2, "transportName": "Private Jet", "billed": false, "costTypeId": "" },
+    {"id": 3, "transportName": "Armored Van", "billed": false, "costTypeId": ""}
   ];
   var billedCostTypeMock = [
     { "id": 1, "name": "One-off Cost"},
     { "id": 2, "name": "Fixed Rate"}
   ];
   var searchMoTResponse = [
-    {"id": 1, "transport_name": "Van", "billed": false, "cost_type_id": ""},
-    {"id": 3, "transport_name": "Armored Van", "billed": false, "cost_type_id": ""}
+    {"id": 1, "transportName": "Van", "billed": false, "costTypeId": ""},
+    {"id": 3, "transportName": "Armored Van", "billed": false, "costTypeId": ""}
+  ];
+  var siteSkills = [
+    { "id": 1, "skillName": "Guarding"},
+    { "id": 2, "skillName": "Self Defence"},
+    { "id": 3, "skillName": "Multilingual"}
+  ];
+  var protectiveEquip = [
+    { "id": 1, "equipmentName": "Kevlar Vest", "billed": false, "costTypeId": ""},
+    { "id": 2, "equipmentName": "Helmet", "billed": false, "costTypeId": ""},
+    { "id": 3, "equipmentName": "Bulletproof Vest", "billed": false, "costTypeId": ""}
   ];
 
   beforeEach(angular.mock.module(component.name));
@@ -32,6 +42,12 @@ describe("Create Location Component", function() {
 
     spyOn(createService, 'searchMockModeOfTransport').and.returnValue(
       $q.when(searchMoTResponse));
+
+    spyOn(createService, 'searchSiteSkills').and.returnValue(
+        $q.when(siteSkills));
+
+    spyOn(createService, 'searchProtectiveEquipment').and.returnValue(
+            $q.when(protectiveEquip));
 
     var element = angular.element('<location-create></location-create>');
     $compile(element)(scope);
@@ -97,15 +113,25 @@ describe("Create Location Component", function() {
 
   })
 
-  it("must remove an element when removeModeOfTransport() is called", function(){
+  it("must remove an element when removeFromArray() is called", function(){
     controller.location.modeOfTransport = [];
     controller.location.modeOfTransport = controller.location.modeOfTransport.concat(modeOfTransport);
     expect(controller.location.modeOfTransport.length).toEqual(3);
 
-    controller.removeModeOfTransport(1);
+    controller.removeFromArray(controller.location.modeOfTransport, 1);
     scope.$apply();
 
     expect(controller.location.modeOfTransport.length).toEqual(2);
+  })
+
+  it("must add another item when addToArray() is called", function(){
+    controller.location.siteSkills = [{ "id": 1, "skillName": "Guarding"}];
+    expect(controller.location.siteSkills.length).toEqual(1);
+
+    controller.addToArray(controller.location.siteSkills, { "id": 2, "skillName": "Self Defense"});
+    scope.$apply();
+
+    expect(controller.location.siteSkills.length).toEqual(2);
   })
 
   it("must return filtered list when refreshMotSearch() is called", function(){
@@ -113,8 +139,4 @@ describe("Create Location Component", function() {
     scope.$apply();
     expect(controller.transportChoices.length).toEqual(2);
   })
-
-
-
-
 });
