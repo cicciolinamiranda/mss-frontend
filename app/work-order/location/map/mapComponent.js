@@ -1,6 +1,11 @@
 module.exports = function(ngModule) {
   ngModule.component('mapDisplay', {
     template: require('./map.html'),
-    controller: require('./mapController')
+    controller: require('./mapController'),
+    bindings:{
+      address:'=',
+      longitude:'=',
+      latitude:'='
+    }
   });
 };
