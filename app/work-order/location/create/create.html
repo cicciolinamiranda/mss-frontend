@@ -5,10 +5,13 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <map-display>
+    <map-display address="$ctrl.location.address" latitude="$ctrl.location.latitude" longitude="$ctrl.location.longitude" >
     </map-display>
   </div>
 </div>
+  <input type="text" ng-model="$ctrl.location.address"/>
+  <input type="text" ng-model="$ctrl.location.latitude"/>
+  <input type="text" ng-model="$ctrl.location.longitude"/>
 <div class="row">
   <div class="col-md-4">
     <div class="row">
