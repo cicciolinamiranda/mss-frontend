@@ -2,21 +2,37 @@ var component = require('./index');
 var moment = require('moment');
 
 describe("Create Location Component", function() {
-  var scope, controller;
+  var scope, controller, createService;
   var siteContactData = [
     {name: "Name1", phone: "Phone1", email: "Email1@email.com", index: 0},
     {name: "Name2", phone: "Phone2", email: "Email2@email.com", index: 1},
     {name: "Name3", phone: "Phone3", email: "Email3@email.com", index: 2}
   ];
-  var modeOfTransport =
-    {"id": 1, "transport_name": "Van", "billed": false},
-    {"id": 2, "transport_name": "Private Jet", "billed": true},
-    {"id": 3, "transport_name": "Armored Van", "billed": false}
+  var modeOfTransport = [
+    {"id": 1, "transport_name": "Van", "billed": false, "cost_type_id": ""},
+    {"id": 2, "transport_name": "Private Jet", "billed": false, "cost_type_id": "" },
+    {"id": 3, "transport_name": "Armored Van", "billed": false, "cost_type_id": ""}
+  ];
+  var billedCostTypeMock = [
+    { "id": 1, "name": "One-off Cost"},
+    { "id": 2, "name": "Fixed Rate"}
+  ];
+  var searchMoTResponse = [
+    {"id": 1, "transport_name": "Van", "billed": false, "cost_type_id": ""},
+    {"id": 3, "transport_name": "Armored Van", "billed": false, "cost_type_id": ""}
   ];
 
   beforeEach(angular.mock.module(component.name));
-  beforeEach(angular.mock.inject(function($rootScope, $compile){
+  beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
+    createService = $injector.get('CreateLocationSvc');
     scope = $rootScope.$new();
+
+    spyOn(createService, 'getBilledCostTypeValues').and.returnValue(
+      $q.when(billedCostTypeMock));
+
+    spyOn(createService, 'searchMockModeOfTransport').and.returnValue(
+      $q.when(searchMoTResponse));
+
     var element = angular.element('<location-create></location-create>');
     $compile(element)(scope);
     scope.$apply();
@@ -90,8 +106,14 @@ describe("Create Location Component", function() {
     scope.$apply();
 
     expect(controller.location.modeOfTransport.length).toEqual(2);
-
   })
+
+  it("must return filtered list when refreshMotSearch() is called", function(){
+    controller.refreshMotSearch("van");
+    scope.$apply();
+    expect(controller.transportChoices.length).toEqual(2);
+  })
+
 
 
 

@@ -10,10 +10,14 @@ var moment = require('moment');
     ]
   };
   _this.transportChoices;
-  _this.selectedTransport = {};
+  _this.selectedTransport;
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
   _this.removeModeOfTransport = removeModeOfTransport;
+  _this.selecModeOfTransport = selecModeOfTransport;
+  _this.refreshMotSearch = refreshMotSearch;
+  _this.costTypeChoices;
+  _this.errMessage;
 
   function init() {
     _this.location.startDate = moment().toDate();
@@ -26,10 +30,11 @@ var moment = require('moment');
     _this.location.floorPlanUploader = new FileUploader();
     _this.location.modeOfTransport = [];
 
-    CreateLocationSvc.getMockModeOfTransport().then(function(modeOfTransportMock){
-        _this.location.transportChoices = modeOfTransportMock;
+    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
+      _this.costTypeChoices = costTypeMock;
+    }, function (error) {
+      _this.errMessage= error;
     });
-
   }
 
   init();
@@ -55,4 +60,17 @@ var moment = require('moment');
       }
     }
   }
+
+  function selecModeOfTransport(){
+    _this.location.modeOfTransport.push(_this.selectedTransport);
+  }
+
+  function refreshMotSearch(keyword){
+    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
+      _this.transportChoices = modeOfTransportMock;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
 }
