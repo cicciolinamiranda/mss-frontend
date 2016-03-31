@@ -2,6 +2,7 @@ var angular = require('angular');
 
 var ngApp = angular.module('mainApp', [
   // app modules
+  require('./auth/index').name,
   require('./employee/index').name,
   require('./work-order/index').name,
 
@@ -9,6 +10,7 @@ var ngApp = angular.module('mainApp', [
   require('angular-ui-router')
 ]);
 
+require('./config')(ngApp);
 require('./routes')(ngApp);
 
 angular.bootstrap(document, [ngApp.name]);
