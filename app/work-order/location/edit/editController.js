@@ -133,13 +133,7 @@ function editCtrl(FileUploader, EditLocationSvc) {
 
   function getCustomerLocation(id) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
-      _this.location.editaddress = response.address.address;
-      _this.location.editlongitude = response.address.longitude;
-      _this.location.editlatitude = response.address.latitude;
-      _this.location.protectiveEquipment= response.equipments;
-      _this.location.modeOfTransport= response.modeOfTransports;
-      _this.location.siteSkills = response.skills;
-      _this.location.siteContactDetails = response.siteLocations;
+      _this.location = response;
     }, function (error) {
       _this.errMessage= error;
     });
