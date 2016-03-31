@@ -3,7 +3,7 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, CreateLocationSvc) {
+function editCtrl(FileUploader, EditLocationSvc) {
   var _this = this;
   _this.location = {};
 
@@ -51,7 +51,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
     _this.location.barredEmployees = [];
     _this.location.siteContactDetails = [];
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
+    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
     }, function (error) {
       _this.errMessage= error;
@@ -78,7 +78,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshMotSearch(keyword){
-    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
+    EditLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
       _this.transportChoices = modeOfTransportMock;
     }, function (error) {
       _this.errMessage= error;
@@ -86,7 +86,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshSkillsSearch(keyword){
-    CreateLocationSvc.searchSiteSkills(keyword).then(function(response){
+    EditLocationSvc.searchSiteSkills(keyword).then(function(response){
       _this.siteSkillsChoices = response;
     }, function (error) {
       _this.errMessage= error;
@@ -94,7 +94,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshProtectiveEquipmentSearch(keyword){
-    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
+    EditLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
       _this.protectiveEquipmentChoices = response;
     }, function (error) {
       _this.errMessage= error;

@@ -14,6 +14,7 @@ function editLocationService($http, $q) {
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
+  _this.getCustomerLocation = getCustomerLocation;
 
   function searchMockModeOfTransport(keyword){
     var def = $q.defer();
