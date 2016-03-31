@@ -74,6 +74,33 @@ function createLocationService($http, $q, $gapi) {
   }
 
   function saveCustomerLocation(customerLocationDetails) {
+    function transformJsonToDTO(json) {
+      _this.customerDetails = {
+        'workOrderId': '',
+        'name': '',
+        'createdDate': json.startDate,
+        'equipments': json.protectiveEquipment,
+        'modeOfTransports': json.modeOfTransport,
+        'skills': json.siteSkills,
+        'tasks': [],
+        'barredEmployees': json.barredEmployees,
+        'incidentLogs': [],
+        'address': '',
+        'setUpDate': '',
+        'sopDetails': '',
+        'locationInstructionsApproval': json.locInstructions,
+        'healthSafetySurvey': json.healthSafetySurvey,
+        'technicalSurvey': json.technicalSurvey,
+        'locationSurvey': json.locationSurvey,
+        'floorPlan': '',
+        'customer': '',
+        'siteLocations': [],
+        'statusStr': ''
+      };
+
+      return _this.customerDetails;
+    }
+
     var cache = {};
     var deferred = $q.defer();
     var loadApi = deferred.promise;
@@ -84,10 +111,12 @@ function createLocationService($http, $q, $gapi) {
       return deferred.resolve();
     });
 
-    this.get = function (id) {
+    this.save = function (id) {
       var deferred2 = $q.defer();
       loadApi.then(function () {
-        return $gapi.client.workorder.customer.location.add({'customerLocationDTO': customerLocationDetails});
+        return $gapi.client.workorder.customer.location.add({
+          'customerLocationDTO': transformJsonToDTO(customerLocationDetails)
+        });
       }).then(function (data) {
         angular.extend(cache[id], data);
         deferred2.resolve(cache[id]);
