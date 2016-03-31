@@ -1,0 +1,45 @@
+<style>
+  .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #txtAutocomplete {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+  }
+
+  #txtAutocomplete:focus {
+    border-color: #4d90fe;
+  }
+</style>
+  <div class="row alert alert-info" id="alertDiv" ng-show="$ctrl.alertMessage">
+    <p ng-bind="$ctrl.alertMessage"></p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <input id="txtAutocomplete" class="controls" type="text"
+          placeholder="Enter a location"
+          places-auto-complete
+          on-place-changed="$ctrl.placeChanged()">
+      <div id="mapDiv">
+        <ng-map center="current-location" zoom="17">
+          <marker id="mapMarker" on-dragend="$ctrl.onMarkerDragEnd()"
+              position="{{$ctrl.markerPosition}}" draggable="true"></marker>
+        </ng-map>
+      </div>
+    </div>
+  </div>

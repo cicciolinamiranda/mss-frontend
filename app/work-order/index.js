@@ -6,7 +6,12 @@ var ngApp = angular.module('locationApp', [
   'eydis.gapi',
   'ui.router',
   // app components
-  require('./location/common/index').name
+  require('./location/map/index').name,
+  require('./location/create/index').name,
+  require('./location/employee-lookup/index').name,
+  require('./location/view/index').name,
+  require('./location/edit/index').name,
+  require('./view/index').name
 ]);
 
 require('./config')(ngApp);

@@ -1,12 +1,13 @@
 var component = require('./index');
 
-describe("Employee View Service", function() {
-  var EmployeeViewSvc, $rootScope;
+describe("Employee View Component", function() {
+  var $compile, $rootScope;
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
     surname: 'Anne'
   };
+
   beforeEach(angular.mock.module(component.name));
   // mock $gapi to inject to EmployeeViewSvc
   beforeEach(function() {
@@ -33,24 +34,19 @@ describe("Employee View Service", function() {
         };
         return gapi;
       });
+      $provide.value('$stateParams', {
+        employeeId: sample_employee.id
+      });
     });
   });
-  beforeEach(angular.mock.inject(function(_EmployeeViewSvc_, _$rootScope_){
-    EmployeeViewSvc = _EmployeeViewSvc_;
+  beforeEach(angular.mock.inject(function(_$compile_, _$rootScope_){
+    $compile = _$compile_;
     $rootScope = _$rootScope_;
   }));
-  beforeEach(function() {
-    spyOn(EmployeeViewSvc, 'get').and.callThrough();
-  });
 
-  describe("Get employee", function() {
-    it("returns a promise that resolves with employee data", function(done) {
-      EmployeeViewSvc.get('123').then(function(employee) {
-        expect(employee.firstname).toBe(sample_employee.firstname);
-        done();
-      });
-      expect(EmployeeViewSvc.get).toHaveBeenCalledWith('123');
-      $rootScope.$digest();
-    });
+  it("contains a list of employees resolved by the service", function() {
+    var element = $compile("<employee-view></employee-view>")($rootScope);
+    $rootScope.$digest();
+    expect(element.html()).toContain("Auntie");
   });
 });

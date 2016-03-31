@@ -1,6 +1,6 @@
 module.exports = function(ngModule) {
-  ngModule.component('employeeView', {
+  ngModule.component('workOrderView', {
     template: require('./view.html'),
     controller: require('./viewController')
-  })
+  });
 };

@@ -1,8 +1,8 @@
 module.exports = function(ngModule) {
-  ngModule.service('EmployeeViewSvc', viewService);
+  ngModule.service('PayInfoSvc', payInfoService);
 };
 
-function viewService($q, $gapi) {
+function payInfoService($q, $gapi) {
   var cache = {};
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -12,21 +12,21 @@ function viewService($q, $gapi) {
   }).then(function() {
     return deferred.resolve();
   });
-
-  this.get = function(id) {
-    var deferred2 = $q.defer();
+  
+  this.getEmployeeContractedHours = function getEmployeeContractedHours(id){
+    var deferred3 = $q.defer();
     if (cache.hasOwnProperty(id)) {
-      deferred2.resolve(cache[id]);
+      deferred3.resolve(cache[id]);
     }
     else {
       cache[id] = {};
       loadApi.then(function() {
-        return $gapi.client.employee.employees.get({id: id});
+        return $gapi.client.employee.contractedHours.listByEmployeeId({employeeId: id});
       }).then(function(data) {
         angular.extend(cache[id], data);
-        deferred2.resolve(cache[id]);
+        deferred3.resolve(cache[id]);
       });
     }
-    return deferred2.promise;
-  };
+    return deferred3.promise;
+  }
 }

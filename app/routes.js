@@ -3,7 +3,6 @@ module.exports = function(ngModule) {
 };
 
 function routes($urlRouterProvider) {
-  "ngInject";
   // the default state referencing a module
   $urlRouterProvider.otherwise('/employees');
 }
