@@ -1,4 +1,10 @@
-var ngApp = angular.module('GAuth', []);
+require('eydis-gapi');
+require('angular-ui-router');
+
+var ngApp = angular.module('GAuth', [
+  'eydis.gapi',
+  'ui.router'
+]);
 
 ngApp.provider('GAuth', loginProvider);
 
