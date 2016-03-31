@@ -7,7 +7,7 @@ function viewService($q, $gapi) {
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
-  $gapi.loaded.then(function() {
+  $gapi.ready.then(function() {
     return $gapi.load('employee', 'v1', true);
   }).then(function() {
     return deferred.resolve();
