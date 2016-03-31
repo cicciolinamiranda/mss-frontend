@@ -14,7 +14,7 @@ function viewService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.get = function get(id) {
+  this.get = function (id) {
     var deferred2 = $q.defer();
     if (cache.hasOwnProperty(id)) {
       deferred2.resolve(cache[id]);
@@ -30,4 +30,22 @@ function viewService($q, $gapi) {
     }
     return deferred2.promise;
   };
+
+  this.getEmployeeContractedHours = function (id){
+    var deferred3 = $q.defer();
+    if (cache.hasOwnProperty(id)) {
+      deferred3.resolve(cache[id]);
+    }
+    else {
+      cache[id] = {};
+      loadApi.then(function() {
+        return $gapi.client.employee.contractedHours.listByEmployeeId({employeeId: id});
+      }).then(function(data) {
+        angular.extend(cache[id], data);
+        deferred3.resolve(cache[id]);
+      });
+    }
+    return deferred3.promise;
+  }
 }
+
