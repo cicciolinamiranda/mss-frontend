@@ -27,7 +27,7 @@ function routes($stateProvider) {
   })
   .state({
     name: 'location.view',
-    url: '/view',
+    url: '/view/:id',
     template: '<location-view/>'
   });
 }
