@@ -1,7 +1,7 @@
-module.exports = function(ngModule) {
+module.exports = function (ngModule) {
   ngModule.config(config);
 };
 
-function config() {
-  //
+function config($gapiProvider) {
+  $gapiProvider.api_base = '';
 }
