@@ -139,9 +139,6 @@
         <button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#employeeLookupModal">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
-        <div class="modal fade" id="employeeLookupModal" tabindex="-1" role="dialog" aria-labelledby="employeeLookup">
-          <employee-lookup on-employee-select="$ctrl.addBarredEmployee(employee)" check-selected="$ctrl.checkBarredSelected(id)"></employee-lookup>
-        </div>
       </div>
     </div>
     <div class="row">
@@ -315,3 +312,6 @@
   </div>
 </div>
 </form>
+<div class="modal fade" id="employeeLookupModal" tabindex="-1" role="dialog" aria-labelledby="employeeLookup">
+  <employee-lookup on-employee-select="$ctrl.addBarredEmployee(employee)" check-selected="$ctrl.checkBarredSelected(id)"></employee-lookup>
+</div>
