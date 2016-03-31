@@ -14,5 +14,10 @@ function routes($stateProvider) {
       name: 'location.create',
       url: '/create',
       template: '<location-create/>'
+    })
+    .state({
+      name: 'location.view',
+      url: '/view',
+      template: '<location-view/>'
     });
 }
