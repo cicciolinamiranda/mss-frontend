@@ -78,8 +78,9 @@ function editLocationService($http, $q) {
 
     $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
          .success(function(response) {
-              _this.customerLocation = response;
-              def.resolve(response);
+              console.log(response[0]);
+              _this.customerLocation = response[0];
+              def.resolve(response[0]);
             })
           .error(function() {
               def.reject("Server is down.");

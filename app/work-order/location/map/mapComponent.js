@@ -5,7 +5,10 @@ module.exports = function(ngModule) {
     bindings:{
       address:'=',
       longitude:'=',
-      latitude:'='
+      latitude:'=',
+      editaddress:'=',
+      editlongitude:'=',
+      editlatitude:'='
     }
   });
 };

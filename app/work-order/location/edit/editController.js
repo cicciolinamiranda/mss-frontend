@@ -28,12 +28,12 @@ function editCtrl(FileUploader, EditLocationSvc) {
   //Protective Equipment
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
+  _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
   //Common
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
-  _this.costTypeChoices;
   _this.errMessage;
 
   function init() {
@@ -56,6 +56,8 @@ function editCtrl(FileUploader, EditLocationSvc) {
     }, function (error) {
       _this.errMessage= error;
     });
+
+    getCustomerLocation(6);
   }
 
   init();
@@ -127,5 +129,18 @@ function editCtrl(FileUploader, EditLocationSvc) {
 
   _this.test = function(){
     console.log(_this.location);
+  }
+
+  function getCustomerLocation(id) {
+    EditLocationSvc.getCustomerLocation(id).then(function(response){
+      _this.location.editaddress = response.address.address;
+      _this.location.editlongitude = response.address.longitude;
+      _this.location.editlatitude = response.address.latitude;
+      _this.location.protectiveEquipment= response.equipments;
+      _this.location.modeOfTransport= response.modeOfTransports;
+      _this.location.siteSkills = response.skills;
+    }, function (error) {
+      _this.errMessage= error;
+    });
   }
 }
