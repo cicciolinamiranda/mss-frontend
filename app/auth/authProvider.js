@@ -14,7 +14,7 @@ function loginProvider() {
   _this.authUrl = "";
   _this.destinationState = "";
 
-  _this.$get = function($gapi, $state) {
+  _this.$get = /*@ngInject*/ function($gapi, $http, $state) {
     return {
       setUp: function() {
         return $gapi.authed.then(function() {
@@ -24,6 +24,7 @@ function loginProvider() {
         }).then(function() {
           $state.go(_this.destinationState);
         }, function() {
+          // catch error
           $state.go(_this.destinationState);
         });
       }
