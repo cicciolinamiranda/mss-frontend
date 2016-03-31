@@ -40,9 +40,11 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-file-upload": "^2.2.0",
+    "angular-sanitize": "^1.5.3",
     "angular-ui-router": "^0.2.18",
     "eydis-gapi": "git+https://github.com/yowmamasita/Eydis-GAPI.git",
     "moment": "^2.12.0",
-    "ngmap": "^1.17.0"
+    "ngmap": "^1.17.0",
+    "ui-select": "^0.16.1"
   }
 }

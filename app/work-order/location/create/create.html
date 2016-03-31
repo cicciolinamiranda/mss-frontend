@@ -5,9 +5,12 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <map-display>
+    <map-display address="$ctrl.location.address" latitude="$ctrl.location.latitude" longitude="$ctrl.location.longitude" >
     </map-display>
   </div>
+</div>
+<div class="alert alert-danger" ng-show="$ctrl.errMessage">
+  {{$ctrl.errMessage}}
 </div>
 <div class="row">
   <div class="col-md-4">
@@ -101,7 +104,7 @@
                     <input type="date" class="form-control input-sm" ng-model="barredEmployee.barStartDate" required/>
                   </div>
                   <div class="col-md-2">
-                    <a href="" class="text-danger" ng-click="$ctrl.removeBarredEmployee(barredEmployee)"><i class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
+                    <a href="" class="text-danger" ng-click="$ctrl.removeFromArray($ctrl.location.barredEmployees,barredEmployee.id)"><i class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
                   </div>
                 </div>
               </div>
@@ -119,23 +122,33 @@
     <div class="row">
       <div class="form-group col-md-12">
         <label for="personalProtectiveEquips">Personal Protective Equipment</label>
-        <input type="text" class="form-control" name="ppeSearch" placeholder="Search for protective equipments.." />
-        <ul class="list-group">
-          <li class="list-group-item">
+        <ui-select ng-model="$ctrl.selectedProtectiveEquipment" theme="bootstrap"
+            on-select="$ctrl.addToArray($ctrl.location.protectiveEquipment, $ctrl.selectedProtectiveEquipment)">
+            <ui-select-match placeholder="Search for protective equipments..">
+                <span ng-bind="$ctrl.selectedProtectiveEquipment.equipmentName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
+              refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
+              refresh-delay="5">
+                <span ng-bind="item.equipmentName"></span>
+            </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
+          <li class="list-group-item" ng-repeat="equip in $ctrl.location.protectiveEquipment">
             <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-            <span>Kevlar Vest</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <span ng-bind="equip.equipmentName"></span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                ng-click="$ctrl.removeFromArray($ctrl.location.protectiveEquipment, equip.id)">
+              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            </button>
             <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
+              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
             </label>
-          </li>
-          <li class="list-group-item">
-            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-            <span>Helmet</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-            <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
-            </label>
+            <select class="form-control" name="repeatSelect" id="repeatSelect"
+                ng-model="equip.costTypeId"
+                ng-show="equip.billed">
+              <option ng-repeat="option in $ctrl.costTypeChoices" value="{{option.id}}">{{option.name}}</option>
+            </select>
           </li>
         </ul>
       </div>
@@ -143,36 +156,59 @@
     <div class="row">
       <div class="form-group col-md-12">
         <label for="modesOfTransport">Modes of Transport</label>
-        <input type="text" class="form-control" name="motSearch" placeholder="Search for modes of transport.." />
-        <ul class="list-group">
-          <li class="list-group-item">
+        <ui-select ng-model="$ctrl.selectedTransport" theme="bootstrap"
+            on-select="$ctrl.addToArray($ctrl.location.modeOfTransport, $ctrl.selectedTransport)">
+            <ui-select-match placeholder="Select a Mode of Transport">
+                <span ng-bind="$ctrl.selectedTransport.transportName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.transportChoices | filter: $select.search) track by item.id"
+              refresh="$ctrl.refreshMotSearch($select.search)"
+              refresh-delay="5">
+                <span ng-bind="item.transportName"></span>
+            </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
+          <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport">
             <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-            <span>Armored Van</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <span>{{transport.transportName}}</span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                ng-click="$ctrl.removeFromArray($ctrl.location.modeOfTransport, transport.id)">
+              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            </button>
             <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
+              <input type="checkbox" ng-model="transport.billed"> Billed&nbsp;
             </label>
-          </li>
-          <li class="list-group-item">
-            <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-            <span>Private Jet</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-            <label class="text-muted pull-right">
-              <input type="checkbox"> Billed&nbsp;
-            </label>
+            <select class="form-control" name="repeatSelect" id="repeatSelect"
+                ng-model="transport.costTypeId"
+                ng-show="transport.billed">
+              <option ng-repeat="option in $ctrl.costTypeChoices" value="{{option.id}}">{{option.name}}</option>
+            </select>
           </li>
         </ul>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-12">
-        <label for="modesOfTransport">Site Skills</label>
-        <input type="text" class="form-control" name="siteSkillSearch" placeholder="Search for skills.." />
-        <ul class="list-group">
-          <li class="list-group-item">
+        <label for="siteSkills">Site Skills</label>
+        <ui-select ng-model="$ctrl.selectedSiteSkills" theme="bootstrap"
+            on-select="$ctrl.addToArray($ctrl.location.siteSkills, $ctrl.selectedSiteSkills)">
+            <ui-select-match placeholder="Search for skills..">
+                <span ng-bind="$ctrl.selectedSiteSkills.skillName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.siteSkillsChoices | filter: $select.search) track by item.id"
+              refresh="$ctrl.refreshSkillsSearch($select.search)"
+              refresh-delay="5">
+                <span ng-bind="item.skillName"></span>
+            </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.location.siteSkills">
+          <li class="list-group-item" ng-repeat="skill in $ctrl.location.siteSkills">
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-            <span>Guarding</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <span ng-bind="skill.skillName"></span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                ng-click="$ctrl.removeFromArray($ctrl.location.siteSkills, skill.id)">
+              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            </button>
           </li>
         </ul>
       </div>
@@ -238,7 +274,7 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.test()">Save</button>
     <button type="button" class="btn btn-danger">Cancel</button>
   </div>
 </div>
