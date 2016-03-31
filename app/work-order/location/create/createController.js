@@ -2,24 +2,35 @@ module.exports = createCtrl;
 
 var moment = require('moment');
 
-/*@ngInject*/ function createCtrl(FileUploader, CreateLocationSvc) {
+/*@ngInject*/
+function createCtrl(FileUploader, CreateLocationSvc) {
   var _this = this;
-  _this.location = {
-    siteContactDetails: [
-      {name: "", phone: "", email: "", index: 0}
-    ]
-  };
-  _this.transportChoices;
-  _this.selectedTransport;
-  _this.siteSkillsChoices;
-  _this.selectedSiteSkills;
-  _this.protectiveEquipmentChoices;
-  _this.selectedProtectiveEquipment;
+  _this.location = {};
+
+  //Contact Details
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
+
+  //Modes of Transport
+  _this.selectedTransport;
+  _this.transportChoices;
   _this.refreshMotSearch = refreshMotSearch;
+
+  //Site Skills
+  _this.selectedSiteSkills;
+  _this.siteSkillsChoices;
   _this.refreshSkillsSearch = refreshSkillsSearch;
+
+  //Barred Employees
+  _this.addBarredEmployee = addBarredEmployee;
+  _this.checkBarredSelected = checkBarredSelected;
+
+  //Protective Equipment
+  _this.protectiveEquipmentChoices;
+  _this.selectedProtectiveEquipment;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
+
+  //Common
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
   _this.costTypeChoices;
@@ -37,6 +48,8 @@ var moment = require('moment');
     _this.location.modeOfTransport = [];
     _this.location.siteSkills = [];
     _this.location.protectiveEquipment = [];
+    _this.location.barredEmployees = [];
+    _this.location.siteContactDetails = [];
 
     CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
@@ -47,18 +60,9 @@ var moment = require('moment');
 
   init();
 
-  function addSiteContactField(){
-    _this.location.siteContactDetails.push(
-      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
-    );
-  }
-
-  function removeFromContactsList(index){
-    _this.location.siteContactDetails.splice(index, 1);
-
-    for (i = 0; i < _this.location.siteContactDetails.length; i++) {
-      _this.location.siteContactDetails[i].index = i;
-    }
+  function addBarredEmployee(employee){
+    employee.barStartDate = moment().toDate();
+    _this.location.barredEmployees.push(employee);
   }
 
   function removeFromArray(array, id){
@@ -95,6 +99,30 @@ var moment = require('moment');
     }, function (error) {
       _this.errMessage= error;
     });
+  }
+
+  function checkBarredSelected(id){
+    //manual linear search for duplicates. possible use of utility here
+    for(i = 0; i < _this.location.barredEmployees.length; i++){
+      if(id === _this.location.barredEmployees[i].id){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function addSiteContactField(){
+    _this.location.siteContactDetails.push(
+      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+    );
+  }
+
+  function removeFromContactsList(index){
+    _this.location.siteContactDetails.splice(index, 1);
+
+    for (i = 0; i < _this.location.siteContactDetails.length; i++) {
+      _this.location.siteContactDetails[i].index = i;
+    }
   }
 
   _this.test = function(){

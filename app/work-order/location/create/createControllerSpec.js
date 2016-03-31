@@ -80,12 +80,6 @@ describe("Create Location Component", function() {
     expect(controller.location.floorPlanUploader).toBeDefined();
   });
 
-  it("must have its site contact details defined on load", function() {
-    expect(controller.location).toBeDefined();
-    expect(controller.location.siteContactDetails).toBeDefined();
-    expect(controller.location.siteContactDetails.length).toEqual(1);
-  });
-
   it("must add another element when addSiteContactField() is called", function(){
     controller.location.siteContactDetails = [];
     controller.location.siteContactDetails = controller.location.siteContactDetails.concat(siteContactData);
@@ -139,4 +133,6 @@ describe("Create Location Component", function() {
     scope.$apply();
     expect(controller.transportChoices.length).toEqual(2);
   })
+
+  //TODO: Barred Employee Specs
 });

@@ -7,7 +7,8 @@ var ngApp = angular.module('locationApp', [
   'ui.router',
   // app components
   require('./location/map/index').name,
-  require('./location/create/index').name
+  require('./location/create/index').name,
+  require('./location/employee-lookup/index').name
 ]);
 
 require('./config')(ngApp);

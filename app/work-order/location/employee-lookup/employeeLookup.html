@@ -1,0 +1,55 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Employee Lookup</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <form autocomplete="off" ng-submit="$ctrl.search()">
+            <div class="input-group">
+              <input type="text" class="form-control" name="employeeSearch" placeholder="Search for employees.." ng-model="$ctrl.searchTerm" required/>
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Go!</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table" ng-show="$ctrl.searchResults.length > 0">
+            <tr>
+              <th class="col-md-2">ID</th>
+              <th class="col-md-1">Title</th>
+              <th class="col-md-2">Surname</th>
+              <th class="col-md-3">First Names</th>
+              <th class="col-md-3">Rank</th>
+              <th class="col-md-1"></th>
+            </tr>
+            <tr ng-repeat="employee in $ctrl.searchResults">
+              <td>{{employee.id}}</td>
+              <td>{{employee.title}}</td>
+              <td>{{employee.surname}}</td>
+              <td>{{employee.firstname}}</td>
+              <td>{{employee.rank}}</td>
+              <td>
+                <div ng-switch="$ctrl.isSelected(this.employee.id)">
+                  <i ng-switch-when="true" class="glyphicon glyphicon-ok"></i>
+                  <button ng-switch-default type="button" class="btn btn-primary pull-right" ng-click="$ctrl.add(employee)">Add</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div ng-if="$ctrl.message">
+            <p class="text-center" ng-bind="$ctrl.message"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
