@@ -6,8 +6,6 @@ module.exports = mapCtrl;
   _this.markerPosition;
   _this.latitude;
   _this.longitude;
-  _this.showAddressDiv = false;
-  _this.draggable = false;
   _this.alertMessage;
   _this.onMarkerDragEnd = onMarkerDragEnd;
   _this.placeChanged = placeChanged;
@@ -30,7 +28,6 @@ module.exports = mapCtrl;
   init();
 
   function onMarkerDragEnd(){
-      _this.showAddressDiv = true;
       _this.alertMessage = "";
 
       var pos = this.getPosition();
@@ -57,9 +54,7 @@ module.exports = mapCtrl;
 
   //autocomplete event
   function placeChanged(){
-    _this.showAddressDiv = true;
     _this.alertMessage = "";
-    _this.draggable = true;
 
     var place = this.getPlace();
 
@@ -105,6 +100,8 @@ module.exports = mapCtrl;
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
+          reverseGeocode(_this.initialCoordinates);
+          setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
         }, function() {
           _this.alertMessage = "No results found";
         });

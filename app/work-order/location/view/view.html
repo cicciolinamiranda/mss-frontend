@@ -1,0 +1,77 @@
+<form name="viewLocationForm">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>View Location</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <img ng-src="{{$ctrl.mapSource}}">
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <h3>{{$ctrl.location.address}}</h3>
+        </div>
+        <div class="col-md-3 pull-right">
+          <h3> {{$ctrl.location.id}} </h3>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          <span ng-bind="$ctrl.location.address"></span>
+            <hr/>
+        </div>
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-file"></span>
+          <a href="#">Standard Operation Procedures</a>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-screenshot"></span>
+          {{$ctrl.location.latitude}} {{$ctrl.location.longitude}}
+          <hr/>
+        </div>
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-file"></span>
+          <a href="#">Location Survey</a>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-time"></span>
+          {{$ctrl.location.startDate}} {{$ctrl.location.endDate}}
+          <hr/>
+        </div>
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-file"></span>
+          <a href="#">Proof of Duty Tours</a>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-time"></span>
+          <a href="#">Time and Attendance Setup</a>
+          <hr/>
+        </div>
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <a href="#">Incident Management</a>
+          <hr/>
+        </div>
+      </div>
+      <hr/>
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <!-- Placeholder for Audit log and Incident Management -->
+      </div>
+    </div>
+  </div>
+</form>
