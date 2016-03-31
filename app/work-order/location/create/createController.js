@@ -7,7 +7,17 @@ function createCtrl(FileUploader, CreateLocationSvc) {
   var _this = this;
   _this.location = {};
 
-  //Contact Details
+  //_this.proofOfDuty = [
+  //  { "name": "Selfie"},
+  //  { "name": "Timecard"},
+  //];
+  //_this.methodOfRecording = [
+  //  { "method": "Online" },
+  //  { "method": "Bundy" },
+  //  { "method": "IVR" },
+  //];
+  _this.proofOfDuty;
+  _this.methodOfRecording;
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
 
