@@ -14,7 +14,29 @@ function createLocationService($http, $q, $gapi) {
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
-  _this.saveCustomerLocation = saveCustomerLocation;
+
+  var cache = {};
+  var deferred = $q.defer();
+  var loadApi = deferred.promise;
+
+  $gapi.loaded.then(function () {
+    return $gapi.load('workorder', 'v1', true);
+  }).then(function () {
+    return deferred.resolve();
+  });
+
+  this.save = function (customerLocationDetails) {
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.workorder.customer.location.add({
+        'customerLocationDTO': transformJsonToDTO(customerLocationDetails)
+      });
+    }).then(function (data) {
+      angular.extend(cache[id], data);
+      deferred2.resolve(cache[id]);
+    });
+    return deferred2.promise;
+  };
 
   function searchMockModeOfTransport(keyword) {
     var def = $q.defer();
@@ -58,7 +80,6 @@ function createLocationService($http, $q, $gapi) {
     return def.promise;
   }
 
-
   function searchProtectiveEquipment(keyword) {
     var def = $q.defer();
 
@@ -73,55 +94,30 @@ function createLocationService($http, $q, $gapi) {
     return def.promise;
   }
 
-  function saveCustomerLocation(customerLocationDetails) {
-    function transformJsonToDTO(json) {
-      _this.customerDetails = {
-        'workOrderId': '',
-        'name': '',
-        'createdDate': json.startDate,
-        'equipments': json.protectiveEquipment,
-        'modeOfTransports': json.modeOfTransport,
-        'skills': json.siteSkills,
-        'tasks': [],
-        'barredEmployees': json.barredEmployees,
-        'incidentLogs': [],
-        'address': '',
-        'setUpDate': '',
-        'sopDetails': '',
-        'locationInstructionsApproval': json.locInstructions,
-        'healthSafetySurvey': json.healthSafetySurvey,
-        'technicalSurvey': json.technicalSurvey,
-        'locationSurvey': json.locationSurvey,
-        'floorPlan': '',
-        'customer': '',
-        'siteLocations': [],
-        'statusStr': ''
-      };
-
-      return _this.customerDetails;
-    }
-
-    var cache = {};
-    var deferred = $q.defer();
-    var loadApi = deferred.promise;
-
-    $gapi.loaded.then(function () {
-      return $gapi.load('workorder', 'v1', true);
-    }).then(function () {
-      return deferred.resolve();
-    });
-
-    this.save = function (id) {
-      var deferred2 = $q.defer();
-      loadApi.then(function () {
-        return $gapi.client.workorder.customer.location.add({
-          'customerLocationDTO': transformJsonToDTO(customerLocationDetails)
-        });
-      }).then(function (data) {
-        angular.extend(cache[id], data);
-        deferred2.resolve(cache[id]);
-      });
-      return deferred2.promise;
+  function transformJsonToDTO(json) {
+    _this.customerDetails = {
+      'workOrderId': '',
+      'name': '',
+      'createdDate': json.startDate,
+      'equipments': json.protectiveEquipment,
+      'modeOfTransports': json.modeOfTransport,
+      'skills': json.siteSkills,
+      'tasks': [],
+      'barredEmployees': json.barredEmployees,
+      'incidentLogs': [],
+      'address': '',
+      'setUpDate': '',
+      'sopDetails': '',
+      'locationInstructionsApproval': json.locInstructions,
+      'healthSafetySurvey': json.healthSafetySurvey,
+      'technicalSurvey': json.technicalSurvey,
+      'locationSurvey': json.locationSurvey,
+      'floorPlan': '',
+      'customer': '',
+      'siteLocations': [],
+      'statusStr': ''
     };
+
+    return _this.customerDetails;
   }
 }
