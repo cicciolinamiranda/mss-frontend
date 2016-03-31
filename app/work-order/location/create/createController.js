@@ -3,7 +3,7 @@ module.exports = createCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl(FileUploader, CreateLocationSvc) {
+function createCtrl(FileUploader, CreateLocationSvc, $stateParams) {
   var _this = this;
   _this.location = {};
 
@@ -38,6 +38,7 @@ function createCtrl(FileUploader, CreateLocationSvc) {
   _this.errMessage;
 
   function init() {
+    _this.location.workOrderId = $stateParams.workOrderId;
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.locationSurvey = "";
