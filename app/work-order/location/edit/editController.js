@@ -1,9 +1,9 @@
-module.exports = createCtrl;
+module.exports = editCtrl;
 
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl(FileUploader, CreateLocationSvc) {
+function editCtrl(FileUploader, CreateLocationSvc) {
   var _this = this;
   _this.location = {};
 
@@ -28,7 +28,6 @@ function createCtrl(FileUploader, CreateLocationSvc) {
   //Protective Equipment
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
-  _this.costTypeDefault;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
   //Common
@@ -52,11 +51,8 @@ function createCtrl(FileUploader, CreateLocationSvc) {
     _this.location.barredEmployees = [];
     _this.location.siteContactDetails = [];
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeResponse){
-      _this.costTypeChoices = costTypeResponse;
-      if(_this.costTypeChoices.length > 0){
-        _this.costTypeDefault = costTypeResponse[0].id;
-      }
+    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
+      _this.costTypeChoices = costTypeMock;
     }, function (error) {
       _this.errMessage= error;
     });
@@ -127,5 +123,9 @@ function createCtrl(FileUploader, CreateLocationSvc) {
     for (i = 0; i < _this.location.siteContactDetails.length; i++) {
       _this.location.siteContactDetails[i].index = i;
     }
+  }
+
+  _this.test = function(){
+    console.log(_this.location);
   }
 }
