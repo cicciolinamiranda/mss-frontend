@@ -45,7 +45,7 @@
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
           <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey"
-            ng-model="$ctrl.location.healthSafetySurvey"/>
+          ng-model="$ctrl.location.healthSafetySurvey"/>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
           <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey"
-            ng-model="$ctrl.location.technicalSurvey"/>
+          ng-model="$ctrl.location.technicalSurvey"/>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
           <input type="text" class="form-control" name="locationSurvey" id="locationSurvey"
-            ng-model="$ctrl.location.locationSurvey"/>
+          ng-model="$ctrl.location.locationSurvey"/>
         </div>
       </div>
     </div>
@@ -73,14 +73,14 @@
       <div class="form-group col-md-12">
         <label for="surveyReviewDate">Survey Review Date</label>
         <input type="date" class="form-control" name="surveyReviewDate" id="surveyReviewDate"
-              ng-model="$ctrl.location.surveyReviewDate"/>
+        ng-model="$ctrl.location.surveyReviewDate"/>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-12">
         <label for="floorPlan">Floor Plan</label>
         <input type="file" class="form-control" name="floorPlan" id="floorPlan"
-          nv-file-select uploader="$ctrl.location.floorPlanUploader"/>
+        nv-file-select uploader="$ctrl.location.floorPlanUploader"/>
       </div>
     </div>
   </div>
@@ -88,17 +88,32 @@
     <div class="row">
       <div class="form-group col-md-12">
         <label for="barredEmployees">Barred Employees</label>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-            <span>Darryl Ong</span>&nbsp;
-            <span class="text-muted">03/23/2016</span>
-            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-block btn-default">
+        <div class="list-group">
+          <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item">
+            <div class="row">
+              <div class="col-md-5">
+                <span class="text-muted">{{barredEmployee.id}}</span></br>
+                <span>{{barredEmployee.firstname}} {{barredEmployee.surname}}</span>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-10">
+                    <input type="date" class="form-control input-sm" ng-model="barredEmployee.barStartDate" required/>
+                  </div>
+                  <div class="col-md-2">
+                    <a href="" class="text-danger" ng-click="$ctrl.removeBarredEmployee(barredEmployee)"><i class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#employeeLookupModal">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
+        <div class="modal fade" id="employeeLookupModal" tabindex="-1" role="dialog" aria-labelledby="employeeLookup">
+          <employee-lookup on-employee-select="$ctrl.addBarredEmployee(employee)" check-selected="$ctrl.checkBarredSelected(id)"></employee-lookup>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -164,21 +179,6 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="row">
-      <div class="col-md-12">
-        <label for="isSupervised">Supervised Post?</label>
-        <div class="form-group">
-          <label class="radio-inline">
-            <input type="radio" name="isSupervised" value="self_managed" checked="checked">
-            Self-Managed
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="isSupervised" value="self_managed">
-            Supervised
-          </label>
-        </div>
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-12">
         <label for="isSupervised">Proof of Duty</label>
