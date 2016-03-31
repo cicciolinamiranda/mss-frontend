@@ -71,4 +71,18 @@ function editLocationService($http, $q) {
           });
     return def.promise;
   }
+
+  function getCustomerLocation(id) {
+    var def = $q.defer();
+
+    $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
+         .success(function(response) {
+              _this.customerLocation = response;
+              def.resolve(response);
+            })
+          .error(function() {
+              def.reject("Server is down.");
+          });
+    return def.promise;
+  }
 }
