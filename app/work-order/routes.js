@@ -18,8 +18,12 @@ function routes($stateProvider) {
   .state({
     name: 'location.create',
     url: '/create',
-    template: '<location-create/>',
-    params: { 'workOrderId': null }
+    template: '<location-create/>'
+  })
+  .state({
+    name: 'location.edit',
+    url: '/edit',
+    template: '<location-edit/>'
   })
   .state({
     name: 'location.view',
