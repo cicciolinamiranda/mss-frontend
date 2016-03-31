@@ -139,6 +139,7 @@ function editCtrl(FileUploader, EditLocationSvc) {
       _this.location.protectiveEquipment= response.equipments;
       _this.location.modeOfTransport= response.modeOfTransports;
       _this.location.siteSkills = response.skills;
+      _this.location.siteContactDetails = response.siteLocations;
     }, function (error) {
       _this.errMessage= error;
     });
