@@ -5,9 +5,7 @@ module.exports = loginCtrl;
 
   function init() {
     _this.signin = $gapi.signin;
-    $gapi.authed.then(function() {
-      GAuth.go();
-    });
+    GAuth.setUp(); // hook callbacks on auth success
   }
 
   init();
