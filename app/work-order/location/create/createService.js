@@ -87,7 +87,7 @@ function createLocationService($http, $q, $gapi) {
     this.get = function (id) {
       var deferred2 = $q.defer();
       loadApi.then(function () {
-        return $gapi.client.workorder.customer.location.add({customerLocationDTO: customerLocationDetails});
+        return $gapi.client.workorder.customer.location.add({'customerLocationDTO': customerLocationDetails});
       }).then(function (data) {
         angular.extend(cache[id], data);
         deferred2.resolve(cache[id]);
