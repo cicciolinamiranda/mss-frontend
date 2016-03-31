@@ -28,6 +28,7 @@ function createCtrl(FileUploader, CreateLocationSvc) {
   //Protective Equipment
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
+  _this.costTypeDefault;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
   //Common
@@ -54,10 +55,13 @@ function createCtrl(FileUploader, CreateLocationSvc) {
     _this.location.barredEmployees = [];
     _this.location.siteContactDetails = [];
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function (costTypeMock) {
-      _this.costTypeChoices = costTypeMock;
+    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeResponse){
+      _this.costTypeChoices = costTypeResponse;
+      if(_this.costTypeChoices.length > 0){
+        _this.costTypeDefault = costTypeResponse[0].id;
+      }
     }, function (error) {
-      _this.errMessage = error;
+      _this.errMessage= error;
     });
   }
 
