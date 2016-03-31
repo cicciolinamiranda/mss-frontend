@@ -98,7 +98,6 @@ function createLocationService($http, $q, $gapi) {
     _this.customerDetails = {
       'workOrderId': '',
       'name': '',
-      'createdDate': json.startDate,
       'equipments': json.protectiveEquipment,
       'modeOfTransports': json.modeOfTransport,
       'skills': json.siteSkills,
@@ -106,7 +105,6 @@ function createLocationService($http, $q, $gapi) {
       'barredEmployees': json.barredEmployees,
       'incidentLogs': [],
       'address': '',
-      'setUpDate': '',
       'sopDetails': '',
       'locationInstructionsApproval': json.locInstructions,
       'healthSafetySurvey': json.healthSafetySurvey,
@@ -115,7 +113,9 @@ function createLocationService($http, $q, $gapi) {
       'floorPlan': '',
       'customer': '',
       'siteLocations': [],
-      'statusStr': ''
+      'statusStr': '',
+      'startDateStr': json.startDate,
+      'endDateStr': json.endDate
     };
 
     return _this.customerDetails;
