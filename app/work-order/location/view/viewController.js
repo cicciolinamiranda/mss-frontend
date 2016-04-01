@@ -1,7 +1,7 @@
 module.exports = createCtrl;
 
 /*@ngInject*/
-function createCtrl(ViewLocationSvc, $stateParams) {
+function createCtrl(ViewLocationSvc, $state, $stateParams) {
   var _this = this;
   _this.locId = $stateParams.id;
   _this.mapSource;
@@ -12,6 +12,7 @@ function createCtrl(ViewLocationSvc, $stateParams) {
   _this.modeOfTransportList = [];
   _this.barredEmployeesList = [];
 
+  _this.archiveLocation = archiveLocation;
 
   function init() {
 
@@ -83,5 +84,9 @@ function createCtrl(ViewLocationSvc, $stateParams) {
     }
 
     formatBarredEmployeesDisplay(location.barredEmployees);
+  }
+
+  function archiveLocation(id){
+    $state.go('workOrder', {id: 1});
   }
 }
