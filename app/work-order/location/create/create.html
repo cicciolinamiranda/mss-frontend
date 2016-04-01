@@ -152,11 +152,11 @@
               <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
                 refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
                 refresh-delay="5">
-                  <span ng-bind="item.equipmentName"></span>
+                  <span class="ppe-option" ng-bind="item.equipmentName"></span>
               </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
-            <li class="list-group-item" ng-repeat="equip in $ctrl.location.protectiveEquipment">
+            <li class="list-group-item ppe-selected-item" ng-repeat="equip in $ctrl.location.protectiveEquipment">
               <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
               <span ng-bind="equip.equipmentName"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
@@ -187,11 +187,11 @@
               <ui-select-choices repeat="item in ($ctrl.transportChoices | filter: $select.search) track by item.id"
                 refresh="$ctrl.refreshMotSearch($select.search)"
                 refresh-delay="5">
-                  <span ng-bind="item.transportName"></span>
+                  <span class="mot-option" ng-bind="item.transportName"></span>
               </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
-            <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport">
+            <li class="list-group-item mot-selected-item" ng-repeat="transport in $ctrl.location.modeOfTransport">
               <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
               <span>{{transport.transportName}}</span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
@@ -222,11 +222,11 @@
               <ui-select-choices repeat="item in ($ctrl.siteSkillsChoices | filter: $select.search) track by item.id"
                 refresh="$ctrl.refreshSkillsSearch($select.search)"
                 refresh-delay="5">
-                  <span ng-bind="item.skillName"></span>
+                  <span class="ss-option" ng-bind="item.skillName"></span>
               </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.location.siteSkills">
-            <li class="list-group-item" ng-repeat="skill in $ctrl.location.siteSkills">
+            <li class="list-group-item ss-selected-item" ng-repeat="skill in $ctrl.location.siteSkills">
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
               <span ng-bind="skill.skillName"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"

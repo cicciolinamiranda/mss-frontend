@@ -6,7 +6,7 @@ function routes($stateProvider) {
   $stateProvider
   .state({
     name: 'workOrder',
-    url: '/workOrder/view/:id',
+    url: '/workOrders/view/:id',
     template: '<work-order-view/>'
   })
   .state({
