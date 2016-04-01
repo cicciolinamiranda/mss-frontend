@@ -35,6 +35,12 @@ function editCtrl(FileUploader, EditLocationSvc) {
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
   _this.errMessage;
+  _this.goToViewLocation = goToViewLocation;
+
+  //update
+  _this.updateCustomerLocation = updateCustomerLocation;
+
+  _this.customerLocationId = '';
 
   function init() {
     //this will be removed once the mapping on the service is completed
@@ -128,5 +134,18 @@ function editCtrl(FileUploader, EditLocationSvc) {
     }, function (error) {
       _this.errMessage= error;
     });
+  }
+
+  function updateCustomerLocation() {
+    EditLocationSvc.update(_this.location).then(function (response) {
+      _this.customerLocationId = response.id
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  //TODO change with actual save and page transition
+  function goToViewLocation() {
+    $state.go('location.view', {id: 1});
   }
 }

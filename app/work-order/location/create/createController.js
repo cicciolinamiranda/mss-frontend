@@ -42,7 +42,6 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   _this.getMethodOfRecordings = getMethodOfRecordings;
 
   //Common
-  _this.goToViewLocation = goToViewLocation;
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
   _this.costTypeChoices;
@@ -55,6 +54,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function init() {
     _this.location.workOrderId = $stateParams.workOrderId;
+    console.log(_this.location.workOrderId);
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.locationSurvey = "";
@@ -75,70 +75,70 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
         _this.costTypeDefault = costTypeResponse[0].id;
       }
     }, function (error) {
-      _this.errMessage= error;
+      _this.errMessage = error;
     });
   }
 
   init();
 
-  function addBarredEmployee(employee){
+  function addBarredEmployee(employee) {
     employee.barStartDate = moment().toDate();
     _this.location.barredEmployees.push(employee);
   }
 
-  function removeFromArray(array, id){
-    for(i= 0; i < array.length; i++){
-      if(array[i].id === id){
+  function removeFromArray(array, id) {
+    for (i = 0; i < array.length; i++) {
+      if (array[i].id === id) {
         array.splice(i, 1);
       }
     }
   }
 
-  function addToArray(array, item){
+  function addToArray(array, item) {
     array.push(item);
   }
 
-  function refreshMotSearch(keyword){
-    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
+  function refreshMotSearch(keyword) {
+    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function (modeOfTransportMock) {
       _this.transportChoices = modeOfTransportMock;
     }, function (error) {
-      _this.errMessage= error;
+      _this.errMessage = error;
     });
   }
 
-  function refreshSkillsSearch(keyword){
-    CreateLocationSvc.searchSiteSkills(keyword).then(function(response){
+  function refreshSkillsSearch(keyword) {
+    CreateLocationSvc.searchSiteSkills(keyword).then(function (response) {
       _this.siteSkillsChoices = response;
     }, function (error) {
-      _this.errMessage= error;
+      _this.errMessage = error;
     });
   }
 
-  function refreshProtectiveEquipmentSearch(keyword){
-    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
+  function refreshProtectiveEquipmentSearch(keyword) {
+    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function (response) {
       _this.protectiveEquipmentChoices = response;
     }, function (error) {
-      _this.errMessage= error;
+      _this.errMessage = error;
     });
   }
 
-  function checkBarredSelected(id){
+  function checkBarredSelected(id) {
     //manual linear search for duplicates. possible use of utility here
-    for(i = 0; i < _this.location.barredEmployees.length; i++){
-      if(id === _this.location.barredEmployees[i].id){
+    for (i = 0; i < _this.location.barredEmployees.length; i++) {
+      if (id === _this.location.barredEmployees[i].id) {
         return true;
       }
     }
     return false;
   }
 
-  function addSiteContactField(){
+  function addSiteContactField() {
     _this.location.siteContactDetails.push(
       {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
     );
   }
 
-  function removeFromContactsList(index){
+  function removeFromContactsList(index) {
     _this.location.siteContactDetails.splice(index, 1);
 
     for (i = 0; i < _this.location.siteContactDetails.length; i++) {
@@ -148,16 +148,13 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function saveCustomerLocation() {
     CreateLocationSvc.save(_this.location).then(function (response) {
-      _this.customerLocationId = response.id
+      _this.customerLocationId = response.id;
+      $state.go('location.view', {id: _this.customerLocationId});
     }, function (error) {
-      _this.errMessage= error;
-    });
+      _this.errMessage = error;
+    })
   }
 
-  //TODO change with actual save and page transition
-  function goToViewLocation() {
-    $state.go('location.view', {id: 1});
-  }
   function getProofOfDuties(){
     CreateLocationSvc.getProofofDutyValues().then(function(response){
       _this.proofOfDuties = response;
@@ -165,7 +162,6 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
       _this.errMessage= error;
     });
   }
-
 
   function getMethodOfRecordings(){
     CreateLocationSvc.getMethodOfRecordingValues().then(function(response){

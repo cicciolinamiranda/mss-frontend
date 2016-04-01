@@ -37,7 +37,7 @@
               <td>
                 <div ng-switch="$ctrl.isSelected(this.employee.id)">
                   <i ng-switch-when="true" class="glyphicon glyphicon-ok"></i>
-                  <button ng-switch-default type="button" class="btn btn-primary pull-right" ng-click="$ctrl.add(employee)">Add</button>
+                  <button ng-switch-default type="button" class="btn btn-primary pull-right" ng-click="$ctrl.add(employee)" id="add-employee-{{$index}}">Add</button>
                 </div>
               </td>
             </tr>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="closeEmployeeLookupBtn">Close</button>
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

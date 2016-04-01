@@ -4,8 +4,6 @@ module.exports = viewCtrl;
 function viewCtrl($state, $stateParams) {
   var _this = this;
   _this.workOrderId = $stateParams.id;
-  _this.switchView = switchView;
-  _this.viewDeeperAdd = false;
   _this.goToCreateLocation = goToCreateLocation;
 
   function init() {
@@ -14,9 +12,6 @@ function viewCtrl($state, $stateParams) {
 
   init();
 
-  function switchView(){
-    _this.viewDeeperAdd = true;
-  }
 
   function goToCreateLocation(){
     $state.go('location.create',{workOrderId: 1});
