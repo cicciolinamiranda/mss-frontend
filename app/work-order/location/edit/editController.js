@@ -37,19 +37,10 @@ function editCtrl(FileUploader, EditLocationSvc) {
   _this.errMessage;
 
   function init() {
+    //this will be removed once the mapping on the service is completed
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
-    _this.location.locationSurvey = "";
-    _this.location.standardOps = "";
-    _this.location.locInstructions = "";
-    _this.location.healthSafetySurvey = "";
-    _this.location.technicalSurvey = "";
     _this.location.floorPlanUploader = new FileUploader();
-    _this.location.modeOfTransport = [];
-    _this.location.siteSkills = [];
-    _this.location.protectiveEquipment = [];
-    _this.location.barredEmployees = [];
-    _this.location.siteContactDetails = [];
 
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
