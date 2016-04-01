@@ -100,12 +100,20 @@ function editLocationService($http, $q, $gapi) {
   function getCustomerLocation(id) {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
-    .success(function(response) {
-      def.resolve(transformDTOtoJSON(response[0]));
-    })
-    .error(function() {
-      def.reject("Server is down.");
+    // $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
+    // .success(function(response) {
+    //   def.resolve(transformDTOtoJSON(response[0]));
+    // })
+    // .error(function() {
+    //   def.reject("Server is down.");
+    // });
+
+    loadApi.then(function () {
+      return $gapi.client.workorder.customer.location.get({'id' : id});
+      console.log(response);
+      def.resolve(transformDTOtoJSON(response));
+    }).then(function (data) {
+      def.resolve(data);
     });
     return def.promise;
   }
@@ -122,7 +130,8 @@ function editLocationService($http, $q, $gapi) {
       siteSkills : response.skills,
       siteContactDetails : response.siteLocations,
       startDate : transformJodaTimeToDate(response.startDate),
-      endDate : transformJodaTimeToDate(response.endDate)
+      endDate : transformJodaTimeToDate(response.endDate),
+      barredEmployees : response.barredEmployees
     };
     return customerLocation;
   }
@@ -169,4 +178,5 @@ function editLocationService($http, $q, $gapi) {
       }
     return date;
   }
+
 }

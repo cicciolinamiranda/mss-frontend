@@ -3,7 +3,7 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc) {
+function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
   var _this = this;
   _this.location = {};
 
@@ -54,7 +54,7 @@ function editCtrl(FileUploader, EditLocationSvc) {
       _this.errMessage= error;
     });
 
-    getCustomerLocation(6);
+    getCustomerLocation($stateParams.id);
   }
 
   init();
@@ -130,6 +130,7 @@ function editCtrl(FileUploader, EditLocationSvc) {
 
   function getCustomerLocation(id) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
+      console.log("ID in edit: "+id);
       _this.location = response;
     }, function (error) {
       _this.errMessage= error;
@@ -139,13 +140,16 @@ function editCtrl(FileUploader, EditLocationSvc) {
   function updateCustomerLocation() {
     EditLocationSvc.update(_this.location).then(function (response) {
       _this.customerLocationId = response.id
+      $state.go('location.view', {id: _this.customerLocationId});
     }, function (error) {
       _this.errMessage= error;
     });
+
+
   }
 
   //TODO change with actual save and page transition
   function goToViewLocation() {
-    $state.go('location.view', {id: 1});
+    $state.go('location.view', {id: $stateParams.id});
   }
 }
