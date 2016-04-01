@@ -1,7 +1,7 @@
 module.exports = globalSearchCtrl;
 
+/*@ngInject*/
 function globalSearchCtrl($state) {
-  /*@ngInject*/
   var _this = this;
 
   _this.search = search;
