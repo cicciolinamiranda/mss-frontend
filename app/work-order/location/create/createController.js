@@ -142,10 +142,10 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     }, function (error) {
       _this.errMessage = error;
     })
+  }
 
     //TODO change with actual save and page transition
     function goToViewLocation() {
       $state.go('location.view', {id: 1});
     }
-  }
 }
