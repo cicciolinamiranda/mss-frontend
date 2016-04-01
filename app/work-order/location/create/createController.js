@@ -3,7 +3,7 @@ module.exports = createCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl(FileUploader, CreateLocationSvc, $stateParams) {
+function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   var _this = this;
   _this.location = {};
 
@@ -32,6 +32,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $stateParams) {
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
   //Common
+  _this.goToViewLocation = goToViewLocation;
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
   _this.costTypeChoices;
@@ -128,5 +129,10 @@ function createCtrl(FileUploader, CreateLocationSvc, $stateParams) {
     for (i = 0; i < _this.location.siteContactDetails.length; i++) {
       _this.location.siteContactDetails[i].index = i;
     }
+  }
+
+  //TODO change with actual save and page transition
+  function goToViewLocation(){
+    $state.go('location.view',{id: 1});
   }
 }

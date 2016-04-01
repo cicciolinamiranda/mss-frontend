@@ -7,7 +7,16 @@
   <div class="row">
     <div class="col-md-9" style="padding-right:100px">
       <div class="row">
-        <img ng-src="{{$ctrl.mapSource}}">
+        <div ng-switch="$ctrl.cloc.siteContactDetails.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <img ng-src="{{$ctrl.mapSource}}">
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-9">
@@ -25,8 +34,10 @@
           <hr/>
         </div>
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Standard Operation Procedures</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.sopDetails}}"
+            ng-show="$ctrl.cloc.sopDetails">Standard Operation Procedures</a>
+          <label ng-show="!$ctrl.cloc.sopDetails">Standard Operation Procedures</label>
           <hr/>
         </div>
       </div>
@@ -37,8 +48,10 @@
           <hr/>
         </div>
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Location Survey</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.locationSurvey}}"
+            ng-show="$ctrl.cloc.locationSurvey">Location Survey</a>
+          <label ng-show="!$ctrl.cloc.locationSurvey">Location Survey</label>
           <hr/>
         </div>
       </div>
@@ -49,32 +62,40 @@
           <hr/>
         </div>
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
+          <i class="fa fa-paperclip"></i>
           <a href="#">Proof of Duty Tours</a>
           <hr/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Location Instructions Approval</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.locationInstructionsApproval}}"
+            ng-show="$ctrl.cloc.locationInstructionsApproval">Location Instructions Approval</a>
+          <label ng-show="!$ctrl.cloc.locationInstructionsApproval">Location Instructions Approval</label>
           <hr/>
         </div>
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Floor Plan</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.floorPlan}}"
+            ng-show="$ctrl.cloc.floorPlan">Floor Plan</a>
+          <label ng-show="!$ctrl.cloc.floorPlan"> Floor Plan </label>
           <hr/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Health Safety Survey</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.healthSafetySurvey}}"
+            ng-show="$ctrl.cloc.healthSafetySurvey">Health Safety Survey</a>
+          <label ng-show="!$ctrl.cloc.healthSafetySurvey"> Health Safety Survey </label>
           <hr/>
         </div>
         <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Technical Site Survey</a>
+          <i class="fa fa-paperclip"></i>
+          <a ng-href="{{$ctrl.cloc.technicalSurvey}}"
+            ng-show="$ctrl.cloc.technicalSurvey">Technical Survey</a>
+          <label ng-show="!$ctrl.cloc.technicalSurvey"> Technical Survey </label>
           <hr/>
         </div>
       </div>
@@ -90,100 +111,145 @@
           <hr/>
         </div>
       </div>
-      <div class="row" ng-show="$ctrl.cloc.siteContactDetails">
+      <div class="row">
         <div class="col-md-12">
           <label> Site Contacts </label>
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="contact in $ctrl.cloc.siteContactDetails">
-              <div class="row">
-                <div class="col-md-1">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-                </div>
-                <div class="col-md-4">
-                  <span ng-bind="contact.name"></span>
-                </div>
-                <div class="col-md-3">
-                  <span ng-bind="contact.phone"></span>
-                </div>
-                <div class="col-md-4">
-                  <span ng-bind="contact.email"></span>
-                </div>
+          <div ng-switch="$ctrl.cloc.siteContactDetails.length > 0">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
               </div>
-            </li>
-          </ul>
+            </div>
+            <div ng-switch-default>
+              <ul class="list-group" ng-show="$ctrl.cloc.siteContactDetails.length > 0">
+                <li class="list-group-item" ng-repeat="contact in $ctrl.cloc.siteContactDetails">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <span ng-bind="contact.name"></span>
+                    </div>
+                    <div class="col-md-3">
+                      <span ng-bind="contact.phone"></span>
+                    </div>
+                    <div class="col-md-4">
+                      <span ng-bind="contact.email"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label> Barred Employees </label>
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="emp in $ctrl.barredEmployeesList">
-              <div class="row">
-                <div class="col-md-1">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-                </div>
-                <div class="col-md-8">
-                  <span ng-bind="emp.name"></span>
-                </div>
-                <div class="col-md-3">
-                  <span ng-bind="emp.barsStartDate"></span>
-                </div>
+          <div ng-switch="$ctrl.barredEmployeesList.length > 0">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
               </div>
-            </li>
-          </ul>
+            </div>
+            <div ng-switch-default>
+              <ul class="list-group" ng-show="$ctrl.barredEmployeesList">
+                <li class="list-group-item" ng-repeat="emp in $ctrl.barredEmployeesList">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                    </div>
+                    <div class="col-md-8">
+                      <span ng-bind="emp.name"></span>
+                    </div>
+                    <div class="col-md-3">
+                      <span ng-bind="emp.barsStartDate"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="col-md-6">
           <label> Site Skills</label>
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.siteSkills">
-              <div class="row">
-                <div class="col-md-1">
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-                </div>
-                <div class="col-md-8">
-                  <span ng-bind="skill.skillName"></span>
-                </div>
+          <div ng-switch="$ctrl.cloc.siteSkills.length > 0">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
               </div>
-            </li>
-          </ul>
+            </div>
+            <div ng-switch-default>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.siteSkills">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                    </div>
+                    <div class="col-md-8">
+                      <span ng-bind="skill.skillName"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label> Personal Protective Equipment </label>
-          <ul class="list-group" ng-show="$ctrl.protectiveEquipList">
-            <li class="list-group-item" ng-repeat="equip in $ctrl.protectiveEquipList">
-                <div class="row">
-                  <div class="col-md-1">
-                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-                  </div>
-                  <div class="col-md-6">
-                    <span ng-bind="equip.name"></span>
-                  </div>
-                  <div class="col-md-5">
-                    <strong><span ng-bind="equip.costType"></span></strong>
-                  </div>
-                </div>
-            </li>
-          </ul>
+          <div ng-switch="$ctrl.protectiveEquipList.length > 0">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
+              </div>
+            </div>
+            <div ng-switch-default>
+              <ul class="list-group" ng-show="$ctrl.protectiveEquipList">
+                <li class="list-group-item" ng-repeat="equip in $ctrl.protectiveEquipList">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
+                      </div>
+                      <div class="col-md-6">
+                        <span ng-bind="equip.name"></span>
+                      </div>
+                      <div class="col-md-5">
+                        <strong><span ng-bind="equip.costType"></span></strong>
+                      </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="col-md-6">
           <label>Mode of Transport</label>
-          <ul class="list-group" ng-show="$ctrl.modeOfTransportList">
-            <li class="list-group-item" ng-repeat="mot in $ctrl.modeOfTransportList">
-                <div class="row">
-                  <div class="col-md-1">
-                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-                  </div>
-                  <div class="col-md-6">
-                    <span ng-bind="mot.name"></span>
-                  </div>
-                  <div class="col-md-5">
-                    <strong><span ng-bind="mot.costType"></span></strong>
-                  </div>
-                </div>
-            </li>
-          </ul>
+          <div ng-switch="$ctrl.modeOfTransportList.length > 0">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
+              </div>
+            </div>
+            <div ng-switch-default>
+              <ul class="list-group" ng-show="$ctrl.modeOfTransportList">
+                <li class="list-group-item" ng-repeat="mot in $ctrl.modeOfTransportList">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+                      </div>
+                      <div class="col-md-6">
+                        <span ng-bind="mot.name"></span>
+                      </div>
+                      <div class="col-md-5">
+                        <strong><span ng-bind="mot.costType"></span></strong>
+                      </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <hr/>
       </div>

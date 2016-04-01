@@ -12,65 +12,76 @@ function createCtrl(ViewLocationSvc, $stateParams) {
   _this.modeOfTransportList = [];
   _this.barredEmployeesList = [];
 
+
   function init() {
 
     ViewLocationSvc.getLocationDetails(_this.locId).then(function(response){
       _this.cloc = response[0];
-
-      _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
-        + _this.cloc.latitude + "," + _this.cloc.longitude;
-
-      if(_this.cloc.latitude && _this.cloc.longitude){
-        _this.coordinates = _this.cloc.latitude + " " + _this.cloc.longitude;
-      }
-
-      if(_this.cloc.startDate && _this.cloc.endDate){
-        _this.duration = _this.cloc.startDate + " - " + _this.cloc.endDate;
-      }
-
-      if(_this.cloc.protectiveEquipment){
-        for(i = 0; i < _this.cloc.protectiveEquipment.length; i++){
-          var equip = {};
-          equip.name = _this.cloc.protectiveEquipment[i].equipmentName;
-          if(_this.cloc.protectiveEquipment[i].billed){
-            //TODO: query costType value
-            equip.costType = "[" + _this.cloc.protectiveEquipment[i].costType + "]";
-          }
-          _this.protectiveEquipList.push(equip);
-        }
-      }
-
-      if(_this.cloc.modeOfTransport){
-        for(i = 0; i < _this.cloc.modeOfTransport.length; i++){
-          var mot = {};
-          mot.name = _this.cloc.modeOfTransport[i].transportName;
-          if(_this.cloc.modeOfTransport[i].billed){
-            //TODO: query costType value
-            mot.costType = "[" + _this.cloc.modeOfTransport[i].costType + "]";
-          }
-          _this.modeOfTransportList.push(mot);
-        }
-      }
-
-      if(_this.cloc.barredEmployees){
-        for(i = 0; i < _this.cloc.barredEmployees.length; i++){
-          var emp = {};
-          emp.name = _this.cloc.barredEmployees[i].surname +
-            ", " + _this.cloc.barredEmployees[i].firstname +
-            " " + _this.cloc.barredEmployees[i].middlename;
-          emp.barsStartDate = _this.cloc.barredEmployees[i].barsStartDate;
-
-          _this.barredEmployeesList.push(emp);
-        }
-      }
+      formatDisplay(_this.cloc);
 
     }, function (error) {
       _this.errMessage= error;
     });
-
-
   }
 
   init();
 
+  //for mode of transport and protective equipment
+  function getCostType(sourceData, destObject){
+    if(sourceData.billed){
+      ViewLocationSvc.getBilledCostType(sourceData.costType)
+        .then(function(response){
+          destObject.costType = "[" + response[0].name + "]";
+      });
+    }
+  }
+
+  function formatBarredEmployeesDisplay(barredEmployees) {
+    if(barredEmployees){
+      for(i = 0; i < barredEmployees.length; i++){
+        var emp = {};
+        emp.name = barredEmployees[i].surname +
+          ", " + barredEmployees[i].firstname +
+          " " + barredEmployees[i].middlename;
+        emp.barsStartDate = barredEmployees[i].barsStartDate;
+
+        _this.barredEmployeesList.push(emp);
+      }
+    }
+  }
+
+
+  function formatDisplay(location){
+
+    _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
+      + location.latitude + "," + location.longitude;
+
+    if(location.latitude && location.longitude){
+      _this.coordinates = location.latitude + " " + location.longitude;
+    }
+
+    if(location.startDate && location.endDate){
+      _this.duration = location.startDate + " - " + location.endDate;
+    }
+
+    if(location.protectiveEquipment){
+      for(i = 0; i < location.protectiveEquipment.length; i++){
+        var equip = {};
+        equip.name = location.protectiveEquipment[i].equipmentName;
+        getCostType(location.protectiveEquipment[i], equip);
+        _this.protectiveEquipList.push(equip);
+      }
+    }
+
+    if(location.modeOfTransport){
+      for(i = 0; i < location.modeOfTransport.length; i++){
+        var mot = {};
+        mot.name = location.modeOfTransport[i].transportName;
+        getCostType(location.modeOfTransport[i], mot);
+        _this.modeOfTransportList.push(mot);
+      }
+    }
+
+    formatBarredEmployeesDisplay(location.barredEmployees);
+  }
 }
