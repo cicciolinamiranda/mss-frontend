@@ -3,7 +3,7 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, CreateLocationSvc) {
+function editCtrl(FileUploader, EditLocationSvc) {
   var _this = this;
   _this.location = {};
 
@@ -28,34 +28,27 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   //Protective Equipment
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
+  _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
   //Common
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
-  _this.costTypeChoices;
   _this.errMessage;
 
   function init() {
+    //this will be removed once the mapping on the service is completed
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
-    _this.location.locationSurvey = "";
-    _this.location.standardOps = "";
-    _this.location.locInstructions = "";
-    _this.location.healthSafetySurvey = "";
-    _this.location.technicalSurvey = "";
     _this.location.floorPlanUploader = new FileUploader();
-    _this.location.modeOfTransport = [];
-    _this.location.siteSkills = [];
-    _this.location.protectiveEquipment = [];
-    _this.location.barredEmployees = [];
-    _this.location.siteContactDetails = [];
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
+    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
     }, function (error) {
       _this.errMessage= error;
     });
+
+    getCustomerLocation(6);
   }
 
   init();
@@ -78,7 +71,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshMotSearch(keyword){
-    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
+    EditLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
       _this.transportChoices = modeOfTransportMock;
     }, function (error) {
       _this.errMessage= error;
@@ -86,7 +79,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshSkillsSearch(keyword){
-    CreateLocationSvc.searchSiteSkills(keyword).then(function(response){
+    EditLocationSvc.searchSiteSkills(keyword).then(function(response){
       _this.siteSkillsChoices = response;
     }, function (error) {
       _this.errMessage= error;
@@ -94,7 +87,7 @@ function editCtrl(FileUploader, CreateLocationSvc) {
   }
 
   function refreshProtectiveEquipmentSearch(keyword){
-    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
+    EditLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
       _this.protectiveEquipmentChoices = response;
     }, function (error) {
       _this.errMessage= error;
@@ -127,5 +120,13 @@ function editCtrl(FileUploader, CreateLocationSvc) {
 
   _this.test = function(){
     console.log(_this.location);
+  }
+
+  function getCustomerLocation(id) {
+    EditLocationSvc.getCustomerLocation(id).then(function(response){
+      _this.location = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
   }
 }
