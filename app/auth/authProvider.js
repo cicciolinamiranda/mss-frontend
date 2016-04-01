@@ -1,9 +1,11 @@
 require('eydis-gapi');
 require('angular-ui-router');
+require('angular-cookies');
 
 var ngApp = angular.module('GAuth', [
   'eydis.gapi',
-  'ui.router'
+  'ui.router',
+  'ngCookies'
 ]);
 
 ngApp.provider('GAuth', loginProvider);
@@ -21,6 +23,7 @@ function loginProvider() {
   _this.destinationStateOnError = "";
 
   _this.$get = /*@ngInject*/ function($gapi,
+                                      $cookies,
                                       $http,
                                       $state,
                                       $log,
@@ -34,6 +37,7 @@ function loginProvider() {
         }).then(function(token) {
           $log.debug('Token:', token);
           // TODO: check if session already exists
+          $log.debug($cookies.getAll());
           return $http({
             method: 'POST',
             url: _this.authUrl,
