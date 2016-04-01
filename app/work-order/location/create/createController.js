@@ -54,7 +54,6 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function init() {
     _this.location.workOrderId = $stateParams.workOrderId;
-    console.log(_this.location.workOrderId);
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.locationSurvey = "";
