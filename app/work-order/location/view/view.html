@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-md-9" style="padding-right:100px">
       <div class="row">
-        <div ng-switch="$ctrl.cloc.siteContactDetails.length > 0">
+        <div ng-switch="$ctrl.cloc.siteLocations.length > 0">
           <div ng-switch-when="false">
             <div class="alert alert-info" style="padding-left:20px">
               No data available.
@@ -41,7 +41,7 @@
       <div class="row">
         <div class="col-md-6">
           <span class="glyphicon glyphicon-map-marker"></span>
-          <span>{{$ctrl.cloc.address || 'Address not available'}}</span>
+          <span>{{$ctrl.cloc.address.address || 'Address not available'}}</span>
           <hr/>
         </div>
         <div class="col-md-6">
@@ -125,27 +125,27 @@
       <div class="row">
         <div class="col-md-12">
           <label> Site Contacts </label>
-          <div ng-switch="$ctrl.cloc.siteContactDetails.length > 0">
+          <div ng-switch="$ctrl.cloc.siteLocations.length > 0">
             <div ng-switch-when="false">
               <div class="alert alert-info" style="padding-left:20px">
                 No data available.
               </div>
             </div>
             <div ng-switch-default>
-              <ul class="list-group" ng-show="$ctrl.cloc.siteContactDetails.length > 0">
-                <li class="list-group-item" ng-repeat="contact in $ctrl.cloc.siteContactDetails">
+              <ul class="list-group" ng-show="$ctrl.cloc.siteLocations.length > 0">
+                <li class="list-group-item" ng-repeat="contact in $ctrl.cloc.siteLocations">
                   <div class="row">
                     <div class="col-md-1">
                       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
                     </div>
                     <div class="col-md-4">
-                      <span ng-bind="contact.name"></span>
+                      <span ng-bind="contact.siteLocationName"></span>
                     </div>
                     <div class="col-md-3">
-                      <span ng-bind="contact.phone"></span>
+                      <span ng-bind="contact.contactNumber"></span>
                     </div>
                     <div class="col-md-4">
-                      <span ng-bind="contact.email"></span>
+                      <span ng-bind="contact.siteLocationEmail"></span>
                     </div>
                   </div>
                 </li>
@@ -184,7 +184,7 @@
         </div>
         <div class="col-md-6">
           <label> Site Skills</label>
-          <div ng-switch="$ctrl.cloc.siteSkills.length > 0">
+          <div ng-switch="$ctrl.cloc.skills.length > 0">
             <div ng-switch-when="false">
               <div class="alert alert-info" style="padding-left:20px">
                 No data available.
@@ -192,7 +192,7 @@
             </div>
             <div ng-switch-default>
               <ul class="list-group">
-                <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.siteSkills">
+                <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.skills">
                   <div class="row">
                     <div class="col-md-1">
                       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
