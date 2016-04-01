@@ -54,6 +54,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   _this.customerLocationId = '';
 
   function init() {
+    _this.location.workOrderId = $stateParams.workOrderId;
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.locationSurvey = "";
@@ -153,6 +154,10 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     });
   }
 
+  //TODO change with actual save and page transition
+  function goToViewLocation() {
+    $state.go('location.view', {id: 1});
+  }
   function getProofOfDuties(){
     CreateLocationSvc.getProofofDutyValues().then(function(response){
       _this.proofOfDuties = response;
