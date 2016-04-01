@@ -241,26 +241,35 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-md-12">
-      <label for="isSupervised">Proof of Duty</label>
+      <label for="proofOfDuty">Proof of Duty</label>
 
       <div class="form-group">
-        <select class="form-control" id="proofOfDuty">
-          <option>Selfie</option>
-          <option>Call</option>
-        </select>
+          <ui-select ng-model="$ctrl.selectedProofOfDuty" theme="bootstrap">
+            <ui-select-match placeholder="Select a proof of duty">
+              <span ng-bind="$ctrl.selectedProofOfDuty.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in $ctrl.proofOfDuties" refresh="$ctrl.getProofOfDuties()"
+                               refresh-delay="5" >
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <label for="isSupervised">Method of Recording Time and Attendance</label>
+      <label for="methodOfRecording">Method of Recording Time and Attendance</label>
 
       <div class="form-group">
-        <select class="form-control" id="methodOfRecording">
-          <option>Online</option>
-          <option>Bundy Clock</option>
-          <option>IVR</option>
-        </select>
+        <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap">
+            <ui-select-match placeholder="Select a method of recording">
+              <span ng-bind="$ctrl.selectedMethodOfRecording.method"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in $ctrl.methodOfRecordings" refresh="$ctrl.getMethodOfRecordings()"
+                               refresh-delay="5" >
+              <span ng-bind="item.method"></span>
+            </ui-select-choices>
+          </ui-select>
       </div>
     </div>
   </div>
@@ -308,7 +317,7 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.goToViewLocation()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.saveCustomerLocation()">Save</button>
     <button type="button" class="btn btn-danger">Cancel</button>
   </div>
 </div>

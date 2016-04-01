@@ -31,8 +31,17 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   _this.costTypeDefault;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
+  //Proof Of Duty
+  _this.selectedProofOfDuty;
+  _this.proofOfDuties;
+  _this.getProofOfDuties = getProofOfDuties;
+
+  //Method Of Recording
+  _this.selectedMethodOfRecording;
+  _this.methodOfRecordings;
+  _this.getMethodOfRecordings = getMethodOfRecordings;
+
   //Common
-  _this.goToViewLocation = goToViewLocation;
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
   _this.costTypeChoices;
@@ -124,7 +133,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function addSiteContactField() {
     _this.location.siteContactDetails.push(
-        {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
     );
   }
 
@@ -138,14 +147,26 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function saveCustomerLocation() {
     CreateLocationSvc.save(_this.location).then(function (response) {
-      _this.customerLocationId = response.id
+      _this.customerLocationId = response.id;
+      $state.go('location.view', {id: _this.customerLocationId});
     }, function (error) {
       _this.errMessage = error;
     })
   }
 
-    //TODO change with actual save and page transition
-    function goToViewLocation() {
-      $state.go('location.view', {id: 1});
-    }
+  function getProofOfDuties(){
+    CreateLocationSvc.getProofofDutyValues().then(function(response){
+      _this.proofOfDuties = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function getMethodOfRecordings(){
+    CreateLocationSvc.getMethodOfRecordingValues().then(function(response){
+      _this.methodOfRecordings = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
 }
