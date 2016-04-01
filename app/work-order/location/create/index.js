@@ -10,7 +10,8 @@ var ngApp = angular.module('locationCreateApp', [
   'angularFileUpload',
   'ngSanitize',
   'ui.select',
-  'ngMessages'
+  'ngMessages',
+  'eydis.gapi'
 ]);
 
 require('./createService')(ngApp);

@@ -32,6 +32,7 @@ module.exports = mapCtrl;
 
       var pos = this.getPosition();
       setCoordinates(pos.lat(), pos.lng());
+      setEditCoordinates(pos.lat(), pos.lng());
       _this.map.setCenter(pos);
       reverseGeocode(pos);
   }
@@ -69,6 +70,10 @@ module.exports = mapCtrl;
       setCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
       _this.map.setCenter(place.geometry.location);
       _this.markerPosition = place.geometry.location;
+
+      //for edit form
+      setEditAddressInInput(place.formatted_address);
+      setEditCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
     }
 
     $scope.$apply();
@@ -81,12 +86,17 @@ module.exports = mapCtrl;
       setPositionOnMap(results[0].geometry.location);
       setAddressInInput(results[0].formatted_address);
       setCoordinates(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+
+      //for edit form
+      setEditAddressInInput(results[0].formatted_address);
+      setEditCoordinates(results[0].geometry.location.lat(), results[0].geometry.location.lng());
     }
 
     if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
       _this.alertMessage = "No match found. Returning to original location. Please manually drag the pin to the correct location.";
       setPositionOnMap(_this.initialCoordinates);
       setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
+      setEditCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
       reverseGeocode(_this.initialCoordinates);
     }
 
@@ -122,5 +132,14 @@ module.exports = mapCtrl;
   function setCoordinates(lat, lng){
     _this.latitude = lat;
     _this.longitude = lng;
+  }
+
+  function setEditAddressInInput(address){
+      _this.editaddress = address;
+  }
+
+  function setEditCoordinates(lat, lng){
+    _this.editlatitude = lat;
+    _this.editlongitude = lng;
   }
 }

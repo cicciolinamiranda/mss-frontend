@@ -41,6 +41,18 @@ describe("Create Location Component", function() {
     });
   }));
 
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.provider('$state', function () {
+          return {
+              $get: function () {
+                  return {
+                      params: {id:1}
+                  };
+              }
+          };
+      });
+  }));
+
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
     createService = $injector.get('CreateLocationSvc');
     stateParams = $injector.get('$stateParams');
