@@ -9,7 +9,6 @@ module.exports = payInfoCtrl;
 
     PayInfoSvc.getPayRates(_this.employee).then(function(employeePayRates){
       _this.employeePayRates = employeePayRates;
-      console.log(_this.employeePayRates);
     });
   }
 
