@@ -1,6 +1,4 @@
 <h2>Employee View</h2>
-<a class="btn btn-info btn-xs" ui-sref="employee.details({employeeId: $ctrl.employee.id})" role="button">    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View Details
-        </a>
 <div class="panel">
   <div class="row" >
     <div class="col-md-4"><label>ID</label></div>
@@ -107,6 +105,8 @@
     <div class="col-md-4" ng-bind="$ctrl.employee.rank"></div>
   </div>
   <hr />
-  <a ui-sref="employee.list" class="btn btn-default" role="button">Back</a>
+  
 </div>
-<pay-info employeeid="$ctrl.employee.id"></pay-info>
+<pay-info employee="$ctrl.employeeId"></pay-info>
+
+<a ui-sref="employee.list" class="btn btn-default" role="button">Back</a>

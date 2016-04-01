@@ -2,8 +2,7 @@ var angular = require('angular');
 require('eydis-gapi');
 
 var ngApp = angular.module('payInfoViewApp', [
-  'eydis.gapi',
-  'ui.router'
+  'eydis.gapi'
 ]);
 
 require('./payInfoService')(ngApp);

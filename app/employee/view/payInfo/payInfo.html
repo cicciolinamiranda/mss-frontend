@@ -1,0 +1,27 @@
+<h2>Pay Information</h2>
+<div class="panel">
+  <div ng-repeat="contractedHour in $ctrl.employeeContractedHours.employeeContractedHours">
+  	<div class="row">
+      <div class="col-md-4"><label>Contract Hour Threshold</label></div>
+      	<div class="col-md-4" ng-bind="contractedHour.contractHourThreshold"></div>
+      </div>
+    <div class="row">
+      <div class="col-md-4"><label>Contract Hour Period</label></div>
+      <div class="col-md-4" ng-bind="contractedHour.contractHourPeriod"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"><label>Contract Days</label></div>
+      <div class="col-md-4" ng-bind="contractedHour.contractDays"></div>
+    </div>
+  </div>
+  <div ng-repeat = "payRates in $ctrl.employeePayRates.employeePayRates">
+    <div class="row">
+      <div class="col-md-4"><label>Rate</label></div>
+      <div class="col-md-4" ng-bind="payRates.rate"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"><label>Rate Currency</label></div>
+      <div class="col-md-4" ng-bind="payRates.rateCurrency"></div>
+    </div>
+  </div>
+</div>
