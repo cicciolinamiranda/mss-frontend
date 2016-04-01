@@ -11,11 +11,15 @@ function createLocationService($http, $q, $gapi) {
   _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
+    _this.proofOfDuties;
+    _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
+    _this.getProofofDutyValues = getProofofDutyValues;
+    _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
 
   var cache = {};
   var deferred = $q.defer();
@@ -128,4 +132,32 @@ function createLocationService($http, $q, $gapi) {
 
     return _this.customerDetails;
   }
+
+    function getProofofDutyValues(){
+        var def = $q.defer();
+
+        $http.get("http://localhost:3000/proofOfDuty")
+            .success(function(response) {
+                _this.proofOfDuties = response;
+                def.resolve(response);
+            })
+            .error(function() {
+                def.reject("Server is down.");
+            });
+        return def.promise;
+    }
+
+    function getMethodOfRecordingValues(){
+        var def = $q.defer();
+
+        $http.get("http://localhost:3000/methodOfRecording")
+            .success(function(response) {
+                _this.proofOfDuties = response;
+                def.resolve(response);
+            })
+            .error(function() {
+                def.reject("Server is down.");
+            });
+        return def.promise;
+    }
 }
