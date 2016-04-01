@@ -6,18 +6,6 @@ var moment = require('moment');
 function createCtrl(FileUploader, CreateLocationSvc) {
   var _this = this;
   _this.location = {};
-
-  //_this.proofOfDuty = [
-  //  { "name": "Selfie"},
-  //  { "name": "Timecard"},
-  //];
-  //_this.methodOfRecording = [
-  //  { "method": "Online" },
-  //  { "method": "Bundy" },
-  //  { "method": "IVR" },
-  //];
-  _this.proofOfDuty;
-  _this.methodOfRecording;
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
 
@@ -39,6 +27,16 @@ function createCtrl(FileUploader, CreateLocationSvc) {
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
+
+  //Proof Of Duty
+  _this.selectedProofOfDuty;
+  _this.proofOfDuties;
+  _this.getProofOfDuties = getProofOfDuties;
+
+  //Method Of Recording
+  _this.selectedMethodOfRecording;
+  _this.methodOfRecordings;
+  _this.getMethodOfRecordings = getMethodOfRecordings;
 
   //Common
   _this.removeFromArray = removeFromArray;
@@ -137,5 +135,21 @@ function createCtrl(FileUploader, CreateLocationSvc) {
 
   _this.test = function(){
     console.log(_this.location);
+  }
+
+  function getProofOfDuties(){
+    CreateLocationSvc.getProofofDutyValues().then(function(response){
+      _this.proofOfDuties = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function getMethodOfRecordings(){
+    CreateLocationSvc.getMethodOfRecordingValues().then(function(response){
+      _this.methodOfRecordings = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
   }
 }
