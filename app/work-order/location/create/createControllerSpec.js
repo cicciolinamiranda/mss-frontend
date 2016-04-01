@@ -2,7 +2,7 @@ var component = require('./index');
 var moment = require('moment');
 
 describe("Create Location Component", function() {
-  var scope, controller, createService;
+  var scope, controller, createService, test, stateParams;
   var siteContactData = [
     {name: "Name1", phone: "Phone1", email: "Email1@email.com", index: 0},
     {name: "Name2", phone: "Phone2", email: "Email2@email.com", index: 1},
@@ -33,8 +33,30 @@ describe("Create Location Component", function() {
   ];
 
   beforeEach(angular.mock.module(component.name));
+
+  //TODO: I think this is unclean, investigate later.
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.value('$stateParams', {
+      workOrderId: 1
+    });
+  }));
+
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.provider('$state', function () {
+          return {
+              $get: function () {
+                  return {
+                      params: {id:1}
+                  };
+              }
+          };
+      });
+  }));
+
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
     createService = $injector.get('CreateLocationSvc');
+    stateParams = $injector.get('$stateParams');
+
     scope = $rootScope.$new();
 
     spyOn(createService, 'getBilledCostTypeValues').and.returnValue(
@@ -44,10 +66,10 @@ describe("Create Location Component", function() {
       $q.when(searchMoTResponse));
 
     spyOn(createService, 'searchSiteSkills').and.returnValue(
-        $q.when(siteSkills));
+      $q.when(siteSkills));
 
     spyOn(createService, 'searchProtectiveEquipment').and.returnValue(
-            $q.when(protectiveEquip));
+      $q.when(protectiveEquip));
 
     var element = angular.element('<location-create></location-create>');
     $compile(element)(scope);

@@ -1,9 +1,9 @@
-module.exports = createCtrl;
+module.exports = editCtrl;
 
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
+function editCtrl(FileUploader, EditLocationSvc) {
   var _this = this;
   _this.location = {};
 
@@ -28,54 +28,27 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   //Protective Equipment
   _this.protectiveEquipmentChoices;
   _this.selectedProtectiveEquipment;
-  _this.costTypeDefault;
+  _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
-  //Proof Of Duty
-  _this.selectedProofOfDuty;
-  _this.proofOfDuties;
-  _this.getProofOfDuties = getProofOfDuties;
-
-  //Method Of Recording
-  _this.selectedMethodOfRecording;
-  _this.methodOfRecordings;
-  _this.getMethodOfRecordings = getMethodOfRecordings;
-
   //Common
-  _this.goToViewLocation = goToViewLocation;
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
-  _this.costTypeChoices;
   _this.errMessage;
 
-  //Save Customer Details
-  _this.saveCustomerLocation = saveCustomerLocation;
-
-  _this.customerLocationId = '';
-
   function init() {
+    //this will be removed once the mapping on the service is completed
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
-    _this.location.locationSurvey = "";
-    _this.location.standardOps = "";
-    _this.location.locInstructions = "";
-    _this.location.healthSafetySurvey = "";
-    _this.location.technicalSurvey = "";
     _this.location.floorPlanUploader = new FileUploader();
-    _this.location.modeOfTransport = [];
-    _this.location.siteSkills = [];
-    _this.location.protectiveEquipment = [];
-    _this.location.barredEmployees = [];
-    _this.location.siteContactDetails = [];
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function (costTypeResponse) {
-      _this.costTypeChoices = costTypeResponse;
-      if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeResponse[0].id;
-      }
+    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
+      _this.costTypeChoices = costTypeMock;
     }, function (error) {
       _this.errMessage= error;
     });
+
+    getCustomerLocation(6);
   }
 
   init();
@@ -98,7 +71,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   }
 
   function refreshMotSearch(keyword){
-    CreateLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
+    EditLocationSvc.searchMockModeOfTransport(keyword).then(function(modeOfTransportMock){
       _this.transportChoices = modeOfTransportMock;
     }, function (error) {
       _this.errMessage= error;
@@ -106,7 +79,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   }
 
   function refreshSkillsSearch(keyword){
-    CreateLocationSvc.searchSiteSkills(keyword).then(function(response){
+    EditLocationSvc.searchSiteSkills(keyword).then(function(response){
       _this.siteSkillsChoices = response;
     }, function (error) {
       _this.errMessage= error;
@@ -114,7 +87,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   }
 
   function refreshProtectiveEquipmentSearch(keyword){
-    CreateLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
+    EditLocationSvc.searchProtectiveEquipment(keyword).then(function(response){
       _this.protectiveEquipmentChoices = response;
     }, function (error) {
       _this.errMessage= error;
@@ -145,26 +118,13 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     }
   }
 
-  function saveCustomerLocation() {
-    CreateLocationSvc.save(_this.location).then(function (response) {
-      _this.customerLocationId = response.id
-    }, function (error) {
-      _this.errMessage= error;
-    });
+  _this.test = function(){
+    console.log(_this.location);
   }
 
-  function getProofOfDuties(){
-    CreateLocationSvc.getProofofDutyValues().then(function(response){
-      _this.proofOfDuties = response;
-    }, function (error) {
-      _this.errMessage= error;
-    });
-  }
-
-
-  function getMethodOfRecordings(){
-    CreateLocationSvc.getMethodOfRecordingValues().then(function(response){
-      _this.methodOfRecordings = response;
+  function getCustomerLocation(id) {
+    EditLocationSvc.getCustomerLocation(id).then(function(response){
+      _this.location = response;
     }, function (error) {
       _this.errMessage= error;
     });

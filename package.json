@@ -4,7 +4,7 @@
   "description": "Frontend for Employee operational data",
   "main": "app/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot",
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot --host 10.10.8.91",
     "test": "./node_modules/.bin/karma start --single-run",
     "tdd": "./node_modules/.bin/karma start",
     "build": "./node_modules/.bin/webpack --config webpack.config.prod.js --content-base app"
@@ -40,6 +40,7 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-file-upload": "^2.2.0",
+    "angular-messages": "^1.5.3",
     "angular-sanitize": "^1.5.3",
     "angular-ui-router": "^0.2.18",
     "eydis-gapi": "git+https://github.com/yowmamasita/Eydis-GAPI.git",

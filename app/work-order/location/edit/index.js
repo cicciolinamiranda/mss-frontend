@@ -3,18 +3,15 @@ require('angular-file-upload');
 require('ui-select');
 require('style!css!ui-select/dist/select.css');
 require('angular-sanitize');
-require('angular-messages');
 
 
-var ngApp = angular.module('locationCreateApp', [
+var ngApp = angular.module('locationEditApp', [
   'angularFileUpload',
   'ngSanitize',
-  'ui.select',
-  'ngMessages',
-  'eydis.gapi'
+  'ui.select'
 ]);
 
-require('./createService')(ngApp);
-require('./createComponent')(ngApp);
+require('./editService')(ngApp);
+require('./editComponent')(ngApp);
 
 module.exports = ngApp;
