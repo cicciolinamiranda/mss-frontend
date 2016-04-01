@@ -8,8 +8,6 @@ var ngApp = angular.module('employeeViewApp', [
 	require('./details/payInfo/index').name
 ]);
 
-
-
 require('./viewService')(ngApp);
 require('./viewComponent')(ngApp);
 

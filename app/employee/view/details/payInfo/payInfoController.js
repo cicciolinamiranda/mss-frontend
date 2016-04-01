@@ -1,11 +1,11 @@
 module.exports = payInfoCtrl;
 
-function payInfoCtrl(PayInfoSvc) {
+/*@ngInject*/function payInfoCtrl(PayInfoSvc, $scope) {
 
   var _this = this;
-
+  console.log(_this);
   function init() {
-    console.log("payInfoCtrl:"+ this.employeeId);
+    console.log("payInfoCtrl:"+ $scope.employeeid);
 
   	PayInfoSvc.getEmployeeContractedHours("1054287114").then(function(employeeContractedHours){
 
