@@ -1,8 +1,13 @@
 module.exports = resultsCtrl;
 
+/*@ngInject*/
 function resultsCtrl($stateParams) {
-  /*@ngInject*/
   var _this = this;
   _this.query = $stateParams.q;
+  _this.searchResults = [];
+
+  function init(){
+
+  }
 
 }
