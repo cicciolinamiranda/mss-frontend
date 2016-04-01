@@ -14,18 +14,30 @@ function loginProvider() {
   _this.authUrl = "";
   _this.destinationState = "";
 
-  _this.$get = /*@ngInject*/ function($gapi, $http, $state) {
+  _this.$get = /*@ngInject*/ function($gapi,
+                                      $http,
+                                      $state,
+                                      $log,
+                                      $httpParamSerializer) {
     return {
       setUp: function() {
         return $gapi.authed.then(function() {
           return $gapi.get_auth_token();
         }).then(function(token) {
-          return $http.post(_this.authUrl);
-        }).then(function() {
+          $log.debug('Token:', token);
+          return $http({
+            method: 'POST',
+            url: _this.authUrl,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: $httpParamSerializer({token: token.id_token})
+          });
+        }).then(function(data) {
+          $log.debug('Response from backend (success):', data);
           $state.go(_this.destinationState);
-        }, function() {
+        }, function(data) {
+          $log.debug('Response from backend (error):', data);
           // catch error
-          $state.go(_this.destinationState);
+          $log.error("Encountered an error logging in.");
         });
       }
     };
