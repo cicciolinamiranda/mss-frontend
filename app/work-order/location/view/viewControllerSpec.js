@@ -1,8 +1,7 @@
 var component = require('./index');
-var moment = require('moment');
 
 describe("View Location Component", function() {
-    var scope, controller, viewService, state;
+    var scope, controller, viewService, state, stateParam;
     var mockLocData =[
       {
         "id": 1,
@@ -55,7 +54,11 @@ describe("View Location Component", function() {
     ];
 
     beforeEach(angular.mock.module(component.name));
-
+    beforeEach(angular.mock.module(function($provide) {
+      $provide.value('$stateParams', {
+        id: 1
+      });
+    }));
     beforeEach(angular.mock.module(function($provide) {
       $provide.provider('$state', function () {
             return {
@@ -68,27 +71,51 @@ describe("View Location Component", function() {
         });
     }));
 
-    beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
-      viewService = $injector.get('ViewLocationSvc');
-      state = $injector.get('$state');
+    beforeEach(inject(function($rootScope, _$componentController_, $q, $injector) {
+        viewService = $injector.get('ViewLocationSvc');
+        spyOn(viewService, 'getBilledCostType').and.returnValue(
+            $q.when({ "id": "ONE_OFF_COST", "name": "One-off Cost"}));
 
-      scope = $rootScope.$new();
+        spyOn(viewService, 'getLocationDetails').and.returnValue(
+          $q.when(mockLocData));
 
-      spyOn(viewService, 'getBilledCostType').and.returnValue(
-        $q.when({ "id": "ONE_OFF_COST", "name": "One-off Cost"}));
+        state = $injector.get('$state');
+        stateParam = $injector.get('$stateParams');
 
-      state.params = { id: 1 };
-      spyOn(viewService, 'getLocationDetails').and.returnValue(
-        $q.when(mockLocData));
-
-      var element = angular.element('<location-view></location-view>');
-      $compile(element)(scope);
-      scope.$apply();
-
-      controller = element.controller('locationView', { ViewLocationSvc:viewService, $stateParams:state.params});
+        scope = $rootScope.$new();
+        controller = _$componentController_;
     }));
 
-    //TODO Tests
+    it('must ensure the correct parameter is passed', function() {
+       var ctrl = controller('locationView', {$scope: scope, ViewLocationSvc: viewService,
+        $state: state, $stateParams: stateParam});
 
+       expect(ctrl).toBeDefined();
+       expect(ctrl.locId).toEqual(1);
+    });
 
+    it('must check that location details are received from backend', function() {
+       var ctrl = controller('locationView', {$scope: scope, ViewLocationSvc: viewService,
+        $state: state, $stateParams: stateParam});
+
+        expect(ctrl).toBeDefined();
+        viewService.getLocationDetails(1).then(function(response){
+           expect(response).toBeDefined();
+           expect(ctrl.cloc).toBeDefined();
+           expect(ctrl.cloc.id).toEqual(1);
+           expect(ctrl.cloc.barredEmployees.length).toEqual(0);
+           expect(ctrl.cloc.address).toEqual("Paseo de Roxas, Makati, NCR");
+           expect(ctrl.coordinates).toEqual(mockLocData.latitude + " " + mockLocData.longitude);
+           expect(ctrl.duration).toEqual(mockLocData.startDate + " " + mockLocData.endDate);
+           expect(ctrl.mapSource).toEqual("https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
+             + mockLocData.latitude + "," + mockLocData.longitude);
+           expect(ctrl.protectiveEquipList.length).toEqual(2);
+           expect(ctrl.protectiveEquipList[0]).toEqual(
+             {
+               name: "Bulletproof Vest",
+               costType: "[One-Off Cost]"
+             }
+           );
+        });
+    });
 });
