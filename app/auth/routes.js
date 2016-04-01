@@ -14,5 +14,9 @@ function routes($stateProvider) {
       name: 'auth.login',
       url: '',
       template: '<login-form/>'
+    }).state({
+      name: 'auth.error',
+      url: '/authError',
+      template: require('./authError.html')
     });
 }

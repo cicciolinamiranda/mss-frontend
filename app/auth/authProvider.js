@@ -10,9 +10,15 @@ ngApp.provider('GAuth', loginProvider);
 
 function loginProvider() {
   var _this = this;
+  var STATUS = {
+    FAILED: -1,
+    PENDING: 0,
+    SUCCESS: 1
+  };
 
   _this.authUrl = "";
-  _this.destinationState = "";
+  _this.destinationStateOnSuccess = "";
+  _this.destinationStateOnError = "";
 
   _this.$get = /*@ngInject*/ function($gapi,
                                       $http,
@@ -20,11 +26,14 @@ function loginProvider() {
                                       $log,
                                       $httpParamSerializer) {
     return {
-      setUp: function() {
+      status: STATUS.PENDING,
+      setUp: (function() {
+        this.status = STATUS.PENDING;
         return $gapi.authed.then(function() {
           return $gapi.get_auth_token();
         }).then(function(token) {
           $log.debug('Token:', token);
+          // TODO: check if session already exists
           return $http({
             method: 'POST',
             url: _this.authUrl,
@@ -32,14 +41,17 @@ function loginProvider() {
             data: $httpParamSerializer({token: token.id_token})
           });
         }).then(function(data) {
+          this.status = STATUS.SUCCESS;
           $log.debug('Response from backend (success):', data);
-          $state.go(_this.destinationState);
+          $log.info("Successfully logged in.");
+          return $state.go(_this.destinationStateOnSuccess);
         }, function(data) {
+          this.status = STATUS.FAILED;
           $log.debug('Response from backend (error):', data);
-          // catch error
           $log.error("Encountered an error logging in.");
+          return $state.go(_this.destinationStateOnError);
         });
-      }
+      }).bind(this)
     };
   };
 }

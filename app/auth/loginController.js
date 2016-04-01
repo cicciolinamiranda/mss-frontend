@@ -1,6 +1,6 @@
 module.exports = loginCtrl;
 
-/*@ngInject*/ function loginCtrl($scope, $gapi, GAuth) {
+/*@ngInject*/ function loginCtrl($gapi, GAuth) {
   var _this = this;
 
   function init() {
