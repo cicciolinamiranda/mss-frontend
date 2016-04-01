@@ -13,6 +13,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.barredEmployeesList = [];
 
   _this.archiveLocation = archiveLocation;
+  _this.editLocation = editLocation;
 
   function init() {
 
@@ -88,5 +89,9 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
   function archiveLocation(id){
     $state.go('workOrder', {id: 1});
+  }
+
+  function editLocation(id){
+    $state.go('location.edit', {id: 1});
   }
 }

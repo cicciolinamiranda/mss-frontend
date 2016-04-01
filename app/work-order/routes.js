@@ -22,7 +22,7 @@ function routes($stateProvider) {
   })
   .state({
     name: 'location.edit',
-    url: '/edit',
+    url: '/edit/:id',
     template: '<location-edit/>'
   })
   .state({
