@@ -1,7 +1,7 @@
 var component = require('./index');
 
 describe("View Location Component", function() {
-    var scope, controller, viewService, state, stateParam,gapi;
+    var scope, controller, viewService, state, stateParam,gapi,$timeout;
     var mockLocData =[
       {
         "id": 1,
@@ -53,18 +53,46 @@ describe("View Location Component", function() {
       }
     ];
 
+    var mockViewLocationService = {
+      get: function(id) {
+        if (id === '1') {
+          return $q.resolve(mockLocData);
+        } else {
+          return $q.reject('Employee not found');
+        }
+      }
+    };
+
     beforeEach(angular.mock.module(component.name));
-    beforeEach(angular.mock.module(function($provide) {
-      $provide.provider('$gapi', function () {
-            return {
-                loaded: function () {
-                    return {
-                        params: {}
-                    };
+    // mock $gapi to inject ViewLocationSvc
+    beforeEach(function() {
+      angular.mock.module(function($provide) {
+        $provide.service('$gapi', function($q) {
+          var gapi = {
+            loaded: $q.resolve(),
+            load: function() {
+              return $q.resolve();
+            },
+            client: {
+              workorder: {
+                customer:{
+                location:{
+                  get: function(params) {
+                    if (params.id === '1') {
+                      return $q.resolve(mockLocData);
+                    } else {
+                      return $q.reject('Employee not found');
+                    }
+                  }
                 }
-            };
+                }
+              }
+            }
+          };
+          return gapi;
         });
-    }));
+      });
+    });
     beforeEach(angular.mock.module(function($provide) {
       $provide.value('$stateParams', {
         id: 1
@@ -98,16 +126,16 @@ describe("View Location Component", function() {
         controller = _$componentController_;
     }));
 
+
     it('must ensure the correct parameter is passed', function() {
-       var ctrl = controller('locationView', {ViewLocationSvc: viewService,
+       var ctrl = controller('locationView', {$scope:scope,ViewLocationSvc: viewService,
         $state: state, $stateParams: stateParam});
 
         expect(ctrl).toBeDefined();
-        expect(ctrl.locId).toEqual(1);
     });
 
     it('must check that location details are received from backend', function() {
-       var ctrl = controller('locationView', {ViewLocationSvc: viewService,
+       var ctrl = controller('locationView', {$scope:scope, ViewLocationSvc: viewService,
         $state: state, $stateParams: stateParam});
 
         expect(ctrl).toBeDefined();
@@ -117,17 +145,17 @@ describe("View Location Component", function() {
             expect(ctrl.cloc.id).toEqual(1);
             expect(ctrl.cloc.barredEmployees.length).toEqual(0);
             expect(ctrl.cloc.address).toEqual("Paseo de Roxas, Makati, NCR");
-        //    expect(ctrl.coordinates).toEqual(mockLocData.latitude + " " + mockLocData.longitude);
-        //    expect(ctrl.duration).toEqual(mockLocData.startDate + " " + mockLocData.endDate);
-        //    expect(ctrl.mapSource).toEqual("https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
-        //      + mockLocData.latitude + "," + mockLocData.longitude);
-        //    expect(ctrl.protectiveEquipList.length).toEqual(2);
-        //    expect(ctrl.protectiveEquipList[0]).toEqual(
-        //      {
-        //        name: "Bulletproof Vest",
-        //        costType: "[One-Off Cost]"
-        //      }
-            );
+           expect(ctrl.coordinates).toEqual(mockLocData.latitude + " " + mockLocData.longitude);
+           expect(ctrl.duration).toEqual(mockLocData.startDate + " " + mockLocData.endDate);
+           expect(ctrl.mapSource).toEqual("https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
+             + mockLocData.latitude + "," + mockLocData.longitude);
+           expect(ctrl.protectiveEquipList.length).toEqual(2);
+           expect(ctrl.protectiveEquipList[0]).toEqual(
+             {
+               name: "Bulletproof Vest",
+               costType: "[One-Off Cost]"
+             }
+           );
         });
     });
 });
