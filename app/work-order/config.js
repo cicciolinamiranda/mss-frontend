@@ -4,5 +4,5 @@ module.exports = function (ngModule) {
 
 function config($gapiProvider) {
   //TODO: Replace with appspot url when backend is deployed
-  $gapiProvider.api_base = 'http://localhost:8083/_ah/api';
+  $gapiProvider.api_base = 'http://localhost:8080/_ah/api';
 }
