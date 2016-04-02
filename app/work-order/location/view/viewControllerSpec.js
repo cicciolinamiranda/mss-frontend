@@ -132,6 +132,7 @@ describe("View Location Component", function() {
         $state: state, $stateParams: stateParam});
 
         expect(ctrl).toBeDefined();
+        expect(ctrl.locId).toEqual(1);
     });
 
     it('must check that location details are received from backend', function() {
