@@ -44,7 +44,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         var emp = {};
         emp.name = barredEmployees[i].lastName +
           ", " + barredEmployees[i].firstName;
-        emp.barsStartDate = barredEmployees[i].startDate;
+        emp.barsStartDate = transformJodaTimeToDate(barredEmployees[i].startDate);
 
         _this.barredEmployeesList.push(emp);
       }
@@ -55,7 +55,6 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   function formatDisplay(location){
     _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
       + location.address.latitude + "," + location.address.longitude;
-      console.log("MAP SOURCE: "+_this.mapSource);
 
     if(location.address.latitude && location.address.longitude){
       _this.coordinates = location.address.latitude + " " + location.address.longitude;
@@ -82,7 +81,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         _this.modeOfTransportList.push(mot);
       }
     }
-    console.log("location.barredEmployees: "+ JSON.stringify(location.barredEmployees));
+    console.log("location.barredEmployees: "+ JSON.stringify(location.barredEmployees[0].firstName));
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
