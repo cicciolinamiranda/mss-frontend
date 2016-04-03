@@ -51,6 +51,7 @@ describe("Create Location Component", function() {
               }
           };
       });
+      $provide.constant('GAPI_BASE', '');
   }));
 
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
