@@ -130,8 +130,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
 
   function getCustomerLocation(id) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
-      console.log("ID in edit: "+id);
-      console.log("RESPONSEEE:"+response);
       _this.location = response;
     }, function (error) {
       _this.errMessage= error;
