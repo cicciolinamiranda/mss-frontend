@@ -120,13 +120,13 @@
             <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item">
               <div class="row">
                 <div class="col-md-5">
-                  <span class="text-muted">{{barredEmployee.id}}</span></br>
-                  <span>{{barredEmployee.firstname}} {{barredEmployee.surname}}</span>
+                  <span class="text-muted">{{barredEmployee.employeeId}}</span></br>
+                  <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
                 </div>
                 <div class="col-md-7">
                   <div class="row">
                     <div class="col-md-10">
-                      <input type="date" class="form-control input-sm" ng-model="barredEmployee.barStartDate" required/>
+                      <input type="date" class="form-control input-sm" ng-model="barredEmployee.startDate" required/>
                     </div>
                     <div class="col-md-2">
                       <a href="" class="text-danger" ng-click="$ctrl.removeFromArray($ctrl.location.barredEmployees,barredEmployee.id)"><i class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>

@@ -28,7 +28,6 @@ function editLocationService($http, $q, $gapi) {
   });
 
   this.update = function (customerLocationDetails) {
-    console.log("update: "+ JSON.stringify(customerLocationDetails));
     var deferred2 = $q.defer();
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.update(
@@ -88,7 +87,7 @@ function editLocationService($http, $q, $gapi) {
 
     $http.get("http://localhost:3000/equipments", {params:{"q": keyword}})
     .success(function(response) {
-      _this.siteSkills = response;
+      _this.protectiveEquipment = response;
       def.resolve(response);
     })
     .error(function() {
@@ -125,28 +124,28 @@ function editLocationService($http, $q, $gapi) {
       editlongitude : response.address.longitude,
       editlatitude : response.address.latitude,
       protectiveEquipment : response.equipments,
-      modeOfTransport : response.modeOfTransports,
-      siteSkills : response.skills,
-      siteContactDetails : response.siteLocations,
+      modeOfTransport : checkListIfNull(response.modeOfTransports),
+      siteSkills : checkListIfNull(response.skills),
+      siteSkillsChoices: checkListIfNull(response.skills),
+      siteContactDetails : checkListIfNull(response.siteLocations),
       startDate : transformJodaTimeToDate(response.startDate),
       endDate : transformJodaTimeToDate(response.endDate),
-      barredEmployees : formatBarredEmployees(response.barredEmployees),
+      barredEmployees : formatBarredEmployeesToJSON(response.barredEmployees),
       createdDate: transformJodaTimeToDate(response.createdDate)
     };
-    console.log("transformDTOtoJSON: "+customerLocation);
     return customerLocation;
   }
 
   function transformJsonToDTO(json) {
     _this.customerDetails = {
-      'workOrderId': json.workOrderId,
+      'workOrderId': 1,
       'id': json.id,
       'name': '',
       'equipments': json.protectiveEquipment,
       'modeOfTransports': json.modeOfTransport,
       'skills': json.siteSkills,
       'tasks': [],
-      'barredEmployees': json.barredEmployees,
+      'barredEmployees': formatBarredEmployeesToDTO(json.barredEmployees),
       'incidentLogs': [],
       'address':{
         'address':json.editaddress,
@@ -178,20 +177,44 @@ function editLocationService($http, $q, $gapi) {
     return date;
   }
 
-  function formatBarredEmployees(barredEmployees) {
-    console.log("BARRED EMPLOYEES");
+  function formatBarredEmployeesToJSON(barredEmployees) {
     var barredEmployeesList =[];
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.name = barredEmployees[i].lastName +
-          ", " + barredEmployees[i].firstName;
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
-        emp.endDate = transformJodaTimeToDate(barredEmployees[i].startDate);
+        emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
         barredEmployeesList.push(emp);
       }
     }
     return barredEmployeesList;
+  }
+
+  function formatBarredEmployeesToDTO(barredEmployees) {
+    var barredEmployeesList =[];
+    if(barredEmployees){
+      for(i = 0; i < barredEmployees.length; i++){
+        var emp = {};
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
+        emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+        emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+        barredEmployeesList.push(emp);
+      }
+    }
+    return barredEmployeesList;
+  }
+
+  function checkListIfNull(list) {
+    if(undefined == list)
+    {
+      list = [];
+    }
+    return list;
   }
 
 }
