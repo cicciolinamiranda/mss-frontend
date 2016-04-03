@@ -81,7 +81,6 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         _this.modeOfTransportList.push(mot);
       }
     }
-    console.log("location.barredEmployees: "+ JSON.stringify(location.barredEmployees[0].firstName));
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
@@ -95,7 +94,6 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
   function transformJodaTimeToDate(jodatime) {
     var date;
-    console.log("jodatime: "+JSON.stringify(jodatime));
       if(undefined !== jodatime) {
         date = moment((jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year),"MM/DD/YYYY").toDate();
       }

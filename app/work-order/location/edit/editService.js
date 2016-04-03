@@ -110,10 +110,9 @@ function editLocationService($http, $q, $gapi) {
 
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.get({'id' : id});
-      console.log(response);
       def.resolve(transformDTOtoJSON(response));
     }).then(function (data) {
-      def.resolve(data);
+      def.resolve(transformDTOtoJSON(data));
     });
     return def.promise;
   }
@@ -131,8 +130,10 @@ function editLocationService($http, $q, $gapi) {
       siteContactDetails : response.siteLocations,
       startDate : transformJodaTimeToDate(response.startDate),
       endDate : transformJodaTimeToDate(response.endDate),
-      barredEmployees : response.barredEmployees
+      barredEmployees : formatBarredEmployees(response.barredEmployees),
+      createdDate: transformJodaTimeToDate(response.createdDate)
     };
+    console.log("transformDTOtoJSON: "+customerLocation);
     return customerLocation;
   }
 
@@ -166,17 +167,31 @@ function editLocationService($http, $q, $gapi) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
-    console.log("transformDTOtoJSON: "+_this.customerDetails);
     return _this.customerDetails;
   }
 
   function transformJodaTimeToDate(jodatime) {
     var date;
-    console.log("jodatime: "+JSON.stringify(jodatime));
       if(undefined !== jodatime) {
         date = moment((jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year),"MM/DD/YYYY").toDate();
       }
     return date;
+  }
+
+  function formatBarredEmployees(barredEmployees) {
+    console.log("BARRED EMPLOYEES");
+    var barredEmployeesList =[];
+    if(barredEmployees){
+      for(i = 0; i < barredEmployees.length; i++){
+        var emp = {};
+        emp.name = barredEmployees[i].lastName +
+          ", " + barredEmployees[i].firstName;
+        emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
+        emp.endDate = transformJodaTimeToDate(barredEmployees[i].startDate);
+        barredEmployeesList.push(emp);
+      }
+    }
+    return barredEmployeesList;
   }
 
 }
