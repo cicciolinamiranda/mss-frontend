@@ -13,7 +13,8 @@ function routes($stateProvider) {
     .state({
       name: 'auth.login',
       url: '',
-      template: '<login-form/>'
+      template: '<login-form/>',
+      params: {willRedirect: null}
     }).state({
       name: 'auth.error',
       url: '/authError',
