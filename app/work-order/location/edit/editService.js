@@ -2,7 +2,9 @@ module.exports = function(ngModule) {
   ngModule.service('EditLocationSvc', editLocationService);
 };
 
-function editLocationService($http, $q) {
+var moment = require('moment');
+
+function editLocationService($http, $q, $gapi) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -15,6 +17,28 @@ function editLocationService($http, $q) {
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
   _this.getCustomerLocation = getCustomerLocation;
+
+  var deferred = $q.defer();
+  var loadApi = deferred.promise;
+
+  $gapi.loaded.then(function () {
+    return $gapi.load('workorder', 'v1', true);
+  }).then(function () {
+    return deferred.resolve();
+  });
+
+  this.update = function (customerLocationDetails) {
+    console.log("update: "+ JSON.stringify(customerLocationDetails));
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.workorder.customer.location.update(
+        transformJsonToDTO(customerLocationDetails)
+      );
+    }).then(function (data) {
+      deferred2.resolve(data);
+    });
+    return deferred2.promise;
+  };
 
   function searchMockModeOfTransport(keyword){
     var def = $q.defer();
@@ -76,27 +100,83 @@ function editLocationService($http, $q) {
   function getCustomerLocation(id) {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
-    .success(function(response) {
-      console.log(response[0]);
-      def.resolve(transformDTOtoJSON(response[0]));
-    })
-    .error(function() {
-      def.reject("Server is down.");
+    // $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
+    // .success(function(response) {
+    //   def.resolve(transformDTOtoJSON(response[0]));
+    // })
+    // .error(function() {
+    //   def.reject("Server is down.");
+    // });
+
+    loadApi.then(function () {
+      return $gapi.client.workorder.customer.location.get({'id' : id});
+      console.log(response);
+      def.resolve(transformDTOtoJSON(response));
+    }).then(function (data) {
+      def.resolve(data);
     });
     return def.promise;
   }
 
   function transformDTOtoJSON(response) {
     customerLocation = {
+      workOrderId : response.workOrderId,
+      id : response.id,
       editaddress : response.address.address,
       editlongitude : response.address.longitude,
       editlatitude : response.address.latitude,
       protectiveEquipment : response.equipments,
       modeOfTransport : response.modeOfTransports,
       siteSkills : response.skills,
-      siteContactDetails : response.siteLocations
+      siteContactDetails : response.siteLocations,
+      startDate : transformJodaTimeToDate(response.startDate),
+      endDate : transformJodaTimeToDate(response.endDate),
+      barredEmployees : response.barredEmployees
     };
     return customerLocation;
   }
+
+  function transformJsonToDTO(json) {
+    _this.customerDetails = {
+      'workOrderId': json.workOrderId,
+      'id': json.id,
+      'name': '',
+      'equipments': json.protectiveEquipment,
+      'modeOfTransports': json.modeOfTransport,
+      'skills': json.siteSkills,
+      'tasks': [],
+      'barredEmployees': json.barredEmployees,
+      'incidentLogs': [],
+      'address':{
+        'address':json.editaddress,
+        'latitude':json.editlatitude,
+        'longitude':json.editlongitude
+      },
+      'sopDetails': '',
+      'locationInstructionsApproval': json.locInstructions,
+      'healthSafetySurvey': json.healthSafetySurvey,
+      'technicalSurvey': json.technicalSurvey,
+      'locationSurvey': json.locationSurvey,
+      'floorPlan': '',
+      'customer': {
+        'id':'1'
+      },
+      'siteLocations': [],
+      'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
+      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
+      'statusStr': 'IN_PROGRESS'
+    };
+    console.log("transformDTOtoJSON: "+_this.customerDetails);
+    return _this.customerDetails;
+  }
+
+  function transformJodaTimeToDate(jodatime) {
+    var date;
+    console.log("jodatime: "+JSON.stringify(jodatime));
+      if(undefined !== jodatime) {
+        date = moment((jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year),"MM/DD/YYYY").toDate();
+      }
+    return date;
+  }
+
 }
