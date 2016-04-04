@@ -182,7 +182,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
-    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
