@@ -2,7 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('ViewLocationSvc', viewLocationService);
 };
 
-function viewLocationService($http, $q, $gapi) {
+function viewLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
   var _this = this;
 
@@ -14,7 +14,7 @@ function viewLocationService($http, $q, $gapi) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', true);
+    return $gapi.load('workorder', 'v1', GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
@@ -23,7 +23,7 @@ function viewLocationService($http, $q, $gapi) {
   function getLocationDetails(id){
     var def = $q.defer();
 
-    // $http.get("http://localhost:3000/customerLocation", {params:{"id": id}})
+    // $http.get(MOCK_BASE + "/customerLocation", {params:{"id": id}})
     //      .success(function(response) {
     //           _this.locDetails = response;
     //           def.resolve(response);
@@ -44,7 +44,7 @@ function viewLocationService($http, $q, $gapi) {
   function getBilledCostType(id){
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/billedCostType", {params:{"id": id}})
+    $http.get(MOCK_BASE + "/billedCostType", {params:{"id": id}})
          .success(function(response) {
               _this.billedCostType = response;
               def.resolve(response);
