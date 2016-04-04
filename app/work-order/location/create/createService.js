@@ -94,7 +94,6 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
-    console.log(json.workOrderId);
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'name': '',

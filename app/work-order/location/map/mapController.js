@@ -19,10 +19,20 @@ module.exports = mapCtrl;
 
     NgMap.getMap().then(function(map) {
       _this.map = map;
+
+      if(_this.editlatitude && _this.editlongitude){
+        _this.map.setCenter({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
+        _this.map.markers.mapMarker.setPosition({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
+      }
+
       //position textbox within map
       _this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     });
-    geolocate();
+
+    //if not from edit page
+    if(!(_this.editlatitude && _this.editlongitude)){
+      geolocate();
+    }
   }
 
   init();
@@ -112,6 +122,8 @@ module.exports = mapCtrl;
           };
           reverseGeocode(_this.initialCoordinates);
           setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
+           _this.map.setCenter({lat: parseFloat(_this.initialCoordinates.lat), lng: parseFloat(_this.initialCoordinates.lng)});
+           _this.map.markers.mapMarker.setPosition({lat: parseFloat(_this.initialCoordinates.lat), lng: parseFloat(_this.initialCoordinates.lng)});
         }, function() {
           _this.alertMessage = "No results found";
         });
