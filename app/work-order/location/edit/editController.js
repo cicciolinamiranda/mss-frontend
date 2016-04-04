@@ -45,6 +45,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   //Common
   _this.removeFromArray = removeFromArray;
+  _this.hideFromDisplay = hideFromDisplay;
   _this.addToArray = addToArray;
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
@@ -76,19 +77,26 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     employee.barStartDate = moment().toDate();
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
+    employee.deleted = false;
     _this.location.barredEmployees.push(employee);
+  }
+
+  function hideFromDisplay(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+        array[i].deleted = true;
+        }
+
+        //array.splice(i, 1);
+      }
+    }
   }
 
   function removeFromArray(array, id){
     for(i= 0; i < array.length; i++){
       if(array[i].id === id){
-        if(undefined !== array[i].deleted) {
-          console.log("ARRAY to be deleted-->"+JSON.stringify(array[i].deleted));
-        array[i].deleted = true;
-        }
-
         array.splice(i, 1);
-
       }
     }
   }
