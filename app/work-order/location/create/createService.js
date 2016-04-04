@@ -157,13 +157,15 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
     function formatBarredEmployeesToJSON(barredEmployees) {
       var barredEmployeesList =[];
+      console.log("formatBarredEmployeesToJSON: "+JSON.stringify(barredEmployees));
       if(barredEmployees){
         for(i = 0; i < barredEmployees.length; i++){
           var emp = {};
           emp.employeeId = barredEmployees[i].employeeId;
           emp.lastName = barredEmployees[i].lastName;
           emp.firstName = barredEmployees[i].firstName;
-          emp.startDate = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+          emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+          emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
           barredEmployeesList.push(emp);
         }
       }

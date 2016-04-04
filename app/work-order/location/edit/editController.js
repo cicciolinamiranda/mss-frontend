@@ -74,19 +74,26 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addBarredEmployee(employee){
     employee.barStartDate = moment().toDate();
+    employee.firstName = employee.firstname;
+    employee.lastName = employee.surname;
     _this.location.barredEmployees.push(employee);
   }
 
   function removeFromArray(array, id){
     for(i= 0; i < array.length; i++){
       if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+          console.log("ARRAY to be deleted-->"+JSON.stringify(array[i].deleted));
+        array[i].deleted = true;
+        }
+
         array.splice(i, 1);
+
       }
     }
   }
 
   function addToArray(array, item){
-    console.log(array);
     if(array){
     array.push(item);
   }
