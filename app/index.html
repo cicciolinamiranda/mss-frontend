@@ -4,24 +4,33 @@
   <title>MSS</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/jquery-ui.min.css" />
+  <link rel="stylesheet" href="static/css/main.css" />
 </head>
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container">
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#/"><img src="static/img/g4s-logo.png"></a>
-        <global-search class="pull-right"></global-search>
+        <button type="button" class="navbar__button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="navbar__button--icon-bar"></span>
+          <span class="navbar__button--icon-bar"></span>
+          <span class="navbar__button--icon-bar"></span>
+        </button>
+        <a class="navbar__logo" href="#/"><img src="static/img/g4s-logo.png" alt="g4s" style="height:40px;"></a>
       </div>
+      <global-search></global-search>
     </div>
   </nav>
 
-  <div class="container">
-    <div ui-view></div>
+  <div class="container-fluid">
+    <div ui-view class="container-fluid__wrapper"></div>
   </div>
 
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
   <script src="bundle.js"></script>
-	<script src="https://apis.google.com/js/client.js?onload=_gapi_load_callback"></script>
+  <script src="https://apis.google.com/js/client.js?onload=_gapi_load_callback"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
