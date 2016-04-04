@@ -182,6 +182,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
+    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
@@ -198,9 +199,11 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
+        emp.id = barredEmployees[i].id;
         emp.employeeId = barredEmployees[i].employeeId;
         emp.lastName = barredEmployees[i].lastName;
         emp.firstName = barredEmployees[i].firstName;
+        emp.deleted = barredEmployees[i].deleted;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
         emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
         barredEmployeesList.push(emp);
@@ -214,9 +217,11 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
+        emp.id = barredEmployees[i].id;
         emp.employeeId = barredEmployees[i].employeeId;
         emp.lastName = barredEmployees[i].lastName;
         emp.firstName = barredEmployees[i].firstName;
+        emp.deleted = barredEmployees[i].deleted;
         emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
         emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
         barredEmployeesList.push(emp);
