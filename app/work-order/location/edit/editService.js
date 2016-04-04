@@ -123,7 +123,7 @@ function editLocationService($http, $q, $gapi) {
       editaddress : response.address.address,
       editlongitude : response.address.longitude,
       editlatitude : response.address.latitude,
-      protectiveEquipment : response.equipments,
+      protectiveEquipment : checkListIfNull(response.equipments),
       modeOfTransport : checkListIfNull(response.modeOfTransports),
       siteSkills : checkListIfNull(response.skills),
       siteSkillsChoices: checkListIfNull(response.skills),
@@ -138,7 +138,7 @@ function editLocationService($http, $q, $gapi) {
 
   function transformJsonToDTO(json) {
     _this.customerDetails = {
-      'workOrderId': json.workOrderId,
+      'workOrderId': json.workOrder,
       'id': json.id,
       'name': '',
       'equipments': json.protectiveEquipment,
