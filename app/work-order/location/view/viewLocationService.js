@@ -23,15 +23,6 @@ function viewLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function getLocationDetails(id){
     var def = $q.defer();
 
-    // $http.get(MOCK_BASE + "/customerLocation", {params:{"id": id}})
-    //      .success(function(response) {
-    //           _this.locDetails = response;
-    //           def.resolve(response);
-    //         })
-    //       .error(function() {
-    //           def.reject("Server is down.");
-    //       });
-
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.get({'id' : id});
       def.resolve(response);
