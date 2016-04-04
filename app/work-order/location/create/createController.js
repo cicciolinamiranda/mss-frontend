@@ -143,7 +143,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function addSiteContactField() {
     _this.location.siteContactDetails.push(
-      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+    {siteLocationName: "", contactNumber: "", siteLocationEmail: "", index: _this.location.siteContactDetails.length}
     );
   }
 

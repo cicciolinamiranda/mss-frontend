@@ -135,7 +135,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   function checkBarredSelected(id){
     //manual linear search for duplicates. possible use of utility here
     for (i = 0; i < _this.location.barredEmployees.length; i++) {
-      if (id === _this.location.barredEmployees[i].id || true === _this.location.barredEmployees[i].deleted) {
+        if (id === _this.location.barredEmployees[i].id || undefined === _this.location.barredEmployees[i].deleted) {
         return true;
       }
     }
@@ -144,7 +144,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addSiteContactField(){
     _this.location.siteContactDetails.push(
-      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+      {siteLocationName: "", contactNumber: "", siteLocationEmail: "", index: _this.location.siteContactDetails.length}
     );
   }
 
