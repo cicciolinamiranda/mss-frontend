@@ -11,15 +11,15 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
-    _this.proofOfDuties;
-    _this.methodOfRecordings;
+  _this.proofOfDuties;
+  _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
-    _this.getProofofDutyValues = getProofofDutyValues;
-    _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
+  _this.getProofofDutyValues = getProofofDutyValues;
+  _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
 
   var cache = {};
   var deferred = $q.defer();

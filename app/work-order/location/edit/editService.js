@@ -11,12 +11,16 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
+  _this.proofOfDuties;
+  _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
   _this.getCustomerLocation = getCustomerLocation;
+  _this.getProofofDutyValues = getProofofDutyValues;
+  _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
 
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -92,21 +96,40 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
   function getCustomerLocation(id) {
     var def = $q.defer();
-
-    // $http.get(MOCK_BASE + "/customerLocation", {params:{"q": id}})
-    // .success(function(response) {
-    //   def.resolve(transformDTOtoJSON(response[0]));
-    // })
-    // .error(function() {
-    //   def.reject("Server is down.");
-    // });
-
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.get({'id' : id});
     }).then(function (data) {
       def.resolve(transformDTOtoJSON(data));
     });
     return def.promise;
+  }
+
+  function getProofofDutyValues(){
+      var def = $q.defer();
+
+      $http.get(MOCK_BASE + "/proofOfDuty")
+          .success(function(response) {
+              _this.proofOfDuties = response;
+              def.resolve(response);
+          })
+          .error(function() {
+              def.reject("Server is down.");
+          });
+      return def.promise;
+  }
+
+  function getMethodOfRecordingValues(){
+      var def = $q.defer();
+
+      $http.get(MOCK_BASE + "/methodOfRecording")
+          .success(function(response) {
+              _this.proofOfDuties = response;
+              def.resolve(response);
+          })
+          .error(function() {
+              def.reject("Server is down.");
+          });
+      return def.promise;
   }
 
   function transformDTOtoJSON(response) {
