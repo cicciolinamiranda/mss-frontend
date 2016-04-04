@@ -179,12 +179,10 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function updateProofOfDuty(value){
     _this.location.proofOfDuty = value.id;
-    console.log(_this.location);
   }
 
   function updateMethodOfRecording(value){
     _this.location.methodOfRecording = value.id;
-    console.log(_this.location);
   }
 
   //TODO change with actual save and page transition
