@@ -3,7 +3,7 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
+function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   var _this = this;
   _this.location = {};
 
@@ -48,6 +48,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
 
+
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
     }, function (error) {
@@ -73,7 +74,10 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
   }
 
   function addToArray(array, item){
+    console.log(array);
+    if(array){
     array.push(item);
+  }
   }
 
   function refreshMotSearch(keyword){
@@ -130,7 +134,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
 
   function getCustomerLocation(id) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
-      console.log("ID in edit: "+id);
       _this.location = response;
     }, function (error) {
       _this.errMessage= error;
@@ -140,7 +143,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams) {
   function updateCustomerLocation() {
     EditLocationSvc.update(_this.location).then(function (response) {
       _this.customerLocationId = response.id
-      $state.go('location.view', {id: _this.customerLocationId});
+      goToViewLocation();
     }, function (error) {
       _this.errMessage= error;
     });

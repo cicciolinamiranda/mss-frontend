@@ -28,7 +28,6 @@ function editLocationService($http, $q, $gapi) {
   });
 
   this.update = function (customerLocationDetails) {
-    console.log("update: "+ JSON.stringify(customerLocationDetails));
     var deferred2 = $q.defer();
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.update(
@@ -88,7 +87,7 @@ function editLocationService($http, $q, $gapi) {
 
     $http.get("http://localhost:3000/equipments", {params:{"q": keyword}})
     .success(function(response) {
-      _this.siteSkills = response;
+      _this.protectiveEquipment = response;
       def.resolve(response);
     })
     .error(function() {
@@ -110,10 +109,9 @@ function editLocationService($http, $q, $gapi) {
 
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.get({'id' : id});
-      console.log(response);
       def.resolve(transformDTOtoJSON(response));
     }).then(function (data) {
-      def.resolve(data);
+      def.resolve(transformDTOtoJSON(data));
     });
     return def.promise;
   }
@@ -126,12 +124,14 @@ function editLocationService($http, $q, $gapi) {
       editlongitude : response.address.longitude,
       editlatitude : response.address.latitude,
       protectiveEquipment : response.equipments,
-      modeOfTransport : response.modeOfTransports,
-      siteSkills : response.skills,
-      siteContactDetails : response.siteLocations,
+      modeOfTransport : checkListIfNull(response.modeOfTransports),
+      siteSkills : checkListIfNull(response.skills),
+      siteSkillsChoices: checkListIfNull(response.skills),
+      siteContactDetails : checkListIfNull(response.siteLocations),
       startDate : transformJodaTimeToDate(response.startDate),
       endDate : transformJodaTimeToDate(response.endDate),
-      barredEmployees : response.barredEmployees
+      barredEmployees : formatBarredEmployeesToJSON(response.barredEmployees),
+      createdDate: transformJodaTimeToDate(response.createdDate)
     };
     return customerLocation;
   }
@@ -145,7 +145,7 @@ function editLocationService($http, $q, $gapi) {
       'modeOfTransports': json.modeOfTransport,
       'skills': json.siteSkills,
       'tasks': [],
-      'barredEmployees': json.barredEmployees,
+      'barredEmployees': formatBarredEmployeesToDTO(json.barredEmployees),
       'incidentLogs': [],
       'address':{
         'address':json.editaddress,
@@ -166,17 +166,55 @@ function editLocationService($http, $q, $gapi) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
-    console.log("transformDTOtoJSON: "+_this.customerDetails);
     return _this.customerDetails;
   }
 
   function transformJodaTimeToDate(jodatime) {
     var date;
-    console.log("jodatime: "+JSON.stringify(jodatime));
       if(undefined !== jodatime) {
         date = moment((jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year),"MM/DD/YYYY").toDate();
       }
     return date;
+  }
+
+  function formatBarredEmployeesToJSON(barredEmployees) {
+    var barredEmployeesList =[];
+    if(barredEmployees){
+      for(i = 0; i < barredEmployees.length; i++){
+        var emp = {};
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
+        emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
+        emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
+        barredEmployeesList.push(emp);
+      }
+    }
+    return barredEmployeesList;
+  }
+
+  function formatBarredEmployeesToDTO(barredEmployees) {
+    var barredEmployeesList =[];
+    if(barredEmployees){
+      for(i = 0; i < barredEmployees.length; i++){
+        var emp = {};
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
+        emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+        emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+        barredEmployeesList.push(emp);
+      }
+    }
+    return barredEmployeesList;
+  }
+
+  function checkListIfNull(list) {
+    if(undefined == list)
+    {
+      list = [];
+    }
+    return list;
   }
 
 }
