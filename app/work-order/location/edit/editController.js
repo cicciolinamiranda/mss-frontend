@@ -24,7 +24,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //Barred Employees
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
-  _this.hideFromBarredEmpDisplay = hideFromBarredEmpDisplay;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -74,8 +73,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   init();
 
-  function addBarredEmployee(employee){
-    employee.barStartDate = moment().toDate();
+  function addBarredEmployee(employee) {
+    employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
@@ -93,18 +92,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
       }
     }
-  }
-
-  function hideFromBarredEmpDisplay(array, id){
-    for(i= 0; i < array.length; i++){
-      if(array[i].id === id){
-        if(undefined !== array[i].deleted) {
-        array[i].deleted = true;
-        }
-
-      }
-    }
-
   }
 
   function removeFromArray(array, id){
