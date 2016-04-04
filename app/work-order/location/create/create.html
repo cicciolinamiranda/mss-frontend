@@ -244,7 +244,8 @@
       <label for="proofOfDuty">Proof of Duty</label>
 
       <div class="form-group">
-          <ui-select ng-model="$ctrl.selectedProofOfDuty" theme="bootstrap">
+          <ui-select ng-model="$ctrl.selectedProofOfDuty" theme="bootstrap"
+            on-select="$ctrl.updateProofOfDuty($ctrl.selectedProofOfDuty)">
             <ui-select-match placeholder="Select a proof of duty">
               <span ng-bind="$ctrl.selectedProofOfDuty.name"></span>
             </ui-select-match>
@@ -261,7 +262,8 @@
       <label for="methodOfRecording">Method of Recording Time and Attendance</label>
 
       <div class="form-group">
-        <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap">
+        <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap"
+          on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
             <ui-select-match placeholder="Select a method of recording">
               <span ng-bind="$ctrl.selectedMethodOfRecording.method"></span>
             </ui-select-match>
