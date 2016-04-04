@@ -147,7 +147,12 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       startDate : transformJodaTimeToDate(response.startDate),
       endDate : transformJodaTimeToDate(response.endDate),
       barredEmployees : formatBarredEmployeesToJSON(response.barredEmployees),
-      createdDate: transformJodaTimeToDate(response.createdDate)
+      createdDate: transformJodaTimeToDate(response.createdDate),
+      standardOps: response.sopDetails,
+      locInstructions: response.locationInstructionsApproval,
+      healthSafetySurvey: response.healthSafetySurvey,
+      technicalSurvey: response.technicalSurvey,
+      locationSurvey: response.locationSurvey
     };
     return customerLocation;
   }
@@ -168,7 +173,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         'latitude':json.editlatitude,
         'longitude':json.editlongitude
       },
-      'sopDetails': '',
+      'sopDetails': json.standardOps,
       'locationInstructionsApproval': json.locInstructions,
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
