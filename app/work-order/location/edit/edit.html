@@ -3,32 +3,18 @@
     <h1 class="dark">Edit Location</h1>
     <h1>&nbsp;</h1>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <map-display ng-if="$ctrl.location.editlatitude"
-        editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
-      </map-display>
-    </div>
-  </div>
-  <div class="alert alert-danger" ng-show="$ctrl.errMessage">
-    {{$ctrl.errMessage}}
-  </div>
-  <!--Address/Lat/Long-->
-  <div class="row" id="addressDiv" style="display: block">
-    <div class="col-md-8">
-      <label for="address">Address:</label>
-      <div ng-show="editLocationForm.address.$touched && editLocationForm.address.$invalid"
-        class="row alert alert-danger">
-        <span>Please enter an address.</span>
-      </div>
-      <input id="address" name="address" ng-model="$ctrl.location.editaddress" type="text" placeholder="Address" class="form-control"
-      required>
-    </div>
-    <div class="form-group col-md-4" >
-      <label for="coordinates">Coordinates:</label>
-      <div class="row">
-        <div class="form-group col-md-6">
-          <input id="lat" ng-model="$ctrl.location.editlatitude" type="text" placeholder="Latitude"  class="form-control" size=10 disabled>
+</div><!-- /info-section-->
+<div class="container">
+  <div class="col-md-12">
+    <div class="panel">
+      <form name="editLocationForm">
+        <div class="row">
+          <div class="col-md-12">
+            <map-display
+              ng-if="$ctrl.location.editlatitude"
+              editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
+            </map-display>
+          </div>
         </div>
         <div class="alert alert-danger" ng-show="$ctrl.errMessage">
           {{$ctrl.errMessage}}
