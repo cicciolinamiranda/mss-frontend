@@ -4,5 +4,5 @@ module.exports = function(ngModule) {
 
 function routes($urlRouterProvider) {
   // the default state referencing a module
-  $urlRouterProvider.otherwise('/employees');
+  $urlRouterProvider.otherwise('/workOrders/view/1');
 }
