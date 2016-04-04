@@ -4,7 +4,7 @@ module.exports = function(ngModule) {
 
 var moment = require('moment');
 
-function editLocationService($http, $q, $gapi) {
+function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -22,7 +22,7 @@ function editLocationService($http, $q, $gapi) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', true);
+    return $gapi.load('workorder', 'v1', GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
@@ -42,7 +42,7 @@ function editLocationService($http, $q, $gapi) {
   function searchMockModeOfTransport(keyword){
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/modeOfTransport", {params:{"q": keyword}})
+    $http.get(MOCK_BASE + "/modeOfTransport", {params:{"q": keyword}})
     .success(function(response) {
       _this.modeOfTransportMock = response;
       def.resolve(response);
@@ -56,7 +56,7 @@ function editLocationService($http, $q, $gapi) {
   function getBilledCostTypeValues(){
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/billedCostType")
+    $http.get(MOCK_BASE + "/billedCostType")
     .success(function(response) {
       _this.billedCostType = response;
       def.resolve(response);
@@ -70,7 +70,7 @@ function editLocationService($http, $q, $gapi) {
   function searchSiteSkills(keyword){
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/skills", {params:{"q": keyword}})
+    $http.get(MOCK_BASE + "/skills", {params:{"q": keyword}})
     .success(function(response) {
       _this.siteSkills = response;
       def.resolve(response);
@@ -85,7 +85,7 @@ function editLocationService($http, $q, $gapi) {
   function searchProtectiveEquipment(keyword){
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/equipments", {params:{"q": keyword}})
+    $http.get(MOCK_BASE + "/equipments", {params:{"q": keyword}})
     .success(function(response) {
       _this.protectiveEquipment = response;
       def.resolve(response);
@@ -99,7 +99,7 @@ function editLocationService($http, $q, $gapi) {
   function getCustomerLocation(id) {
     var def = $q.defer();
 
-    // $http.get("http://localhost:3000/customerLocation", {params:{"q": id}})
+    // $http.get(MOCK_BASE + "/customerLocation", {params:{"q": id}})
     // .success(function(response) {
     //   def.resolve(transformDTOtoJSON(response[0]));
     // })

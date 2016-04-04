@@ -91,6 +91,8 @@ describe("View Location Component", function() {
           };
           return gapi;
         });
+        $provide.constant('GAPI_BASE', '');
+        $provide.constant('MOCK_BASE', '');
       });
     });
     beforeEach(angular.mock.module(function($provide) {

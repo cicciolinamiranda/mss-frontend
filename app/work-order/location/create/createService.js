@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 
 var moment = require('moment');
 
-function createLocationService($http, $q, $gapi, GAPI_BASE) {
+function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -46,7 +46,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
   function searchMockModeOfTransport(keyword) {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/modeOfTransport", {params: {"q": keyword}})
+    $http.get(MOCK_BASE + "/modeOfTransport", {params: {"q": keyword}})
     .success(function (response) {
       _this.modeOfTransportMock = response;
       def.resolve(response);
@@ -60,7 +60,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
   function getBilledCostTypeValues() {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/billedCostType")
+    $http.get(MOCK_BASE + "/billedCostType")
     .success(function (response) {
       _this.billedCostType = response;
       def.resolve(response);
@@ -74,7 +74,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
   function searchSiteSkills(keyword) {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/skills", {params: {"q": keyword}})
+    $http.get(MOCK_BASE + "/skills", {params: {"q": keyword}})
     .success(function (response) {
       _this.siteSkills = response;
       def.resolve(response);
@@ -88,7 +88,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
   function searchProtectiveEquipment(keyword) {
     var def = $q.defer();
 
-    $http.get("http://localhost:3000/equipments", {params: {"q": keyword}})
+    $http.get(MOCK_BASE + "/equipments", {params: {"q": keyword}})
     .success(function (response) {
       _this.siteSkills = response;
       def.resolve(response);
@@ -108,7 +108,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
       'modeOfTransports': json.modeOfTransport,
       'skills': json.siteSkills,
       'tasks': [],
-      'barredEmployees': json.barredEmployees,
+      'barredEmployees': formatBarredEmployeesToJSON(json.barredEmployees),
       'incidentLogs': [],
       'address':{
         'address':json.address,
@@ -136,7 +136,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
     function getProofofDutyValues(){
         var def = $q.defer();
 
-        $http.get("http://localhost:3000/proofOfDuty")
+        $http.get(MOCK_BASE + "/proofOfDuty")
             .success(function(response) {
                 _this.proofOfDuties = response;
                 def.resolve(response);
@@ -150,7 +150,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
     function getMethodOfRecordingValues(){
         var def = $q.defer();
 
-        $http.get("http://localhost:3000/methodOfRecording")
+        $http.get(MOCK_BASE + "/methodOfRecording")
             .success(function(response) {
                 _this.proofOfDuties = response;
                 def.resolve(response);
@@ -159,5 +159,20 @@ function createLocationService($http, $q, $gapi, GAPI_BASE) {
                 def.reject("Server is down.");
             });
         return def.promise;
+    }
+
+    function formatBarredEmployeesToJSON(barredEmployees) {
+      var barredEmployeesList =[];
+      if(barredEmployees){
+        for(i = 0; i < barredEmployees.length; i++){
+          var emp = {};
+          emp.employeeId = barredEmployees[i].employeeId;
+          emp.lastName = barredEmployees[i].lastName;
+          emp.firstName = barredEmployees[i].firstName;
+          emp.startDate = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+          barredEmployeesList.push(emp);
+        }
+      }
+      return barredEmployeesList;
     }
 }
