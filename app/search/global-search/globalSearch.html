@@ -1,19 +1,20 @@
-<form ng-submit="$ctrl.search()">
-  <div class="col-md-4 input-group pull-right" id="adv-search">
-    <input type="text" class="form-control" ng-model="$ctrl.searchTerm" placeholder="Search" required/>
-    <div class="input-group-btn">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-      <div class="dropdown-menu dropdown-menu-right" role="menu" style="padding:10px">
-        <div class="form-group">
-          <label for="filter">Filter by</label>
-          <select class="form-control">
-            <option value="0" selected>Anything</option>
-            <option value="1">People</option>
-            <option value="2">Locations</option>
-          </select>
+<form ng-submit="$ctrl.search()" class="navbar-form navbar-right">
+  <div class="search search--site">
+    <div class="input-group">
+      <input type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" required/>
+      <div class="input-group-wrapper">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Everything <span class="caret"></span></button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="active"><a href="#">Everything</a></li>
+            <li><a href="#">Location</a></li>
+            <li><a href="#">People</a></li>
+          </ul>
         </div>
       </div>
-      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      <span class="input-group__addon">
+        <i class="input__icon material-icons">search</i>
+      </span>
     </div>
   </div>
 </form>

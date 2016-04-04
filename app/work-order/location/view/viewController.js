@@ -1,5 +1,5 @@
 module.exports = createCtrl;
-
+var moment = require('moment');
 /*@ngInject*/
 function createCtrl(ViewLocationSvc, $state, $stateParams) {
   var _this = this;
@@ -13,11 +13,12 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.barredEmployeesList = [];
 
   _this.archiveLocation = archiveLocation;
+  _this.editLocation = editLocation;
 
   function init() {
 
     ViewLocationSvc.getLocationDetails(_this.locId).then(function(response){
-      _this.cloc = response[0];
+      _this.cloc = response;
       formatDisplay(_this.cloc);
 
     }, function (error) {
@@ -41,10 +42,9 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.name = barredEmployees[i].surname +
-          ", " + barredEmployees[i].firstname +
-          " " + barredEmployees[i].middlename;
-        emp.barsStartDate = barredEmployees[i].barsStartDate;
+        emp.name = barredEmployees[i].lastName +
+          ", " + barredEmployees[i].firstName;
+        emp.barsStartDate = transformJodaTimeToDate(barredEmployees[i].startDate);
 
         _this.barredEmployeesList.push(emp);
       }
@@ -53,40 +53,50 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
 
   function formatDisplay(location){
+    _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&scale=1&size=640x280&markers="
+      + location.address.latitude + "," + location.address.longitude;
 
-    _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
-      + location.latitude + "," + location.longitude;
-
-    if(location.latitude && location.longitude){
-      _this.coordinates = location.latitude + " " + location.longitude;
+    if(location.address.latitude && location.address.longitude){
+      _this.coordinates = location.address.latitude + " " + location.address.longitude;
     }
 
     if(location.startDate && location.endDate){
-      _this.duration = location.startDate + " - " + location.endDate;
+      _this.duration = transformJodaTimeToDate(location.startDate) + " - " + transformJodaTimeToDate(location.endDate);
     }
 
-    if(location.protectiveEquipment){
-      for(i = 0; i < location.protectiveEquipment.length; i++){
+    if(location.equipments){
+      for(i = 0; i < location.equipments.length; i++){
         var equip = {};
-        equip.name = location.protectiveEquipment[i].equipmentName;
-        getCostType(location.protectiveEquipment[i], equip);
+        equip.name = location.equipments[i].equipmentName;
+        getCostType(location.equipments[i], equip);
         _this.protectiveEquipList.push(equip);
       }
     }
 
-    if(location.modeOfTransport){
-      for(i = 0; i < location.modeOfTransport.length; i++){
+    if(location.modeOfTransports){
+      for(i = 0; i < location.modeOfTransports.length; i++){
         var mot = {};
-        mot.name = location.modeOfTransport[i].transportName;
-        getCostType(location.modeOfTransport[i], mot);
+        mot.name = location.modeOfTransports[i].transportName;
+        getCostType(location.modeOfTransports[i], mot);
         _this.modeOfTransportList.push(mot);
       }
     }
-
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
   function archiveLocation(id){
     $state.go('workOrder', {id: 1});
+  }
+
+  function editLocation(id){
+    $state.go('location.edit', {id: $stateParams.id});
+  }
+
+  function transformJodaTimeToDate(jodatime) {
+    var date;
+      if(undefined !== jodatime) {
+        date = moment((jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year),"MM/DD/YYYY").toDate();
+      }
+    return date;
   }
 }

@@ -3,7 +3,7 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc) {
+function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   var _this = this;
   _this.location = {};
 
@@ -31,10 +31,29 @@ function editCtrl(FileUploader, EditLocationSvc) {
   _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
+  //Proof Of Duty
+  _this.selectedProofOfDuty;
+  _this.proofOfDuties;
+  _this.getProofOfDuties = getProofOfDuties;
+  _this.updateProofOfDuty = updateProofOfDuty;
+
+  //Method Of Recording
+  _this.selectedMethodOfRecording;
+  _this.methodOfRecordings;
+  _this.getMethodOfRecordings = getMethodOfRecordings;
+  _this.updateMethodOfRecording = updateMethodOfRecording;
+
   //Common
   _this.removeFromArray = removeFromArray;
+  _this.hideFromDisplay = hideFromDisplay;
   _this.addToArray = addToArray;
   _this.errMessage;
+  _this.goToViewLocation = goToViewLocation;
+
+  //update
+  _this.updateCustomerLocation = updateCustomerLocation;
+
+  _this.customerLocationId = '';
 
   function init() {
     //this will be removed once the mapping on the service is completed
@@ -42,20 +61,36 @@ function editCtrl(FileUploader, EditLocationSvc) {
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
 
+
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
     }, function (error) {
       _this.errMessage= error;
     });
 
-    getCustomerLocation(6);
+    getCustomerLocation($stateParams.id);
   }
 
   init();
 
   function addBarredEmployee(employee){
     employee.barStartDate = moment().toDate();
+    employee.firstName = employee.firstname;
+    employee.lastName = employee.surname;
+    employee.deleted = false;
     _this.location.barredEmployees.push(employee);
+  }
+
+  function hideFromDisplay(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+        array[i].deleted = true;
+        }
+
+        //array.splice(i, 1);
+      }
+    }
   }
 
   function removeFromArray(array, id){
@@ -67,7 +102,9 @@ function editCtrl(FileUploader, EditLocationSvc) {
   }
 
   function addToArray(array, item){
+    if(array){
     array.push(item);
+  }
   }
 
   function refreshMotSearch(keyword){
@@ -128,5 +165,43 @@ function editCtrl(FileUploader, EditLocationSvc) {
     }, function (error) {
       _this.errMessage= error;
     });
+  }
+
+  function updateCustomerLocation() {
+    EditLocationSvc.update(_this.location).then(function (response) {
+      _this.customerLocationId = response.id
+      goToViewLocation();
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function getProofOfDuties(){
+    EditLocationSvc.getProofofDutyValues().then(function(response){
+      _this.proofOfDuties = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function getMethodOfRecordings(){
+    EditLocationSvc.getMethodOfRecordingValues().then(function(response){
+      _this.methodOfRecordings = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function updateProofOfDuty(value){
+    _this.location.proofOfDuty = value.id;
+  }
+
+  function updateMethodOfRecording(value){
+    _this.location.methodOfRecording = value.id;
+  }
+
+  //TODO change with actual save and page transition
+  function goToViewLocation() {
+    $state.go('location.view', {id: $stateParams.id});
   }
 }
