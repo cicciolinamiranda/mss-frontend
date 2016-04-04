@@ -35,7 +35,6 @@ function employeeLookupCtrl(EmployeeLookupSvc) {
 
   function isSelected(id){
     if(_this.onEmployeeSelect && (typeof _this.onEmployeeSelect === 'function')){
-      console.log("isSelected --->"+_this.checkSelected({id:id}));
       return _this.checkSelected({id:id});
     }
   }
