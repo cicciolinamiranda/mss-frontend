@@ -168,7 +168,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         'latitude':json.editlatitude,
         'longitude':json.editlongitude
       },
-      'sopDetails': '',
+      'sopDetails': json.standardOps,
       'locationInstructionsApproval': json.locInstructions,
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
