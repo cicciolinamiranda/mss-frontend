@@ -11,15 +11,15 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
-    _this.proofOfDuties;
-    _this.methodOfRecordings;
+  _this.proofOfDuties;
+  _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
-    _this.getProofofDutyValues = getProofofDutyValues;
-    _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
+  _this.getProofofDutyValues = getProofofDutyValues;
+  _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
 
   var cache = {};
   var deferred = $q.defer();
@@ -46,14 +46,12 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function searchMockModeOfTransport(keyword) {
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/modeOfTransport", {params: {"q": keyword}})
-    .success(function (response) {
-      _this.modeOfTransportMock = response;
-      def.resolve(response);
-    })
-    .error(function () {
-      def.reject("Server is down.");
+    loadApi.then(function () {
+      return $gapi.client.workorder.master.file.transport.list();
+    }).then(function (data) {
+      def.resolve(data.items);
     });
+
     return def.promise;
   }
 
@@ -74,28 +72,24 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function searchSiteSkills(keyword) {
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/skills", {params: {"q": keyword}})
-    .success(function (response) {
-      _this.siteSkills = response;
-      def.resolve(response);
-    })
-    .error(function () {
-      def.reject("Server is down.");
+    loadApi.then(function () {
+      return $gapi.client.workorder.master.file.skills.list();
+    }).then(function (data) {
+      def.resolve(data.items);
     });
+
     return def.promise;
   }
 
   function searchProtectiveEquipment(keyword) {
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/equipments", {params: {"q": keyword}})
-    .success(function (response) {
-      _this.siteSkills = response;
-      def.resolve(response);
-    })
-    .error(function () {
-      def.reject("Server is down.");
+    loadApi.then(function () {
+      return $gapi.client.workorder.master.file.equipment.list();
+    }).then(function (data) {
+      def.resolve(data.items);
     });
+
     return def.promise;
   }
 

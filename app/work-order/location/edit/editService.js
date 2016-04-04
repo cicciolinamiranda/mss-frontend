@@ -11,12 +11,16 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
+  _this.proofOfDuties;
+  _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
   _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
   _this.getCustomerLocation = getCustomerLocation;
+  _this.getProofofDutyValues = getProofofDutyValues;
+  _this.getMethodOfRecordingValues = getMethodOfRecordingValues;
 
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -39,17 +43,15 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     return deferred2.promise;
   };
 
-  function searchMockModeOfTransport(keyword){
+  function searchMockModeOfTransport(keyword) {
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/modeOfTransport", {params:{"q": keyword}})
-    .success(function(response) {
-      _this.modeOfTransportMock = response;
-      def.resolve(response);
-    })
-    .error(function() {
-      def.reject("Server is down.");
+    loadApi.then(function () {
+      return $gapi.client.workorder.master.file.transport.list();
+    }).then(function (data) {
+      def.resolve(data.items);
     });
+
     return def.promise;
   }
 
@@ -67,53 +69,67 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     return def.promise;
   }
 
-  function searchSiteSkills(keyword){
+  function searchSiteSkills(keyword) {
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/skills", {params:{"q": keyword}})
-    .success(function(response) {
-      _this.siteSkills = response;
-      def.resolve(response);
-    })
-    .error(function() {
-      def.reject("Server is down.");
+    loadApi.then(function () {
+      return $gapi.client.workorder.master.file.skills.list();
+    }).then(function (data) {
+      def.resolve(data.items);
     });
+
     return def.promise;
   }
 
 
-  function searchProtectiveEquipment(keyword){
-    var def = $q.defer();
+    function searchProtectiveEquipment(keyword) {
+      var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/equipments", {params:{"q": keyword}})
-    .success(function(response) {
-      _this.protectiveEquipment = response;
-      def.resolve(response);
-    })
-    .error(function() {
-      def.reject("Server is down.");
-    });
-    return def.promise;
-  }
+      loadApi.then(function () {
+        return $gapi.client.workorder.master.file.equipment.list();
+      }).then(function (data) {
+        def.resolve(data.items);
+      });
+
+      return def.promise;
+    }
 
   function getCustomerLocation(id) {
     var def = $q.defer();
-
-    // $http.get(MOCK_BASE + "/customerLocation", {params:{"q": id}})
-    // .success(function(response) {
-    //   def.resolve(transformDTOtoJSON(response[0]));
-    // })
-    // .error(function() {
-    //   def.reject("Server is down.");
-    // });
-
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.get({'id' : id});
-      def.resolve(transformDTOtoJSON(response));
     }).then(function (data) {
       def.resolve(transformDTOtoJSON(data));
     });
     return def.promise;
+  }
+
+  function getProofofDutyValues(){
+      var def = $q.defer();
+
+      $http.get(MOCK_BASE + "/proofOfDuty")
+          .success(function(response) {
+              _this.proofOfDuties = response;
+              def.resolve(response);
+          })
+          .error(function() {
+              def.reject("Server is down.");
+          });
+      return def.promise;
+  }
+
+  function getMethodOfRecordingValues(){
+      var def = $q.defer();
+
+      $http.get(MOCK_BASE + "/methodOfRecording")
+          .success(function(response) {
+              _this.proofOfDuties = response;
+              def.resolve(response);
+          })
+          .error(function() {
+              def.reject("Server is down.");
+          });
+      return def.promise;
   }
 
   function transformDTOtoJSON(response) {
@@ -166,6 +182,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
+    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
