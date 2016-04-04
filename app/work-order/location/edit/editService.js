@@ -123,7 +123,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       editaddress : response.address.address,
       editlongitude : response.address.longitude,
       editlatitude : response.address.latitude,
-      protectiveEquipment : response.equipments,
+      protectiveEquipment : checkListIfNull(response.equipments),
       modeOfTransport : checkListIfNull(response.modeOfTransports),
       siteSkills : checkListIfNull(response.skills),
       siteSkillsChoices: checkListIfNull(response.skills),
