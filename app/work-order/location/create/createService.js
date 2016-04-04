@@ -108,7 +108,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         'latitude':json.latitude,
         'longitude':json.longitude
       },
-      'sopDetails': '',
+      'sopDetails': json.standardOps,
       'locationInstructionsApproval': json.locInstructions,
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
