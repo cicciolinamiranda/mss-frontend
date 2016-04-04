@@ -53,7 +53,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
 
   function formatDisplay(location){
-    _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=2000x200&markers="
+    _this.mapSource = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&scale=1&size=640x280&markers="
       + location.address.latitude + "," + location.address.longitude;
 
     if(location.address.latitude && location.address.longitude){
