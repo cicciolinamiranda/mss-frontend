@@ -149,7 +149,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       barredEmployees : formatBarredEmployeesToJSON(response.barredEmployees),
       createdDate: transformJodaTimeToDate(response.createdDate)
     };
-    console.log("RESPONSE: "+JSON.stringify(customerLocation));
     return customerLocation;
   }
 
@@ -183,7 +182,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
     };
-    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
@@ -197,7 +195,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
   function formatBarredEmployeesToJSON(barredEmployees) {
     var barredEmployeesList =[];
-    console.log("BARRED EMPLOYEES FOR EDIT: "+JSON.stringify(barredEmployees));
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
