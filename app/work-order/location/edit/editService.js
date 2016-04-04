@@ -138,7 +138,7 @@ function editLocationService($http, $q, $gapi) {
 
   function transformJsonToDTO(json) {
     _this.customerDetails = {
-      'workOrderId': json.workOrder,
+      'workOrderId': json.workOrderId,
       'id': json.id,
       'name': '',
       'equipments': json.protectiveEquipment,
