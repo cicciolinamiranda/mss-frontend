@@ -86,7 +86,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   }
 
   function addToArray(array, item){
-    console.log(array);
     if(array){
     array.push(item);
   }
