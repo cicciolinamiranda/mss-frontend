@@ -35,11 +35,13 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   _this.selectedProofOfDuty;
   _this.proofOfDuties;
   _this.getProofOfDuties = getProofOfDuties;
+  _this.updateProofOfDuty = updateProofOfDuty;
 
   //Method Of Recording
   _this.selectedMethodOfRecording;
   _this.methodOfRecordings;
   _this.getMethodOfRecordings = getMethodOfRecordings;
+  _this.updateMethodOfRecording = updateMethodOfRecording;
 
   //Common
   _this.removeFromArray = removeFromArray;
@@ -67,6 +69,8 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     _this.location.protectiveEquipment = [];
     _this.location.barredEmployees = [];
     _this.location.siteContactDetails = [];
+    _this.location.proofOfDuty = "";
+    _this.location.methodOfRecording = "";
 
     CreateLocationSvc.getBilledCostTypeValues().then(function (costTypeResponse) {
       _this.costTypeChoices = costTypeResponse;
@@ -168,5 +172,15 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     }, function (error) {
       _this.errMessage= error;
     });
+  }
+
+  function updateProofOfDuty(value){
+    _this.location.proofOfDuty = value.id;
+    console.log(_this.location);
+  }
+
+  function updateMethodOfRecording(value){
+    _this.location.methodOfRecording = value.id;
+    console.log(_this.location);
   }
 }

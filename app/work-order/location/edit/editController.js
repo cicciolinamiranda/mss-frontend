@@ -31,6 +31,18 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
 
+  //Proof Of Duty
+  _this.selectedProofOfDuty;
+  _this.proofOfDuties;
+  _this.getProofOfDuties = getProofOfDuties;
+  _this.updateProofOfDuty = updateProofOfDuty;
+
+  //Method Of Recording
+  _this.selectedMethodOfRecording;
+  _this.methodOfRecordings;
+  _this.getMethodOfRecordings = getMethodOfRecordings;
+  _this.updateMethodOfRecording = updateMethodOfRecording;
+
   //Common
   _this.removeFromArray = removeFromArray;
   _this.addToArray = addToArray;
@@ -147,8 +159,32 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     }, function (error) {
       _this.errMessage= error;
     });
+  }
 
+  function getProofOfDuties(){
+    EditLocationSvc.getProofofDutyValues().then(function(response){
+      _this.proofOfDuties = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
 
+  function getMethodOfRecordings(){
+    EditLocationSvc.getMethodOfRecordingValues().then(function(response){
+      _this.methodOfRecordings = response;
+    }, function (error) {
+      _this.errMessage= error;
+    });
+  }
+
+  function updateProofOfDuty(value){
+    _this.location.proofOfDuty = value.id;
+    console.log(_this.location);
+  }
+
+  function updateMethodOfRecording(value){
+    _this.location.methodOfRecording = value.id;
+    console.log(_this.location);
   }
 
   //TODO change with actual save and page transition
