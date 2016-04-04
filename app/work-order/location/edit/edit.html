@@ -10,7 +10,9 @@
       <form name="editLocationForm">
         <div class="row">
           <div class="col-md-12">
-            <map-display editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
+            <map-display
+              ng-if="$ctrl.location.editlatitude"
+              editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
             </map-display>
           </div>
         </div>
