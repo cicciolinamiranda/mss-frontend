@@ -24,6 +24,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //Barred Employees
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
+  _this.hideFromBarredEmpDisplay = hideFromBarredEmpDisplay;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -75,6 +76,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addBarredEmployee(employee){
     employee.barStartDate = moment().toDate();
+    employee.id = employee.id;
+    employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
@@ -88,9 +91,20 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
         array[i].deleted = true;
         }
 
-        //array.splice(i, 1);
       }
     }
+  }
+
+  function hideFromBarredEmpDisplay(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+        array[i].deleted = true;
+        }
+
+      }
+    }
+
   }
 
   function removeFromArray(array, id){
@@ -133,8 +147,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function checkBarredSelected(id){
     //manual linear search for duplicates. possible use of utility here
-    for(i = 0; i < _this.location.barredEmployees.length; i++){
-      if(id === _this.location.barredEmployees[i].id){
+    for (i = 0; i < _this.location.barredEmployees.length; i++) {
+      if (id === _this.location.barredEmployees[i].id || true === _this.location.barredEmployees[i].deleted) {
         return true;
       }
     }
