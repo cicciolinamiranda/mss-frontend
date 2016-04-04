@@ -70,14 +70,13 @@ function loginProvider() {
       }
 
       function googleLogin(redirect) {
-        console.log(redirect);
         this.status = STATUS.PENDING;
 
         return $gapi.loaded
           .then((function(result) {
             if (!result) this.status = STATUS.NOT_LOGGED_IN;
             if (redirect && this.status == STATUS.NOT_LOGGED_IN)
-              $state.go('auth.login', {willRedirect: true});
+              $state.go('auth.login', {willRedirect: true}, {location: false});
             return $gapi.authed;
           }).bind(this))
           .then(function() {
