@@ -143,7 +143,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       modeOfTransport : checkListIfNull(response.modeOfTransports),
       siteSkills : checkListIfNull(response.skills),
       siteSkillsChoices: checkListIfNull(response.skills),
-      siteContactDetails : checkListIfNull(response.siteLocations),
+      siteContactDetails : formatSiteLocationsResponse(response.siteLocations),
       startDate : transformJodaTimeToDate(response.startDate),
       endDate : transformJodaTimeToDate(response.endDate),
       barredEmployees : formatBarredEmployeesToJSON(response.barredEmployees),
@@ -241,6 +241,22 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       list = [];
     }
     return list;
+  }
+
+
+  function formatSiteLocationsResponse(siteLocations) {
+    var returnList =[];
+    if(siteLocations){
+      var siteListSize = siteLocations.length;
+      for(i = 0; i < siteLocations.length; i++){
+        var siteLoc = {};
+
+        siteLoc = siteLocations[i];
+        siteLoc.index=i;
+        returnList.push(siteLoc);
+      }
+    }
+    return returnList;
   }
 
 }
