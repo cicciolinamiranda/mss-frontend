@@ -87,7 +87,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     for(i= 0; i < array.length; i++){
       if(array[i].id === id){
         if(undefined !== array[i].deleted) {
-        array[i].deleted = true;
+          array[i].deleted = true;
         }
 
       }
@@ -104,8 +104,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addToArray(array, item){
     if(array){
-    array.push(item);
-  }
+      array.push(item);
+    }
   }
 
   function refreshMotSearch(keyword){
@@ -135,7 +135,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   function checkBarredSelected(id){
     //manual linear search for duplicates. possible use of utility here
     for (i = 0; i < _this.location.barredEmployees.length; i++) {
-        if (id === _this.location.barredEmployees[i].id || undefined === _this.location.barredEmployees[i].deleted) {
+      if (id === _this.location.barredEmployees[i].id || undefined === _this.location.barredEmployees[i].deleted) {
         return true;
       }
     }
@@ -144,16 +144,22 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addSiteContactField(){
     _this.location.siteContactDetails.push(
-      {siteLocationName: "", contactNumber: "", siteLocationEmail: "", index: _this.location.siteContactDetails.length}
+      {siteLocationName: "", contactNumber: "", siteLocationEmail: "", deleted:false, index: _this.location.siteContactDetails.length}
     );
   }
 
   function removeFromContactsList(index){
-    _this.location.siteContactDetails.splice(index, 1);
+    //_this.location.siteContactDetails.splice(index, 1);
 
     for (i = 0; i < _this.location.siteContactDetails.length; i++) {
-      _this.location.siteContactDetails[i].index = i;
+
+      if(_this.location.siteContactDetails[i].index == index && undefined !==  _this.location.siteContactDetails[i].deleted){
+        _this.location.siteContactDetails[i].deleted = true;
+
+      //  _this.location.siteContactDetails[i].index = index--;
+      }
     }
+
   }
 
   function getCustomerLocation(id) {
