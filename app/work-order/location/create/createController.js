@@ -104,7 +104,15 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   }
 
   function addToArray(array, item) {
-    array.push(item);
+    var newItem = angular.copy(item);
+
+     for(i = 0; i < array.length; i++){
+       if(array[i].id === newItem.id){
+         return;
+       }
+     }
+
+     array.push(newItem);
   }
 
   function refreshMotSearch(keyword) {
