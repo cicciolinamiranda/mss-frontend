@@ -86,7 +86,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   init();
 
   function addBarredEmployee(employee) {
-    employee.barStartDate = moment().toDate();
+    employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
