@@ -71,6 +71,11 @@
         {{$ctrl.duration || 'Start and End Dates not available'}}
         <hr/>
       </div>
+      <div class="col-md-6">
+          <i class="fa fa-file"></i>
+          {{$ctrl.cloc.proofOfDuty.name || 'Proof of Duty not available'}}
+          <hr/>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -103,6 +108,13 @@
         <label ng-show="!$ctrl.cloc.technicalSurvey"> Technical Survey </label>
         <hr/>
       </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-time"></span>
+          {{$ctrl.cloc.methodOfRecording.name || 'Method of Recording Time and Attendance not available'}}
+          <hr/>
+        </div>
     </div>
     <div class="row">
       <div class="col-md-12">
