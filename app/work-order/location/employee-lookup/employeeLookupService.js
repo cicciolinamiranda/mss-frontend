@@ -2,8 +2,8 @@ module.exports = function(ngModule) {
   ngModule.service('EmployeeLookupSvc', lookupService);
 };
 
-function lookupService($q,$http, MOCK_BASE) {
-  var apiUrl = MOCK_BASE + '/employees';
+function lookupService($q,$http, WORKORDER_MOCK_BASE) {
+  var apiUrl = WORKORDER_MOCK_BASE + '/employees';
 
   this.search = function(query) {
     return $http({

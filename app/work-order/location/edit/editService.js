@@ -4,7 +4,7 @@ module.exports = function(ngModule) {
 
 var moment = require('moment');
 
-function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
+function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, WORKORDER_MOCK_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -26,7 +26,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', GAPI_BASE);
+    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
@@ -58,7 +58,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function getBilledCostTypeValues(){
     var def = $q.defer();
 
-    $http.get(MOCK_BASE + "/billedCostType")
+    $http.get(WORKORDER_MOCK_BASE + "/billedCostType")
     .success(function(response) {
       _this.billedCostType = response;
       def.resolve(response);
@@ -107,7 +107,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function getProofofDutyValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/proofOfDuty")
+      $http.get(WORKORDER_MOCK_BASE + "/proofOfDuty")
           .success(function(response) {
               _this.proofOfDuties = response;
               def.resolve(response);
@@ -121,7 +121,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function getMethodOfRecordingValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/methodOfRecording")
+      $http.get(WORKORDER_MOCK_BASE + "/methodOfRecording")
           .success(function(response) {
               _this.proofOfDuties = response;
               def.resolve(response);
