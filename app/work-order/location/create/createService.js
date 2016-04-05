@@ -94,7 +94,6 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
-    console.log(json);
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'name': '',
@@ -125,7 +124,6 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
-    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
