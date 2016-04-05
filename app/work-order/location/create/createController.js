@@ -178,10 +178,10 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   }
 
   function updateProofOfDuty(value){
-    _this.location.proofOfDuty = value.id;
+    _this.location.proofOfDuty = value;
   }
 
   function updateMethodOfRecording(value){
-    _this.location.methodOfRecording = value.id;
+    _this.location.methodOfRecording = value;
   }
 }

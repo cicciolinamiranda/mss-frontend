@@ -120,6 +120,8 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'siteLocations': [],
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
+      'proofOfDuty': json.proofOfDuty,
+      'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
 
@@ -156,7 +158,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
 
     function formatBarredEmployeesToJSON(barredEmployees) {
       var barredEmployeesList =[];
-      console.log("formatBarredEmployeesToJSON: "+JSON.stringify(barredEmployees));
+
       if(barredEmployees){
         for(i = 0; i < barredEmployees.length; i++){
           var emp = {};
