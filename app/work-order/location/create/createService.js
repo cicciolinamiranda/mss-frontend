@@ -94,6 +94,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
+    console.log(json);
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'name': '',
@@ -117,14 +118,14 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'customer': {
         'id':'1'
       },
-      'siteLocations': [],
+      'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
-
+    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
@@ -171,5 +172,13 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         }
       }
       return barredEmployeesList;
+    }
+
+    function checkListIfNull(list) {
+      if(undefined == list)
+      {
+        list = [];
+      }
+      return list;
     }
 }

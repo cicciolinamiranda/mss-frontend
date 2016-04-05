@@ -48,6 +48,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   _this.addToArray = addToArray;
   _this.costTypeChoices;
   _this.errMessage;
+  _this.goToViewWorkOrderLocation = goToViewWorkOrderLocation;
 
   //Save Customer Details
   _this.saveCustomerLocation = saveCustomerLocation;
@@ -86,6 +87,8 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function addBarredEmployee(employee) {
     employee.barStartDate = moment().toDate();
+    employee.id = employee.id;
+    employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
@@ -131,7 +134,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   function checkBarredSelected(id) {
     //manual linear search for duplicates. possible use of utility here
     for (i = 0; i < _this.location.barredEmployees.length; i++) {
-      if (id === _this.location.barredEmployees[i].id) {
+      if (id === _this.location.barredEmployees[i].id || true === _this.location.barredEmployees[i].deleted) {
         return true;
       }
     }
@@ -140,7 +143,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function addSiteContactField() {
     _this.location.siteContactDetails.push(
-      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+    {siteLocationName: "", contactNumber: "", siteLocationEmail: "", index: _this.location.siteContactDetails.length}
     );
   }
 
@@ -183,5 +186,9 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function updateMethodOfRecording(value){
     _this.location.methodOfRecording = value;
+  }
+
+  function goToViewWorkOrderLocation() {
+    $state.go('workOrder', {id: 1});
   }
 }

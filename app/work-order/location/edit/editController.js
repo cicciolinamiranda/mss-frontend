@@ -73,8 +73,10 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   init();
 
-  function addBarredEmployee(employee){
-    employee.barStartDate = moment().toDate();
+  function addBarredEmployee(employee) {
+    employee.startDate = moment().toDate();
+    employee.id = employee.id;
+    employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
@@ -88,7 +90,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
         array[i].deleted = true;
         }
 
-        //array.splice(i, 1);
       }
     }
   }
@@ -133,8 +134,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function checkBarredSelected(id){
     //manual linear search for duplicates. possible use of utility here
-    for(i = 0; i < _this.location.barredEmployees.length; i++){
-      if(id === _this.location.barredEmployees[i].id){
+    for (i = 0; i < _this.location.barredEmployees.length; i++) {
+        if (id === _this.location.barredEmployees[i].id || undefined === _this.location.barredEmployees[i].deleted) {
         return true;
       }
     }
@@ -143,7 +144,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addSiteContactField(){
     _this.location.siteContactDetails.push(
-      {name: "", phone: "", email: "", index: _this.location.siteContactDetails.length}
+      {siteLocationName: "", contactNumber: "", siteLocationEmail: "", index: _this.location.siteContactDetails.length}
     );
   }
 
