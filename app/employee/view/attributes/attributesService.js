@@ -1,8 +1,8 @@
 module.exports = function(ngModule) {
-  ngModule.service('LicencesSvc', licencesService);
+  ngModule.service('AttributesSvc', attributesService);
 };
 
-function licencesService($q, $gapi) {
+function attributesService($q, $gapi) {
   var cache = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -13,7 +13,7 @@ function licencesService($q, $gapi) {
     return deferred.resolve();
   });
 
-  this.getLicences = function(id) {
+  this.getAttributes = function(id) {
     var deferred2 = $q.defer();
     if (cache.hasOwnProperty(id)) {
       deferred2.resolve(cache[id]);
@@ -21,7 +21,7 @@ function licencesService($q, $gapi) {
     else {
       cache[id] = {};
       loadApi.then(function() {
-        return $gapi.client.employee.licences.listByEmployeeId({employeeId: id});
+        return $gapi.client.employee.attributes.listByEmployeeId({employeeId: id});
       }).then(function(data) {
         angular.extend(cache[id], data);
         deferred2.resolve(cache[id]);
