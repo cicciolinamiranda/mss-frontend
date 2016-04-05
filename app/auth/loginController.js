@@ -5,7 +5,7 @@ module.exports = loginCtrl;
 
   function init() {
     _this.signin = $gapi.signin;
-    if (!$stateParams.willRedirect) {
+    if (!$stateParams.willRedirect && !GAuth.isLoggedIn()) {
       GAuth.setUp(); // hook callbacks on auth success
     }
   }
