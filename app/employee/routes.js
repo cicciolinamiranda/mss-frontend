@@ -19,10 +19,5 @@ function routes($stateProvider) {
       name: 'employee.view',
       url: '/:employeeId',
       template: '<employee-view/>'
-    })
-    .state({
-      name: 'employee.details',
-      url: '/details/:employeeId',
-      template: '<pay-info/>'
     });
 }

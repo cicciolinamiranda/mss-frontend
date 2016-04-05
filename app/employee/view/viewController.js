@@ -5,7 +5,7 @@ module.exports = viewCtrl;
   _this.employeeId = $stateParams.employeeId;
 
   function init() {
-    EmployeeViewSvc.get($stateParams.employeeId).then(function(employee){
+    EmployeeViewSvc.get(_this.employeeId.employeeId).then(function(employee){
     _this.employee = employee;
     });
   }
