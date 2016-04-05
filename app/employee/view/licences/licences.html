@@ -1,0 +1,27 @@
+<h2>Licences / Qualifications</h2>
+<div class="panel">
+	<div ng-repeat = "licence in $ctrl.licences.licences">
+		<div class="panel">
+			<div class="row">
+			  <div class="col-md-4"><label>Licence Number</label></div>
+			  <div class="col-md-4" ng-bind="licence.licenceNumber"></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Licence Type</label></div>
+			  <div class="col-md-4" ng-bind="licence.type"></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Licence Category</label></div>
+			  <div class="col-md-4" ng-bind="licence.category"></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Issue Date</label></div>
+			  <div class="col-md-4" ng-bind="licence.issueDate"></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Expiry Date</label></div>
+			  <div class="col-md-4" ng-bind="licence.expiryDate"></div>
+			</div>
+		</div>
+	</div>
+</div>
