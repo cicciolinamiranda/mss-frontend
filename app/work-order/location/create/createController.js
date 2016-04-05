@@ -70,8 +70,8 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     _this.location.protectiveEquipment = [];
     _this.location.barredEmployees = [];
     _this.location.siteContactDetails = [];
-    _this.location.proofOfDuty = "";
-    _this.location.methodOfRecording = "";
+    _this.location.proofOfDuty = {};
+    _this.location.methodOfRecording = {};
 
     CreateLocationSvc.getBilledCostTypeValues().then(function (costTypeResponse) {
       _this.costTypeChoices = costTypeResponse;
@@ -86,7 +86,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
   init();
 
   function addBarredEmployee(employee) {
-    employee.barStartDate = moment().toDate();
+    employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
     employee.firstName = employee.firstname;
