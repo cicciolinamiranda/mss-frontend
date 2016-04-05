@@ -44,7 +44,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         var emp = {};
         emp.name = barredEmployees[i].lastName +
           ", " + barredEmployees[i].firstName;
-        emp.barsStartDate = transformJodaTimeToDate(barredEmployees[i].startDate);
+        emp.barsStartDate = moment(transformJodaTimeToDate(barredEmployees[i].startDate)).format("MM/DD/YYYY");
 
         _this.barredEmployeesList.push(emp);
       }
@@ -61,7 +61,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     }
 
     if(location.startDate && location.endDate){
-      _this.duration = transformJodaTimeToDate(location.startDate) + " - " + transformJodaTimeToDate(location.endDate);
+      _this.duration = moment(transformJodaTimeToDate(location.startDate)).format("MM/DD/YYYY") + " - " + moment(transformJodaTimeToDate(location.endDate)).format("MM/DD/YYYY");
     }
 
     if(location.equipments){
