@@ -5,7 +5,7 @@ module.exports = attributesCtr;
 
   function init() {
     AttributesSvc.getAttributes(_this.employee).then(function(attributes){
-      _this.attributes = attributes;
+      _this.attributesList = attributes;
     });
   }
 
