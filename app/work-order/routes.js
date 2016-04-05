@@ -10,6 +10,11 @@ function routes($stateProvider) {
     template: '<work-order-view/>'
   })
   .state({
+    name: 'post',
+    url: '/post/view',
+    template: '<post-view/>'
+  })
+  .state({
     name: 'location',
     url: '/locations',
     abstract: true,
