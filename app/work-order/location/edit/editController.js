@@ -103,7 +103,16 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   }
 
   function addToArray(array, item){
+    var newItem = angular.copy(item);
+
     if(array){
+      
+      for(i = 0; i < array.length; i++){
+        if(array[i].id === newItem.id){
+          return;
+        }
+      }
+
       array.push(item);
     }
   }
@@ -166,11 +175,12 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
       _this.location = response;
       //TODO Rework once backend for getMethodOfRecording
-      _this.selectedMethodOfRecording = {
-        id: _this.location.methodOfRecording.id,
-        method: _this.location.methodOfRecording.name
-      };
-
+      if(_this.location.methodOfRecording){
+        _this.selectedMethodOfRecording = {
+          id: _this.location.methodOfRecording.id,
+          method: _this.location.methodOfRecording.name
+        };
+      }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
 
     }, function (error) {
