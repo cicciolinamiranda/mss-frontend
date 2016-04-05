@@ -182,7 +182,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'customer': {
         'id':'1'
       },
-      'siteLocations': [],
+      'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS'
