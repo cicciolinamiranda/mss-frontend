@@ -1,77 +1,283 @@
-<form name="viewLocationForm">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>View Location</h1>
-    </div>
+<div class="info-section" style="margin-top:10px;">
+  <div class="info-section__header">
+    <h1 class="dark">View Location</h1>
+    <h1>&nbsp;</h1>
   </div>
-  <div class="row">
-    <div class="col-md-9">
-      <div class="row">
-        <img ng-src="{{$ctrl.mapSource}}">
-      </div>
-      <div class="row">
-        <div class="col-md-9">
-          <h3>{{$ctrl.location.address}}</h3>
+</div><!-- /info-section-->
+<div class="container">
+  <div class="col-md-8">
+    <div class="panel">
+      <form name="viewLocationForm">
+        <div class="row">
+          <div ng-switch="$ctrl.cloc.address">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
+              </div>
+            </div>
+            <div ng-switch-default>
+              <img ng-src="{{$ctrl.mapSource}}">
+            </div>
+          </div>
         </div>
-        <div class="col-md-3 pull-right">
-          <h3> {{$ctrl.location.id}} </h3>
+        <div class="row">
+          <div class="col-md-8">
+            <h4>{{$ctrl.cloc.id}}</h4>
+            <a href="#"><h3>Dell Ireland</h3></a>
+          </div>
+          <div class="col-md-4" style="padding-top: 20px">
+            <button type="button" class="btn btn-link" style="color: #080808;"
+            ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit">
+            <i class="fa fa-edit fa-2x"></i>
+          </button>
+          <button type="button" class="btn btn-link" style="color: #080808;"
+          ng-click="$ctrl.archiveLocation($ctrl.cloc.id)" title="Archive">
+          <i class="fa fa-times fa-2x"></i>
+        </button>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-6">
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span>{{$ctrl.cloc.address.address || 'Address not available'}}</span>
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.sopDetails}}"
+        ng-show="$ctrl.cloc.sopDetails" target="_blank">Standard Operation Procedures</a>
+        <label ng-show="!$ctrl.cloc.sopDetails">Standard Operation Procedures</label>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <span class="glyphicon glyphicon-screenshot"></span>
+        {{$ctrl.coordinates || 'Coordinates not available'}}
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.locationSurvey}}"
+        ng-show="$ctrl.cloc.locationSurvey" target="_blank">Location Survey</a>
+        <label ng-show="!$ctrl.cloc.locationSurvey">Location Survey</label>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <span class="glyphicon glyphicon-time"></span>
+        {{$ctrl.duration || 'Start and End Dates not available'}}
+        <hr/>
+      </div>
+      <div class="col-md-6">
+          <i class="fa fa-file"></i>
+          {{$ctrl.cloc.proofOfDuty.name || 'Proof of Duty not available'}}
+          <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.locationInstructionsApproval}}"
+        ng-show="$ctrl.cloc.locationInstructionsApproval" target="_blank">Location Instructions Approval</a>
+        <label ng-show="!$ctrl.cloc.locationInstructionsApproval">Location Instructions Approval</label>
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.floorPlan}}"
+        ng-show="$ctrl.cloc.floorPlan">Floor Plan</a>
+        <label ng-show="!$ctrl.cloc.floorPlan"> Floor Plan </label>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.healthSafetySurvey}}"
+        ng-show="$ctrl.cloc.healthSafetySurvey" target="_blank">Health Safety Survey</a>
+        <label ng-show="!$ctrl.cloc.healthSafetySurvey"> Health Safety Survey </label>
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <i class="fa fa-paperclip"></i>
+        <a ng-href="{{$ctrl.cloc.technicalSurvey}}"
+        ng-show="$ctrl.cloc.technicalSurvey" target="_blank">Technical Survey</a>
+        <label ng-show="!$ctrl.cloc.technicalSurvey"> Technical Survey </label>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+          <span class="glyphicon glyphicon-time"></span>
+          {{$ctrl.cloc.methodOfRecording.name || 'Method of Recording Time and Attendance not available'}}
+          <hr/>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label> Site Contacts </label>
+        <div ng-switch="$ctrl.cloc.siteLocations.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group" ng-show="$ctrl.cloc.siteLocations.length > 0">
+              <li class="list-group-item" ng-repeat="contact in $ctrl.cloc.siteLocations">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                  </div>
+                  <div class="col-md-4">
+                    <span ng-bind="contact.siteLocationName"></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span ng-bind="contact.contactNumber"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <span ng-bind="contact.siteLocationEmail"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label> Barred Employees </label>
+        <div ng-switch="$ctrl.barredEmployeesList.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group" ng-show="$ctrl.barredEmployeesList">
+              <li class="list-group-item" ng-repeat="emp in $ctrl.barredEmployeesList">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="emp.name"></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span ng-bind="emp.barsStartDate"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label> Site Skills</label>
+        <div ng-switch="$ctrl.cloc.skills.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.skills">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="skill.skillName"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label> Personal Protective Equipment </label>
+        <div ng-switch="$ctrl.protectiveEquipList.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group" ng-show="$ctrl.protectiveEquipList">
+              <li class="list-group-item" ng-repeat="equip in $ctrl.protectiveEquipList">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
+                  </div>
+                  <div class="col-md-6">
+                    <span ng-bind="equip.name"></span>
+                  </div>
+                  <div class="col-md-5">
+                    <strong><span ng-bind="equip.costType"></span></strong>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Mode of Transport</label>
+        <div ng-switch="$ctrl.modeOfTransportList.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group" ng-show="$ctrl.modeOfTransportList">
+              <li class="list-group-item" ng-repeat="mot in $ctrl.modeOfTransportList">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+                  </div>
+                  <div class="col-md-6">
+                    <span ng-bind="mot.name"></span>
+                  </div>
+                  <div class="col-md-5">
+                    <strong><span ng-bind="mot.costType"></span></strong>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <hr/>
-      <div class="row">
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-map-marker"></span>
-          <span ng-bind="$ctrl.location.address"></span>
-            <hr/>
-        </div>
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Standard Operation Procedures</a>
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-screenshot"></span>
-          {{$ctrl.location.latitude}} {{$ctrl.location.longitude}}
-          <hr/>
-        </div>
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Location Survey</a>
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-time"></span>
-          {{$ctrl.location.startDate}} {{$ctrl.location.endDate}}
-          <hr/>
-        </div>
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-file"></span>
-          <a href="#">Proof of Duty Tours</a>
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-time"></span>
-          <a href="#">Time and Attendance Setup</a>
-          <hr/>
-        </div>
-        <div class="col-md-6">
-          <span class="glyphicon glyphicon-info-sign"></span>
-          <a href="#">Incident Management</a>
-          <hr/>
-        </div>
-      </div>
-      <hr/>
     </div>
-    <div class="col-md-3">
-      <div class="row">
-        <!-- Placeholder for Audit log and Incident Management -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <h4>Posts</h4>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="panel text-center">
+              <i class="fa fa-picture-o fa-5x"></i>
+              <h3>Front Desk</h3>
+              Some details you should know<br/>
+              <strong>24 Hours</strong>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
+</div>

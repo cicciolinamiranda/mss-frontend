@@ -1,0 +1,20 @@
+<style>
+  .clickable{
+    cursor: pointer;
+  }
+</style>
+<div class="container">
+  <h2>Search Results for <span class="text-danger">{{$ctrl.query}}</span></h3>
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="page-header">Location</h3>
+        <div class="list-group">
+          <div ng-repeat="result in $ctrl.searchResults" class="list-group-item clickable" ui-sref="location.view({id:result.id})">
+            <small class="text-muted">{{result.id}}</small>
+            <h4>{{result.address.address}}</h4>
+            <h5 class="text-danger">{{result.customer.customerName}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

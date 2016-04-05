@@ -36,7 +36,7 @@
           places-auto-complete
           on-place-changed="$ctrl.placeChanged()">
       <div id="mapDiv">
-        <ng-map center="current-location" zoom="17">
+        <ng-map center="{{$ctrl.latitude || $ctrl.editlatitude}}, {{$ctrl.longitude || $ctrl.editlongitude}}" zoom="17">
           <marker id="mapMarker" on-dragend="$ctrl.onMarkerDragEnd()"
               position="{{$ctrl.markerPosition}}" draggable="true"></marker>
         </ng-map>
