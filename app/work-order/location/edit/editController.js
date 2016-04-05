@@ -162,13 +162,17 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   }
 
-  _this.test = function(){
-    console.log(_this.location);
-  }
-
   function getCustomerLocation(id) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
       _this.location = response;
+      //TODO Rework once backend for getMethodOfRecording
+      _this.selectedMethodOfRecording = {
+        id: _this.location.methodOfRecording.id,
+        method: _this.location.methodOfRecording.name
+      };
+
+      _this.selectedProofOfDuty = _this.location.proofOfDuty;
+
     }, function (error) {
       _this.errMessage= error;
     });
@@ -200,11 +204,11 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   }
 
   function updateProofOfDuty(value){
-    _this.location.proofOfDuty = value.id;
+    _this.location.proofOfDuty = value;
   }
 
   function updateMethodOfRecording(value){
-    _this.location.methodOfRecording = value.id;
+    _this.location.methodOfRecording = value;
   }
 
   //TODO change with actual save and page transition

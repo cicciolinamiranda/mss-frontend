@@ -152,7 +152,9 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       locInstructions: response.locationInstructionsApproval,
       healthSafetySurvey: response.healthSafetySurvey,
       technicalSurvey: response.technicalSurvey,
-      locationSurvey: response.locationSurvey
+      locationSurvey: response.locationSurvey,
+      proofOfDuty: response.proofOfDuty,
+      methodOfRecording: response.methodOfRecording
     };
     return customerLocation;
   }
@@ -185,9 +187,11 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
       'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
-      'statusStr': 'IN_PROGRESS'
+      'statusStr': 'IN_PROGRESS',
+      'proofOfDuty': json.proofOfDuty,
+      'methodOfRecording': json.methodOfRecording
     };
-    console.log("TO BE SAVED: "+JSON.stringify(_this.customerDetails));
+    
     return _this.customerDetails;
   }
 
