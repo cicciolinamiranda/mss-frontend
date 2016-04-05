@@ -5,7 +5,7 @@ module.exports = licencesCtrl;
 
   function init() {
     LicencesSvc.getLicences(_this.employee).then(function(licences){
-    _this.licences = licences;
+      _this.licences = licences;
     });
   }
 
