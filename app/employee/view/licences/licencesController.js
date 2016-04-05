@@ -4,8 +4,8 @@ module.exports = licencesCtrl;
   var _this = this;
 
   function init() {
-    LicencesSvc.getPaymentRate(_this.employee).then(function(licences){
-    _this.licences = licences;
+    LicencesSvc.getLicences(_this.employee).then(function(licences){
+      _this.licences = licences;
     });
   }
 

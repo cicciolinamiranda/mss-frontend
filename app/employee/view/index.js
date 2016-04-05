@@ -6,7 +6,8 @@ var ngApp = angular.module('employeeViewApp', [
   'ui.router',
   //view app components
   require('./payInfo/index').name,
-  require('./licences/index').name
+  require('./licences/index').name,
+  require('./attributes/index').name
 ]);
 
 require('./viewService')(ngApp);
