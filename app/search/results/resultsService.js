@@ -2,12 +2,12 @@ module.exports = function(ngModule) {
   ngModule.service('SearchResultsSvc', resultsService);
 };
 
-function resultsService($q, $gapi, GAPI_BASE) {
+function resultsService($q, $gapi, WORKORDER_GAPI_BASE) {
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', GAPI_BASE);
+    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
