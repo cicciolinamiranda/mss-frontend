@@ -14,15 +14,23 @@ module.exports = mapCtrl;
       document.getElementById('txtAutocomplete'));
 
   function init() {
-    _this.googleMapsUrl="https://maps.google.com/maps/api/js?libraries=places";
-    _this.markerPosition = "current-location";
 
     NgMap.getMap().then(function(map) {
       _this.map = map;
+
+      if(_this.editlatitude && _this.editlongitude){
+        _this.map.setCenter({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
+        _this.map.markers.mapMarker.setPosition({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
+      }
+
       //position textbox within map
       _this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     });
-    geolocate();
+
+    //if not from edit page
+    if(!(_this.editlatitude && _this.editlongitude)){
+      geolocate();
+    }
   }
 
   init();
@@ -102,6 +110,7 @@ module.exports = mapCtrl;
           };
           reverseGeocode(_this.initialCoordinates);
           setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
+          _this.markerPosition = _this.initialCoordinates;
         }, function() {
           _this.alertMessage = "No results found";
         });
@@ -117,10 +126,15 @@ module.exports = mapCtrl;
 
   function setAddressInInput(address){
       _this.address = address;
+      _this.editaddress = address;
   }
 
   function setCoordinates(lat, lng){
     _this.latitude = lat;
     _this.longitude = lng;
+    //for editaddress
+    _this.editlatitude = lat;
+    _this.editlongitude = lng;
   }
+
 }

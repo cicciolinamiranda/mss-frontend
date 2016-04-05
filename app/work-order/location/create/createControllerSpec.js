@@ -2,11 +2,11 @@ var component = require('./index');
 var moment = require('moment');
 
 describe("Create Location Component", function() {
-  var scope, controller, createService;
+  var scope, controller, createService, test, stateParams;
   var siteContactData = [
-    {name: "Name1", phone: "Phone1", email: "Email1@email.com", index: 0},
-    {name: "Name2", phone: "Phone2", email: "Email2@email.com", index: 1},
-    {name: "Name3", phone: "Phone3", email: "Email3@email.com", index: 2}
+    {siteLocationName: "Name1", contactNumber: "Phone1", siteLocationEmail: "Email1@email.com", index: 0},
+    {siteLocationName: "Name2", contactNumber: "Phone2", siteLocationEmail: "Email2@email.com", index: 1},
+    {siteLocationName: "Name3", contactNumber: "Phone3", siteLocationEmail: "Email3@email.com", index: 2}
   ];
   var modeOfTransport = [
     {"id": 1, "transportName": "Van", "billed": false, "costTypeId": ""},
@@ -33,8 +33,32 @@ describe("Create Location Component", function() {
   ];
 
   beforeEach(angular.mock.module(component.name));
+
+  //TODO: I think this is unclean, investigate later.
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.value('$stateParams', {
+      workOrderId: 1
+    });
+  }));
+
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.provider('$state', function () {
+          return {
+              $get: function () {
+                  return {
+                      params: {id:1}
+                  };
+              }
+          };
+      });
+      $provide.constant('GAPI_BASE', '');
+      $provide.constant('MOCK_BASE', '');
+  }));
+
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
     createService = $injector.get('CreateLocationSvc');
+    stateParams = $injector.get('$stateParams');
+
     scope = $rootScope.$new();
 
     spyOn(createService, 'getBilledCostTypeValues').and.returnValue(
@@ -44,10 +68,10 @@ describe("Create Location Component", function() {
       $q.when(searchMoTResponse));
 
     spyOn(createService, 'searchSiteSkills').and.returnValue(
-        $q.when(siteSkills));
+      $q.when(siteSkills));
 
     spyOn(createService, 'searchProtectiveEquipment').and.returnValue(
-            $q.when(protectiveEquip));
+      $q.when(protectiveEquip));
 
     var element = angular.element('<location-create></location-create>');
     $compile(element)(scope);
@@ -89,7 +113,7 @@ describe("Create Location Component", function() {
     scope.$apply();
 
     expect(controller.location.siteContactDetails.length).toEqual(4);
-    expect(controller.location.siteContactDetails[3].name).toEqual("");
+    expect(controller.location.siteContactDetails[3].siteLocationName).toEqual("");
     expect(controller.location.siteContactDetails[3].index).toEqual(3);
   })
 
@@ -102,7 +126,7 @@ describe("Create Location Component", function() {
     scope.$apply();
 
     expect(controller.location.siteContactDetails.length).toEqual(2);
-    expect(controller.location.siteContactDetails[1].name).toEqual("Name3");
+    expect(controller.location.siteContactDetails[1].siteLocationName).toEqual("Name3");
     expect(controller.location.siteContactDetails[1].index).toEqual(1);
 
   })

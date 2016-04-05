@@ -2,8 +2,8 @@ module.exports = employeeLookupCtrl;
 
 var moment = require('moment');
 
+/*@ngInject*/
 function employeeLookupCtrl(EmployeeLookupSvc) {
-  /*@ngInject*/
   var _this = this;
   _this.searchTerm = '';
   _this.searchResults = [];

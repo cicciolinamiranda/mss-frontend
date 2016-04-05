@@ -1,9 +1,8 @@
 var angular = require('angular');
 
-var ngApp = angular.module('locationViewApp', [
+var ngApp = angular.module('workOrderViewApp', [
 ]);
 
-require('./viewLocationService')(ngApp);
 require('./viewComponent')(ngApp);
 
 module.exports = ngApp;

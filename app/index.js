@@ -5,6 +5,7 @@ var ngApp = angular.module('mainApp', [
   require('./auth/index').name,
   require('./employee/index').name,
   require('./work-order/index').name,
+  require('./search/index').name,
 
   // 3rd-party libs
   require('angular-ui-router')
