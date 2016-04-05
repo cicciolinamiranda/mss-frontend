@@ -106,14 +106,14 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     var newItem = angular.copy(item);
 
     if(array){
-      
+
       for(i = 0; i < array.length; i++){
         if(array[i].id === newItem.id){
           return;
         }
       }
 
-      array.push(item);
+      array.push(newItem);
     }
   }
 
