@@ -2,13 +2,13 @@ module.exports = function(ngModule) {
   ngModule.service('EmployeeListSvc', listService);
 };
 
-function listService($q, $gapi) {
+function listService($q, $gapi, EMPLOYEE_GAPI_BASE) {
   var cache = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
   $gapi.ready.then(function() {
-    return $gapi.load('employee', 'v1', true);
+    return $gapi.load('employee', 'v1', EMPLOYEE_GAPI_BASE);
   }).then(function() {
     return deferred.resolve();
   });

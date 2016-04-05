@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 
 var moment = require('moment');
 
-function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
+function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -26,7 +26,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', GAPI_BASE);
+    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });

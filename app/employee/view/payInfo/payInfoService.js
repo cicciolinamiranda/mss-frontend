@@ -2,18 +2,18 @@ module.exports = function(ngModule) {
   ngModule.service('PayInfoSvc', payInfoService);
 };
 
-function payInfoService($q, $gapi) {
+function payInfoService($q, $gapi, EMPLOYEE_GAPI_BASE) {
   var cache1 = [];
   var cache2 = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function() {
-    return $gapi.load('employee', 'v1', true);
+    return $gapi.load('employee', 'v1', EMPLOYEE_GAPI_BASE);
   }).then(function() {
     return deferred.resolve();
   });
-  
+
   this.getEmployeeContractedHours = function getEmployeeContractedHours(id){
     var deferred2 = $q.defer();
     if (cache1.hasOwnProperty(id)) {
