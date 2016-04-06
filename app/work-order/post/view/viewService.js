@@ -44,7 +44,10 @@ function viewPostService() {
       height: [],
       chargeRates: "34.00",
       allowances: [],
-      imageSource: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1325"
+      imageSource: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1325",
+      isBooked: "Yes",
+      isCallIn: "Yes",
+      callInFrequency: "Every 30 min"
     };
   }
 }
