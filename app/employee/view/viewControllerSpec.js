@@ -1,6 +1,6 @@
 var component = require('./index');
 
-describe("Employee View Controller", function() {
+xdescribe("Employee View Controller", function() {
   var $controller, $q, $rootScope;
   var sample_employee = {
     id: '123',
@@ -24,7 +24,7 @@ describe("Employee View Controller", function() {
     $rootScope = _$rootScope_;
   }));
 
-  xdescribe("Employee list", function() {
+  describe("Employee list", function() {
     it("contains a list of employees resolved by the service", function() {
       var controller = $controller(require('./viewController'), {
         EmployeeViewSvc: mockEmployeeViewSvc,

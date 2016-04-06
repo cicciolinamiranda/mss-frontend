@@ -1,6 +1,6 @@
 var component = require('./index');
 
-describe("Employee View Service", function() {
+xdescribe("Employee View Service", function() {
   var EmployeeViewSvc, $rootScope;
   var sample_employee = {
     id: '123',
@@ -43,7 +43,7 @@ describe("Employee View Service", function() {
     spyOn(EmployeeViewSvc, 'get').and.callThrough();
   });
 
-  xdescribe("Get employee", function() {
+  describe("Get employee", function() {
     it("returns a promise that resolves with employee data", function(done) {
       EmployeeViewSvc.get('123').then(function(employee) {
         expect(employee.firstname).toBe(sample_employee.firstname);
