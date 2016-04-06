@@ -124,6 +124,8 @@
                 <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item">
                   <div class="row">
                     <div class="col-md-5">
+                      <input type="checkbox" ng-model="barredEmployee.isLifted"
+                        ng-change="$ctrl.changeLiftedStatus(barredEmployee)"/>
                       <span class="text-muted">{{barredEmployee.id}}</span></br>
                       <span>{{barredEmployee.firstname}} {{barredEmployee.surname}}</span>
                     </div>
@@ -137,6 +139,11 @@
                           <a href="" class="text-danger" ng-click="$ctrl.removeFromArray($ctrl.location.barredEmployees,barredEmployee.id)"><i class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
                         </div>
                       </div>
+                      <div class="row" ng-show="barredEmployee.endDate">
+                      <div class="col-md-10">
+                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>

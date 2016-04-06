@@ -80,6 +80,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
+    employee.isLifted = true;
+
     _this.location.barredEmployees.push(employee);
   }
 
@@ -221,8 +223,15 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     _this.location.methodOfRecording = value;
   }
 
-  //TODO change with actual save and page transition
   function goToViewLocation() {
     $state.go('location.view', {id: $stateParams.id});
+  }
+
+  _this.changeLiftedStatus = function(employee){
+    if(employee.isLifted){
+      employee.endDate = null;
+    }else{
+      employee.endDate = moment().toDate();
+    }
   }
 }
