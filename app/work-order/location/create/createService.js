@@ -113,7 +113,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
-      'surveyReviewDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
+      'locationSurverDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
       'floorPlan': '',
       'customer': {
         'id':'1'
