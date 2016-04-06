@@ -52,12 +52,20 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
+    console.log(barredEmployees);
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
         emp.name = barredEmployees[i].lastName +
           ", " + barredEmployees[i].firstName;
         emp.barsStartDate = moment(transformJodaTimeToDate(barredEmployees[i].startDate)).format("MM/DD/YYYY");
+
+        if(barredEmployees[i].endDate){
+          emp.isLifted = false;
+          emp.barsEndDate = moment(transformJodaTimeToDate(barredEmployees[i].endDate)).format("MM/DD/YYYY");
+        }else{
+          emp.isLifted = true;
+        }
 
         _this.barredEmployeesList.push(emp);
       }

@@ -60,6 +60,30 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
+                <label>Booked</label>
+              </div>
+              <div class="col-md-3 pull-right">
+                <span>{{$ctrl.post.isBooked}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-8">
+                <label>Call in</label>
+              </div>
+              <div class="col-md-4 pull-right">
+                <span>{{$ctrl.post.callInValue}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
                 <label>Identification Required</label>
               </div>
               <div class="col-md-3 pull-right">
@@ -70,10 +94,10 @@
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <label>Gender</label>
               </div>
-              <div class="col-md-3 pull-right">
+              <div class="col-md-4 pull-right">
                 <span>{{$ctrl.post.gender.name}}</span>
               </div>
             </div>
@@ -94,7 +118,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.skills">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -118,7 +142,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.postLicense">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -146,7 +170,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.trainings">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -170,7 +194,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.languages">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -199,7 +223,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.height">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item"></span>
@@ -223,7 +247,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.physicalConditions">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -252,7 +276,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.uniforms">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -276,7 +300,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.equipments">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span> [ {{item.quantity}} ]
@@ -306,7 +330,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.healthAndSafety">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -330,7 +354,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.religions">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -349,7 +373,7 @@
           <div class="col-md-12">
               <div class="panel__heading">
                 <div class="panel__title">
-                  <h4>Billing</h4>
+                  <h4><i class="fa fa-money"></i> Billing</h4>
                 </div>
               </div>
           </div>
@@ -380,7 +404,7 @@
                   <li class="list-group-item" ng-repeat="item in $ctrl.post.allowances">
                     <div class="row">
                       <div class="col-md-1">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                         <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
@@ -398,7 +422,7 @@
           <div class="col-md-12">
               <div class="panel__heading">
                 <div class="panel__title">
-                  <h4>Notes</h4>
+                  <h4><i class="fa fa-file-text-o"></i> Notes</h4>
                 </div>
               </div>
             <div class="row">

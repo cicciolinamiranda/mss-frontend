@@ -13,7 +13,15 @@ function viewPostModel(ViewPostSvc) {
   }
 
   function getPostDetails(id){
-    return ViewPostSvc.getPostDetailsById(id);
+    var post = ViewPostSvc.getPostDetailsById(id);
+
+    if(post.isCallIn == "No"){
+      post.callInValue = post.isCallIn;
+    }else{
+      post.callInValue = post.callInFrequency;
+    }
+
+    return post;
   }
 
   return _this;
