@@ -15,6 +15,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.archiveLocation = archiveLocation;
   _this.editLocation = editLocation;
 
+  //Posts
+  _this.goToViewPost = goToViewPost;
+  _this.postLists;
+
   function init() {
 
     ViewLocationSvc.getLocationDetails(_this.locId).then(function(response){
@@ -24,6 +28,8 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     }, function (error) {
       _this.errMessage= error;
     });
+
+    getPostDetailsList(_this.locId);
   }
 
   init();
@@ -36,6 +42,13 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
           destObject.costType = "[" + response[0].name + "]";
       });
     }
+  }
+
+  function getPostDetailsList(id) {
+    ViewLocationSvc.getPostDetailsList(id)
+      .then(function(response){
+        _this.postLists = response;
+    });
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
@@ -60,14 +73,18 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
       _this.coordinates = location.address.latitude + " " + location.address.longitude;
     }
 
-    if(location.startDate && location.endDate){
-      _this.duration = moment(transformJodaTimeToDate(location.startDate)).format("MM/DD/YYYY") + " - " + moment(transformJodaTimeToDate(location.endDate)).format("MM/DD/YYYY");
+    if(location.startDate){
+      _this.duration = moment(transformJodaTimeToDate(location.startDate)).format("MM/DD/YYYY");
+    }
+
+    if(location.endDate != null){
+      _this.duration += " - "+moment(transformJodaTimeToDate(location.endDate)).format("MM/DD/YYYY");
     }
 
     if(location.equipments){
       for(i = 0; i < location.equipments.length; i++){
         var equip = {};
-        equip.name = location.equipments[i].equipmentName;
+        equip.name = location.equipments[i].name;
         getCostType(location.equipments[i], equip);
         _this.protectiveEquipList.push(equip);
       }
@@ -76,7 +93,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     if(location.modeOfTransports){
       for(i = 0; i < location.modeOfTransports.length; i++){
         var mot = {};
-        mot.name = location.modeOfTransports[i].transportName;
+        mot.name = location.modeOfTransports[i].name;
         getCostType(location.modeOfTransports[i], mot);
         _this.modeOfTransportList.push(mot);
       }
@@ -99,4 +116,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
       }
     return date;
   }
+
+  function goToViewPost(id) {
+  //Will be replaced by a post id once integration is done
+  $state.go('post', {id: id});
+  }
+
 }

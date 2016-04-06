@@ -30,6 +30,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.selectedProtectiveEquipment;
   _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
+  _this.costTypeDefault;
 
   //Proof Of Duty
   _this.selectedProofOfDuty;
@@ -49,6 +50,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.addToArray = addToArray;
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
+  _this.resetCostType = resetCostType;
 
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
@@ -64,6 +66,9 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
+      if (_this.costTypeChoices.length > 0) {
+        _this.costTypeDefault = costTypeResponse[0].id;
+      }
     }, function (error) {
       _this.errMessage= error;
     });
@@ -103,8 +108,17 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   }
 
   function addToArray(array, item){
+    var newItem = angular.copy(item);
+
     if(array){
-      array.push(item);
+
+      for(i = 0; i < array.length; i++){
+        if(array[i].id === newItem.id){
+          return;
+        }
+      }
+
+      array.push(newItem);
     }
   }
 
@@ -166,11 +180,12 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     EditLocationSvc.getCustomerLocation(id).then(function(response){
       _this.location = response;
       //TODO Rework once backend for getMethodOfRecording
-      _this.selectedMethodOfRecording = {
-        id: _this.location.methodOfRecording.id,
-        method: _this.location.methodOfRecording.name
-      };
-
+      if(_this.location.methodOfRecording){
+        _this.selectedMethodOfRecording = {
+          id: _this.location.methodOfRecording.id,
+          method: _this.location.methodOfRecording.name
+        };
+      }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
 
     }, function (error) {
@@ -214,5 +229,9 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //TODO change with actual save and page transition
   function goToViewLocation() {
     $state.go('location.view', {id: $stateParams.id});
+  }
+
+  function resetCostType(costType) {
+    costType = _this.costTypeDefault;
   }
 }

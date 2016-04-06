@@ -164,13 +164,13 @@
           <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
             <li class="list-group-item" ng-repeat="equip in $ctrl.location.protectiveEquipment" ng-hide="equip.deleted">
               <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-              <span ng-bind="equip.equipmentName"></span>
+              <span ng-bind="equip.name"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
               ng-click="$ctrl.hideFromDisplay($ctrl.location.protectiveEquipment, equip.id)">
               <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
             </button>
             <label class="text-muted pull-right">
-              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
+              <input type="checkbox" ng-model="equip.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
             </label>
             <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
             ng-init="equip.costType"
@@ -188,24 +188,24 @@
       <ui-select ng-model="$ctrl.selectedTransport" theme="bootstrap"
       on-select="$ctrl.addToArray($ctrl.location.modeOfTransport, $ctrl.selectedTransport)">
       <ui-select-match placeholder="Select a Mode of Transport">
-        <span ng-bind="$ctrl.selectedTransport.transportName"></span>
+        <span ng-bind="$ctrl.selectedTransport.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in ($ctrl.transportChoices | filter: $select.search) track by item.id"
       refresh="$ctrl.refreshMotSearch($select.search)"
       refresh-delay="5">
-      <span ng-bind="item.transportName"></span>
+      <span ng-bind="item.name"></span>
     </ui-select-choices>
   </ui-select>
   <ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
     <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport" ng-hide="transport.deleted">
       <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-      <span>{{transport.transportName}}</span>
+      <span>{{transport.name}}</span>
       <button type="button" class="btn btn-link" style="color: #080808; float: right;"
       ng-click="$ctrl.hideFromDisplay($ctrl.location.modeOfTransport, transport.id)">
       <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
     </button>
     <label class="text-muted pull-right">
-      <input type="checkbox" ng-model="transport.billed"> Billed&nbsp;
+      <input type="checkbox" ng-model="transport.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
     </label>
     <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
     ng-init="transport.costType"
@@ -223,18 +223,18 @@
     <ui-select ng-model="$ctrl.selectedSiteSkills" theme="bootstrap"
     on-select="$ctrl.addToArray($ctrl.location.siteSkills, $ctrl.selectedSiteSkills)">
     <ui-select-match placeholder="Search for skills..">
-      <span ng-bind="$ctrl.selectedSiteSkills.skillName"></span>
+      <span ng-bind="$ctrl.selectedSiteSkills.name"></span>
     </ui-select-match>
     <ui-select-choices repeat="item in ($ctrl.siteSkillsChoices | filter: $select.search) track by item.id"
     refresh="$ctrl.refreshSkillsSearch($select.search)"
     refresh-delay="5">
-    <span ng-bind="item.skillName"></span>
+    <span ng-bind="item.name"></span>
   </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.location.siteSkills">
   <li class="list-group-item" ng-repeat="skill in $ctrl.location.siteSkills">
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-    <span ng-bind="skill.skillName"></span>
+    <span ng-bind="skill.name"></span>
     <button type="button" class="btn btn-link" style="color: #080808; float: right;"
     ng-click="$ctrl.removeFromArray($ctrl.location.siteSkills, skill.id)">
     <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
