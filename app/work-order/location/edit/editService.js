@@ -153,6 +153,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       healthSafetySurvey: response.healthSafetySurvey,
       technicalSurvey: response.technicalSurvey,
       locationSurvey: response.locationSurvey,
+      surveyReviewDate: transformJodaTimeToDate(response.surveyReviewDate),
       proofOfDuty: response.proofOfDuty,
       methodOfRecording: response.methodOfRecording
     };
@@ -180,18 +181,19 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
+      'locationSurverDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
       'floorPlan': '',
       'customer': {
         'id':'1'
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
-      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
+      'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'statusStr': 'IN_PROGRESS',
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
     };
-    
+
     return _this.customerDetails;
   }
 
@@ -208,11 +210,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.id = barredEmployees[i].id;
-        emp.employeeId = barredEmployees[i].employeeId;
-        emp.lastName = barredEmployees[i].lastName;
-        emp.firstName = barredEmployees[i].firstName;
-        emp.deleted = barredEmployees[i].deleted;
+        emp.id = barredEmployees[i];
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
         emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
         barredEmployeesList.push(emp);
@@ -226,11 +224,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.id = barredEmployees[i].id;
-        emp.employeeId = barredEmployees[i].employeeId;
-        emp.lastName = barredEmployees[i].lastName;
-        emp.firstName = barredEmployees[i].firstName;
-        emp.deleted = barredEmployees[i].deleted;
+        emp = barredEmployees[i];
         emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
         emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
         barredEmployeesList.push(emp);
@@ -263,4 +257,11 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     return returnList;
   }
 
+  function formatMomentDateThatMustBeNull(date) {
+    var returnDate = null;
+    if(undefined !== date) {
+      date = moment(date).format("MM/DD/YYYY");
+    }
+    return returnDate;
+  }
 }

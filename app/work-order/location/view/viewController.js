@@ -73,8 +73,12 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
       _this.coordinates = location.address.latitude + " " + location.address.longitude;
     }
 
-    if(location.startDate && location.endDate){
-      _this.duration = moment(transformJodaTimeToDate(location.startDate)).format("MM/DD/YYYY") + " - " + moment(transformJodaTimeToDate(location.endDate)).format("MM/DD/YYYY");
+    if(location.startDate){
+      _this.duration = moment(transformJodaTimeToDate(location.startDate)).format("MM/DD/YYYY");
+    }
+
+    if(location.endDate != null){
+      _this.duration += " - "+moment(transformJodaTimeToDate(location.endDate)).format("MM/DD/YYYY");
     }
 
     if(location.equipments){
