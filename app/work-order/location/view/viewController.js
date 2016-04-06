@@ -15,6 +15,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.archiveLocation = archiveLocation;
   _this.editLocation = editLocation;
 
+  //Posts
+  _this.goToViewPost = goToViewPost;
+  _this.postLists;
+
   function init() {
 
     ViewLocationSvc.getLocationDetails(_this.locId).then(function(response){
@@ -24,6 +28,8 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     }, function (error) {
       _this.errMessage= error;
     });
+
+    getPostDetailsList(_this.locId);
   }
 
   init();
@@ -36,6 +42,13 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
           destObject.costType = "[" + response[0].name + "]";
       });
     }
+  }
+
+  function getPostDetailsList(id) {
+    ViewLocationSvc.getPostDetailsList(id)
+      .then(function(response){
+        _this.postLists = response;
+    });
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
@@ -99,4 +112,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
       }
     return date;
   }
+
+  function goToViewPost(id) {
+  //Will be replaced by a post id once integration is done
+  $state.go('post', {id: id});
+  }
+
 }
