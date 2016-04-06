@@ -14,7 +14,10 @@
               <h3>{{$ctrl.post.name}}</h3>
             </div>
             <div class="col-md-4">
-                <h3>{{$ctrl.post.id}}</h3>
+                <button type="button" class="btn btn-link pull-right" style="color: #080808;"
+                ng-click="$ctrl.model.editPost($ctrl.post.id)" title="Edit">
+                <i class="fa fa-edit fa-2x"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -356,72 +359,37 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
-                <span>Avg Hours in Months</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>342:51</span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Computed Monthly Value</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>2,057.17</span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Avg Days in Months</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>25.7143</span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Monthly Billing</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>2,880.00</span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
                 <span>Charge Rates</span>
               </div>
               <div class="col-md-3 pull-right">
-                <span>[Placeholder]</span>
+                <span ng-bind="$ctrl.post.chargeRates"></span>
               </div>
             </div>
             <hr/>
           </div>
           <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Billed</span>
+            <label>Allowances</label>
+            <div ng-switch="$ctrl.post.allowances.length > 0">
+              <div ng-switch-when="false">
+                <div class="alert alert-info" style="padding-left:20px">
+                  No data available.
+                </div>
               </div>
-              <div class="col-md-3 pull-right">
-                <span>True</span>
+              <div ng-switch-default>
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.allowances">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                      </div>
+                      <div class="col-md-8">
+                        <span ng-bind="item.name"></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
-            <hr/>
           </div>
         </div>
         <!--billing-->
@@ -448,6 +416,7 @@
           </div>
         </div>
         <br/>
+        <br/>
         <!--notes-->
         <div class="row">
           <div class="col-md-12">
@@ -458,14 +427,18 @@
               </div>
             <div class="row">
               <div class="col-md-4">
-                <br/>
-                <div class="panel text-center">
-                  <i class="fa fa-picture-o fa-5x"></i>
-                </div>
+                <a href="">
+                  <div class="panel text-center" style="padding:90px 0px;">
+                    <i class="fa fa-picture-o fa-5x"></i>
+                  </div>
+                </a>
               </div>
               <div class="col-md-4">
-                <br/>
-                <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
+                <a href="">
+                  <div class="panel text-center" style="padding:90px 0px;">
+                    <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -475,6 +448,6 @@
 </div>
 <div class="col-md-4">
   <!--TODO Change with correct url-->
-  <img src="frontdesk.jpg" alt="{{$ctrl.post.name}}" width="400" height="200"/>
+  <img ng-src="{{$ctrl.post.imageSource}}" alt="{{$ctrl.post.name}}" width="400" height="200"/>
 </div>
 </div>

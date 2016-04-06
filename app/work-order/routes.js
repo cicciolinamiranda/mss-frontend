@@ -11,7 +11,7 @@ function routes($stateProvider) {
   })
   .state({
     name: 'post',
-    url: '/post/view',
+    url: '/post/view/:id',
     template: '<post-view/>'
   })
   .state({
