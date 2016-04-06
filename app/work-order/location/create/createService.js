@@ -182,10 +182,12 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     }
 
     function formatMomentDateThatMustBeNull(date) {
+      console.log("BEFORE DATE " +date);
       var returnDate = null;
       if(undefined !== date) {
-        date = moment(date).format("MM/DD/YYYY");
+        returnDate = moment(date).format("MM/DD/YYYY");
       }
+      console.log(returnDate);
       return returnDate;
     }
 }

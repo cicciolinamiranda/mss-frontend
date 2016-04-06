@@ -153,7 +153,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       healthSafetySurvey: response.healthSafetySurvey,
       technicalSurvey: response.technicalSurvey,
       locationSurvey: response.locationSurvey,
-      surveyReviewDate: transformJodaTimeToDate(response.surveyReviewDate),
+      surveyReviewDate: transformJodaTimeToDate(response.locationSurveyDate),
       proofOfDuty: response.proofOfDuty,
       methodOfRecording: response.methodOfRecording
     };
@@ -161,6 +161,10 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
+    var endDateStr = "";
+    if(undefined !== json.endDate) {
+      date = moment(json.endDate).format("MM/DD/YYYY");
+    }
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'id': json.id,
@@ -181,14 +185,14 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
-      'locationSurverDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
+      'locationSurverDateStr':moment(json.surveyReviewDate).format("MM/DD/YYYY"),
       'floorPlan': '',
       'customer': {
         'id':'1'
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
-      'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
+      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'statusStr': 'IN_PROGRESS',
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
@@ -266,8 +270,9 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function formatMomentDateThatMustBeNull(date) {
     var returnDate = null;
     if(undefined !== date) {
-      date = moment(date).format("MM/DD/YYYY");
+      returnDate = moment(date).format("MM/DD/YYYY");
     }
+    console.log(date);
     return returnDate;
   }
 }
