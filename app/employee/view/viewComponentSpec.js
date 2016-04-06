@@ -44,7 +44,7 @@ describe("Employee View Component", function() {
     $rootScope = _$rootScope_;
   }));
 
-  xit("contains a list of employees resolved by the service", function() {
+  it("contains a list of employees resolved by the service", function() {
     var element = $compile("<employee-view></employee-view>")($rootScope);
     $rootScope.$digest();
     expect(element.html()).toContain("Auntie");
