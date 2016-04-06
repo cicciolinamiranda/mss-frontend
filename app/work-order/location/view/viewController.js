@@ -84,7 +84,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     if(location.equipments){
       for(i = 0; i < location.equipments.length; i++){
         var equip = {};
-        equip.name = location.equipments[i].equipmentName;
+        equip.name = location.equipments[i].name;
         getCostType(location.equipments[i], equip);
         _this.protectiveEquipList.push(equip);
       }
@@ -93,7 +93,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
     if(location.modeOfTransports){
       for(i = 0; i < location.modeOfTransports.length; i++){
         var mot = {};
-        mot.name = location.modeOfTransports[i].transportName;
+        mot.name = location.modeOfTransports[i].name;
         getCostType(location.modeOfTransports[i], mot);
         _this.modeOfTransportList.push(mot);
       }
