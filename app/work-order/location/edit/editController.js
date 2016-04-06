@@ -67,7 +67,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
       if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeResponse[0].id;
+        _this.costTypeDefault = costTypeMock[0].id;
       }
     }, function (error) {
       _this.errMessage= error;
