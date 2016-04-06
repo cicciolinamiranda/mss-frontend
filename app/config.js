@@ -4,8 +4,9 @@ module.exports = function(ngModule) {
 
 function config($httpProvider, GAuthProvider) {
   $httpProvider.defaults.withCredentials = true;
-  GAuthProvider.authUrl = 'https://employee-backend-dot-cs-javelin-mss-team-2.appspot.com/login/google';
+  // GAuthProvider.authUrl = 'https://employee-backend-dot-cs-javelin-mss-team-2.appspot.com/login/google';
+  GAuthProvider.authUrl = 'http://localhost:8081/login/google';
   GAuthProvider.destinationStateOnSuccess = 'employee.list';
   GAuthProvider.destinationStateOnError = 'auth.error';
-  GAuthProvider.bypassLogin = true;
+  GAuthProvider.bypassLogin = false;
 }

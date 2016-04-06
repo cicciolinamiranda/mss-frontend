@@ -1,6 +1,6 @@
 var component = require('./index');
 
-xdescribe("Employee View Service", function() {
+describe("Employee View Service", function() {
   var EmployeeViewSvc, $rootScope;
   var sample_employee = {
     id: '123',
@@ -11,6 +11,7 @@ xdescribe("Employee View Service", function() {
   // mock $gapi to inject to EmployeeViewSvc
   beforeEach(function() {
     angular.mock.module(function($provide) {
+      $provide.constant('EMPLOYEE_GAPI_BASE', '');
       $provide.service('$gapi', function($q) {
         var gapi = {
           loaded: $q.resolve(),

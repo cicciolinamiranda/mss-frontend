@@ -7,7 +7,7 @@ function listService($q, $gapi, EMPLOYEE_GAPI_BASE) {
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
-  $gapi.ready.then(function() {
+  $gapi.loaded.then(function() {
     return $gapi.load('employee', 'v1', EMPLOYEE_GAPI_BASE);
   }).then(function() {
     return deferred.resolve();

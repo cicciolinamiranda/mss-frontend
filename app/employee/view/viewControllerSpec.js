@@ -1,6 +1,6 @@
 var component = require('./index');
 
-xdescribe("Employee View Controller", function() {
+describe("Employee View Controller", function() {
   var $controller, $q, $rootScope;
   var sample_employee = {
     id: '123',
