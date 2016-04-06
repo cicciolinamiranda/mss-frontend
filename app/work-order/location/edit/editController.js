@@ -30,6 +30,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.selectedProtectiveEquipment;
   _this.costTypeSelected;
   _this.refreshProtectiveEquipmentSearch = refreshProtectiveEquipmentSearch;
+  _this.costTypeDefault;
 
   //Proof Of Duty
   _this.selectedProofOfDuty;
@@ -49,6 +50,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.addToArray = addToArray;
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
+  _this.resetCostType = resetCostType;
 
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
@@ -64,6 +66,9 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
     EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
       _this.costTypeChoices = costTypeMock;
+      if (_this.costTypeChoices.length > 0) {
+        _this.costTypeDefault = costTypeResponse[0].id;
+      }
     }, function (error) {
       _this.errMessage= error;
     });
@@ -224,5 +229,9 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //TODO change with actual save and page transition
   function goToViewLocation() {
     $state.go('location.view', {id: $stateParams.id});
+  }
+
+  function resetCostType(costType) {
+    costType = _this.costTypeDefault;
   }
 }

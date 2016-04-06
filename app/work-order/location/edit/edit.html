@@ -170,7 +170,7 @@
               <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
             </button>
             <label class="text-muted pull-right">
-              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
+              <input type="checkbox" ng-model="equip.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
             </label>
             <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
             ng-init="equip.costType"
@@ -205,7 +205,7 @@
       <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
     </button>
     <label class="text-muted pull-right">
-      <input type="checkbox" ng-model="transport.billed"> Billed&nbsp;
+      <input type="checkbox" ng-model="transport.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
     </label>
     <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
     ng-init="transport.costType"
