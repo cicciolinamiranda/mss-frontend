@@ -238,6 +238,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     }else{
       employee.endDate = moment().toDate();
     }
+  }
 
   function resetCostType(costType) {
     costType = _this.costTypeDefault;
