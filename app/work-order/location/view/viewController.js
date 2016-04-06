@@ -7,6 +7,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.mapSource;
   _this.coordinates;
   _this.duration;
+  _this.displaySurveyDate;
   _this.cloc;
   _this.protectiveEquipList = [];
   _this.modeOfTransportList = [];
@@ -96,6 +97,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         getCostType(location.equipments[i], equip);
         _this.protectiveEquipList.push(equip);
       }
+    }
+
+    if(location.locationSurveyDate != null) {
+      _this.displaySurveyDate = moment(transformJodaTimeToDate(location.locationSurveyDate)).format("MM/DD/YYYY");
     }
 
     if(location.modeOfTransports){
