@@ -45,7 +45,11 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         emp.name = barredEmployees[i].lastName +
           ", " + barredEmployees[i].firstName;
         emp.barsStartDate = moment(transformJodaTimeToDate(barredEmployees[i].startDate)).format("MM/DD/YYYY");
-
+        emp.barsEndDate = moment(transformJodaTimeToDate(barredEmployees[i].endDate)).format("MM/DD/YYYY");
+        emp.barred = true;
+        if('undefined' === barredEmployees[i].endDate) {
+        emp.barred = false;
+        }
         _this.barredEmployeesList.push(emp);
       }
     }

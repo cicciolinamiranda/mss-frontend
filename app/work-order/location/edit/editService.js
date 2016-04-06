@@ -191,7 +191,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
     };
-    
+
     return _this.customerDetails;
   }
 
@@ -215,7 +215,18 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         emp.deleted = barredEmployees[i].deleted;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
         emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
+        console.log("BARRED EMPLOYEES end date--->"+JSON.stringify(barredEmployees[i].endDate));
+        emp.tempEndDate = moment().toDate();
+        emp.barred = true;
+        if('undefined' === barredEmployees[i].endDate) {
+        emp.barred = false;
+        }
+        else
+        {
+          emp.barred = true;
+        }
         barredEmployeesList.push(emp);
+        console.log("RESPONSE BODY---->"+JSON.stringify(barredEmployeesList));
       }
     }
     return barredEmployeesList;
@@ -232,10 +243,14 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         emp.firstName = barredEmployees[i].firstName;
         emp.deleted = barredEmployees[i].deleted;
         emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
-        emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+
+        if(barredEmployees[i].barred === false){
+        emp.endDateStr = moment(barredEmployees[i].tempEndDate).format("MM/DD/YYYY");
+        }
         barredEmployeesList.push(emp);
       }
     }
+    console.log("REQUEST BODY---->"+JSON.stringify(barredEmployeesList));
     return barredEmployeesList;
   }
 

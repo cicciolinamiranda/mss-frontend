@@ -80,6 +80,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
+    employee.barred = true;
     _this.location.barredEmployees.push(employee);
   }
 

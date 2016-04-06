@@ -119,7 +119,6 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
-      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'

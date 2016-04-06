@@ -170,6 +170,14 @@
                   <div class="col-md-3">
                     <span ng-bind="emp.barsStartDate"></span>
                   </div>
+                  <div class="col-md-3" ng-show="emp.barred">
+                    <span ng-bind="emp.barsEndDate"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="text-muted pull-right">
+                      <input type="checkbox" ng-model="emp.barred"> Barred&nbsp;
+                    </label>
+                  </div>
                 </div>
               </li>
             </ul>

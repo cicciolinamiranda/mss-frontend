@@ -11,208 +11,219 @@
         <div class="row">
           <div class="col-md-12">
             <map-display
-              ng-if="$ctrl.location.editlatitude"
-              editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
-            </map-display>
+            ng-if="$ctrl.location.editlatitude"
+            editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
+          </map-display>
+        </div>
+      </div>
+      <div class="alert alert-danger" ng-show="$ctrl.errMessage">
+        {{$ctrl.errMessage}}
+      </div>
+      <!--Address/Lat/Long-->
+      <div class="row" id="addressDiv" style="display: block">
+        <div class="col-md-8">
+          <label for="address">Address:</label>
+          <div ng-show="editLocationForm.address.$touched && editLocationForm.address.$invalid"
+          class="row alert alert-danger">
+          <span>Please enter an address.</span>
+        </div>
+        <input id="address" name="address" ng-model="$ctrl.location.editaddress" type="text" placeholder="Address" class="form-control"
+        required>
+      </div>
+      <div class="form-group col-md-4" >
+        <label for="coordinates">Coordinates:</label>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <input id="lat" ng-model="$ctrl.location.editlatitude" type="text" placeholder="Latitude"  class="form-control" size=10 disabled>
           </div>
-        </div>
-        <div class="alert alert-danger" ng-show="$ctrl.errMessage">
-          {{$ctrl.errMessage}}
-        </div>
-        <!--Address/Lat/Long-->
-        <div class="row" id="addressDiv" style="display: block">
-          <div class="col-md-8">
-            <label for="address">Address:</label>
-            <div ng-show="editLocationForm.address.$touched && editLocationForm.address.$invalid"
-            class="row alert alert-danger">
-            <span>Please enter an address.</span>
-          </div>
-          <input id="address" name="address" ng-model="$ctrl.location.editaddress" type="text" placeholder="Address" class="form-control"
-          required>
-        </div>
-        <div class="form-group col-md-4" >
-          <label for="coordinates">Coordinates:</label>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <input id="lat" ng-model="$ctrl.location.editlatitude" type="text" placeholder="Latitude"  class="form-control" size=10 disabled>
-            </div>
-            <div class="form-group col-md-6">
-              <input id="lng" ng-model="$ctrl.location.editlongitude" type="text" placeholder="Longitude"  class="form-control" size=10 disabled>
-            </div>
+          <div class="form-group col-md-6">
+            <input id="lng" ng-model="$ctrl.location.editlongitude" type="text" placeholder="Longitude"  class="form-control" size=10 disabled>
           </div>
         </div>
       </div>
-      <!--Address/Lat/Long-->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="startDate">Start Date</label>
-              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.location.startDate" required/>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="endDate">End Date</label>
-              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.location.endDate"/>
-            </div>
+    </div>
+    <!--Address/Lat/Long-->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="startDate">Start Date</label>
+            <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.location.startDate" required/>
           </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="standardOps">Standard Operation Procedures</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                <input type="text" class="form-control" name="standardOps" id="standardOps" ng-model="$ctrl.location.standardOps"/>
-              </div>
-            </div>
+          <div class="form-group col-md-6">
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.location.endDate"/>
           </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="locInstructionsApproval">Location Instructions Approval</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" ng-model="$ctrl.location.locInstructions"/>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="healthSafetySurvey">Health and Safety Survey</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey"
-                ng-model="$ctrl.location.healthSafetySurvey"/>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="technicalSurvey">Technical (Site) Survey</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey"
-                ng-model="$ctrl.location.technicalSurvey"/>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="locationSurvey">Location Survey</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                <input type="text" class="form-control" name="locationSurvey" id="locationSurvey"
-                ng-model="$ctrl.location.locationSurvey"/>
-              </div>
-            </div>
-          </div>
-          <div class="row" ng-show="$ctrl.location.locationSurvey">
-            <div class="form-group col-md-12">
-              <label for="surveyReviewDate">Survey Review Date</label>
-              <input type="date" class="form-control" name="surveyReviewDate" id="surveyReviewDate"
-              ng-model="$ctrl.location.surveyReviewDate" required/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="floorPlan">Floor Plan</label>
-              <input type="file" class="form-control" name="floorPlan" id="floorPlan"
-              nv-file-select uploader="$ctrl.location.floorPlanUploader"/>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="standardOps">Standard Operation Procedures</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+              <input type="text" class="form-control" name="standardOps" id="standardOps" ng-model="$ctrl.location.standardOps"/>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="barredEmployees">Barred Employees</label>
-              <div class="list-group">
-                <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item" ng-hide="barredEmployee.deleted">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <span class="text-muted">{{barredEmployee.employeeId}}</span></br>
-                      <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
-                    </div>
-                    <div class="col-md-7">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input type="date" class="form-control input-sm" ng-model="barredEmployee.startDate" required/>
-                        </div>
-                        <div class="col-md-2">
-                          <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
-                        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="locInstructionsApproval">Location Instructions Approval</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+              <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" ng-model="$ctrl.location.locInstructions"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="healthSafetySurvey">Health and Safety Survey</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+              <input type="text" class="form-control" name="healthSafetySurvey" id="healthSafetySurvey"
+              ng-model="$ctrl.location.healthSafetySurvey"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="technicalSurvey">Technical (Site) Survey</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+              <input type="text" class="form-control" name="technicalSurvey" id="technicalSurvey"
+              ng-model="$ctrl.location.technicalSurvey"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="locationSurvey">Location Survey</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+              <input type="text" class="form-control" name="locationSurvey" id="locationSurvey"
+              ng-model="$ctrl.location.locationSurvey"/>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-show="$ctrl.location.locationSurvey">
+          <div class="form-group col-md-12">
+            <label for="surveyReviewDate">Survey Review Date</label>
+            <input type="date" class="form-control" name="surveyReviewDate" id="surveyReviewDate"
+            ng-model="$ctrl.location.surveyReviewDate" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="floorPlan">Floor Plan</label>
+            <input type="file" class="form-control" name="floorPlan" id="floorPlan"
+            nv-file-select uploader="$ctrl.location.floorPlanUploader"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="barredEmployees">Barred Employees</label>
+            <div class="list-group">
+              <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item" ng-hide="barredEmployee.deleted">
+                <div class="row">
+                  <div class="col-md-5">
+                    <span class="text-muted">{{barredEmployee.employeeId}}</span></br>
+                    <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.startDate" required/>
+                      </div>
+                      <div class="col-md-2">
+                        <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label class="text-muted pull-right">
+                          <input type="checkbox" ng-model="barredEmployee.barred"> Barred&nbsp;
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10" ng-hide="barredEmployee.barred">
+                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.tempEndDate"/>
+                      </div>
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#employeeLookupModal">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </button>
             </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="personalProtectiveEquips">Personal Protective Equipment</label>
-              <ui-select ng-model="$ctrl.selectedProtectiveEquipment" theme="bootstrap"
-              on-select="$ctrl.addToArray($ctrl.location.protectiveEquipment, $ctrl.selectedProtectiveEquipment)">
-              <ui-select-match placeholder="Search for protective equipments..">
-                <span ng-bind="$ctrl.selectedProtectiveEquipment.equipmentName"></span>
-              </ui-select-match>
-              <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
-              refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
-              refresh-delay="5">
-              <span ng-bind="item.equipmentName"></span>
-            </ui-select-choices>
-          </ui-select>
-          <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
-            <li class="list-group-item" ng-repeat="equip in $ctrl.location.protectiveEquipment" ng-hide="equip.deleted">
-              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-              <span ng-bind="equip.equipmentName"></span>
-              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-              ng-click="$ctrl.hideFromDisplay($ctrl.location.protectiveEquipment, equip.id)">
-              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            <button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#employeeLookupModal">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
-            <label class="text-muted pull-right">
-              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
-            </label>
-            <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
-            ng-init="equip.costType"
-            ng-model="equip.costType"
-            ng-show="equip.billed"
-            required>
-          </select>
-        </li>
-      </ul>
-    </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="personalProtectiveEquips">Personal Protective Equipment</label>
+            <ui-select ng-model="$ctrl.selectedProtectiveEquipment" theme="bootstrap"
+            on-select="$ctrl.addToArray($ctrl.location.protectiveEquipment, $ctrl.selectedProtectiveEquipment)">
+            <ui-select-match placeholder="Search for protective equipments..">
+              <span ng-bind="$ctrl.selectedProtectiveEquipment.equipmentName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
+            refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
+            refresh-delay="5">
+            <span ng-bind="item.equipmentName"></span>
+          </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
+          <li class="list-group-item" ng-repeat="equip in $ctrl.location.protectiveEquipment" ng-hide="equip.deleted">
+            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
+            <span ng-bind="equip.equipmentName"></span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+            ng-click="$ctrl.hideFromDisplay($ctrl.location.protectiveEquipment, equip.id)">
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </button>
+          <label class="text-muted pull-right">
+            <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
+          </label>
+          <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
+          ng-init="equip.costType"
+          ng-model="equip.costType"
+          ng-show="equip.billed"
+          required>
+        </select>
+      </li>
+    </ul>
   </div>
-  <div class="row">
-    <div class="form-group col-md-12">
-      <label for="modesOfTransport">Modes of Transport</label>
-      <ui-select ng-model="$ctrl.selectedTransport" theme="bootstrap"
-      on-select="$ctrl.addToArray($ctrl.location.modeOfTransport, $ctrl.selectedTransport)">
-      <ui-select-match placeholder="Select a Mode of Transport">
-        <span ng-bind="$ctrl.selectedTransport.transportName"></span>
-      </ui-select-match>
-      <ui-select-choices repeat="item in ($ctrl.transportChoices | filter: $select.search) track by item.id"
-      refresh="$ctrl.refreshMotSearch($select.search)"
-      refresh-delay="5">
-      <span ng-bind="item.transportName"></span>
-    </ui-select-choices>
-  </ui-select>
-  <ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
-    <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport" ng-hide="transport.deleted">
-      <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-      <span>{{transport.transportName}}</span>
-      <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-      ng-click="$ctrl.hideFromDisplay($ctrl.location.modeOfTransport, transport.id)">
-      <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-    </button>
-    <label class="text-muted pull-right">
-      <input type="checkbox" ng-model="transport.billed"> Billed&nbsp;
-    </label>
-    <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
-    ng-init="transport.costType"
-    ng-model="transport.costType"
-    ng-show="transport.billed"
-    required>
-  </select>
+</div>
+<div class="row">
+  <div class="form-group col-md-12">
+    <label for="modesOfTransport">Modes of Transport</label>
+    <ui-select ng-model="$ctrl.selectedTransport" theme="bootstrap"
+    on-select="$ctrl.addToArray($ctrl.location.modeOfTransport, $ctrl.selectedTransport)">
+    <ui-select-match placeholder="Select a Mode of Transport">
+      <span ng-bind="$ctrl.selectedTransport.transportName"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="item in ($ctrl.transportChoices | filter: $select.search) track by item.id"
+    refresh="$ctrl.refreshMotSearch($select.search)"
+    refresh-delay="5">
+    <span ng-bind="item.transportName"></span>
+  </ui-select-choices>
+</ui-select>
+<ul class="list-group" ng-show="$ctrl.location.modeOfTransport">
+  <li class="list-group-item" ng-repeat="transport in $ctrl.location.modeOfTransport" ng-hide="transport.deleted">
+    <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+    <span>{{transport.transportName}}</span>
+    <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+    ng-click="$ctrl.hideFromDisplay($ctrl.location.modeOfTransport, transport.id)">
+    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+  </button>
+  <label class="text-muted pull-right">
+    <input type="checkbox" ng-model="transport.billed"> Billed&nbsp;
+  </label>
+  <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
+  ng-init="transport.costType"
+  ng-model="transport.costType"
+  ng-show="transport.billed"
+  required>
+</select>
 </li>
 </ul>
 </div>
@@ -267,7 +278,7 @@
     <label for="methodOfRecording">Method of Recording Time and Attendance</label>
     <div class="form-group">
       <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap"
-        on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
+      on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
       <ui-select-match placeholder="Select a method of recording">
         <span ng-bind="$ctrl.selectedMethodOfRecording.method"></span>
       </ui-select-match>
