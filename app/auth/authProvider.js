@@ -45,6 +45,7 @@ function loginProvider() {
   _this.authUrl = "";
   _this.destinationStateOnSuccess = "";
   _this.destinationStateOnError = "";
+  _this.bypassLogin = false;
 
   _this.$get = /*@ngInject*/ function($q,
                                       $gapi,
@@ -70,6 +71,15 @@ function loginProvider() {
       }
 
       function googleLogin(redirect) {
+
+        // FOR DEBUGGING PURPOSES ONLY
+        if (_this.bypassLogin) {
+          deferred.resolve();
+          this.status = STATUS.SUCCESS;
+          $log.info("Login bypassed.");
+          return $q.resolve();
+        }
+
         this.status = STATUS.PENDING;
 
         return $gapi.loaded
