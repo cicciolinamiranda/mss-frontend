@@ -113,13 +113,14 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
+      'surveyReviewDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
       'floorPlan': '',
       'customer': {
         'id':'1'
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
-      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
+      'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
@@ -178,5 +179,13 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         list = [];
       }
       return list;
+    }
+
+    function formatMomentDateThatMustBeNull(date) {
+      var returnDate = null;
+      if(undefined !== date) {
+        date = moment(date).format("MM/DD/YYYY");
+      }
+      return returnDate;
     }
 }

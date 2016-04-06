@@ -163,7 +163,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     }
   }
 
-  function saveCustomerLocation() {
+  function saveCustomerLocation() {    
     CreateLocationSvc.save(_this.location).then(function (response) {
       _this.customerLocationId = response.id;
       $state.go('location.view', {id: _this.customerLocationId});
