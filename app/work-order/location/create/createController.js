@@ -92,6 +92,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     employee.firstName = employee.firstname;
     employee.lastName = employee.surname;
     employee.deleted = false;
+    employee.isLifted = true;
     _this.location.barredEmployees.push(employee);
   }
 
@@ -163,7 +164,7 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     }
   }
 
-  function saveCustomerLocation() {    
+  function saveCustomerLocation() {
     CreateLocationSvc.save(_this.location).then(function (response) {
       _this.customerLocationId = response.id;
       $state.go('location.view', {id: _this.customerLocationId});
@@ -198,5 +199,13 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
 
   function goToViewWorkOrderLocation() {
     $state.go('workOrder', {id: 1});
+  }
+
+  _this.changeLiftedStatus = function(employee){
+    if(employee.isLifted){
+      employee.endDate = null;
+    }else{
+      employee.endDate = moment().toDate();
+    }
   }
 }
