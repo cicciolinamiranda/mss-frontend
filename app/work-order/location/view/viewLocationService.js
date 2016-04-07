@@ -9,6 +9,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
   _this.getLocationDetails = getLocationDetails;
   _this.getBilledCostType = getBilledCostType;
   _this.getPostDetailsList = getPostDetailsList;
+  _this.archiveLocation = archiveLocation;
   _this.locDetails;
 
   var deferred = $q.defer();
@@ -44,6 +45,20 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
           .error(function() {
               def.reject("Server is down.");
           });
+    return def.promise;
+  }
+
+  function archiveLocation(id) {
+    var def = $q.defer();
+    var status = "ARCHIVE";
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.workorder.customer.location.update_status(
+        {'id' : id, 'status':status}
+      );
+    }).then(function (data) {
+      def.resolve(data);
+    });
     return def.promise;
   }
 
