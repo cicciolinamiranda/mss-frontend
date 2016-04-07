@@ -216,11 +216,12 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
         emp.firstName = barredEmployees[i].firstName;
         emp.deleted = barredEmployees[i].deleted;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
-        if(barredEmployees[i].endDate !== null){
-          emp.isLifted = true;
+        console.log(barredEmployees[i].endDate);
+        if(barredEmployees[i].endDate != null){
+          emp.isLifted = false;
           emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
         }else{
-          emp.isLifted = false;
+          emp.isLifted = true;
         }
 
         barredEmployeesList.push(emp);

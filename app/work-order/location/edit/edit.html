@@ -140,7 +140,7 @@
                           <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
                         </div>
                       </div>
-                      <div class="row" ng-show="barredEmployee.endDate">
+                      <div class="row" ng-hide="barredEmployee.isLifted">
                       <div class="col-md-10">
                         <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
                       </div>
