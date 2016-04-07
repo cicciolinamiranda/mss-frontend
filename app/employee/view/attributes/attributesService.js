@@ -2,13 +2,13 @@ module.exports = function(ngModule) {
   ngModule.service('AttributesSvc', attributesService);
 };
 
-function attributesService($q, $gapi) {
+function attributesService($q, $gapi, EMPLOYEE_GAPI_BASE) {
   var cache = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function() {
-    return $gapi.load('employee', 'v1', true);
+    return $gapi.load('employee', 'v1', EMPLOYEE_GAPI_BASE);
   }).then(function() {
     return deferred.resolve();
   });

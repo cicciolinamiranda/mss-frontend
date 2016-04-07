@@ -91,7 +91,7 @@ describe("View Location Component", function() {
           };
           return gapi;
         });
-        $provide.constant('GAPI_BASE', '');
+        $provide.constant('WORKORDER_GAPI_BASE', '');
         $provide.constant('MOCK_BASE', '');
       });
     });

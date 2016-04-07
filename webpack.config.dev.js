@@ -14,5 +14,8 @@ module.exports = {
       {test: /\.html$/, loader: 'raw', exclude: /node_modules/},
       {test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, loader: 'file', exclude: /node_modules/}
     ]
-  }
+  },
+  plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en)$/)
+  ]
 };

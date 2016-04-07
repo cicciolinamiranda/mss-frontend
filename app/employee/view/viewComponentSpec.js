@@ -2,6 +2,11 @@ var component = require('./index');
 
 describe("Employee View Component", function() {
   var $compile, $rootScope;
+  var sample_contractedHour = {
+    contractHourPeriod: 'Weekly',
+    contractHourThreshold: '40',
+    contractDays: '5'
+  };
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
@@ -12,6 +17,7 @@ describe("Employee View Component", function() {
   // mock $gapi to inject to EmployeeViewSvc
   beforeEach(function() {
     angular.mock.module(function($provide) {
+      $provide.constant('EMPLOYEE_GAPI_BASE', '');
       $provide.service('$gapi', function($q) {
         var gapi = {
           loaded: $q.resolve(),
@@ -20,6 +26,14 @@ describe("Employee View Component", function() {
           },
           client: {
             employee: {
+              contractedHours: {
+                listByEmployeeId: function(params) {
+                  if (params.id === '123') {
+                    return $q.resolve(sample_contractedHour);
+                  } else {
+                    return $q.reject('Employee not found');
+                  }
+              },
               employees: {
                 get: function(params) {
                   if (params.id === '123') {
@@ -44,7 +58,7 @@ describe("Employee View Component", function() {
     $rootScope = _$rootScope_;
   }));
 
-  xit("contains a list of employees resolved by the service", function() {
+  it("contains a list of employees resolved by the service", function() {
     var element = $compile("<employee-view></employee-view>")($rootScope);
     $rootScope.$digest();
     expect(element.html()).toContain("Auntie");
