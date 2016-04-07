@@ -51,7 +51,7 @@ describe("Edit Location Component", function() {
               }
           };
       });
-      $provide.constant('GAPI_BASE', '');
+      $provide.constant('WORKORDER_GAPI_BASE', '');
       $provide.constant('MOCK_BASE', '');
   }));
 

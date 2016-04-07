@@ -11,6 +11,7 @@ describe("Employee View Service", function() {
   // mock $gapi to inject to EmployeeViewSvc
   beforeEach(function() {
     angular.mock.module(function($provide) {
+      $provide.constant('EMPLOYEE_GAPI_BASE', '');
       $provide.service('$gapi', function($q) {
         var gapi = {
           loaded: $q.resolve(),
@@ -43,7 +44,7 @@ describe("Employee View Service", function() {
     spyOn(EmployeeViewSvc, 'get').and.callThrough();
   });
 
-  xdescribe("Get employee", function() {
+  describe("Get employee", function() {
     it("returns a promise that resolves with employee data", function(done) {
       EmployeeViewSvc.get('123').then(function(employee) {
         expect(employee.firstname).toBe(sample_employee.firstname);
