@@ -11,8 +11,19 @@ function routes($stateProvider) {
   })
   .state({
     name: 'post',
-    url: '/post/view/:id',
+    url: '/posts',
+    abstract: true,
+    template: '<ui-view/>'
+  })
+  .state({
+    name: 'post.view',
+    url: '/view/:id',
     template: '<post-view/>'
+  })
+  .state({
+    name: 'post.create',
+    url: '/create',
+    template: '<post-create/>'
   })
   .state({
     name: 'location',
