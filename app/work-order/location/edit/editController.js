@@ -53,6 +53,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
   _this.resetCostType = resetCostType;
+  _this.costTypeInit = costTypeInit;
 
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
@@ -239,8 +240,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     costType = _this.costTypeDefault;
   }
 
-  _this.costTypeInit = function(data){
-    console.log(data.costType);
+  function costTypeInit(data){
     if(!data.costType){
       data.costType = _this.model.costTypeDefault;
     }

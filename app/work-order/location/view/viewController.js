@@ -39,9 +39,9 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   //for mode of transport and protective equipment
   function getCostType(sourceData, destObject){
     if(sourceData.billed){
-      for(i = 0; i < _this.model.costTypeChoices.length; i++){
-        if(sourceData.costType === _this.model.costTypeChoices[i].id ){
-          destObject.costType = "[" + _this.model.costTypeChoices[i].name + "]";
+      for(j = 0; j < _this.model.costTypeChoices.length; j++){
+        if(sourceData.costType === _this.model.costTypeChoices[j].id ){
+          destObject.costType = "[" + _this.model.costTypeChoices[j].name + "]";
         }
       }
     }

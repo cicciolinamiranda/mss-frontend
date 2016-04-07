@@ -7,7 +7,7 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
   var _this = this;
   _this.location = {};
   _this.model = new LocationModel();
-  
+
   //Contact Details
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
@@ -194,13 +194,5 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
 
   function goToViewWorkOrderLocation() {
     $state.go('workOrder', {id: 1});
-  }
-
-  _this.changeLiftedStatus = function(employee){
-    if(employee.isLifted){
-      employee.endDate = null;
-    }else{
-      employee.endDate = moment().toDate();
-    }
   }
 }

@@ -30,7 +30,6 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   });
 
   this.update = function (customerLocationDetails) {
-    console.log(customerLocationDetails);
     var deferred2 = $q.defer();
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.update(
