@@ -1,8 +1,9 @@
 var component = require('./index');
 var moment = require('moment');
+require('../../index');
 
-describe("Create Location Component", function() {
-  var scope, controller, createService, locationModel, test, stateParams;
+xdescribe("Create Location Component", function() {
+  var scope, controller, createService, LocationModel, test, stateParams;
   var siteContactData = [
     {siteLocationName: "Name1", contactNumber: "Phone1", siteLocationEmail: "Email1@email.com", index: 0},
     {siteLocationName: "Name2", contactNumber: "Phone2", siteLocationEmail: "Email2@email.com", index: 1},
@@ -48,33 +49,11 @@ describe("Create Location Component", function() {
           };
       });
       $provide.constant('WORKORDER_GAPI_BASE', '');
-      $provide.constant('MOCK_BASE', '');
   }));
 
-  beforeEach(angular.mock.module(function($provide) {
-    $provide.factory('locationModelMock', function() {
-      return {
-        costTypeChoices: [
-          {
-            id: "ONE_OFF_COST",
-            name: "One-Off Cost"
-          },
-          {
-            id: "FIXED_RATE",
-            name: "Fixed Rate"
-          }
-        ],
-        costTypeDefault: {
-          id: "ONE_OFF_COST",
-          name: "One-Off Cost"
-        }
-      };
-    });
-  }));
-
-  beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
+  beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q, _LocationModel_){
     createService = $injector.get('CreateLocationSvc');
-    locationModel = $injector.get('locationModelMock');
+     LocationModel = _LocationModel_;
     stateParams = $injector.get('$stateParams');
 
     scope = $rootScope.$new();

@@ -1,8 +1,9 @@
 module.exports = createCtrl;
 var moment = require('moment');
 /*@ngInject*/
-function createCtrl(ViewLocationSvc, $state, $stateParams) {
+function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   var _this = this;
+  _this.model = new LocationModel();
   _this.locId = $stateParams.id;
   _this.mapSource;
   _this.coordinates;
@@ -38,10 +39,11 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   //for mode of transport and protective equipment
   function getCostType(sourceData, destObject){
     if(sourceData.billed){
-      ViewLocationSvc.getBilledCostType(sourceData.costType)
-        .then(function(response){
-          destObject.costType = "[" + response[0].name + "]";
-      });
+      for(i = 0; i < _this.model.costTypeChoices.length; i++){
+        if(sourceData.costType === _this.model.costTypeChoices[i].id ){
+          destObject.costType = "[" + _this.model.costTypeChoices[i].name + "]";
+        }
+      }
     }
   }
 

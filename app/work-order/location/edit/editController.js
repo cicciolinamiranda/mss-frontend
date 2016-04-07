@@ -3,9 +3,10 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
+function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$state) {
   var _this = this;
   _this.location = {};
+  _this.model = new LocationModel();
 
   //Contact Details
   _this.addSiteContactField = addSiteContactField;
@@ -63,16 +64,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
 
-
-    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
-      _this.costTypeChoices = costTypeMock;
-      if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeMock[0].id;
-        console.log(_this.costTypeDefault);
-      }
-    }, function (error) {
-      _this.errMessage= error;
-    });
+    _this.costTypeChoices = _this.model.costTypeChoices;
+    _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
   }

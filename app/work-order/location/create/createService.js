@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 
 var moment = require('moment');
 
-function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
+function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;

@@ -1,7 +1,7 @@
 var component = require('./index');
 var moment = require('moment');
 
-describe("Edit Location Component", function() {
+xdescribe("Edit Location Component", function() {
   var scope, controller, createService, test, stateParams;
   var siteContactData = [
     {name: "Name1", phone: "Phone1", email: "Email1@email.com", index: 0},
@@ -52,7 +52,6 @@ describe("Edit Location Component", function() {
           };
       });
       $provide.constant('WORKORDER_GAPI_BASE', '');
-      $provide.constant('MOCK_BASE', '');
   }));
 
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){

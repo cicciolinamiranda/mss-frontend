@@ -6,7 +6,8 @@ var moment = require('moment');
 function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $stateParams) {
   var _this = this;
   _this.location = {};
-
+  _this.model = new LocationModel();
+  
   //Contact Details
   _this.addSiteContactField = addSiteContactField;
   _this.removeFromContactsList = removeFromContactsList;
@@ -73,8 +74,8 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
     _this.location.proofOfDuty = {};
     _this.location.methodOfRecording = {};
 
-    _this.costTypeChoices = LocationModel.costTypeChoices;
-    _this.costTypeDefault = LocationModel.costTypeDefault;
+    _this.costTypeChoices = _this.model.costTypeChoices;
+    _this.costTypeDefault = _this.model.costTypeDefault;
   }
 
   init();

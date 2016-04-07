@@ -5,6 +5,11 @@ module.exports = function(ngModule) {
 function locationModel() {
   var _this = this;
 
+  function Location() {
+    this.costTypeChoices = _this.costTypeChoices;
+    this.costTypeDefault = this.costTypeChoices[0].id;
+  }
+
   _this.costTypeChoices = [
     {
       id: "ONE_OFF_COST",
@@ -15,7 +20,6 @@ function locationModel() {
       name: "Fixed Rate"
     }
   ];
-  _this.costTypeDefault = _this.costTypeChoices[0].id;
 
-  return _this;
+  return Location;
 }
