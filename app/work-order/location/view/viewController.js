@@ -53,7 +53,6 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
-    console.log(barredEmployees);
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
