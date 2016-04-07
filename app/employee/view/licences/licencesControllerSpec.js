@@ -32,7 +32,7 @@ describe("License Controller", function() {
   }));
 
   describe("Get licenses of an employee", function() {
-    it("should return a promise that contains list of licenses when resolved", function() {
+    it("should contain list of licenses", function() {
       var controller = $controller(require('./licencesController'), {
         LicencesSvc: mockLicencesSvc
       }, { employee: sample_employee.id });
