@@ -4,11 +4,12 @@
       <input type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" required/>
       <div class="input-group-wrapper">
         <div class="input-group-btn">
-          <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Everything <span class="caret"></span></button>
+          <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            on-click>{{$ctrl.buttonLabel}} <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li class="active"><a href="#">Everything</a></li>
-            <li><a href="#">Location</a></li>
-            <li><a href="#">People</a></li>
+            <li ng-click='$ctrl.setSelected("Everything")'><a href="#">Everything</a></li>
+            <li ng-click='$ctrl.setSelected("Location")'><a href="#">Location</a></li>
+            <li ng-click='$ctrl.setSelected("People")'><a href="#">People</a></li>
           </ul>
         </div>
       </div>
