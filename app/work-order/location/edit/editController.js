@@ -25,6 +25,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   //Barred Employees
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
+  _this.changeLiftedStatus = changeLiftedStatus;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -226,7 +227,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     $state.go('location.view', {id: $stateParams.id});
   }
 
-  _this.changeLiftedStatus = function(employee){
+  function changeLiftedStatus(employee){
     if(employee.isLifted){
       employee.endDate = null;
     }else{
@@ -236,5 +237,13 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
   function resetCostType(costType) {
     costType = _this.costTypeDefault;
+  }
+
+  _this.costTypeInit = function(data){
+    console.log(data.costType);
+    if(!data.costType){
+      data.costType = _this.model.costTypeDefault;
+    }
+
   }
 }
