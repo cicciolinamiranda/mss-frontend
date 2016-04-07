@@ -1,3 +1,9 @@
+<style>
+  .messageError {
+    color: red;
+  }
+</style>
+
 <div class="info-section" style="margin-top:10px;">
   <div class="info-section__header">
     <h1 class="dark">Create Location</h1>
@@ -64,7 +70,7 @@
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <label for="locInstructionsApproval">Location Instructions Approval</label>
+              <label for="locmessageErrorInstructionsApproval">Location Instructions Approval</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
                 <input type="text" class="form-control" name="locInstructionsApproval" id="locInstructions" ng-model="$ctrl.location.locInstructions"/>
@@ -297,20 +303,26 @@
       </div>
       <div class="row">
         <div class="form-group col-md-10" style="float:right;">
-          <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
-          name="contactPhone"/>
+          <ng-form name="sitePhone">
+            <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
+            ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/"
+            name="contactPhone"/>
+            <div ng-messages="sitePhone.contactPhone.$error">
+              <div ng-message="pattern" class="messageError">Must be a valid phone number</div>
+            </div>
+          </ng-form>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-10" style="float:right;">
           <ng-form name="siteEmailForm">
-            <div ng-show="siteEmailForm.contactEmail.$touched && siteEmailForm.contactEmail.$invalid"
-            class="row alert alert-danger">
-            <span>Incorrect email format.</span>
-          </div>
-          <input type="email" class="form-control" placeholder="Email"
-          ng-model="contact.siteLocationEmail" name="contactEmail" required/>
-        </ng-form>
+            <input type="email" class="form-control" placeholder="Email"
+            ng-model="contact.siteLocationEmail" name="contactEmail" required/>
+            <div ng-messages="siteEmailForm.contactEmail.$error">
+              <div ng-message="required" class="messageError">This field is required</div>
+              <div ng-message="email" class="messageError">Your email address is invalid</div>
+            </div>
+          </ng-form>
       </div>
     </div>
   </div>
