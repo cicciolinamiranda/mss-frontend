@@ -166,6 +166,9 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
           emp.lastName = barredEmployees[i].lastName;
           emp.firstName = barredEmployees[i].firstName;
           emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
+          if(barredEmployees[i].endDate != null){
+            emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+          }
           barredEmployeesList.push(emp);
         }
       }

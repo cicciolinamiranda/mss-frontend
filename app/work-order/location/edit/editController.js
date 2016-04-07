@@ -68,6 +68,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
       _this.costTypeChoices = costTypeMock;
       if (_this.costTypeChoices.length > 0) {
         _this.costTypeDefault = costTypeMock[0].id;
+        console.log(_this.costTypeDefault);
       }
     }, function (error) {
       _this.errMessage= error;
