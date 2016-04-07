@@ -68,14 +68,12 @@ describe("Pay Info Service", function() {
         expect(employee.contractHourPeriod).toBe(sample_employee.contractHourPeriod);
         done();
       });
-
+      expect(PayInfoSvc.getEmployeeContractedHours).toHaveBeenCalledWith('123');
       PayInfoSvc.getPayRates('123').then(function(PayRates){
-        expect(payRates.rateCurrency).toBe(sample_employee.rateCurrency);
+        expect(payRates.rateCurrency).toBe(sample_payRates.rateCurrency);
         done();
       });
-
       expect(PayInfoSvc.getPayRates).toHaveBeenCalledWith('123');
-      expect(PayInfoSvc.getEmployeeContractedHours).toHaveBeenCalledWith('123');
       $rootScope.$digest();
     });
   });
