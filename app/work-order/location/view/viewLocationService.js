@@ -2,7 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('ViewLocationSvc', viewLocationService);
 };
 
-function viewLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
+function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
 
   var _this = this;
 
@@ -15,7 +15,7 @@ function viewLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', GAPI_BASE);
+    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
