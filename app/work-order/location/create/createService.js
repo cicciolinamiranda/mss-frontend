@@ -110,7 +110,6 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
-    console.log(JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
