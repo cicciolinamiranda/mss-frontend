@@ -194,7 +194,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
     };
-    console.log(JSON.stringify(_this.customerDetails));
 
     return _this.customerDetails;
   }
