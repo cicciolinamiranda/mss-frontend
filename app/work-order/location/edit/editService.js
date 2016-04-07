@@ -161,10 +161,6 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
-    var endDateStr = "";
-    if(undefined !== json.endDate) {
-      date = moment(json.endDate).format("MM/DD/YYYY");
-    }
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'id': json.id,
@@ -275,14 +271,5 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       }
     }
     return returnList;
-  }
-
-  function formatMomentDateThatMustBeNull(date) {
-    var returnDate = null;
-    if(undefined !== date) {
-      returnDate = moment(date).format("MM/DD/YYYY");
-    }
-    console.log(date);
-    return returnDate;
   }
 }
