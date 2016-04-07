@@ -214,7 +214,9 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.id = barredEmployees[i];
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
         emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
         if(emp.endDate){
@@ -234,9 +236,12 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp = barredEmployees[i];
+        emp.id = barredEmployees[i].employeeId;
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
         emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
-        emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+        emp.startDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
         barredEmployeesList.push(emp);
       }
     }

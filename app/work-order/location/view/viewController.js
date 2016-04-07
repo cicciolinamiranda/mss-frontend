@@ -63,7 +63,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
         if(barredEmployees[i].endDate){
           emp.isLifted = false;
-          emp.barsEndDate = moment(transformJodaTimeToDate(barredEmployees[i].endDate)).format("MM/DD/YYYY");
+        //  emp.barsEndDate = moment(transformJodaTimeToDate(barredEmployees[i].endDate)).format("MM/DD/YYYY");
         }else{
           emp.isLifted = true;
         }
