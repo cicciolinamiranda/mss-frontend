@@ -126,6 +126,8 @@
                 <div ng-repeat="barredEmployee in $ctrl.location.barredEmployees" class="list-group-item" ng-hide="barredEmployee.deleted">
                   <div class="row">
                     <div class="col-md-5">
+                      <input type="checkbox" ng-model="barredEmployee.isLifted"
+                        ng-change="$ctrl.changeLiftedStatus(barredEmployee)"/>
                       <span class="text-muted">{{barredEmployee.employeeId}}</span></br>
                       <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
                     </div>
@@ -138,6 +140,11 @@
                           <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
                         </div>
                       </div>
+                      <div class="row" ng-hide="barredEmployee.isLifted">
+                      <div class="col-md-10">
+                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -153,12 +160,12 @@
               <ui-select ng-model="$ctrl.selectedProtectiveEquipment" theme="bootstrap"
               on-select="$ctrl.addToArray($ctrl.location.protectiveEquipment, $ctrl.selectedProtectiveEquipment)">
               <ui-select-match placeholder="Search for protective equipments..">
-                <span ng-bind="$ctrl.selectedProtectiveEquipment.equipmentName"></span>
+                <span ng-bind="$ctrl.selectedProtectiveEquipment.name"></span>
               </ui-select-match>
               <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
               refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
               refresh-delay="5">
-              <span ng-bind="item.equipmentName"></span>
+              <span ng-bind="item.name"></span>
             </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
@@ -170,7 +177,7 @@
               <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
             </button>
             <label class="text-muted pull-right">
-              <input type="checkbox" ng-model="equip.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
+              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
             </label>
             <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
             ng-init="equip.costType"
@@ -269,11 +276,11 @@
       <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap"
         on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
       <ui-select-match placeholder="Select a method of recording">
-        <span ng-bind="$ctrl.selectedMethodOfRecording.method"></span>
+        <span ng-bind="$ctrl.selectedMethodOfRecording.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in $ctrl.methodOfRecordings" refresh="$ctrl.getMethodOfRecordings()"
       refresh-delay="5" >
-      <span ng-bind="item.method"></span>
+      <span ng-bind="item.name"></span>
     </ui-select-choices>
   </ui-select>
 </div>

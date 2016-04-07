@@ -7,6 +7,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   _this.mapSource;
   _this.coordinates;
   _this.duration;
+  _this.displaySurveyDate;
   _this.cloc;
   _this.protectiveEquipList = [];
   _this.modeOfTransportList = [];
@@ -52,12 +53,20 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
+    console.log(barredEmployees);
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
         emp.name = barredEmployees[i].lastName +
           ", " + barredEmployees[i].firstName;
         emp.barsStartDate = moment(transformJodaTimeToDate(barredEmployees[i].startDate)).format("MM/DD/YYYY");
+
+        if(barredEmployees[i].endDate){
+          emp.isLifted = false;
+          emp.barsEndDate = moment(transformJodaTimeToDate(barredEmployees[i].endDate)).format("MM/DD/YYYY");
+        }else{
+          emp.isLifted = true;
+        }
 
         _this.barredEmployeesList.push(emp);
       }
@@ -88,6 +97,10 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         getCostType(location.equipments[i], equip);
         _this.protectiveEquipList.push(equip);
       }
+    }
+
+    if(location.locationSurveyDate != null) {
+      _this.displaySurveyDate = moment(transformJodaTimeToDate(location.locationSurveyDate)).format("MM/DD/YYYY");
     }
 
     if(location.modeOfTransports){

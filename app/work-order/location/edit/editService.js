@@ -107,28 +107,22 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
   function getProofofDutyValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/proofOfDuty")
-          .success(function(response) {
-              _this.proofOfDuties = response;
-              def.resolve(response);
-          })
-          .error(function() {
-              def.reject("Server is down.");
-          });
+      loadApi.then(function () {
+        return $gapi.client.workorder.master.file.proofofduty.list();
+      }).then(function (data) {
+        def.resolve(data.items);
+      });
       return def.promise;
   }
 
   function getMethodOfRecordingValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/methodOfRecording")
-          .success(function(response) {
-              _this.proofOfDuties = response;
-              def.resolve(response);
-          })
-          .error(function() {
-              def.reject("Server is down.");
-          });
+      loadApi.then(function () {
+        return $gapi.client.workorder.master.file.methodofrecording.list();
+      }).then(function (data) {
+        def.resolve(data.items);
+      });
       return def.promise;
   }
 
@@ -153,7 +147,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
       healthSafetySurvey: response.healthSafetySurvey,
       technicalSurvey: response.technicalSurvey,
       locationSurvey: response.locationSurvey,
-      surveyReviewDate: transformJodaTimeToDate(response.surveyReviewDate),
+      surveyReviewDate: transformJodaTimeToDate(response.locationSurveyDate),
       proofOfDuty: response.proofOfDuty,
       methodOfRecording: response.methodOfRecording
     };
@@ -161,6 +155,13 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
+
+    var locationSurverDateStr;
+    if(json.locationSurvey != "")
+    {
+      locationSurverDateStr = moment(json.surveyReviewDate).format("MM/DD/YYYY");
+    }
+
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'id': json.id,
@@ -181,7 +182,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
-      'locationSurverDateStr':formatMomentDateThatMustBeNull(json.surveyReviewDate),
+      'locationSurverDateStr':locationSurverDateStr,
       'floorPlan': '',
       'customer': {
         'id':'1'
@@ -210,9 +211,19 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp.id = barredEmployees[i];
+        emp.id = barredEmployees[i].id;
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
+        emp.deleted = barredEmployees[i].deleted;
         emp.startDate = transformJodaTimeToDate(barredEmployees[i].startDate);
-        emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
+        if(barredEmployees[i].endDate != null){
+          emp.isLifted = false;
+          emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
+        }else{
+          emp.isLifted = true;
+        }
+
         barredEmployeesList.push(emp);
       }
     }
@@ -224,9 +235,15 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
-        emp = barredEmployees[i];
+        emp.id = barredEmployees[i].id;
+        emp.employeeId = barredEmployees[i].employeeId;
+        emp.lastName = barredEmployees[i].lastName;
+        emp.firstName = barredEmployees[i].firstName;
+        emp.deleted = barredEmployees[i].deleted;
         emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
-        emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+        if(barredEmployees[i].endDate != null){
+          emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+        }
         barredEmployeesList.push(emp);
       }
     }
@@ -260,7 +277,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
   function formatMomentDateThatMustBeNull(date) {
     var returnDate = null;
     if(undefined !== date) {
-      date = moment(date).format("MM/DD/YYYY");
+      returnDate = moment(date).format("MM/DD/YYYY");
     }
     return returnDate;
   }

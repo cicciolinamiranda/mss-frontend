@@ -60,7 +60,7 @@
       <div class="col-md-6">
         <i class="fa fa-paperclip"></i>
         <a ng-href="{{$ctrl.cloc.locationSurvey}}"
-        ng-show="$ctrl.cloc.locationSurvey" target="_blank">Location Survey</a>
+        ng-show="$ctrl.cloc.locationSurvey" target="_blank">Location Survey - {{$ctrl.displaySurveyDate}}</a>
         <label ng-show="!$ctrl.cloc.locationSurvey">Location Survey</label>
         <hr/>
       </div>
@@ -162,13 +162,22 @@
               <li class="list-group-item" ng-repeat="emp in $ctrl.barredEmployeesList">
                 <div class="row">
                   <div class="col-md-1">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                    <input type="checkbox" ng-model="emp.isLifted" disabled/>&nbsp;
                   </div>
                   <div class="col-md-8">
                     <span ng-bind="emp.name"></span>
                   </div>
-                  <div class="col-md-3">
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <label>Start Date:</label>&nbsp;
                     <span ng-bind="emp.barsStartDate"></span>
+                  </div>
+                </div>
+                <div class="row" ng-show="emp.barsEndDate">
+                  <div class="col-md-8">
+                    <label>Lift Date:</label>&nbsp;
+                    <span ng-bind="emp.barsEndDate"></span>
                   </div>
                 </div>
               </li>
@@ -186,13 +195,14 @@
           </div>
           <div ng-switch-default>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.skills">
+              <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.skills"
+                style="height: 40px">
                 <div class="row">
                   <div class="col-md-1">
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
                   </div>
                   <div class="col-md-8">
-                    <span ng-bind="skill.skillName"></span>
+                    <span ng-bind="skill.name"></span>
                   </div>
                 </div>
               </li>
