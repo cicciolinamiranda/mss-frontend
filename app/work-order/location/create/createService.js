@@ -125,34 +125,29 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
+    console.log(JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
     function getProofofDutyValues(){
         var def = $q.defer();
 
-        $http.get(MOCK_BASE + "/proofOfDuty")
-            .success(function(response) {
-                _this.proofOfDuties = response;
-                def.resolve(response);
-            })
-            .error(function() {
-                def.reject("Server is down.");
-            });
+        loadApi.then(function () {
+          return $gapi.client.workorder.master.file.proofofduty.list();
+        }).then(function (data) {
+          def.resolve(data.items);
+        });
         return def.promise;
     }
 
     function getMethodOfRecordingValues(){
         var def = $q.defer();
 
-        $http.get(MOCK_BASE + "/methodOfRecording")
-            .success(function(response) {
-                _this.proofOfDuties = response;
-                def.resolve(response);
-            })
-            .error(function() {
-                def.reject("Server is down.");
-            });
+        loadApi.then(function () {
+          return $gapi.client.workorder.master.file.methodofrecording.list();
+        }).then(function (data) {
+          def.resolve(data.items);
+        });
         return def.promise;
     }
 
@@ -184,12 +179,10 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     }
 
     function formatMomentDateThatMustBeNull(date) {
-      console.log("BEFORE DATE " +date);
       var returnDate = null;
       if(undefined !== date) {
         returnDate = moment(date).format("MM/DD/YYYY");
       }
-      console.log(returnDate);
       return returnDate;
     }
 }

@@ -186,7 +186,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
       if(_this.location.methodOfRecording){
         _this.selectedMethodOfRecording = {
           id: _this.location.methodOfRecording.id,
-          method: _this.location.methodOfRecording.name
+          name: _this.location.methodOfRecording.name
         };
       }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;

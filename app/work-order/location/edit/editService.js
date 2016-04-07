@@ -107,28 +107,22 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   function getProofofDutyValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/proofOfDuty")
-          .success(function(response) {
-              _this.proofOfDuties = response;
-              def.resolve(response);
-          })
-          .error(function() {
-              def.reject("Server is down.");
-          });
+      loadApi.then(function () {
+        return $gapi.client.workorder.master.file.proofofduty.list();
+      }).then(function (data) {
+        def.resolve(data.items);
+      });
       return def.promise;
   }
 
   function getMethodOfRecordingValues(){
       var def = $q.defer();
 
-      $http.get(MOCK_BASE + "/methodOfRecording")
-          .success(function(response) {
-              _this.proofOfDuties = response;
-              def.resolve(response);
-          })
-          .error(function() {
-              def.reject("Server is down.");
-          });
+      loadApi.then(function () {
+        return $gapi.client.workorder.master.file.methodofrecording.list();
+      }).then(function (data) {
+        def.resolve(data.items);
+      });
       return def.promise;
   }
 
@@ -200,6 +194,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
     };
+    console.log(JSON.stringify(_this.customerDetails));
 
     return _this.customerDetails;
   }
