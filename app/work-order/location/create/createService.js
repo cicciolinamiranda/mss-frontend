@@ -125,34 +125,29 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
     };
+    console.log(JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 
     function getProofofDutyValues(){
         var def = $q.defer();
 
-        $http.get(MOCK_BASE + "/proofOfDuty")
-            .success(function(response) {
-                _this.proofOfDuties = response;
-                def.resolve(response);
-            })
-            .error(function() {
-                def.reject("Server is down.");
-            });
+        loadApi.then(function () {
+          return $gapi.client.workorder.master.file.proofofduty.list();
+        }).then(function (data) {
+          def.resolve(data.items);
+        });
         return def.promise;
     }
 
     function getMethodOfRecordingValues(){
         var def = $q.defer();
 
-        $http.get(MOCK_BASE + "/methodOfRecording")
-            .success(function(response) {
-                _this.proofOfDuties = response;
-                def.resolve(response);
-            })
-            .error(function() {
-                def.reject("Server is down.");
-            });
+        loadApi.then(function () {
+          return $gapi.client.workorder.master.file.methodofrecording.list();
+        }).then(function (data) {
+          def.resolve(data.items);
+        });
         return def.promise;
     }
 
@@ -166,7 +161,9 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
           emp.lastName = barredEmployees[i].lastName;
           emp.firstName = barredEmployees[i].firstName;
           emp.startDateStr = moment(barredEmployees[i].startDate).format("MM/DD/YYYY");
-          emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+          if(barredEmployees[i].endDate != null){
+            emp.endDateStr = moment(barredEmployees[i].endDate).format("MM/DD/YYYY");
+          }
           barredEmployeesList.push(emp);
         }
       }
@@ -184,7 +181,7 @@ function createLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
     function formatMomentDateThatMustBeNull(date) {
       var returnDate = null;
       if(undefined !== date) {
-        date = moment(date).format("MM/DD/YYYY");
+        returnDate = moment(date).format("MM/DD/YYYY");
       }
       return returnDate;
     }

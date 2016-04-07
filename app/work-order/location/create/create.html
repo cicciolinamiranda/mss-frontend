@@ -127,7 +127,7 @@
                       <input type="checkbox" ng-model="barredEmployee.isLifted"
                         ng-change="$ctrl.changeLiftedStatus(barredEmployee)"/>
                       <span class="text-muted">{{barredEmployee.id}}</span></br>
-                      <span>{{barredEmployee.firstname}} {{barredEmployee.surname}}</span>
+                      <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
                     </div>
                     <div class="col-md-7">
                       <div class="row">
@@ -277,11 +277,11 @@
       <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap"
       on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
       <ui-select-match placeholder="Select a method of recording">
-        <span ng-bind="$ctrl.selectedMethodOfRecording.method"></span>
+        <span ng-bind="$ctrl.selectedMethodOfRecording.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in $ctrl.methodOfRecordings" refresh="$ctrl.getMethodOfRecordings()"
       refresh-delay="5" >
-      <span ng-bind="item.method"></span>
+      <span ng-bind="item.name"></span>
     </ui-select-choices>
   </ui-select>
 </div>

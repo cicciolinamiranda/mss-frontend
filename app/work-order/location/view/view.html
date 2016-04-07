@@ -60,7 +60,7 @@
       <div class="col-md-6">
         <i class="fa fa-paperclip"></i>
         <a ng-href="{{$ctrl.cloc.locationSurvey}}"
-        ng-show="$ctrl.cloc.locationSurvey" target="_blank">Location Survey</a>
+        ng-show="$ctrl.cloc.locationSurvey" target="_blank">Location Survey - {{$ctrl.displaySurveyDate}}</a>
         <label ng-show="!$ctrl.cloc.locationSurvey">Location Survey</label>
         <hr/>
       </div>
@@ -202,7 +202,7 @@
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
                   </div>
                   <div class="col-md-8">
-                    <span ng-bind="skill.skillName"></span>
+                    <span ng-bind="skill.name"></span>
                   </div>
                 </div>
               </li>

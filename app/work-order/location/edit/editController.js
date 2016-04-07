@@ -68,6 +68,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
       _this.costTypeChoices = costTypeMock;
       if (_this.costTypeChoices.length > 0) {
         _this.costTypeDefault = costTypeMock[0].id;
+        console.log(_this.costTypeDefault);
       }
     }, function (error) {
       _this.errMessage= error;
@@ -111,7 +112,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addToArray(array, item){
     var newItem = angular.copy(item);
-
+    newItem.deleted = false;
     if(array){
 
       for(i = 0; i < array.length; i++){
@@ -185,7 +186,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
       if(_this.location.methodOfRecording){
         _this.selectedMethodOfRecording = {
           id: _this.location.methodOfRecording.id,
-          method: _this.location.methodOfRecording.name
+          name: _this.location.methodOfRecording.name
         };
       }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
