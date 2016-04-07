@@ -161,6 +161,13 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
   }
 
   function transformJsonToDTO(json) {
+
+    var locationSurverDateStr;
+    if(json.locationSurvey != "")
+    {
+      locationSurverDateStr = moment(json.surveyReviewDate).format("MM/DD/YYYY");
+    }
+
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'id': json.id,
@@ -181,7 +188,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       'healthSafetySurvey': json.healthSafetySurvey,
       'technicalSurvey': json.technicalSurvey,
       'locationSurvey': json.locationSurvey,
-      'locationSurverDateStr':moment(json.surveyReviewDate).format("MM/DD/YYYY"),
+      'locationSurverDateStr':locationSurverDateStr,
       'floorPlan': '',
       'customer': {
         'id':'1'
