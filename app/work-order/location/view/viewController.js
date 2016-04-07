@@ -116,6 +116,12 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   }
 
   function archiveLocation(id){
+
+    ViewLocationSvc.archiveLocation(id)
+      .then(function(response){
+        _this.postLists = response;
+    });
+
     $state.go('workOrder', {id: 1});
   }
 
