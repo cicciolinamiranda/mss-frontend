@@ -160,12 +160,12 @@
               <ui-select ng-model="$ctrl.selectedProtectiveEquipment" theme="bootstrap"
               on-select="$ctrl.addToArray($ctrl.location.protectiveEquipment, $ctrl.selectedProtectiveEquipment)">
               <ui-select-match placeholder="Search for protective equipments..">
-                <span ng-bind="$ctrl.selectedProtectiveEquipment.equipmentName"></span>
+                <span ng-bind="$ctrl.selectedProtectiveEquipment.name"></span>
               </ui-select-match>
               <ui-select-choices repeat="item in ($ctrl.protectiveEquipmentChoices | filter: $select.search) track by item.id"
               refresh="$ctrl.refreshProtectiveEquipmentSearch($select.search)"
               refresh-delay="5">
-              <span ng-bind="item.equipmentName"></span>
+              <span ng-bind="item.name"></span>
             </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.location.protectiveEquipment">
@@ -177,7 +177,7 @@
               <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
             </button>
             <label class="text-muted pull-right">
-              <input type="checkbox" ng-model="equip.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
+              <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
             </label>
             <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
             ng-init="equip.costType"

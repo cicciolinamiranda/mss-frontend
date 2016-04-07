@@ -111,7 +111,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function addToArray(array, item){
     var newItem = angular.copy(item);
-
+    newItem.deleted = false;
     if(array){
 
       for(i = 0; i < array.length; i++){
