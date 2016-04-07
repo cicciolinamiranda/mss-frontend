@@ -2,6 +2,8 @@ var component = require('./index');
 
 describe("Employee List Service", function() {
   var EmployeeListSvc, $scope;
+  // since $gapi already injects $q,
+  // it will be implicitly injected to the service
   var sample_employee = {
     id: '123',
     firstname: 'Auntie',
