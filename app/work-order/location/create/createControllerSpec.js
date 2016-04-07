@@ -2,7 +2,7 @@ var component = require('./index');
 var moment = require('moment');
 
 describe("Create Location Component", function() {
-  var scope, controller, createService, test, stateParams;
+  var scope, controller, createService, locationModel, test, stateParams;
   var siteContactData = [
     {siteLocationName: "Name1", contactNumber: "Phone1", siteLocationEmail: "Email1@email.com", index: 0},
     {siteLocationName: "Name2", contactNumber: "Phone2", siteLocationEmail: "Email2@email.com", index: 1},
@@ -12,10 +12,6 @@ describe("Create Location Component", function() {
     {"id": 1, "transportName": "Van", "billed": false, "costTypeId": ""},
     {"id": 2, "transportName": "Private Jet", "billed": false, "costTypeId": "" },
     {"id": 3, "transportName": "Armored Van", "billed": false, "costTypeId": ""}
-  ];
-  var billedCostTypeMock = [
-    { "id": 1, "name": "One-off Cost"},
-    { "id": 2, "name": "Fixed Rate"}
   ];
   var searchMoTResponse = [
     {"id": 1, "transportName": "Van", "billed": false, "costTypeId": ""},
@@ -55,14 +51,33 @@ describe("Create Location Component", function() {
       $provide.constant('MOCK_BASE', '');
   }));
 
+  beforeEach(angular.mock.module(function($provide) {
+    $provide.factory('locationModelMock', function() {
+      return {
+        costTypeChoices: [
+          {
+            id: "ONE_OFF_COST",
+            name: "One-Off Cost"
+          },
+          {
+            id: "FIXED_RATE",
+            name: "Fixed Rate"
+          }
+        ],
+        costTypeDefault: {
+          id: "ONE_OFF_COST",
+          name: "One-Off Cost"
+        }
+      };
+    });
+  }));
+
   beforeEach(angular.mock.inject(function($rootScope, $compile, $injector, $q){
     createService = $injector.get('CreateLocationSvc');
+    locationModel = $injector.get('locationModelMock');
     stateParams = $injector.get('$stateParams');
 
     scope = $rootScope.$new();
-
-    spyOn(createService, 'getBilledCostTypeValues').and.returnValue(
-      $q.when(billedCostTypeMock));
 
     spyOn(createService, 'searchMockModeOfTransport').and.returnValue(
       $q.when(searchMoTResponse));

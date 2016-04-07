@@ -3,7 +3,7 @@ module.exports = createCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
+function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $stateParams) {
   var _this = this;
   _this.location = {};
 
@@ -73,14 +73,8 @@ function createCtrl(FileUploader, CreateLocationSvc, $state, $stateParams) {
     _this.location.proofOfDuty = {};
     _this.location.methodOfRecording = {};
 
-    CreateLocationSvc.getBilledCostTypeValues().then(function (costTypeResponse) {
-      _this.costTypeChoices = costTypeResponse;
-      if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeResponse[0].id;
-      }
-    }, function (error) {
-      _this.errMessage = error;
-    });
+    _this.costTypeChoices = LocationModel.costTypeChoices;
+    _this.costTypeDefault = LocationModel.costTypeDefault;
   }
 
   init();
