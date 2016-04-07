@@ -189,7 +189,7 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
-      'endDateStr': moment(json.endDate).format("MM/DD/YYYY"),
+      'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'statusStr': 'IN_PROGRESS',
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
@@ -272,5 +272,13 @@ function editLocationService($http, $q, $gapi, GAPI_BASE, MOCK_BASE) {
       }
     }
     return returnList;
+  }
+
+  function formatMomentDateThatMustBeNull(date) {
+    var returnDate = null;
+    if(undefined !== date) {
+      returnDate = moment(date).format("MM/DD/YYYY");
+    }
+    return returnDate;
   }
 }
