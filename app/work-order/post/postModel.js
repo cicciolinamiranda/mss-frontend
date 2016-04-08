@@ -3,7 +3,7 @@ module.exports = function(ngModule) {
 };
 var moment = require('moment');
 
-function PostModel() {
+function PostModel(PostService) {
   var _this = this;
 
   _this.post = {};
