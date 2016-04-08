@@ -112,6 +112,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
         _this.modeOfTransportList.push(mot);
       }
     }
+
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
