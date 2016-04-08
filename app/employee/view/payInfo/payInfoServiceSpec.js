@@ -2,14 +2,14 @@ var component = require('./index');
 
 describe("Pay Info Service", function() {
   var PayInfoSvc, $rootScope;
-  var sample_employee = {
+  var sample_contractedHours = {
     id: '123',
     contractHourPeriod: 'Weekly',
     contractHourThreshold: '40',
     contractDays: '5'
   };
 
-  var sample_payRates={
+  var sample_payRate = {
     id: '123',
     rateCurrency: 'USD',
     rate: '91.10235'
@@ -30,7 +30,7 @@ describe("Pay Info Service", function() {
               contractedHours: {
                 listByEmployeeId: function(params) {
                   if (params.employeeId === '123') {
-                    return $q.resolve(sample_employee);
+                    return $q.resolve(sample_contractedHours);
                   } else {
                     return $q.reject('contracted hours not found');
                   }
@@ -39,7 +39,7 @@ describe("Pay Info Service", function() {
               payRates: {
                 listByEmployeeId: function(params) {
                   if (params.employeeId === '123') {
-                    return $q.resolve(sample_employee);
+                    return $q.resolve(sample_payRate);
                   } else {
                     return $q.reject('payRates not found');
                   }
@@ -59,13 +59,12 @@ describe("Pay Info Service", function() {
   beforeEach(function() {
     spyOn(PayInfoSvc, 'getEmployeeContractedHours').and.callThrough();
     spyOn(PayInfoSvc, 'getPayRates').and.callThrough();
-
   });
 
-  describe("Get employee", function() {
+  describe("Get Pay Information", function() {
     it("returns a promise that resolves with employee contracted hours data", function(done) {
       PayInfoSvc.getEmployeeContractedHours('123').then(function(employee) {
-        expect(employee.contractHourPeriod).toBe(sample_employee.contractHourPeriod);
+        expect(employee.contractHourPeriod).toBe(sample_contractedHours.contractHourPeriod);
         done();
       });
       expect(PayInfoSvc.getEmployeeContractedHours).toHaveBeenCalledWith('123');
