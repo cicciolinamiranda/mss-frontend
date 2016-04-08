@@ -71,18 +71,22 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
+
   }
 
   init();
 
-  function checkStartEndDate (barredEmployee) {
+  function checkStartEndDate (barredEmployees) {
     _this.disableSave = false;
-    barredEmployee.displayError = false;
-    if(new Date(barredEmployee.endDate) < new Date(barredEmployee.startDate)) {
-      barredEmployee.displayError = true;
-      _this.disableSave = true;
-    }
 
+
+    for(i= 0; barredEmployees.length > 0; i++){
+        barredEmployees[i].displayError = false;
+      if(new Date(barredEmployees[i].endDate) < new Date(barredEmployees[i].startDate)) {
+        barredEmployees[i].displayError = true;
+        _this.disableSave = true;
+      }
+    }
   }
 
   function addBarredEmployee(employee) {
