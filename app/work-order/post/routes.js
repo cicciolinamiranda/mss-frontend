@@ -18,6 +18,7 @@ function routes($stateProvider) {
   .state({
     name: 'post.create',
     url: '/create',
-    template: '<post-create/>'
+    template: '<post-create/>',
+    params: {locationId: null}
   });
 }
