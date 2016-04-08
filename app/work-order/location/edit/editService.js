@@ -31,6 +31,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   this.update = function (customerLocationDetails) {
     var deferred2 = $q.defer();
+
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.update(
         transformJsonToDTO(customerLocationDetails)
@@ -207,7 +208,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
         }else{
           emp.isLifted = true;
         }
-
+        emp.displayError = false;
         barredEmployeesList.push(emp);
       }
     }
