@@ -1,7 +1,7 @@
 <style>
-  .messageError {
-    color: red;
-  }
+.messageError {
+  color: red;
+}
 </style>
 
 <div class="info-section" style="margin-top:10px;">
@@ -17,18 +17,18 @@
         <div class="row">
           <div class="col-md-12">
             <map-display
-              ng-if="$ctrl.location.editlatitude"
-              editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
-            </map-display>
-          </div>
+            ng-if="$ctrl.location.editlatitude"
+            editaddress="$ctrl.location.editaddress" editlatitude="$ctrl.location.editlatitude" editlongitude="$ctrl.location.editlongitude"  address="" latitude="" longitude="">
+          </map-display>
         </div>
-        <div class="alert alert-danger" ng-show="$ctrl.errMessage">
-          {{$ctrl.errMessage}}
-        </div>
-        <!--Address/Lat/Long-->
-        <div class="row" id="addressDiv" style="display: block">
-          <div class="col-md-8">
-            <label for="address">Address:</label>
+      </div>
+      <div class="alert alert-danger" ng-show="$ctrl.errMessage">
+        {{$ctrl.errMessage}}
+      </div>
+      <!--Address/Lat/Long-->
+      <div class="row" id="addressDiv" style="display: block">
+        <div class="col-md-8">
+          <label for="address">Address:</label>
           <input id="address" name="address" ng-model="$ctrl.location.editaddress" type="text" placeholder="Address" class="form-control"
           required>
           <div ng-messages="editLocationForm.address.$error">
@@ -132,7 +132,7 @@
                   <div class="row">
                     <div class="col-md-5">
                       <input type="checkbox" ng-model="barredEmployee.isLifted"
-                        ng-change="$ctrl.changeLiftedStatus(barredEmployee)"/>
+                      ng-change="$ctrl.changeLiftedStatus(barredEmployee)"/>
                       <span class="text-muted">{{barredEmployee.employeeId}}</span></br>
                       <span>{{barredEmployee.firstName}} {{barredEmployee.lastName}}</span>
                     </div>
@@ -147,10 +147,12 @@
                         </div>
                       </div>
                       <div class="row" ng-hide="barredEmployee.isLifted">
-                      <div class="col-md-10">
-                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
+                       <div ng-show="barredEmployee.displayError" class="messageError"> Lift Date must be on or before Effective Date</div>
+                        <div class="col-md-10">
+                          <small>Lift Date:</small>
+                          <input type="date" class="form-control input-sm" name="barredEmployee" ng-change="$ctrl.checkStartEndDate(barredEmployee)" ng-model="barredEmployee.endDate" required/>
+                        </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
@@ -280,7 +282,7 @@
     <label for="methodOfRecording">Method of Recording Time and Attendance</label>
     <div class="form-group">
       <ui-select ng-model="$ctrl.selectedMethodOfRecording" theme="bootstrap"
-        on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
+      on-select="$ctrl.updateMethodOfRecording($ctrl.selectedMethodOfRecording)">
       <ui-select-match placeholder="Select a method of recording">
         <span ng-bind="$ctrl.selectedMethodOfRecording.name"></span>
       </ui-select-match>
@@ -298,42 +300,42 @@
     <label for="contacts">Contacts</label>
     <div class="row" ng-repeat="contact in $ctrl.location.siteContactDetails" style="padding: 20px;" ng-hide="contact.deleted">
       <ng-form name="contactDetailsForm">
-      <div class="row">
-        <div class="form-group col-md-2">
-          <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.removeFromContactsList(contact.index)">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </button>
+        <div class="row">
+          <div class="form-group col-md-2">
+            <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.removeFromContactsList(contact.index)">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="form-group col-md-10">
+            <input type="text" class="form-control" placeholder="Name" ng-model="contact.siteLocationName"/>
+          </div>
         </div>
-        <div class="form-group col-md-10">
-          <input type="text" class="form-control" placeholder="Name" ng-model="contact.siteLocationName"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-10" style="float:right;">
+        <div class="row">
+          <div class="form-group col-md-10" style="float:right;">
             <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
             ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/"
             name="contactNumber"/>
             <div ng-messages="contactDetailsForm.contactNumber.$error">
               <div ng-message="pattern" class="messageError">Must be a valid phone number</div>
             </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-10" style="float:right;">
+        <div class="row">
+          <div class="form-group col-md-10" style="float:right;">
             <input type="email" class="form-control" placeholder="Email"
             ng-model="contact.siteLocationEmail" name="siteLocationEmail" required/>
             <div ng-messages="contactDetailsForm.siteLocationEmail.$error">
               <div ng-message="required" class="messageError">This field is required</div>
               <div ng-message="email" class="messageError">Your email address is invalid</div>
             </div>
+          </div>
         </div>
+      </ng-form>
     </div>
-    </ng-form>
+    <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.addSiteContactField()">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
   </div>
-  <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.addSiteContactField()">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  </button>
-</div>
 </div>
 
 <!--Contact Details end-->
@@ -342,7 +344,7 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()" ng-disabled="$ctrl.disableSave">Save</button>
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>
