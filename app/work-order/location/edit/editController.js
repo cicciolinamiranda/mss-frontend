@@ -3,9 +3,10 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
+function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$state) {
   var _this = this;
   _this.location = {};
+  _this.model = new LocationModel();
 
   //Contact Details
   _this.addSiteContactField = addSiteContactField;
@@ -24,6 +25,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //Barred Employees
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
+  _this.changeLiftedStatus = changeLiftedStatus;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -51,6 +53,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
   _this.resetCostType = resetCostType;
+  _this.costTypeInit = costTypeInit;
 
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
@@ -63,15 +66,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
 
-
-    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
-      _this.costTypeChoices = costTypeMock;
-      if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeMock[0].id;
-      }
-    }, function (error) {
-      _this.errMessage= error;
-    });
+    _this.costTypeChoices = _this.model.costTypeChoices;
+    _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
   }
@@ -232,7 +228,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     $state.go('location.view', {id: $stateParams.id});
   }
 
-  _this.changeLiftedStatus = function(employee){
+  function changeLiftedStatus(employee){
     if(employee.isLifted){
       employee.endDate = null;
     }else{
@@ -242,5 +238,12 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function resetCostType(costType) {
     costType = _this.costTypeDefault;
+  }
+
+  function costTypeInit(data){
+    if(!data.costType){
+      data.costType = _this.model.costTypeDefault;
+    }
+
   }
 }
