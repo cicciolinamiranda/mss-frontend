@@ -112,6 +112,13 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
         _this.modeOfTransportList.push(mot);
       }
     }
+
+    for(i = 0; i < location.siteLocations.length; i++){
+      //format (xxx-xxx-xxxx)
+      var contactNumber = location.siteLocations[i].contactNumber.toString().replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+       location.siteLocations[i].contactNumber = contactNumber;
+    }
+
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 

@@ -146,6 +146,13 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       locationSurverDateStr = moment(json.surveyReviewDate).format("MM/DD/YYYY");
     }
 
+    for(i = 0; i < json.siteContactDetails.length; i++){
+      if(json.siteContactDetails[i].contactNumber.search("-") > -1){
+        var strippedNumber = json.siteContactDetails[i].contactNumber.replace(/-/g, '');
+        json.siteContactDetails[i].contactNumber = strippedNumber;
+      }
+    }
+
     _this.customerDetails = {
       'workOrderId': json.workOrderId,
       'id': json.id,
@@ -249,9 +256,14 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       var siteListSize = siteLocations.length;
       for(i = 0; i < siteLocations.length; i++){
         var siteLoc = {};
+        var contactNumber;
 
         siteLoc = siteLocations[i];
         siteLoc.index=i;
+        //format (xxx-xxx-xxxx)
+        contactNumber = siteLoc.contactNumber.toString();
+        siteLoc.contactNumber = contactNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
         returnList.push(siteLoc);
       }
     }

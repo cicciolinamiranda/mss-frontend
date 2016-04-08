@@ -13,7 +13,7 @@
 <div class="container">
   <div class="col-md-12">
     <div class="panel">
-      <form name="editLocationForm">
+      <form name="editLocationForm" novalidate>
         <div class="row">
           <div class="col-md-12">
             <map-display
@@ -308,17 +308,18 @@
           <input type="text" class="form-control" placeholder="Name" name="contactName"
             ng-model="contact.siteLocationName" required/>
           <div ng-messages="contactDetailsForm.contactName.$error">
-            <div ng-message="required" class="messageError">This field is required</div>
+            <div ng-message="required" class="messageError">Contact's name is required</div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-10" style="float:right;">
             <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
-            ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/"
+            ng-pattern="/[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{4,6}$/"
             name="contactNumber" required/>
+            <label>Phone number format: XXX-XXX-XXXX</label>
             <div ng-messages="contactDetailsForm.contactNumber.$error">
-              <div ng-message="required" class="messageError">This field is required</div>
+              <div ng-message="required" class="messageError">Phone number is required</div>
               <div ng-message="pattern" class="messageError">Must be a valid phone number</div>
             </div>
         </div>
@@ -328,8 +329,8 @@
             <input type="email" class="form-control" placeholder="Email"
             ng-model="contact.siteLocationEmail" name="siteLocationEmail" required/>
             <div ng-messages="contactDetailsForm.siteLocationEmail.$error">
-              <div ng-message="required" class="messageError">This field is required</div>
-              <div ng-message="email" class="messageError">Your email address is invalid</div>
+              <div ng-message="required" class="messageError">An e-mail address is required</div>
+              <div ng-message="email" class="messageError">Your e-mail address is invalid</div>
             </div>
         </div>
     </div>
@@ -347,7 +348,8 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()"
+      ng-disabled="editLocationForm.$invalid">Save</button>
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>
