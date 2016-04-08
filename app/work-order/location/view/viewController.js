@@ -139,7 +139,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
 
   function goToViewPost(id) {
   //Will be replaced by a post id once integration is done
-  $state.go('post', {id: id});
+  $state.go('post.view', {id: id});
   }
 
 }
