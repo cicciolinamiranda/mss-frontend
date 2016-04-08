@@ -15,7 +15,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
+    return $gapi.load('customerContract', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
@@ -25,7 +25,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.workorder.customer.location.get({'id' : id});
+      return $gapi.client.customerContract.workorder.customer.location.get({'id' : id});
       def.resolve(response);
     }).then(function (data) {
       def.resolve(data);
@@ -38,7 +38,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var status = "ARCHIVE";
     var deferred2 = $q.defer();
     loadApi.then(function () {
-      return $gapi.client.workorder.customer.location.update_status(
+      return $gapi.client.customerContract.workorder.customer.location.update_status(
         {'id' : id, 'status':status}
       );
     }).then(function (data) {
