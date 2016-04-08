@@ -3,8 +3,8 @@ module.exports = createCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl($state, $stateParams) {
+function createCtrl($state, $stateParams, PostModel) {
   var _this = this;
-  _this.post = {};
+  _this.post = PostModel.post;
 
 }

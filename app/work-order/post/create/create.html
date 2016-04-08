@@ -13,15 +13,15 @@
         </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
-          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.title"/>
+          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name"/>
         </div>
         <div class="form-group">
           <label for="role">Role</label>
           <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.post.role"/>
         </div>
         <div class="form-group">
-          <label for="employeesNeeded">Employees Needed</label>
-          <input type="number" class="form-control" name="employeesNeeded" id="employeesNeeded" ng-model="$ctrl.post.employeesNeeded"/>
+          <label for="employeesNeeded">Number of Employees</label>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -35,8 +35,8 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Employee ID required?</label>
-          <input type="radio" name="isIdRequired" value="yes" checked>Yes
-          <input type="radio" name="isIdRequired" value="no">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.isIdentificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.isIdentificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -128,30 +128,30 @@
         </div>
         <div class="form-group">
           <label for="startTime">Start Time</label>
-          <input type="time" class="form-control" name="startTime" id="startTime"/>
+          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"/>
         </div>
         <div class="form-group">
           <label for="endTime">End Time</label>
-          <input type="time" class="form-control" name="endTime" id="endTime"/>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"/>
         </div>
         <div class="form-group">
           <label for="hours">Hours</label>
-          <input type="text" class="form-control" name="hours" id="hours" value="0" readonly/>
+          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.post.hours" readonly/>
         </div>
         <div class="form-group">
           <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" value="yes" checked>Yes
-          <input type="radio" name="bookOn" value="no">No
+          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.post.isBookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.post.isBookOn">No
         </div>
         <div class="form-group">
           <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" value="yes" checked>Yes
-          <input type="radio" name="bookOff" value="no">No
+          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.post.isBookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.post.isBookOff">No
         </div>
         <div class="form-group">
           <label for="callIn">Call in?</label>
-          <input type="radio" name="callIn" value="yes" checked>Yes
-          <input type="radio" name="callIn" value="no">No
+          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.isCallIn">Yes
+          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.isCallIn">No
           <label for="frequency"></label>
           <select name="frequency" class="form-control">
             <option>every 30 mins</option>
@@ -171,7 +171,7 @@
         </div>
         <div class="form-group">
           <label for="notes">Notes</label>
-          <textarea name="notes" class="form-control" rows="3"></textarea>
+          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
         </div>
         <div class="form-group">
           <button type="button" class="btn btn-primary">Save</button>
