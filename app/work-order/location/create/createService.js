@@ -105,6 +105,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       },
       'siteLocations': json.siteContactDetails,
       'startDateStr': moment(json.startDate).format("MM/DD/YYYY"),
+      'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
       'statusStr': 'IN_PROGRESS'
