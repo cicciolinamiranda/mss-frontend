@@ -143,14 +143,18 @@
                           <input type="date" class="form-control input-sm" ng-model="barredEmployee.startDate" required/>
                         </div>
                         <div class="col-md-2">
-                          <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
+                          <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)">
+                            <i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i>
+                          </a>
                         </div>
                       </div>
                       <div class="row" ng-hide="barredEmployee.isLifted">
-                      <div class="col-md-10">
-                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
+                        <div ng-show="barredEmployee.displayError" class="messageError"> Lift Date must be on or before Effective Date</div>
+                        <div class="col-md-10">
+                          <small>Lift Date:</small>
+                          <input type="date" class="form-control input-sm" name="barredEmployee" ng-change="$ctrl.checkStartEndDate(barredEmployee)" ng-model="barredEmployee.endDate" required/>
+                        </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
@@ -349,7 +353,7 @@
   <div class="col-md-12 text-right">
     <hr />
     <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()"
-      ng-disabled="editLocationForm.$invalid">Save</button>
+      ng-disabled="editLocationForm.$invalid || $ctrl.disableSave">Save</button>
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>

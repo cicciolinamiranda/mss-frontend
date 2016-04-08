@@ -26,6 +26,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
   _this.changeLiftedStatus = changeLiftedStatus;
+  _this.checkStartEndDate = checkStartEndDate;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -54,7 +55,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   _this.goToViewLocation = goToViewLocation;
   _this.resetCostType = resetCostType;
   _this.costTypeInit = costTypeInit;
-
+  _this.disableSave = false;
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
 
@@ -74,7 +75,18 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
   init();
 
+  function checkStartEndDate (barredEmployee) {
+    _this.disableSave = false;
+    barredEmployee.displayError = false;
+
+    if(new Date(barredEmployee.endDate) < new Date(barredEmployee.startDate)) {
+      barredEmployee.displayError = true;
+      _this.disableSave = true;
+    }
+  }
+
   function addBarredEmployee(employee) {
+
     employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
@@ -82,6 +94,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     employee.lastName = employee.surname;
     employee.deleted = false;
     employee.isLifted = true;
+    employee.displayError = false;
 
     _this.location.barredEmployees.push(employee);
   }
@@ -167,8 +180,6 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
       if(_this.location.siteContactDetails[i].index == index && undefined !==  _this.location.siteContactDetails[i].deleted){
         _this.location.siteContactDetails[i].deleted = true;
-
-      //  _this.location.siteContactDetails[i].index = index--;
       }
     }
 
