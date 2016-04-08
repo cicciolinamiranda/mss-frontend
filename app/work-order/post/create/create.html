@@ -13,15 +13,15 @@
         </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
-          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name"/>
+          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.model.post.name"/>
         </div>
         <div class="form-group">
           <label for="role">Role</label>
-          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.post.role"/>
+          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.model.post.role"/>
         </div>
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
-          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.model.post.numberOfEmployees"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -35,8 +35,8 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Employee ID required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.isIdentificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.isIdentificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.model.post.isIdentificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.model.post.isIdentificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -128,35 +128,34 @@
         </div>
         <div class="form-group">
           <label for="startTime">Start Time</label>
-          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"/>
+          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.model.post.startTime"/>
         </div>
         <div class="form-group">
           <label for="endTime">End Time</label>
-          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"/>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.model.post.endTime"/>
         </div>
         <div class="form-group">
           <label for="hours">Hours</label>
-          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.post.hours" readonly/>
+          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.model.post.hours" readonly/>
         </div>
         <div class="form-group">
           <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.post.isBookOn">Yes
-          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.post.isBookOn">No
+          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.model.post.isBookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.model.post.isBookOn">No
         </div>
         <div class="form-group">
           <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.post.isBookOff">Yes
-          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.post.isBookOff">No
+          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.model.post.isBookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.model.post.isBookOff">No
         </div>
         <div class="form-group">
           <label for="callIn">Call in?</label>
-          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.isCallIn">Yes
-          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.isCallIn">No
+          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.model.post.isCallIn">Yes
+          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.model.post.isCallIn">No
           <label for="frequency"></label>
-          <select name="frequency" class="form-control">
-            <option>every 30 mins</option>
-            <option>every 1 hr</option>
-            <option>every 2 hrs</option>
+          <select name="frequency" class="form-control"
+           ng-model="$ctrl.model.post.callInFrequency"
+           ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
           </select>
         </div>
         <div class="form-group">
@@ -171,7 +170,7 @@
         </div>
         <div class="form-group">
           <label for="notes">Notes</label>
-          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
+          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.model.post.notes"></textarea>
         </div>
         <div class="form-group">
           <button type="button" class="btn btn-primary">Save</button>
