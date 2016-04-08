@@ -305,15 +305,20 @@
           </button>
         </div>
         <div class="form-group col-md-10">
-          <input type="text" class="form-control" placeholder="Name" ng-model="contact.siteLocationName"/>
+          <input type="text" class="form-control" placeholder="Name" name="contactName"
+            ng-model="contact.siteLocationName" required/>
+          <div ng-messages="contactDetailsForm.contactName.$error">
+            <div ng-message="required" class="messageError">This field is required</div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-10" style="float:right;">
             <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
             ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/"
-            name="contactNumber"/>
+            name="contactNumber" required/>
             <div ng-messages="contactDetailsForm.contactNumber.$error">
+              <div ng-message="required" class="messageError">This field is required</div>
               <div ng-message="pattern" class="messageError">Must be a valid phone number</div>
             </div>
         </div>
