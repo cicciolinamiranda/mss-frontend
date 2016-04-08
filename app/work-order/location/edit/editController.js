@@ -72,24 +72,30 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
     getCustomerLocation($stateParams.id);
 
+
   }
 
   init();
 
   function checkStartEndDate (barredEmployees) {
-    _this.disableSave = false;
 
-
-    for(i= 0; barredEmployees.length > 0; i++){
-        barredEmployees[i].displayError = false;
+    for(i= 0;i < barredEmployees.length; i++){
       if(new Date(barredEmployees[i].endDate) < new Date(barredEmployees[i].startDate)) {
         barredEmployees[i].displayError = true;
         _this.disableSave = true;
+        return "";
+      }
+      else{
+        barredEmployees[i].displayError = false;
+        _this.disableSave = false;
       }
     }
+
+    console.log(_this.disableSave);
   }
 
   function addBarredEmployee(employee) {
+
     employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
@@ -98,6 +104,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     employee.deleted = false;
     employee.isLifted = true;
     employee.displayError = false;
+
     _this.location.barredEmployees.push(employee);
   }
 
@@ -182,8 +189,6 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
       if(_this.location.siteContactDetails[i].index == index && undefined !==  _this.location.siteContactDetails[i].deleted){
         _this.location.siteContactDetails[i].deleted = true;
-
-        //  _this.location.siteContactDetails[i].index = index--;
       }
     }
 
@@ -200,7 +205,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
         };
       }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
-
+      checkStartEndDate (_this.location.barredEmployees);
     }, function (error) {
       _this.errMessage= error;
     });

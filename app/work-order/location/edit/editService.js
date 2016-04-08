@@ -31,7 +31,6 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   this.update = function (customerLocationDetails) {
     var deferred2 = $q.defer();
-
     loadApi.then(function () {
       return $gapi.client.workorder.customer.location.update(
         transformJsonToDTO(customerLocationDetails)
@@ -250,9 +249,11 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       var siteListSize = siteLocations.length;
       for(i = 0; i < siteLocations.length; i++){
         var siteLoc = {};
+        var contactNumber;
 
         siteLoc = siteLocations[i];
         siteLoc.index=i;
+
         returnList.push(siteLoc);
       }
     }
