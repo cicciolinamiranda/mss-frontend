@@ -25,7 +25,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   var loadApi = deferred.promise;
 
   $gapi.loaded.then(function () {
-    return $gapi.load('workorder', 'v1', WORKORDER_GAPI_BASE);
+    return $gapi.load('customerContract', 'v1', WORKORDER_GAPI_BASE);
   }).then(function () {
     return deferred.resolve();
   });
@@ -33,7 +33,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   this.save = function (customerLocationDetails) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
-      return $gapi.client.workorder.customer.location.save(
+      return $gapi.client.customerContract.workorder.customer.location.save(
         transformJsonToDTO(customerLocationDetails)
       );
     }).then(function (data) {
@@ -46,7 +46,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.workorder.master.file.transport.list();
+      return $gapi.client.customerContract.workorder.master.file.transport.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
@@ -58,7 +58,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.workorder.master.file.skills.list();
+      return $gapi.client.customerContract.workorder.master.file.skills.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
@@ -70,7 +70,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.workorder.master.file.equipment.list();
+      return $gapi.client.customerContract.workorder.master.file.equipment.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
@@ -117,7 +117,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
         var def = $q.defer();
 
         loadApi.then(function () {
-          return $gapi.client.workorder.master.file.proofofduty.list();
+          return $gapi.client.customerContract.workorder.master.file.proofofduty.list();
         }).then(function (data) {
           def.resolve(data.items);
         });
@@ -128,7 +128,7 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
         var def = $q.defer();
 
         loadApi.then(function () {
-          return $gapi.client.workorder.master.file.methodofrecording.list();
+          return $gapi.client.customerContract.workorder.master.file.methodofrecording.list();
         }).then(function (data) {
           def.resolve(data.items);
         });
