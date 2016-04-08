@@ -3,9 +3,10 @@ module.exports = editCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
+function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$state) {
   var _this = this;
   _this.location = {};
+  _this.model = new LocationModel();
 
   //Contact Details
   _this.addSiteContactField = addSiteContactField;
@@ -24,6 +25,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   //Barred Employees
   _this.addBarredEmployee = addBarredEmployee;
   _this.checkBarredSelected = checkBarredSelected;
+  _this.changeLiftedStatus = changeLiftedStatus;
+  _this.checkStartEndDate = checkStartEndDate;
 
   //Protective Equipment
   _this.protectiveEquipmentChoices;
@@ -51,7 +54,8 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
   _this.errMessage;
   _this.goToViewLocation = goToViewLocation;
   _this.resetCostType = resetCostType;
-
+  _this.costTypeInit = costTypeInit;
+  _this.disableSave = false;
   //update
   _this.updateCustomerLocation = updateCustomerLocation;
 
@@ -63,23 +67,26 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
 
-
-    EditLocationSvc.getBilledCostTypeValues().then(function(costTypeMock){
-      _this.costTypeChoices = costTypeMock;
-      if (_this.costTypeChoices.length > 0) {
-        _this.costTypeDefault = costTypeMock[0].id;
-        console.log(_this.costTypeDefault);
-      }
-    }, function (error) {
-      _this.errMessage= error;
-    });
+    _this.costTypeChoices = _this.model.costTypeChoices;
+    _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
   }
 
   init();
 
+  function checkStartEndDate (barredEmployee) {
+    _this.disableSave = false;
+    barredEmployee.displayError = false;
+
+    if(new Date(barredEmployee.endDate) < new Date(barredEmployee.startDate)) {
+      barredEmployee.displayError = true;
+      _this.disableSave = true;
+    }
+  }
+
   function addBarredEmployee(employee) {
+
     employee.startDate = moment().toDate();
     employee.id = employee.id;
     employee.employeeId = employee.id;
@@ -87,6 +94,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     employee.lastName = employee.surname;
     employee.deleted = false;
     employee.isLifted = true;
+    employee.displayError = false;
 
     _this.location.barredEmployees.push(employee);
   }
@@ -172,8 +180,6 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
       if(_this.location.siteContactDetails[i].index == index && undefined !==  _this.location.siteContactDetails[i].deleted){
         _this.location.siteContactDetails[i].deleted = true;
-
-      //  _this.location.siteContactDetails[i].index = index--;
       }
     }
 
@@ -233,7 +239,7 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
     $state.go('location.view', {id: $stateParams.id});
   }
 
-  _this.changeLiftedStatus = function(employee){
+  function changeLiftedStatus(employee){
     if(employee.isLifted){
       employee.endDate = null;
     }else{
@@ -243,5 +249,12 @@ function editCtrl(FileUploader, EditLocationSvc,$stateParams,$state) {
 
   function resetCostType(costType) {
     costType = _this.costTypeDefault;
+  }
+
+  function costTypeInit(data){
+    if(!data.costType){
+      data.costType = _this.model.costTypeDefault;
+    }
+
   }
 }

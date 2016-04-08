@@ -1,3 +1,9 @@
+<style>
+  .messageError {
+    color: red;
+  }
+</style>
+
 <div class="info-section" style="margin-top:10px;">
   <div class="info-section__header">
     <h1 class="dark">Edit Location</h1>
@@ -7,7 +13,7 @@
 <div class="container">
   <div class="col-md-12">
     <div class="panel">
-      <form name="editLocationForm">
+      <form name="editLocationForm" novalidate>
         <div class="row">
           <div class="col-md-12">
             <map-display
@@ -23,12 +29,11 @@
         <div class="row" id="addressDiv" style="display: block">
           <div class="col-md-8">
             <label for="address">Address:</label>
-            <div ng-show="editLocationForm.address.$touched && editLocationForm.address.$invalid"
-            class="row alert alert-danger">
-            <span>Please enter an address.</span>
-          </div>
           <input id="address" name="address" ng-model="$ctrl.location.editaddress" type="text" placeholder="Address" class="form-control"
           required>
+          <div ng-messages="editLocationForm.address.$error">
+            <div ng-message="required" class="messageError">This field is required</div>
+          </div>
         </div>
         <div class="form-group col-md-4" >
           <label for="coordinates">Coordinates:</label>
@@ -134,17 +139,22 @@
                     <div class="col-md-7">
                       <div class="row">
                         <div class="col-md-10">
+                          <small>Effective From:</small>
                           <input type="date" class="form-control input-sm" ng-model="barredEmployee.startDate" required/>
                         </div>
                         <div class="col-md-2">
-                          <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)"><i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i></a>
+                          <a href="" class="text-danger" ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.employeeId)">
+                            <i ng-click="$ctrl.hideFromDisplay($ctrl.location.barredEmployees,barredEmployee.id)" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></i>
+                          </a>
                         </div>
                       </div>
                       <div class="row" ng-hide="barredEmployee.isLifted">
-                      <div class="col-md-10">
-                        <input type="date" class="form-control input-sm" ng-model="barredEmployee.endDate" required/>
+                        <div ng-show="barredEmployee.displayError" class="messageError"> Lift Date must be on or before Effective Date</div>
+                        <div class="col-md-10">
+                          <small>Lift Date:</small>
+                          <input type="date" class="form-control input-sm" name="barredEmployee" ng-change="$ctrl.checkStartEndDate(barredEmployee)" ng-model="barredEmployee.endDate" required/>
+                        </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
@@ -180,7 +190,7 @@
               <input type="checkbox" ng-model="equip.billed"> Billed&nbsp;
             </label>
             <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
-            ng-init="equip.costType"
+            ng-init="$ctrl.costTypeInit(equip)"
             ng-model="equip.costType"
             ng-show="equip.billed"
             required>
@@ -215,7 +225,7 @@
       <input type="checkbox" ng-model="transport.billed" ng-click="$ctrl.resetCostType(equip.costType)"> Billed&nbsp;
     </label>
     <select class="form-control" ng-options="c.id as c.name for c in $ctrl.costTypeChoices"
-    ng-init="transport.costType"
+    ng-init="$ctrl.costTypeInit(transport)"
     ng-model="transport.costType"
     ng-show="transport.billed"
     required>
@@ -286,11 +296,12 @@
 </div>
 </div>
 </div>
+<!--Contact Details start-->
 <div class="row">
   <div class="form-group col-md-12">
     <label for="contacts">Contacts</label>
     <div class="row" ng-repeat="contact in $ctrl.location.siteContactDetails" style="padding: 20px;" ng-hide="contact.deleted">
-
+      <ng-form name="contactDetailsForm">
       <div class="row">
         <div class="form-group col-md-2">
           <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.removeFromContactsList(contact.index)">
@@ -298,40 +309,51 @@
           </button>
         </div>
         <div class="form-group col-md-10">
-          <input type="text" class="form-control" placeholder="Name" ng-model="contact.siteLocationName"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-10" style="float:right;">
-          <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
-          name="contactNumber"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-10" style="float:right;">
-          <ng-form name="siteEmailForm">
-            <div ng-show="siteEmailForm.siteLocationEmail.$touched && siteEmailForm.siteLocationEmail.$invalid"
-            class="row alert alert-danger">
-            <span>Incorrect email format.</span>
+          <input type="text" class="form-control" placeholder="Name" name="contactName"
+            ng-model="contact.siteLocationName" required/>
+          <div ng-messages="contactDetailsForm.contactName.$error">
+            <div ng-message="required" class="messageError">Contact's name is required</div>
           </div>
-          <input type="email" class="form-control" placeholder="Email"
-          ng-model="contact.siteLocationEmail" name="siteLocationEmail" required/>
-        </ng-form>
+        </div>
       </div>
+      <div class="row">
+        <div class="form-group col-md-10" style="float:right;">
+            <input type="text" class="form-control" placeholder="Phone" ng-model="contact.contactNumber"
+            ng-pattern="/[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{4,6}$/"
+            name="contactNumber" required/>
+            <label>Phone number format: XXX-XXX-XXXX</label>
+            <div ng-messages="contactDetailsForm.contactNumber.$error">
+              <div ng-message="required" class="messageError">Phone number is required</div>
+              <div ng-message="pattern" class="messageError">Must be a valid phone number</div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-10" style="float:right;">
+            <input type="email" class="form-control" placeholder="Email"
+            ng-model="contact.siteLocationEmail" name="siteLocationEmail" required/>
+            <div ng-messages="contactDetailsForm.siteLocationEmail.$error">
+              <div ng-message="required" class="messageError">An e-mail address is required</div>
+              <div ng-message="email" class="messageError">Your e-mail address is invalid</div>
+            </div>
+        </div>
     </div>
-
+    </ng-form>
   </div>
   <button type="button" class="btn btn-block btn-default" ng-click="$ctrl.addSiteContactField()">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </button>
 </div>
 </div>
+
+<!--Contact Details end-->
 </div>
 </div>
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()"
+      ng-disabled="editLocationForm.$invalid || $ctrl.disableSave">Save</button>
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>

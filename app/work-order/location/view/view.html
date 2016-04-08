@@ -22,7 +22,7 @@
         </div>
         <div class="row">
           <div class="col-md-8">
-            <h4>{{$ctrl.cloc.id}}</h4>
+            <h4 id="locationId">{{$ctrl.cloc.id}}</h4>
             <a href="#"><h3>Dell Ireland</h3></a>
           </div>
           <div class="col-md-4" style="padding-top: 20px">
@@ -32,7 +32,7 @@
           </button>
           <button type="button" class="btn btn-link" style="color: #080808;"
           ng-click="$ctrl.archiveLocation($ctrl.cloc.id)" title="Archive">
-          <i class="fa fa-times fa-2x"></i>
+          <i class="fa fa-archive fa-2x"></i>
         </button>
       </div>
     </div>
@@ -170,7 +170,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-8">
-                    <label>Start Date:</label>&nbsp;
+                    <label>Effective Date:</label>&nbsp;
                     <span ng-bind="emp.barsStartDate"></span>
                   </div>
                 </div>
@@ -274,16 +274,7 @@
           <h4>Posts</h4>
         </div>
         <div class="row">
-          <!-- <a href="" ng-click="$ctrl.goToViewPost()">
 
-          <div class="panel text-center">
-          <i class="fa fa-picture-o fa-5x"></i>
-          <h3>Front Desk</h3>
-          Some details you should know<br/>
-          <strong>24 Hours</strong>
-        </div>
-      </div>
-    </a> -->
 
     <ul class="list-inline">
       <li ng-repeat="post in $ctrl.postLists" ng-click="$ctrl.goToViewPost(post.id)">
@@ -296,13 +287,19 @@
         </div>
       </a>
       </li>
-        <li>
+        <!-- <li>
           <div class="col-md-10">
               <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
               <h3>&nbsp;</h3>
         </div>
-        </li>
+        </li> -->
     </ul>
+    <div class="col-md-4">
+      <a href="" ng-click="$ctrl.goToCreateLocation()">
+        <div class="panel text-center" style="padding:90px 0px;">
+          <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
+        </div>
+      </div>
   </div>
 </div>
 </div>

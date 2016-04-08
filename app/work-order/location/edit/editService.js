@@ -4,18 +4,16 @@ module.exports = function(ngModule) {
 
 var moment = require('moment');
 
-function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
+function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
-  _this.billedCostType;
   _this.siteSkills;
   _this.protectiveEquipment;
   _this.proofOfDuties;
   _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
-  _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
   _this.getCustomerLocation = getCustomerLocation;
@@ -52,20 +50,6 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
       def.resolve(data.items);
     });
 
-    return def.promise;
-  }
-
-  function getBilledCostTypeValues(){
-    var def = $q.defer();
-
-    $http.get(MOCK_BASE + "/billedCostType")
-    .success(function(response) {
-      _this.billedCostType = response;
-      def.resolve(response);
-    })
-    .error(function() {
-      def.reject("Server is down.");
-    });
     return def.promise;
   }
 
@@ -223,7 +207,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
         }else{
           emp.isLifted = true;
         }
-
+        emp.displayError = false;
         barredEmployeesList.push(emp);
       }
     }
@@ -265,9 +249,11 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
       var siteListSize = siteLocations.length;
       for(i = 0; i < siteLocations.length; i++){
         var siteLoc = {};
+        var contactNumber;
 
         siteLoc = siteLocations[i];
         siteLoc.index=i;
+
         returnList.push(siteLoc);
       }
     }

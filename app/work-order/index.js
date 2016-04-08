@@ -11,10 +11,12 @@ var ngApp = angular.module('locationApp', [
   require('./location/employee-lookup/index').name,
   require('./location/view/index').name,
   require('./location/edit/index').name,
+  require('./post/create/index').name,
   require('./post/view/index').name,
   require('./view/index').name
 ]);
-
+require('./location/locationModel')(ngApp);
+require('./post/postModel')(ngApp);
 require('./config')(ngApp);
 require('./routes')(ngApp);
 

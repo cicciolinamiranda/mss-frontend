@@ -1,8 +1,9 @@
 module.exports = createCtrl;
 var moment = require('moment');
 /*@ngInject*/
-function createCtrl(ViewLocationSvc, $state, $stateParams) {
+function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   var _this = this;
+  _this.model = new LocationModel();
   _this.locId = $stateParams.id;
   _this.mapSource;
   _this.coordinates;
@@ -38,10 +39,11 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   //for mode of transport and protective equipment
   function getCostType(sourceData, destObject){
     if(sourceData.billed){
-      ViewLocationSvc.getBilledCostType(sourceData.costType)
-        .then(function(response){
-          destObject.costType = "[" + response[0].name + "]";
-      });
+      for(j = 0; j < _this.model.costTypeChoices.length; j++){
+        if(sourceData.costType === _this.model.costTypeChoices[j].id ){
+          destObject.costType = "[" + _this.model.costTypeChoices[j].name + "]";
+        }
+      }
     }
   }
 
@@ -53,7 +55,6 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
-    console.log(barredEmployees);
     if(barredEmployees){
       for(i = 0; i < barredEmployees.length; i++){
         var emp = {};
@@ -111,10 +112,17 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
         _this.modeOfTransportList.push(mot);
       }
     }
+
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
   function archiveLocation(id){
+
+    ViewLocationSvc.archiveLocation(id)
+      .then(function(response){
+        _this.postLists = response;
+    });
+
     $state.go('workOrder', {id: 1});
   }
 
@@ -132,7 +140,7 @@ function createCtrl(ViewLocationSvc, $state, $stateParams) {
 
   function goToViewPost(id) {
   //Will be replaced by a post id once integration is done
-  $state.go('post', {id: id});
+  $state.go('post.view', {id: id});
   }
 
 }
