@@ -94,8 +94,6 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
         _this.disableSave = false;
       }
     }
-
-    console.log($invalid);
   }
 
   function addBarredEmployee(employee) {
