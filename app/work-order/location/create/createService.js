@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 
 var moment = require('moment');
 
-function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
+function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   var _this = this;
   _this.modeOfTransportMock;
@@ -15,7 +15,6 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE)
   _this.methodOfRecordings;
 
   _this.searchMockModeOfTransport = searchMockModeOfTransport;
-  _this.getBilledCostTypeValues = getBilledCostTypeValues;
   _this.searchSiteSkills = searchSiteSkills;
   _this.searchProtectiveEquipment = searchProtectiveEquipment;
   _this.getProofofDutyValues = getProofofDutyValues;
@@ -52,20 +51,6 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE)
       def.resolve(data.items);
     });
 
-    return def.promise;
-  }
-
-  function getBilledCostTypeValues() {
-    var def = $q.defer();
-
-    $http.get(MOCK_BASE + "/billedCostType")
-    .success(function (response) {
-      _this.billedCostType = response;
-      def.resolve(response);
-    })
-    .error(function () {
-      def.reject("Server is down.");
-    });
     return def.promise;
   }
 

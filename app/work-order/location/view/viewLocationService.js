@@ -2,12 +2,11 @@ module.exports = function(ngModule) {
   ngModule.service('ViewLocationSvc', viewLocationService);
 };
 
-function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
+function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   var _this = this;
 
   _this.getLocationDetails = getLocationDetails;
-  _this.getBilledCostType = getBilledCostType;
   _this.getPostDetailsList = getPostDetailsList;
   _this.archiveLocation = archiveLocation;
   _this.locDetails;
@@ -34,20 +33,6 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
     return def.promise;
   }
 
-  function getBilledCostType(id){
-    var def = $q.defer();
-
-    $http.get(MOCK_BASE + "/billedCostType", {params:{"id": id}})
-         .success(function(response) {
-              _this.billedCostType = response;
-              def.resolve(response);
-            })
-          .error(function() {
-              def.reject("Server is down.");
-          });
-    return def.promise;
-  }
-
   function archiveLocation(id) {
     var def = $q.defer();
     var status = "ARCHIVE";
@@ -61,7 +46,6 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE, MOCK_BASE) {
     });
     return def.promise;
   }
-
   function getPostDetailsList(id){
     var def = $q.defer();
     var data = [{
