@@ -16,6 +16,7 @@ var ngApp = angular.module('locationApp', [
   require('./view/index').name
 ]);
 require('./location/locationModel')(ngApp);
+require('./post/postModel')(ngApp);
 require('./config')(ngApp);
 require('./routes')(ngApp);
 
