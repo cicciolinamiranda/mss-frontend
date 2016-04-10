@@ -8,9 +8,15 @@ function viewPostCtrl(ViewPostModel, $state, $stateParams) {
   _this.post;
 
   function init() {
-    _this.post = _this.model.getPostDetails(postId);
+    getPostDetails();
   }
 
   init();
 
+  function getPostDetails() {
+    _this.model.getPostDetails(postId).then(function (response) {
+      console.log("RETURN--->"+JSON.stringify(response.result));
+      _this.post =  response.result;
+    });
+  }
 }
