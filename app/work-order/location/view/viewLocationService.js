@@ -28,7 +28,6 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       return $gapi.client.customerContract.workorder.customer.location.get({'id' : id});
       def.resolve(response);
     }).then(function (data) {
-      console.log(data)
       def.resolve(data);
     });
     return def.promise;
@@ -49,7 +48,6 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   }
   function getPostDetailsList(customerLocationId){
     var def = $q.defer();
-    console.log(customerLocationId);
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.customer.location.post.list({'locationId' : customerLocationId});
     def.resolve(response);

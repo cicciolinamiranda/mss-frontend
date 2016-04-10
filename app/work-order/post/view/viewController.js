@@ -15,7 +15,6 @@ function viewPostCtrl(ViewPostModel, $state, $stateParams) {
 
   function getPostDetails() {
     _this.model.getPostDetails(postId).then(function (response) {
-      console.log("RETURN--->"+JSON.stringify(response.result));
       _this.post =  response.result;
     });
   }

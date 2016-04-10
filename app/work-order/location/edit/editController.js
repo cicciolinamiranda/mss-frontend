@@ -78,18 +78,13 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   init();
 
   function checkStartEndDate (barredEmployees) {
-    console.log("CHECKSTARTENDDATE");
     for(i= 0;i < barredEmployees.length; i++){
-      console.log("END DATE: "+new Date(barredEmployees[i].endDate));
-      console.log("START DATE: "+new Date(barredEmployees[i].startDate));
       if(new Date(barredEmployees[i].endDate) < new Date(barredEmployees[i].startDate)) {
-        console.log("true");
         barredEmployees[i].displayError = true;
         _this.disableSave = true;
         return null;
       }
       else{
-        console.log("false");
         barredEmployees[i].displayError = false;
         _this.disableSave = false;
       }
