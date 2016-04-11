@@ -21,7 +21,8 @@
         </div>
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
-          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees"
+                 ng-model="$ctrl.model.post.numberOfEmployees"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -40,13 +41,13 @@
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
-          <ui-select id="licenses" ng-model="$ctrl.selectedLicense" theme="bootstrap"
-                     on-select="$ctrl.model.addToArray($ctrl.model.post.licenses, $ctrl.selectedLicense)">
+          <ui-select id="licenses" ng-model="$ctrl.model.post.selectedLicense" theme="bootstrap"
+                     on-select="$ctrl.model.post.addToArray($ctrl.model.post.licenses, $ctrl.model.post.selectedLicense)">
             <ui-select-match placeholder="Select a License">
-              <span ng-bind="$ctrl.selectedLicense.name"></span>
+              <span ng-bind="$ctrl.model.post.selectedLicense.name"></span>
             </ui-select-match>
-            <ui-select-choices repeat="item in ($ctrl.model.licenseChoices | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.refreshLicenses()"
+            <ui-select-choices repeat="item in ($ctrl.model.post.licenses | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.post.licenses"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
@@ -56,31 +57,7 @@
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
               <span ng-bind="license.name"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-                      ng-click="$ctrl.model.removeFromArray($ctrl.model.post.licenses, license.id)">
-                <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div class="form-group">
-          <label for="equipments">Equipment</label>
-          <ui-select id="equipments" ng-model="$ctrl.selectedEquipment" theme="bootstrap"
-                     on-select="$ctrl.model.addToArray($ctrl.model.post.equipments, $ctrl.selectedEquipment)">
-            <ui-select-match placeholder="Select an Equipment">
-              <span ng-bind="$ctrl.selectedEquipment.name"></span>
-            </ui-select-match>
-            <ui-select-choices repeat="item in ($ctrl.model.equipmentChoices | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.refreshEquipments()"
-                               refresh-delay="5">
-              <span ng-bind="item.name"></span>
-            </ui-select-choices>
-          </ui-select>
-          <ul class="list-group" ng-show="$ctrl.model.post.equipments">
-            <li class="list-group-item ss-selected-item" ng-repeat="equipment in $ctrl.model.post.equipments">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-              <span ng-bind="equipment.name"></span>
-              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-                      ng-click="$ctrl.model.removeFromArray($ctrl.model.post.equipments, equipment.id)">
+                      ng-click="$ctrl.removeFromArray($ctrl.model.post.licenses, license.id)">
                 <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
               </button>
             </li>
@@ -88,23 +65,23 @@
         </div>
         <div class="form-group">
           <label for="skills">Skills Required</label>
-          <ui-select id="skills" ng-model="$ctrl.selectedPostSkill" theme="bootstrap"
-                     on-select="$ctrl.model.addToArray($ctrl.model.post.postSkills, $ctrl.selectedPostSkill)">
+          <ui-select id="skills" ng-model="$ctrl.model.post.selectedSkill" theme="bootstrap"
+                     on-select="$ctrl.model.post.addToArray($ctrl.model.post.skills, $ctrl.model.post.selectedSkill)">
             <ui-select-match placeholder="Select a Skill">
-              <span ng-bind="$ctrl.selectedPostSkill.name"></span>
+              <span ng-bind="$ctrl.model.post.selectedSkill.name"></span>
             </ui-select-match>
-            <ui-select-choices repeat="item in ($ctrl.model.postSkillChoices | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.refreshPostSkills()"
+            <ui-select-choices repeat="item in ($ctrl.model.post.skills | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.post.skills"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
           </ui-select>
-          <ul class="list-group" ng-show="$ctrl.model.post.postSkills">
-            <li class="list-group-item ss-selected-item" ng-repeat="skill in $ctrl.model.post.postSkills">
+          <ul class="list-group" ng-show="$ctrl.model.post.skills">
+            <li class="list-group-item ss-selected-item" ng-repeat="uniform in $ctrl.model.post.skills">
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
               <span ng-bind="skill.name"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-                      ng-click="$ctrl.model.removeFromArray($ctrl.model.post.postSkills, skill.id)">
+                      ng-click="$ctrl.removeFromArray($ctrl.model.post.skill, skill.id)">
                 <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
               </button>
             </li>
@@ -112,13 +89,13 @@
         </div>
         <div class="form-group">
           <label for="uniforms">Uniforms</label>
-          <ui-select id="uniforms" ng-model="$ctrl.selectedUniform" theme="bootstrap"
-                     on-select="$ctrl.model.addToArray($ctrl.model.post.uniforms, $ctrl.selectedUniform)">
+          <ui-select id="uniforms" ng-model="$ctrl.model.post.selectedUniform" theme="bootstrap"
+                     on-select="$ctrl.model.post.addToArray($ctrl.model.post.uniforms, $ctrl.model.post.selectedUniform)">
             <ui-select-match placeholder="Select a Uniform">
-              <span ng-bind="$ctrl.selectedUniform.name"></span>
+              <span ng-bind="$ctrl.model.post.selectedUniform.name"></span>
             </ui-select-match>
-            <ui-select-choices repeat="item in ($ctrl.model.uniformChoices | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.refreshUniforms()"
+            <ui-select-choices repeat="item in ($ctrl.model.post.uniforms | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.post.uniforms"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
@@ -153,8 +130,113 @@
         </div>
         <div class="form-group">
           <label for="training">Training</label>
+<<<<<<< Temporary merge branch 1
+          <select name="training" class="form-control">
+            <option>Combat Training</option>
+            <option>Emergency Response Training</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="language">Language</label>
+          <select name="language" class="form-control">
+            <option>English</option>
+            <option>French</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="physicalCondition">Physical Condition</label>
+          <select name="physicalCondition" class="form-control">
+            <option>Athletic</option>
+            <option>Heavy-built</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="height">Height (cm)</label>
+          <input type="number" class="form-control" name="height" id="height"/>
+        </div>
+        <div class="form-group">
+          <label for="qualifications">Qualifications</label>
+          <select name="qualifications" class="form-control">
+            <option>College Graduate</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Additional Constraints</div>
+        </div>
+        <div class="form-group">
+          <label for="softConstraints">Soft Constraints</label>
+          <select name="softConstraints" class="form-control">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="hardConstraints">Hard Constraints</label>
+          <select name="hardConstraints" class="form-control">
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Shift Information and Billing</div>
+        </div>
+        <div class="form-group">
+          <label for="chargeRate">Charge Rate</label>
+          <input type="number" class="form-control" name="chargeRate" id="chargeRate"/>
+        </div>
+        <div class="form-group">
+          <label for="startTime">Start Time</label>
+          <input type="time" class="form-control" name="startTime" id="startTime"
+                 ng-model="$ctrl.model.post.startTime"/>
+        </div>
+        <div class="form-group">
+          <label for="endTime">End Time</label>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.model.post.endTime"/>
+        </div>
+        <div class="form-group">
+          <label for="hours">Hours</label>
+          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.model.post.hours"
+                 readonly/>
+        </div>
+        <div class="form-group">
+          <label for="bookOnd">Book on?</label>
+          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.model.post.isBookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.model.post.isBookOn">No
+        </div>
+        <div class="form-group">
+          <label for="bookOff">Book off?</label>
+          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.model.post.isBookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.model.post.isBookOff">No
+        </div>
+        <div class="form-group">
+          <label for="callIn">Call in?</label>
+          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.model.post.isCallIn">Yes
+          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.model.post.isCallIn">No
+          <label for="frequency"></label>
+          <select name="frequency" class="form-control"
+                  ng-model="$ctrl.model.post.callInFrequency"
+                  ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="allowances">Allowances</label>
+          <select name="allowances" class="form-control">
+            <option>Travel Allowance</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Other Information</div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.model.post.notes"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      </form>
+    </div>
+=======
           <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
-          on-select="$ctrl.model.addToArray($ctrl.post.preferences.trainings, $ctrl.selectedTraining)">
+          on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.trainings, $ctrl.selectedTraining)">
           <ui-select-match placeholder="Search for trainings..">
             <span ng-bind="$ctrl.selectedTraining.name"></span>
           </ui-select-match>
@@ -164,16 +246,17 @@
           <span class="training-option" ng-bind="item.name"></span>
         </ui-select-choices>
       </ui-select>
-      <ul class="list-group" ng-show="$ctrl.post.preferences.trainings">
-        <li class="list-group-item training-selected-item" ng-repeat="item in $ctrl.post.preferences.trainings">
+      <ul class="list-group" ng-show="$ctrl.model.post.preferences.trainings">
+        <li class="list-group-item training-selected-item" ng-repeat="item in $ctrl.model.post.preferences.trainings">
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
           <span ng-bind="item.name"></span>
           <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-          ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.trainings, item.id)">
+          ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.trainings, item.id)">
           <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
         </button>
       </li>
     </ul>
+>>>>>>> Temporary merge branch 2
   </div>
   <div class="form-group">
     <label for="language">Language</label>
