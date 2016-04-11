@@ -22,36 +22,41 @@ function PostModel(PostService) {
   _this.post.notes = '';
 
   // multi-select list components
-  _this.post.licenses = PostService.getAllLicenses().then(
+  _this.post.licenses = [];
+  _this.post.skills = [];
+  _this.post.uniforms = [];
+  _this.post.equipments = [];
+
+  _this.post.getAllLicenses = PostService.getAllLicenses().then(
       function (response) {
-        return response.items;
+        _this.post.licenses = response;
       },
       function (error) {
         console.log(error);
       }
   );
 
-  _this.post.skills = PostService.getAllPostSkills().then(
+  _this.post.getAllSkills = PostService.getAllPostSkills().then(
       function (response) {
-        return response.items;
+        _this.post.skills = response;
       },
       function (error) {
         console.log(error);
       }
   );
 
-  _this.post.uniforms = PostService.getAllUniforms().then(
+  _this.post.getAllUniforms = PostService.getAllUniforms().then(
       function (response) {
-        return response.items;
+        _this.post.uniforms = response;
       },
       function (error) {
         console.log(error);
       }
   );
 
-  _this.post.equipments = PostService.getAllEquipments().then(
+  _this.post.getAllEquipments = PostService.getAllEquipments().then(
       function (response) {
-        return response.items;
+        _this.post.equipments = response;
       },
       function (error) {
         console.log(error);

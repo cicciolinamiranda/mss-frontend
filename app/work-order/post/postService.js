@@ -7,7 +7,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
   _this.getAllLicenses = getAllLicenses;
   _this.getAllPostSkills = getAllPostSkills;
   _this.getAllUniforms = getAllUniforms;
-  _this.getAllEquipment = getAllEquipment;
+  _this.getAllEquipments = getAllEquipments;
+  _this.addToArray = addToArray;
+  _this.removeFromArray = removeFromArray;
 
   var deferred = $q.defer();
   var loadApi = deferred.promise;

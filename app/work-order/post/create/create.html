@@ -48,7 +48,7 @@
               <span ng-bind="$ctrl.model.post.selectedLicense.name"></span>
             </ui-select-match>
             <ui-select-choices repeat="item in ($ctrl.model.post.licenses | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.post.licenses"
+                               refresh="$ctrl.model.post.getAllLicenses()"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
@@ -72,7 +72,7 @@
               <span ng-bind="$ctrl.model.post.selectedSkill.name"></span>
             </ui-select-match>
             <ui-select-choices repeat="item in ($ctrl.model.post.skills | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.post.skills"
+                               refresh="$ctrl.model.post.getAllSkills()"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
@@ -96,7 +96,7 @@
               <span ng-bind="$ctrl.model.post.selectedUniform.name"></span>
             </ui-select-match>
             <ui-select-choices repeat="item in ($ctrl.model.post.uniforms | filter: $select.search) track by item.id"
-                               refresh="$ctrl.model.post.uniforms"
+                               refresh="$ctrl.model.post.getAllUniforms()"
                                refresh-delay="5">
               <span ng-bind="item.name"></span>
             </ui-select-choices>
