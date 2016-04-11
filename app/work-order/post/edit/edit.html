@@ -35,8 +35,10 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Employee ID required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.isIdentificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.isIdentificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-checked="$ctrl.post.identificationRequired"
+            ng-model="$ctrl.post.isIdentificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-checked="!$ctrl.post.identificationRequired"
+            ng-model="$ctrl.post.isIdentificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -84,10 +86,27 @@
         </div>
         <div class="form-group">
           <label for="language">Language</label>
-          <select name="language" class="form-control">
-            <option>English</option>
-            <option>French</option>
-          </select>
+          <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
+              on-select="$ctrl.commonModel.addToArray($ctrl.post.preferences.languages, $ctrl.selectedLanguage)">
+              <ui-select-match placeholder="Search for languages..">
+                <span ng-bind="$ctrl.selectedLanguage.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in ($ctrl.commonModel.languageChoices | filter: $select.search) track by item.id"
+              refresh="$ctrl.commonModel.refreshLanguageSearch($select.search)"
+              refresh-delay="5">
+              <span class="language-option" ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <ul class="list-group" ng-show="$ctrl.commonModel.post.preferences.languages">
+            <li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.post.preferences.languages">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+              <span ng-bind="item.name"></span>
+              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+              ng-click="$ctrl.commonModel.removeFromArray($ctrl.model.post.preferences.languages, item.id)">
+              <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+            </button>
+          </li>
+          </ul>
         </div>
         <div class="form-group">
           <label for="physicalCondition">Physical Condition</label>
@@ -140,18 +159,18 @@
         </div>
         <div class="form-group">
           <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.post.isBookOn">Yes
-          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.post.isBookOn">No
+          <input type="radio" name="bookOn" ng-value="true" ng-checked="$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-checked="!$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">No
         </div>
         <div class="form-group">
           <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.post.isBookOff">Yes
-          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.post.isBookOff">No
+          <input type="radio" name="bookOff" ng-value="true" ng-checked="$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-checked="!$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">No
         </div>
         <div class="form-group">
           <label for="callIn">Call in?</label>
-          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.isCallIn">Yes
-          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.isCallIn">No
+          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
+          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
           <label for="frequency"></label>
           <select name="frequency" class="form-control"
            ng-model="$ctrl.post.callInFrequency"

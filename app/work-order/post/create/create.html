@@ -13,15 +13,15 @@
         </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
-          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.model.post.name"/>
+          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name"/>
         </div>
         <div class="form-group">
           <label for="role">Role</label>
-          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.model.post.role"/>
+          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.post.role"/>
         </div>
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
-          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.model.post.numberOfEmployees"/>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -35,8 +35,8 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Employee ID required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.model.post.identificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.model.post.identificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -122,15 +122,15 @@
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
-          <span ng-repeat="genderChoice in $ctrl.model.genderChoices">
-            <input type="radio" name="gender" ng-value="genderChoice" ng-model="$ctrl.model.post.preferences.gender" />
+          <span ng-repeat="genderChoice in $ctrl.genderChoices">
+            <input type="radio" name="gender" ng-value="genderChoice" ng-model="$ctrl.post.preferences.gender" />
             {{genderChoice.name}}
           </span>
         </div>
         <div class="form-group">
           <label for="training">Training</label>
           <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
-          on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.trainings, $ctrl.selectedTraining)">
+          on-select="$ctrl.model.addToArray($ctrl.post.preferences.trainings, $ctrl.selectedTraining)">
           <ui-select-match placeholder="Search for trainings..">
             <span ng-bind="$ctrl.selectedTraining.name"></span>
           </ui-select-match>
@@ -140,12 +140,12 @@
           <span class="training-option" ng-bind="item.name"></span>
         </ui-select-choices>
       </ui-select>
-      <ul class="list-group" ng-show="$ctrl.model.post.preferences.trainings">
-        <li class="list-group-item training-selected-item" ng-repeat="item in $ctrl.model.post.preferences.trainings">
+      <ul class="list-group" ng-show="$ctrl.post.preferences.trainings">
+        <li class="list-group-item training-selected-item" ng-repeat="item in $ctrl.post.preferences.trainings">
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
           <span ng-bind="item.name"></span>
           <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-          ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.trainings, item.id)">
+          ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.trainings, item.id)">
           <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
         </button>
       </li>
@@ -154,7 +154,7 @@
   <div class="form-group">
     <label for="language">Language</label>
     <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
-    on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.languages, $ctrl.selectedLanguage)">
+    on-select="$ctrl.model.addToArray($ctrl.post.preferences.languages, $ctrl.selectedLanguage)">
     <ui-select-match placeholder="Search for languages..">
       <span ng-bind="$ctrl.selectedLanguage.name"></span>
     </ui-select-match>
@@ -164,12 +164,12 @@
     <span class="language-option" ng-bind="item.name"></span>
   </ui-select-choices>
 </ui-select>
-<ul class="list-group" ng-show="$ctrl.model.post.preferences.languages">
-  <li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.model.post.preferences.languages">
+<ul class="list-group" ng-show="$ctrl.post.preferences.languages">
+  <li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.post.preferences.languages">
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
     <span ng-bind="item.name"></span>
     <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-    ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.languages, item.id)">
+    ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.languages, item.id)">
     <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
   </button>
 </li>
@@ -178,7 +178,7 @@
 <div class="form-group">
   <label for="physicalCondition">Physical Conditions</label>
   <ui-select ng-model="$ctrl.selectedPhysicalCondition" theme="bootstrap"
-  on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.physicalConditions, $ctrl.selectedPhysicalCondition)">
+  on-select="$ctrl.model.addToArray($ctrl.post.preferences.physicalConditions, $ctrl.selectedPhysicalCondition)">
   <ui-select-match placeholder="Search for physical conditions..">
     <span ng-bind="$ctrl.selectedPhysicalCondition.name"></span>
   </ui-select-match>
@@ -188,12 +188,12 @@
   <span class="pc-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
-<ul class="list-group" ng-show="$ctrl.model.post.preferences.physicalConditions">
-<li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.model.post.preferences.physicalConditions">
+<ul class="list-group" ng-show="$ctrl.post.preferences.physicalConditions">
+<li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.post.preferences.physicalConditions">
   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
   <span ng-bind="item.name"></span>
   <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-  ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.physicalConditions, item.id)">
+  ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.physicalConditions, item.id)">
   <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
 </button>
 </li>
@@ -231,33 +231,33 @@
 </div>
 <div class="form-group">
   <label for="startTime">Start Time</label>
-  <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.model.post.startTime" required/>
+  <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime" required/>
 </div>
 <div class="form-group">
   <label for="endTime">End Time</label>
-  <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.model.post.endTime" required/>
+  <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime" required/>
 </div>
 <div class="form-group">
   <label for="hours">Hours</label>
-  <input type="text" class="form-control" name="hours" id="hours" ng-value="$ctrl.model.post.hours()" readonly/>
+  <input type="text" class="form-control" name="hours" id="hours" ng-value="$ctrl.post.hours()" readonly/>
 </div>
 <div class="form-group">
   <label for="bookOnd">Book on?</label>
-  <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.model.post.bookOn">Yes
-  <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.model.post.bookOn">No
+  <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.post.bookOn">Yes
+  <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.post.bookOn">No
 </div>
 <div class="form-group">
   <label for="bookOff">Book off?</label>
-  <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.model.post.bookOff">Yes
-  <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.model.post.bookOff">No
+  <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.post.bookOff">Yes
+  <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.post.bookOff">No
 </div>
 <div class="form-group">
   <label for="callIn">Call in?</label>
-  <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.model.post.callIn">Yes
-  <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.model.post.callIn">No
+  <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
+  <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
   <label for="frequency"></label>
   <select name="frequency" class="form-control"
-  ng-model="$ctrl.model.post.callInFrequency"
+  ng-model="$ctrl.post.callInFrequency"
   ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
 </select>
 </div>
@@ -273,7 +273,7 @@
 </div>
 <div class="form-group">
   <label for="notes">Notes</label>
-  <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.model.post.notes"></textarea>
+  <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
 </div>
 <div class="form-group">
   <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
