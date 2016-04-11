@@ -20,7 +20,6 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.master.file.gender.list();
     }).then(function (data) {
-      console.log(data.items);
       def.resolve(data.items);
     });
     return def.promise;
