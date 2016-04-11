@@ -21,6 +21,53 @@ function PostModel(PostService) {
   _this.post.isCallIn = true;
   _this.post.notes = '';
 
+  // multi-select list components
+  _this.post.licenses = PostService.getAllLicenses().then(
+      function (response) {
+        return response.items;
+      },
+      function (error) {
+        console.log(error);
+      }
+  );
+
+  _this.post.skills = PostService.getAllPostSkills().then(
+      function (response) {
+        return response.items;
+      },
+      function (error) {
+        console.log(error);
+      }
+  );
+
+  _this.post.uniforms = PostService.getAllUniforms().then(
+      function (response) {
+        return response.items;
+      },
+      function (error) {
+        console.log(error);
+      }
+  );
+
+  _this.post.equipments = PostService.getAllEquipments().then(
+      function (response) {
+        return response.items;
+      },
+      function (error) {
+        console.log(error);
+      }
+  );
+
+  // service utility methods
+  _this.post.addToArray = PostService.addToArray();
+  _this.post.removeFromArray = PostService.removeFromArray();
+
+  // selected list component
+  _this.post.selectedLicense;
+  _this.post.selectedSkill;
+  _this.post.selectedUniform;
+  _this.post.selectedEquipment;
+
   _this.callInFrequencyChoices = [
     {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
     {id: 'EVERY_1_HR', name: 'Every 1 hr'},
@@ -41,7 +88,11 @@ function PostModel(PostService) {
       isBookOn: _this.post.isBookOn,
       isBookOff: _this.post.isBookOff,
       isCallIn: _this.post.isCallIn,
-      notes: _this.post.notes
+      notes: _this.post.notes,
+      licenses: _this.post.licenses,
+      skills: _this.post.skills,
+      uniforms: _this.post.uniforms,
+      equipments: _this.post.equipments
     }
   };
 
