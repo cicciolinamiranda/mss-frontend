@@ -20,5 +20,11 @@ function routes($stateProvider) {
     url: '/create',
     template: '<post-create/>',
     params: {locationId: null}
+  })
+  .state({
+    name: 'post.edit',
+    url: '/:transaction/:id',
+    template: '<post-edit/>',
+    params: {locationId: null}
   });
 }
