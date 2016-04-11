@@ -152,7 +152,7 @@
                         <div ng-show="barredEmployee.displayError" class="messageError"> Lift Date must be on or before Effective Date</div>
                         <div class="col-md-10">
                           <small>Lift Date:</small>
-                          <input type="date" class="form-control input-sm" name="barredEmployee" ng-change="$ctrl.checkStartEndDate(barredEmployee)" ng-model="barredEmployee.endDate" required/>
+                          <input type="date" class="form-control input-sm" name="barredEmployee" ng-change="$ctrl.checkStartEndDate($ctrl.location.barredEmployees)" ng-model="barredEmployee.endDate" required/>
                         </div>
                       </div>
                     </div>
@@ -353,7 +353,8 @@
   <div class="col-md-12 text-right">
     <hr />
     <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()"
-      ng-disabled="editLocationForm.$invalid || $ctrl.disableSave">Save</button>
+      ng-disabled="editLocationForm.$invalid && $ctrl.disableSave">Save</button>
+
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>

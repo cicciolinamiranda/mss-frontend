@@ -9,16 +9,17 @@ module.exports = mapCtrl;
   _this.alertMessage;
   _this.onMarkerDragEnd = onMarkerDragEnd;
   _this.placeChanged = placeChanged;
+  _this.map = {};
 
   var input = /** @type {!HTMLInputElement} */(
       document.getElementById('txtAutocomplete'));
 
   function init() {
-
-    NgMap.getMap().then(function(map) {
+    NgMap.getMap({id:'mapId'}).then(function(map) {
       _this.map = map;
 
       if(_this.editlatitude && _this.editlongitude){
+        _this.initialCoordinates = new google.maps.LatLng(parseFloat(_this.editlatitude),parseFloat(_this.editlongitude));
         _this.map.setCenter({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
         _this.map.markers.mapMarker.setPosition({lat: parseFloat(_this.editlatitude), lng: parseFloat(_this.editlongitude)});
       }
@@ -94,7 +95,7 @@ module.exports = mapCtrl;
     if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
       _this.alertMessage = "No match found. Returning to original location. Please manually drag the pin to the correct location.";
       setPositionOnMap(_this.initialCoordinates);
-      setCoordinates(_this.initialCoordinates.lat, _this.initialCoordinates.lng);
+      setCoordinates(_this.initialCoordinates.lat(), _this.initialCoordinates.lng());
       reverseGeocode(_this.initialCoordinates);
     }
 

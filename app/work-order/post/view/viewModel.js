@@ -7,21 +7,14 @@ function viewPostModel(ViewPostSvc) {
 
   _this.editPost = editPost;
   _this.getPostDetails = getPostDetails;
-
   function editPost(id){
     //TODO Placeholder
   }
 
   function getPostDetails(id){
-    var post = ViewPostSvc.getPostDetailsById(id);
-
-    if(post.isCallIn == "No"){
-      post.callInValue = post.isCallIn;
-    }else{
-      post.callInValue = post.callInFrequency;
-    }
-
-    return post;
+    return ViewPostSvc.getPostDetailsById(id).then(function (response) {
+      return response;
+    });
   }
 
   return _this;
