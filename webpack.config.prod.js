@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -23,9 +24,14 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
-      { from: 'app/index.html' },
+      // { from: 'app/index.html' },
       { from: 'app.yaml' },
       { from: 'app/static', to: 'static' },
-    ])
+    ]),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'app/index.html',
+      hash: true
+    })
   ]
 };
