@@ -50,7 +50,9 @@ function PostModel(PostService) {
       preferences: {
         trainings: [],
         languages: [],
-        physicalConditions: []
+        physicalConditions: [],
+        qualifications: [],
+        religions: []
       },
       licenses: [],
       postSkills: [],
@@ -96,6 +98,11 @@ function PostModel(PostService) {
   PostModel.prototype.uniformChoices = [];
   PostModel.prototype.equipmentChoices = [];
   PostModel.prototype.healthSafetyRequirementsChoices = [];
+  PostModel.prototype.qualificationChoices = [];
+  PostModel.prototype.religionChoices = [];
+
+  PostModel.prototype.selectedQualification;
+  PostModel.prototype.selectedReligion;
 
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
@@ -120,8 +127,8 @@ function PostModel(PostService) {
       'equipments': checkListIfNull(post.equipments),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
-        // 'religions': post.preferences.religions, TODO: Uncomment once ok in backend
-        // 'qualifications':post.preferences.qualifications, TODO: Uncomment once ok in backend
+        'religions': post.preferences.religions,
+        'qualifications':post.preferences.qualifications,
         'gender': post.preferences.gender,
         'trainings': post.preferences.trainings,
         'languages':post.preferences.languages,
@@ -144,6 +151,8 @@ function PostModel(PostService) {
     post.equipments = checkListIfNull(dtoPost.equipments);
     post.licenses = checkListIfNull(dtoPost.licenses);
     post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
+    post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
+    post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
     return post;
   }
 
@@ -209,7 +218,26 @@ function PostModel(PostService) {
 
   PostModel.prototype.refreshHealthSafetyRequirements = function(){
     PostService.getAllHealthSafetyRequirements().then(function (response) {
+      console.log(response);
           PostModel.prototype.healthSafetyRequirementsChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshQualifications = function(){
+    PostService.getAllQualifications().then(function (response) {
+          PostModel.prototype.qualificationChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshReligions = function(){
+    PostService.getAllReligions().then(function (response) {
+          PostModel.prototype.religionChoices = response;
         }, function (error) {
           _this.errMessage = error;
         }

@@ -20,6 +20,8 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc,PostModel
   _this.selectedLicense;
   _this.selectedPostSkill;
   _this.selectedHealthSafetyReq;
+  // _this.selectedReligion;
+  // _this.selectedQualification;
 
   _this.update = update;
 

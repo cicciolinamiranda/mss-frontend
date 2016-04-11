@@ -121,5 +121,29 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   };
 
+  _this.getAllReligions = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.religion.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllQualifications = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.qualification.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
   return _this;
 }
