@@ -19,6 +19,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
 
   //Posts
   _this.goToViewPost = goToViewPost;
+  _this.goToCreatePost = goToCreatePost;
   _this.postLists;
 
   function init() {
@@ -30,7 +31,6 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
     }, function (error) {
       _this.errMessage= error;
     });
-
     getPostDetailsList(_this.locId);
   }
 
@@ -52,6 +52,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
       .then(function(response){
         _this.postLists = response;
     });
+
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
@@ -123,7 +124,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
         _this.postLists = response;
     });
 
-    $state.go('workOrder', {id: 1});
+    $state.go('workOrder', {id: id});
   }
 
   function editLocation(id){
@@ -141,6 +142,10 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   function goToViewPost(id) {
   //Will be replaced by a post id once integration is done
   $state.go('post.view', {id: id});
+  }
+
+  function goToCreatePost() {
+    $state.go('post.create', {locationId: _this.locId});
   }
 
 }

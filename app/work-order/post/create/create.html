@@ -35,8 +35,8 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Employee ID required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.model.post.isIdentificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.model.post.isIdentificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.model.post.identificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.model.post.identificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -71,112 +71,164 @@
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
-          <input type="radio" name="gender" value="yes" checked>Any
-          <input type="radio" name="gender" value="no">Male
-          <input type="radio" name="gender" value="no">Female
+          <span ng-repeat="genderChoice in $ctrl.model.genderChoices">
+            <input type="radio" name="gender" ng-value="genderChoice" ng-model="$ctrl.model.post.preferences.gender" />
+            {{genderChoice.name}}
+          </span>
         </div>
         <div class="form-group">
           <label for="training">Training</label>
-          <select name="training" class="form-control">
-            <option>Combat Training</option>
-            <option>Emergency Response Training</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="language">Language</label>
-          <select name="language" class="form-control">
-            <option>English</option>
-            <option>French</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="physicalCondition">Physical Condition</label>
-          <select name="physicalCondition"class="form-control">
-            <option>Athletic</option>
-            <option>Heavy-built</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="height">Height (cm)</label>
-          <input type="number" class="form-control" name="height" id="height" />
-        </div>
-        <div class="form-group">
-          <label for="qualifications">Qualifications</label>
-          <select name="qualifications" class="form-control">
-            <option>College Graduate</option>
-          </select>
-        </div>
-        <div class="panel__heading">
-          <div class="panel__title">Additional Constraints</div>
-        </div>
-        <div class="form-group">
-          <label for="softConstraints">Soft Constraints</label>
-          <select name="softConstraints" class="form-control">
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="hardConstraints">Hard Constraints</label>
-          <select name="hardConstraints" class="form-control">
-          </select>
-        </div>
-        <div class="panel__heading">
-          <div class="panel__title">Shift Information and Billing</div>
-        </div>
-        <div class="form-group">
-          <label for="chargeRate">Charge Rate</label>
-          <input type="number" class="form-control" name="chargeRate" id="chargeRate"/>
-        </div>
-        <div class="form-group">
-          <label for="startTime">Start Time</label>
-          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.model.post.startTime"/>
-        </div>
-        <div class="form-group">
-          <label for="endTime">End Time</label>
-          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.model.post.endTime"/>
-        </div>
-        <div class="form-group">
-          <label for="hours">Hours</label>
-          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.model.post.hours" readonly/>
-        </div>
-        <div class="form-group">
-          <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.model.post.isBookOn">Yes
-          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.model.post.isBookOn">No
-        </div>
-        <div class="form-group">
-          <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.model.post.isBookOff">Yes
-          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.model.post.isBookOff">No
-        </div>
-        <div class="form-group">
-          <label for="callIn">Call in?</label>
-          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.model.post.isCallIn">Yes
-          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.model.post.isCallIn">No
-          <label for="frequency"></label>
-          <select name="frequency" class="form-control"
-           ng-model="$ctrl.model.post.callInFrequency"
-           ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="allowances">Allowances</label>
-          <select name="allowances" class="form-control">
-            <option>Travel Allowance</option>
-            <option>Others</option>
-          </select>
-        </div>
-        <div class="panel__heading">
-          <div class="panel__title">Other Information</div>
-        </div>
-        <div class="form-group">
-          <label for="notes">Notes</label>
-          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.model.post.notes"></textarea>
-        </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-danger">Cancel</button>
-        </div>
-      </form>
-    </div>
+          <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
+          on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.trainings, $ctrl.selectedTraining)">
+          <ui-select-match placeholder="Search for trainings..">
+            <span ng-bind="$ctrl.selectedTraining.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="item in ($ctrl.model.trainingChoices | filter: $select.search) track by item.id"
+          refresh="$ctrl.model.refreshTrainingSearch($select.search)"
+          refresh-delay="5">
+          <span class="training-option" ng-bind="item.name"></span>
+        </ui-select-choices>
+      </ui-select>
+      <ul class="list-group" ng-show="$ctrl.model.post.preferences.trainings">
+        <li class="list-group-item training-selected-item" ng-repeat="item in $ctrl.model.post.preferences.trainings">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+          <span ng-bind="item.name"></span>
+          <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+          ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.trainings, item.id)">
+          <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+        </button>
+      </li>
+    </ul>
   </div>
+  <div class="form-group">
+    <label for="language">Language</label>
+    <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
+    on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.languages, $ctrl.selectedLanguage)">
+    <ui-select-match placeholder="Search for languages..">
+      <span ng-bind="$ctrl.selectedLanguage.name"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="item in ($ctrl.model.languageChoices | filter: $select.search) track by item.id"
+    refresh="$ctrl.model.refreshLanguageSearch($select.search)"
+    refresh-delay="5">
+    <span class="language-option" ng-bind="item.name"></span>
+  </ui-select-choices>
+</ui-select>
+<ul class="list-group" ng-show="$ctrl.model.post.preferences.languages">
+  <li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.model.post.preferences.languages">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+    <span ng-bind="item.name"></span>
+    <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+    ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.languages, item.id)">
+    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+  </button>
+</li>
+</ul>
+</div>
+<div class="form-group">
+  <label for="physicalCondition">Physical Conditions</label>
+  <ui-select ng-model="$ctrl.selectedPhysicalCondition" theme="bootstrap"
+  on-select="$ctrl.model.addToArray($ctrl.model.post.preferences.physicalConditions, $ctrl.selectedPhysicalCondition)">
+  <ui-select-match placeholder="Search for physical conditions..">
+    <span ng-bind="$ctrl.selectedPhysicalCondition.name"></span>
+  </ui-select-match>
+  <ui-select-choices repeat="item in ($ctrl.model.physicalConditionChoices | filter: $select.search) track by item.id"
+  refresh="$ctrl.model.refreshPhysicalConditionSearch($select.search)"
+  refresh-delay="5">
+  <span class="pc-option" ng-bind="item.name"></span>
+</ui-select-choices>
+</ui-select>
+<ul class="list-group" ng-show="$ctrl.model.post.preferences.physicalConditions">
+<li class="list-group-item language-selected-item" ng-repeat="item in $ctrl.model.post.preferences.physicalConditions">
+  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+  <span ng-bind="item.name"></span>
+  <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+  ng-click="$ctrl.model.removeFromArray($ctrl.model.post.preferences.physicalConditions, item.id)">
+  <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+</button>
+</li>
+</ul>
+</div>
+<div class="form-group">
+  <label for="height">Height (cm)</label>
+  <input type="number" class="form-control" name="height" id="height" />
+</div>
+<div class="form-group">
+  <label for="qualifications">Qualifications</label>
+  <select name="qualifications" class="form-control">
+    <option>College Graduate</option>
+  </select>
+</div>
+<div class="panel__heading">
+  <div class="panel__title">Additional Constraints</div>
+</div>
+<div class="form-group">
+  <label for="softConstraints">Soft Constraints</label>
+  <select name="softConstraints" class="form-control">
+  </select>
+</div>
+<div class="form-group">
+  <label for="hardConstraints">Hard Constraints</label>
+  <select name="hardConstraints" class="form-control">
+  </select>
+</div>
+<div class="panel__heading">
+  <div class="panel__title">Shift Information and Billing</div>
+</div>
+<div class="form-group">
+  <label for="chargeRate">Charge Rate</label>
+  <input type="number" class="form-control" name="chargeRate" id="chargeRate"/>
+</div>
+<div class="form-group">
+  <label for="startTime">Start Time</label>
+  <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.model.post.startTime" required/>
+</div>
+<div class="form-group">
+  <label for="endTime">End Time</label>
+  <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.model.post.endTime" required/>
+</div>
+<div class="form-group">
+  <label for="hours">Hours</label>
+  <input type="text" class="form-control" name="hours" id="hours" ng-value="$ctrl.model.post.hours()" readonly/>
+</div>
+<div class="form-group">
+  <label for="bookOnd">Book on?</label>
+  <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.model.post.bookOn">Yes
+  <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.model.post.bookOn">No
+</div>
+<div class="form-group">
+  <label for="bookOff">Book off?</label>
+  <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.model.post.bookOff">Yes
+  <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.model.post.bookOff">No
+</div>
+<div class="form-group">
+  <label for="callIn">Call in?</label>
+  <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.model.post.callIn">Yes
+  <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.model.post.callIn">No
+  <label for="frequency"></label>
+  <select name="frequency" class="form-control"
+  ng-model="$ctrl.model.post.callInFrequency"
+  ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
+</select>
+</div>
+<div class="form-group">
+  <label for="allowances">Allowances</label>
+  <select name="allowances" class="form-control">
+    <option>Travel Allowance</option>
+    <option>Others</option>
+  </select>
+</div>
+<div class="panel__heading">
+  <div class="panel__title">Other Information</div>
+</div>
+<div class="form-group">
+  <label for="notes">Notes</label>
+  <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.model.post.notes"></textarea>
+</div>
+<div class="form-group">
+  <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+  <button type="button" class="btn btn-danger">Cancel</button>
+</div>
+</form>
+</div>
+</div>
 </div>
