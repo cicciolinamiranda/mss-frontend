@@ -19,6 +19,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
 
   //Posts
   _this.goToViewPost = goToViewPost;
+  _this.goToCreatePost = goToCreatePost;
   _this.postLists;
 
   function init() {
@@ -141,6 +142,10 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   function goToViewPost(id) {
   //Will be replaced by a post id once integration is done
   $state.go('post.view', {id: id});
+  }
+
+  function goToCreatePost() {
+    $state.go('post.create', {locationId: _this.locId});
   }
 
 }

@@ -8,6 +8,7 @@ function PostModel(PostService) {
 
   _this.post = {};
 
+  _this.post.customerLocationId = undefined;
   _this.post.name = '';
   _this.post.isIdentificationRequired = true;
   _this.post.numberOfEmployees = 1;
@@ -27,6 +28,22 @@ function PostModel(PostService) {
   ];
   _this.post.callInFrequency = _this.callInFrequencyChoices[0];
 
+  _this.getPostInDtoFormat = function(){
+    return{
+      customerLocationId: _this.post.customerLocationId,
+      name: _this.post.name,
+      isIdentificationRequired: _this.post.isIdentificationRequired,
+      numberOfEmployees: _this.post.numberOfEmployees,
+      startTimeStr: moment(_this.post.startTime).format("HH:mm"),
+      endTimeStr: moment(_this.post.endTime).format("HH:mm"),
+      hours: _this.post.hours,
+      chargeRate: _this.post.chargeRate,
+      isBookOn: _this.post.isBookOn,
+      isBookOff: _this.post.isBookOff,
+      isCallIn: _this.post.isCallIn,
+      notes: _this.post.notes
+    }
+  }
 
   return _this;
 }
