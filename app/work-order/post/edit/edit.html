@@ -1,0 +1,182 @@
+<div class="info-section" style="margin-top:10px;">
+  <div class="info-section__header">
+    <h1 class="dark">Create Post</h1>
+    <h1>&nbsp;</h1>
+  </div>
+</div><!-- /info-section-->
+<div class="container">
+  <div class="col-md-8">
+    <div class="panel">
+      <form name="createPostForm">
+        <div class="panel__heading">
+          <div class="panel__title">Post Details</div>
+        </div>
+        <div class="form-group">
+          <label for="postTitle">Post Title</label>
+          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name"/>
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.post.role"/>
+        </div>
+        <div class="form-group">
+          <label for="employeesNeeded">Number of Employees</label>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
+        </div>
+        <div class="form-group">
+          <label for="postCoverType">Post Cover Type</label>
+          <select name="postCoverType" class="form-control">
+            <option value="volvo">168 hours</option>
+            <option value="volvo">24/7</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Requirements</div>
+        </div>
+        <div class="form-group">
+          <label for="isIdRequired">Employee ID required?</label>
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.isIdentificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.isIdentificationRequired">No
+        </div>
+        <div class="form-group">
+          <label for="licenses">Licenses Required</label>
+          <select name="licenses" class="form-control">
+            <option>Driver's License</option>
+            <option>Firearms License</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="skills">Skills Required</label>
+          <select name="skills" class="form-control">
+            <option>Dog Handling</option>
+            <option>First Aid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="uniforms">Uniforms</label>
+          <select name="uniforms" class="form-control">
+            <option>Enterprise Standard Uniform</option>
+            <option>Army Combat Uniform</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="healthAndSafety">Health and Safety Requirements</label>
+          <select name="healthAndSafety" class="form-control">
+            <option>Physical Exam</option>
+            <option>Drug Test</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Customer Preferences</div>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <input type="radio" name="gender" value="yes" checked>Any
+          <input type="radio" name="gender" value="no">Male
+          <input type="radio" name="gender" value="no">Female
+        </div>
+        <div class="form-group">
+          <label for="training">Training</label>
+          <select name="training" class="form-control">
+            <option>Combat Training</option>
+            <option>Emergency Response Training</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="language">Language</label>
+          <select name="language" class="form-control">
+            <option>English</option>
+            <option>French</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="physicalCondition">Physical Condition</label>
+          <select name="physicalCondition"class="form-control">
+            <option>Athletic</option>
+            <option>Heavy-built</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="height">Height (cm)</label>
+          <input type="number" class="form-control" name="height" id="height" />
+        </div>
+        <div class="form-group">
+          <label for="qualifications">Qualifications</label>
+          <select name="qualifications" class="form-control">
+            <option>College Graduate</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Additional Constraints</div>
+        </div>
+        <div class="form-group">
+          <label for="softConstraints">Soft Constraints</label>
+          <select name="softConstraints" class="form-control">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="hardConstraints">Hard Constraints</label>
+          <select name="hardConstraints" class="form-control">
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Shift Information and Billing</div>
+        </div>
+        <div class="form-group">
+          <label for="chargeRate">Charge Rate</label>
+          <input type="number" class="form-control" name="chargeRate" id="chargeRate" ng-model="$ctrl.post.chargeRate"/>
+        </div>
+        <div class="form-group">
+          <label for="startTime">Start Time</label>
+          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"/>
+        </div>
+        <div class="form-group">
+          <label for="endTime">End Time</label>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"/>
+        </div>
+        <div class="form-group">
+          <label for="hours">Hours</label>
+          <input type="text" class="form-control" name="hours" id="hours" value="0" ng-model="$ctrl.post.hours" readonly/>
+        </div>
+        <div class="form-group">
+          <label for="bookOnd">Book on?</label>
+          <input type="radio" name="bookOn" ng-value="true" ng-model="$ctrl.post.isBookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-model="$ctrl.post.isBookOn">No
+        </div>
+        <div class="form-group">
+          <label for="bookOff">Book off?</label>
+          <input type="radio" name="bookOff" ng-value="true" ng-model="$ctrl.post.isBookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-model="$ctrl.post.isBookOff">No
+        </div>
+        <div class="form-group">
+          <label for="callIn">Call in?</label>
+          <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.isCallIn">Yes
+          <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.isCallIn">No
+          <label for="frequency"></label>
+          <select name="frequency" class="form-control"
+           ng-model="$ctrl.post.callInFrequency"
+           ng-options="option.name for option in $ctrl.callInFrequencyChoices track by option.id">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="allowances">Allowances</label>
+          <select name="allowances" class="form-control">
+            <option>Travel Allowance</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div class="panel__heading">
+          <div class="panel__title">Other Information</div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

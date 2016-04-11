@@ -7,6 +7,7 @@ var ngApp = angular.module('employeeApp', [
   'ui.router',
   // app components
   require('./create/index').name,
+  require('./edit/index').name,
   require('./view/index').name
 ]);
 
