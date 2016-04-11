@@ -8,6 +8,7 @@ function PostModel(PostService) {
 
   function PostModel() {
     this.callInFrequencyChoices = setCallInFrequencyChoices();
+    this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
   }
 
@@ -19,6 +20,15 @@ function PostModel(PostService) {
     ];
 
     return callInFrequencyChoices;
+  }
+
+  function setPostCoverChoices(){
+    var postCover = [
+      {id: 'ONE_SIX_EIGHT', name: '168 HOURS'},
+      {id: 'TWENTY_FOUR_SEVEN', name: '24/7'}
+    ];
+
+    return postCover;
   }
 
   function setDefaultPost() {
@@ -56,6 +66,14 @@ function PostModel(PostService) {
     return post;
   }
 
+  function checkListIfNull(list) {
+    if(undefined == list)
+    {
+      list = [];
+    }
+    return list;
+  }
+
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -78,27 +96,42 @@ function PostModel(PostService) {
   PostModel.prototype.uniformChoices = [];
   PostModel.prototype.equipmentChoices = [];
 
-  PostModel.getPostInDtoFormat = function (post) {
-    return {
-      customerLocationId: post.customerLocationId,
-      name: post.name,
-      identificationRequired: post.identificationRequired,
-      numberOfEmployees: post.numberOfEmployees,
-      startTimeStr: moment(post.startTime).format("HH:mm"),
-      endTimeStr: moment(post.endTime).format("HH:mm"),
-      hours: post.hours(),
-      chargeRate: post.chargeRate,
-      bookOn: post.bookOn,
-      bookOff: post.bookOff,
-      callIn: post.callIn,
-      notes: post.notes,
-      preferences: post.preferences,
-      licenses: post.licenses,
-      postSkills: post.postSkills,
-      uniforms: post.uniforms,
-      equipments: post.equipments
-    }
-  };
+  //json to dto
+  PostModel.transformPostJsonToDTO = function(post){
+    //id should be null during duplicate and create
+    var post = {
+      'id': post.id,
+      'customerLocationId': post.customerLocationId,
+      'name': post.name,
+      'isIdentificationRequired': post.identificationRequired,
+      'numberOfEmployees': post.numberOfEmployees,
+      'startTimeStr': moment(post.startTime).format("HH:mm"),
+      'endTimeStr': moment(post.endTime).format("HH:mm"),
+      'hours': post.hours,
+      'isBookOn': post.bookOn,
+      'isBookOff': post.bookOff,
+      'isCallIn': post.callIn,
+      'notes': post.notes,
+      'preferences': post.preferences,
+      'licenses':checkListIfNull(post.licenses),
+      'skills': checkListIfNull(post.skills),
+      'uniforms': checkListIfNull(post.uniforms),
+      'equipments': post.equipments,
+      'preferences': {
+        // 'religions': post.preferences.religions, TODO: Uncomment once ok in backend
+        // 'qualifications':post.preferences.qualifications, TODO: Uncomment once ok in backend
+        // 'gender':post.preferences.gender, TODO: Uncomment once ok in backend
+        'trainings': post.preferences.trainings,
+        'languages':post.preferences.languages,
+        'physicalConditions':post.preferences.physicalConditions,
+        'height': post.preferences.height
+      },
+      'postCover': post.postCover
+      // 'role': post.role TODO: Uncomment once ok in backend
+    };
+
+    return post;
+  }
 
   PostModel.prototype.refreshTrainingSearch = function (keyword) {
     PostService.searchTrainings(keyword).then(function (response) {

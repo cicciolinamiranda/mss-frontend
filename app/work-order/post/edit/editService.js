@@ -39,4 +39,16 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
     return deferred2.promise;
   };
 
+  _this.save = function(postDto) {
+    var deferred2 = $q.defer();
+    loadApi.then(function() {
+      return $gapi.client.customerContract.workorder.customer.location.post.save(
+        postDto
+      );
+    }).then(function(data) {
+      deferred2.resolve(data);
+    });
+    return deferred2.promise;
+  };
+
 }

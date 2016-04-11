@@ -19,6 +19,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   function init() {
     _this.post = _this.model.post;
     _this.post.customerLocationId = locationId;
+
     _this.callInFrequencyChoices = _this.model.callInFrequencyChoices;
 
     _this.model.getGenderChoices().then(function (response) {
@@ -32,7 +33,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   init();
 
   function save(){
-    CreatePostSvc.save(PostModel.getPostInDtoFormat()).then(function(response){
+    CreatePostSvc.save(PostModel.transformPostJsonToDTO(_this.post)).then(function(response){
       var postId = response.id;
       console.log('Post ID',postId);
       $state.go('post.view', {id: postId});
