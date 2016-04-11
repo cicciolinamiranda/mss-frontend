@@ -15,7 +15,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
     CreatePostSvc.save(PostModel.getPostInDtoFormat()).then(function(response){
       var postId = response.id;
       console.log('Post ID',postId);
-      $state.go('post.view', {id: _this.postId});
+      $state.go('post.view', {id: postId});
     }, function(error) {
       _this.errMessage = error;
     });
