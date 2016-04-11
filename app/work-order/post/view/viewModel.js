@@ -2,26 +2,22 @@ module.exports = function(ngModule) {
   ngModule.factory('ViewPostModel', viewPostModel);
 };
 
-function viewPostModel(ViewPostSvc) {
+function viewPostModel($state, ViewPostSvc) {
   var _this = this;
 
   _this.editPost = editPost;
   _this.getPostDetails = getPostDetails;
 
-  function editPost(id){
-    //TODO Placeholder
+  function editPost(transaction, id){
+    $state.go('post.edit', {
+      transaction: transaction,
+      id: id});
   }
 
   function getPostDetails(id){
-    var post = ViewPostSvc.getPostDetailsById(id);
-
-    if(post.isCallIn == "No"){
-      post.callInValue = post.isCallIn;
-    }else{
-      post.callInValue = post.callInFrequency;
-    }
-
-    return post;
+    return ViewPostSvc.getPostDetailsById(id).then(function (response) {
+      return response;
+    });
   }
 
   return _this;
