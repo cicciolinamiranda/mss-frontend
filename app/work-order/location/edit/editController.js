@@ -71,17 +71,23 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
+
+
   }
 
   init();
 
-  function checkStartEndDate (barredEmployee) {
-    _this.disableSave = false;
-    barredEmployee.displayError = false;
-
-    if(new Date(barredEmployee.endDate) < new Date(barredEmployee.startDate)) {
-      barredEmployee.displayError = true;
-      _this.disableSave = true;
+  function checkStartEndDate (barredEmployees) {
+    for(i= 0;i < barredEmployees.length; i++){
+      if(new Date(barredEmployees[i].endDate) < new Date(barredEmployees[i].startDate)) {
+        barredEmployees[i].displayError = true;
+        _this.disableSave = true;
+        return null;
+      }
+      else{
+        barredEmployees[i].displayError = false;
+        _this.disableSave = false;
+      }
     }
   }
 
@@ -196,7 +202,7 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
         };
       }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
-
+      checkStartEndDate (_this.location.barredEmployees);
     }, function (error) {
       _this.errMessage= error;
     });

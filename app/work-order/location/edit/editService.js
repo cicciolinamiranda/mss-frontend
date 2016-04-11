@@ -204,10 +204,11 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
         if(barredEmployees[i].endDate != null){
           emp.isLifted = false;
           emp.endDate = transformJodaTimeToDate(barredEmployees[i].endDate);
+          emp.displayError = false;
         }else{
           emp.isLifted = true;
+          emp.displayError = true;
         }
-        emp.displayError = false;
         barredEmployeesList.push(emp);
       }
     }
