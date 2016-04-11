@@ -1,15 +1,9 @@
-module.exports = function (ngModule) {
+module.exports = function(ngModule) {
   ngModule.service('PostService', postService);
 };
 
 function postService($q, $gapi, WORKORDER_GAPI_BASE) {
   var _this = this;
-  _this.getAllLicenses = getAllLicenses;
-  _this.getAllPostSkills = getAllPostSkills;
-  _this.getAllUniforms = getAllUniforms;
-  _this.getAllEquipments = getAllEquipments;
-  _this.addToArray = addToArray;
-  _this.removeFromArray = removeFromArray;
 
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -20,11 +14,23 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return deferred.resolve();
   });
 
-  function getAllLicenses() {
+  _this.getGenderValues = function(){
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.customerContract.workorder.master.file.license.list();
+      return $gapi.client.customerContract.workorder.master.file.gender.list();
+    }).then(function (data) {
+      console.log(data.items);
+      def.resolve(data.items);
+    });
+    return def.promise;
+  }
+
+  _this.searchTrainings = function(keyword) {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.training.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
@@ -32,7 +38,31 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   }
 
-  function getAllPostSkills() {
+  _this.searchLanguages = function(keyword) {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.language.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  }
+
+  _this.searchPhysicalConditions = function(keyword) {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.physicalcondition.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  }
+
+    function getAllPostSkills() {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -68,23 +98,5 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   }
 
-  function addToArray(array, item) {
-    var newItem = angular.copy(item);
-
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].id === newItem.id) {
-        return;
-      }
-    }
-
-    array.push(newItem);
-  }
-
-  function removeFromArray(array, id) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].id === id) {
-        array.splice(i, 1);
-      }
-    }
-  }
+  return _this;
 }
