@@ -10,8 +10,11 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
 
   _this.save = save;
   _this.genderChoices = [];
-  _this.selectedTraining;
-  // _this.model.post.customerLocationId = $stateParams.locationId;
+  _this.selectedTraining = [];
+  _this.selectedLicense = [];
+  _this.selectedPostSkill = [];
+  _this.selectedUniform = [];
+  _this.selectedEquipment = [];
 
   function init() {
     _this.post = _this.model.post;
@@ -29,7 +32,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   init();
 
   function save(){
-    CreatePostSvc.save(PostModel.getPostInDtoFormat(_this.post)).then(function(response){
+    CreatePostSvc.save(PostModel.getPostInDtoFormat()).then(function(response){
       var postId = response.id;
       console.log('Post ID',postId);
       $state.go('post.view', {id: postId});

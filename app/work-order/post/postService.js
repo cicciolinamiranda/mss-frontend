@@ -1,4 +1,4 @@
-module.exports = function(ngModule) {
+module.exports = function (ngModule) {
   ngModule.service('PostService', postService);
 };
 
@@ -14,7 +14,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return deferred.resolve();
   });
 
-  _this.getGenderValues = function(){
+  _this.getGenderValues = function () {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -23,9 +23,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
       def.resolve(data.items);
     });
     return def.promise;
-  }
+  };
 
-  _this.searchTrainings = function(keyword) {
+  _this.searchTrainings = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -35,9 +35,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  _this.searchLanguages = function(keyword) {
+  _this.searchLanguages = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -47,9 +47,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  _this.searchPhysicalConditions = function(keyword) {
+  _this.searchPhysicalConditions = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -59,9 +59,21 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-    function getAllPostSkills() {
+  _this.getAllLicenses = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.license.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllPostSkills = function () {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -71,9 +83,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  function getAllUniforms() {
+  _this.getAllUniforms = function () {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -83,9 +95,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  function getAllEquipments() {
+  _this.getAllEquipments = function () {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -95,7 +107,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
   return _this;
 }
