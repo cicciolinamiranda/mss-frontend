@@ -1,4 +1,4 @@
-module.exports = function(ngModule) {
+module.exports = function (ngModule) {
   ngModule.factory('PostModel', PostModel);
 };
 var moment = require('moment');
@@ -22,14 +22,14 @@ function PostModel(PostService) {
   _this.post.notes = '';
 
   _this.callInFrequencyChoices = [
-    {id:'EVERY_30_MIN', name:'Every 30 mins'},
-    {id:'EVERY_1_HR', name:'Every 1 hr'},
-    {id:'EVERY_2_HR', name:'Every 2 hrs'}
+    {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
+    {id: 'EVERY_1_HR', name: 'Every 1 hr'},
+    {id: 'EVERY_2_HR', name: 'Every 2 hrs'}
   ];
   _this.post.callInFrequency = _this.callInFrequencyChoices[0];
 
-  _this.getPostInDtoFormat = function(){
-    return{
+  _this.getPostInDtoFormat = function () {
+    return {
       customerLocationId: _this.post.customerLocationId,
       name: _this.post.name,
       isIdentificationRequired: _this.post.isIdentificationRequired,
@@ -43,7 +43,7 @@ function PostModel(PostService) {
       isCallIn: _this.post.isCallIn,
       notes: _this.post.notes
     }
-  }
+  };
 
   return _this;
 }
