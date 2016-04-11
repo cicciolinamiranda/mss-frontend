@@ -1,4 +1,4 @@
-module.exports = function(ngModule) {
+module.exports = function (ngModule) {
   ngModule.factory('PostModel', PostModel);
 };
 var moment = require('moment');
@@ -6,110 +6,212 @@ var moment = require('moment');
 function PostModel(PostService) {
   var _this = this;
 
-  _this.post = {};
+  function PostModel() {
+    this.callInFrequencyChoices = setCallInFrequencyChoices();
+    this.postCoverChoices = setPostCoverChoices();
+    this.post = setDefaultPost();
+  }
 
-  _this.post.customerLocationId = undefined;
-  _this.post.name = '';
-  _this.post.identificationRequired = true;
-  _this.post.numberOfEmployees = 1;
-  _this.post.startTime = moment("09:00", "HH:mm").toDate();
-  _this.post.endTime = moment("17:00", "HH:mm").toDate();
-  _this.post.hours = function(){ return moment(_this.post.endTime).diff(moment(_this.post.startTime), 'hours'); };
-  _this.post.chargeRate = 0;
-  _this.post.bookOn = true;
-  _this.post.bookOff = true;
-  _this.post.callIn = true;
-  _this.post.notes = '';
+  function setCallInFrequencyChoices() {
+    var callInFrequencyChoices = [
+      {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
+      {id: 'EVERY_1_HR', name: 'Every 1 hr'},
+      {id: 'EVERY_2_HR', name: 'Every 2 hrs'}
+    ];
 
-  _this.callInFrequencyChoices = [
-    {id:'EVERY_30_MIN', name:'Every 30 mins'},
-    {id:'EVERY_1_HR', name:'Every 1 hr'},
-    {id:'EVERY_2_HR', name:'Every 2 hrs'}
-  ];
-  _this.post.callInFrequency = _this.callInFrequencyChoices[0];
+    return callInFrequencyChoices;
+  }
+
+  function setPostCoverChoices(){
+    var postCover = [
+      {id: 'ONE_SIX_EIGHT', name: '168 HOURS'},
+      {id: 'TWENTY_FOUR_SEVEN', name: '24/7'}
+    ];
+
+    return postCover;
+  }
+
+  function setDefaultPost() {
+    var post = {
+      customerLocationId: undefined,
+      name: '',
+      identificationRequired: true,
+      numberOfEmployees: 1,
+      startTime: moment("09:00", "HH:mm").toDate(),
+      endTime: moment("17:00", "HH:mm").toDate(),
+      hours: function () {
+        return moment(endTime).diff(moment(startTime), 'hours');
+      },
+      chargeRate: 0,
+      bookOn: true,
+      bookOff: true,
+      callIn: true,
+      notes: '',
+      preferences: {
+        trainings: [],
+        languages: [],
+        physicalConditions: []
+      },
+      licenses: [],
+      postSkills: [],
+      uniforms: [],
+      equipments: []
+    };
+
+    var callFrequencyChoices = setCallInFrequencyChoices();
+    if (callFrequencyChoices && callFrequencyChoices.length > 0) {
+      post.callInFrequency = callFrequencyChoices[0];
+    }
+
+    return post;
+  }
+
+  function checkListIfNull(list) {
+    if(undefined == list)
+    {
+      list = [];
+    }
+    return list;
+  }
 
   //customer preferences
-  _this.post.preferences = {};
-  PostService.getGenderValues().then(function(items){
-    _this.genderChoices = items;
-    _this.post.preferences.gender = _this.genderChoices[0];
-  },function(error){
-    console.log(error);
-  });
+  PostModel.prototype.getGenderChoices = function () {
+    return PostService.getGenderValues().then(function (response) {
+      return response;
+    });
+  };
 
   //custpref:trainings
-  _this.trainingChoices = [];
-  _this.post.preferences.trainings = [];
+  PostModel.prototype.trainingChoices = [];
 
   //custpref:languages
-  _this.languageChoices = [];
-  _this.post.preferences.languages = [];
+  PostModel.prototype.languageChoices = [];
 
   //custpref:physical conditions
-  _this.physicalConditionChoices = [];
-  _this.post.preferences.physicalConditions = [];
+  PostModel.prototype.physicalConditionChoices = [];
 
-  _this.getPostInDtoFormat = function(){
-    return{
-      customerLocationId: _this.post.customerLocationId,
-      name: _this.post.name,
-      identificationRequired: _this.post.identificationRequired,
-      numberOfEmployees: _this.post.numberOfEmployees,
-      startTimeStr: moment(_this.post.startTime).format("HH:mm"),
-      endTimeStr: moment(_this.post.endTime).format("HH:mm"),
-      hours: _this.post.hours(),
-      chargeRate: _this.post.chargeRate,
-      bookOn: _this.post.bookOn,
-      bookOff: _this.post.bookOff,
-      callIn: _this.post.callIn,
-      notes: _this.post.notes,
-      preferences: _this.post.preferences
-    }
+  // list components
+  PostModel.prototype.licenseChoices = [];
+  PostModel.prototype.postSkillChoices = [];
+  PostModel.prototype.uniformChoices = [];
+  PostModel.prototype.equipmentChoices = [];
+
+  //json to dto
+  PostModel.transformPostJsonToDTO = function(post){
+    //id should be null during duplicate and create
+    var post = {
+      'id': post.id,
+      'customerLocationId': post.customerLocationId,
+      'name': post.name,
+      'isIdentificationRequired': post.identificationRequired,
+      'numberOfEmployees': post.numberOfEmployees,
+      'startTimeStr': moment(post.startTime).format("HH:mm"),
+      'endTimeStr': moment(post.endTime).format("HH:mm"),
+      'hours': post.hours,
+      'isBookOn': post.bookOn,
+      'isBookOff': post.bookOff,
+      'isCallIn': post.callIn,
+      'notes': post.notes,
+      'preferences': post.preferences,
+      'licenses':checkListIfNull(post.licenses),
+      'skills': checkListIfNull(post.skills),
+      'uniforms': checkListIfNull(post.uniforms),
+      'equipments': post.equipments,
+      'preferences': {
+        // 'religions': post.preferences.religions, TODO: Uncomment once ok in backend
+        // 'qualifications':post.preferences.qualifications, TODO: Uncomment once ok in backend
+        // 'gender':post.preferences.gender, TODO: Uncomment once ok in backend
+        'trainings': post.preferences.trainings,
+        'languages':post.preferences.languages,
+        'physicalConditions':post.preferences.physicalConditions,
+        'height': post.preferences.height
+      },
+      'postCover': post.postCover
+      // 'role': post.role TODO: Uncomment once ok in backend
+    };
+
+    return post;
   }
 
-  _this.refreshTrainingSearch = function(keyword) {
+  PostModel.prototype.refreshTrainingSearch = function (keyword) {
     PostService.searchTrainings(keyword).then(function (response) {
-      _this.trainingChoices = response;
+      PostModel.prototype.trainingChoices = response;
     }, function (error) {
       _this.errMessage = error;
     });
-  }
+  };
 
-  _this.refreshLanguageSearch = function(keyword) {
+  PostModel.prototype.refreshLanguageSearch = function (keyword) {
     PostService.searchLanguages(keyword).then(function (response) {
-      _this.languageChoices = response;
+      PostModel.prototype.languageChoices = response;
     }, function (error) {
       _this.errMessage = error;
     });
-  }
+  };
 
-  _this.refreshPhysicalConditionSearch = function(keyword) {
+  PostModel.prototype.refreshPhysicalConditionSearch = function (keyword) {
     PostService.searchPhysicalConditions(keyword).then(function (response) {
-      _this.physicalConditionChoices = response;
+      PostModel.prototype.physicalConditionChoices = response;
     }, function (error) {
       _this.errMessage = error;
     });
-  }
+  };
 
-  _this.removeFromArray = function(array, id) {
-    for (i = 0; i < array.length; i++) {
+  PostModel.prototype.refreshLicenses = function () {
+    PostService.getAllLicenses().then(function (response) {
+          PostModel.prototype.licenseChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  };
+
+  PostModel.prototype.refreshPostSkills = function () {
+    PostService.getAllPostSkills().then(function (response) {
+          PostModel.prototype.postSkillChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  };
+
+  PostModel.prototype.refreshUniforms = function () {
+    PostService.getAllUniforms().then(function (response) {
+          PostModel.prototype.uniformChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  };
+
+  PostModel.prototype.refreshEquipments = function () {
+    PostService.getAllEquipments().then(function (response) {
+          PostModel.prototype.equipmentChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  };
+
+  PostModel.prototype.removeFromArray = function (array, id) {
+    for (var i = 0; i < array.length; i++) {
       if (array[i].id === id) {
         array.splice(i, 1);
       }
     }
-  }
+  };
 
-  _this.addToArray = function(array, item) {
+  PostModel.prototype.addToArray = function (array, item) {
     var newItem = angular.copy(item);
 
-     for(i = 0; i < array.length; i++){
-       if(array[i].id === newItem.id){
-         return;
-       }
-     }
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].id === newItem.id) {
+        return;
+      }
+    }
 
-     array.push(newItem);
-  }
+    array.push(newItem);
+  };
 
-  return _this;
+  return PostModel;
 }
