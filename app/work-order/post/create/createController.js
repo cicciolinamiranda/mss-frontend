@@ -9,8 +9,11 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
 
   _this.save = save;
 
+  _this.selectedTraining;
+
   console.log('LocationId',$stateParams.locationId);
   _this.model.post.customerLocationId = $stateParams.locationId;
+
   function save(){
     CreatePostSvc.save(PostModel.getPostInDtoFormat()).then(function(response){
       var postId = response.id;
