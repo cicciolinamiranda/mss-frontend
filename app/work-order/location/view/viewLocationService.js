@@ -8,7 +8,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
 
   _this.getLocationDetails = getLocationDetails;
   _this.getPostDetailsList = getPostDetailsList;
-  _this.archiveLocation = archiveLocation;
+  _this.updateStatus = updateStatus;
   _this.locDetails;
 
   var deferred = $q.defer();
@@ -33,9 +33,8 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   }
 
-  function archiveLocation(id) {
+  function updateStatus(id,status) {
     var def = $q.defer();
-    var status = "ARCHIVE";
     var deferred2 = $q.defer();
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.customer.location.update_status(
