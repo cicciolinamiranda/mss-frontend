@@ -54,7 +54,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   }
 
-  function getAllEquipment() {
+  function getAllEquipments() {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -64,5 +64,25 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
+  }
+
+  function addToArray(array, item) {
+    var newItem = angular.copy(item);
+
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].id === newItem.id) {
+        return;
+      }
+    }
+
+    array.push(newItem);
+  }
+
+  function removeFromArray(array, id) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].id === id) {
+        array.splice(i, 1);
+      }
+    }
   }
 }
