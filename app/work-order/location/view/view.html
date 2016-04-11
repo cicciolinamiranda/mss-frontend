@@ -30,10 +30,19 @@
             ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit">
             <i class="fa fa-edit fa-2x"></i>
           </button>
-          <button type="button" class="btn btn-link" style="color: #080808;"
-          ng-click="$ctrl.archiveLocation($ctrl.cloc.id)" title="Archive">
+          <button ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" type="button" class="btn btn-link" style="color: #080808;"
+          ng-click="$ctrl.updateStatus($ctrl.cloc.id,'ARCHIVE')" title="Archive">
           <i class="fa fa-archive fa-2x"></i>
         </button>
+        <button ng-show="$ctrl.cloc.statusStr == 'ARCHIVE'" type="button" class="btn btn-link" style="color: #080808;"
+        ng-click="$ctrl.updateStatus($ctrl.cloc.id,'IN_PROGRESS')" title="Unarchive">
+        <i class="fa fa-folder-open fa-2x"></i>
+      </button>
+      </div>
+    </div>
+    <div class ="row">
+      <div class="alert alert-info" style="padding-left:20px" ng-show="$ctrl.cloc.statusStr == 'ARCHIVE'">
+        This Customer Location is archived.
       </div>
     </div>
     <hr/>

@@ -14,7 +14,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   _this.modeOfTransportList = [];
   _this.barredEmployeesList = [];
 
-  _this.archiveLocation = archiveLocation;
+  _this.updateStatus = updateStatus;
   _this.editLocation = editLocation;
 
   //Posts
@@ -117,14 +117,14 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
     formatBarredEmployeesDisplay(location.barredEmployees);
   }
 
-  function archiveLocation(id){
+  function updateStatus(id,status){
 
-    ViewLocationSvc.archiveLocation(id)
+    ViewLocationSvc.updateStatus(id,status)
       .then(function(response){
         _this.postLists = response;
     });
 
-    $state.go('workOrder', {id: id});
+    $state.reload();
   }
 
   function editLocation(id){
