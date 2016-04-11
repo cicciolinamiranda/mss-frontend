@@ -32,7 +32,7 @@
                 <span>Number of Employees</span>
               </div>
               <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.numEmployees}}</span>
+                <span>{{$ctrl.post.numberOfEmployees}}</span>
               </div>
             </div>
             <hr/>
@@ -63,7 +63,7 @@
                 <label>Booked</label>
               </div>
               <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.isBooked}}</span>
+                <span>{{$ctrl.post.bookOn}}</span>
               </div>
             </div>
             <hr/>
@@ -74,7 +74,7 @@
                 <label>Call in</label>
               </div>
               <div class="col-md-4 pull-right">
-                <span>{{$ctrl.post.callInValue}}</span>
+                <span>{{$ctrl.post.callIn}}</span>
               </div>
             </div>
             <hr/>
@@ -87,7 +87,7 @@
                 <label>Identification Required</label>
               </div>
               <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.isIdRequired}}</span>
+                <span>{{$ctrl.post.identificationRequired}}</span>
               </div>
             </div>
             <hr/>
@@ -98,7 +98,7 @@
                 <label>Gender</label>
               </div>
               <div class="col-md-4 pull-right">
-                <span>{{$ctrl.post.gender.name}}</span>
+                <span>{{$ctrl.post.preferences.gender.name}}</span>
               </div>
             </div>
             <hr/>
@@ -131,7 +131,7 @@
           </div>
           <div class="col-md-6">
             <label>Licenses</label>
-            <div ng-switch="$ctrl.post.postLicense.length > 0">
+            <div ng-switch="$ctrl.post.licenses.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
                   No data available.
@@ -139,7 +139,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.postLicense">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.licenses">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -167,7 +167,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.trainings">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.trainings">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -191,7 +191,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.languages">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.languages">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -220,7 +220,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.height">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.height">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -236,7 +236,7 @@
           </div>
           <div class="col-md-6">
             <label>Physical Conditions</label>
-            <div ng-switch="$ctrl.post.physicalConditions.length > 0">
+            <div ng-switch="$ctrl.post.preferences.physicalConditions.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
                   No data available.
@@ -244,7 +244,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.physicalConditions">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.physicalConditions">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -319,7 +319,7 @@
         <div class="row">
           <div class="col-md-6">
             <label>Health And Safety Requirements</label>
-            <div ng-switch="$ctrl.post.healthAndSafety.length > 0">
+            <div ng-switch="$ctrl.post.healthSafetyRequirements.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
                   No data available.
@@ -327,7 +327,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.healthAndSafety">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.healthSafetyRequirements">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -343,7 +343,7 @@
           </div>
           <div class="col-md-6">
             <label>Religions</label>
-            <div ng-switch="$ctrl.post.religions.length > 0">
+            <div ng-switch="$ctrl.post.preferences.religions.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
                   No data available.
@@ -351,7 +351,7 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.religions">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.religions">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
@@ -472,6 +472,6 @@
 </div>
 <div class="col-md-4">
   <!--TODO Change with correct url-->
-  <img ng-src="{{$ctrl.post.imageSource}}" alt="{{$ctrl.post.name}}" width="400" height="200"/>
+  <img ng-src="{{$ctrl.post.imageUrl}}" alt="{{$ctrl.post.name}}" width="400" height="200"/>
 </div>
 </div>

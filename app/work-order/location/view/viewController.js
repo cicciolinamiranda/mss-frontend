@@ -31,7 +31,6 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
     }, function (error) {
       _this.errMessage= error;
     });
-
     getPostDetailsList(_this.locId);
   }
 
@@ -53,6 +52,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
       .then(function(response){
         _this.postLists = response;
     });
+
   }
 
   function formatBarredEmployeesDisplay(barredEmployees) {
@@ -124,7 +124,7 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
         _this.postLists = response;
     });
 
-    $state.go('workOrder', {id: 1});
+    $state.go('workOrder', {id: id});
   }
 
   function editLocation(id){
