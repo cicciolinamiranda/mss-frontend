@@ -10,6 +10,7 @@ var ngApp = angular.module('employeeApp', [
   'ui.select',
   // app components
   require('./create/index').name,
+  require('./edit/index').name,
   require('./view/index').name
 ]);
 
