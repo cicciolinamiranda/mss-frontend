@@ -65,6 +65,7 @@ function loginProvider() {
       this.getStatus = getStatus;
       this.goToSuccessPage = loginSuccessHandler;
       this.goToErrorPage = loginErrorHandler;
+      this.protect = decorator;
 
       function setUp() {
         this.googleLogin().then(loginSuccessHandler, loginErrorHandler);
@@ -138,6 +139,19 @@ function loginProvider() {
 
       function loginErrorHandler() {
         return $state.go(_this.destinationStateOnError, {}, {location: false});
+      }
+
+      function decorator(f) {
+        return function() {
+          return f.apply(this, arguments)
+            .then((function(data) {
+              return $q.resolve(data);
+            }).bind(this), (function(data) {
+              if (data.message.indexOf("org.springframework.security.access.AccessDeniedException") >= 0)
+                loginErrorHandler();
+              return $q.reject(data);
+            }).bind(this));
+        }
       }
     }
     return new GAuth();
