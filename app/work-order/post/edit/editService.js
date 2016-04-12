@@ -10,6 +10,7 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
 
   _this.getPostDetailsById = getPostDetailsById;
   _this.update = update;
+  _this.save = save;
 
   $gapi.loaded.then(function() {
     return $gapi.load('customerContract', 'v1', WORKORDER_GAPI_BASE);
@@ -39,7 +40,7 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
     return deferred2.promise;
   };
 
-  _this.save = function(postDto) {
+  function save(postDto) {
     var deferred2 = $q.defer();
     loadApi.then(function() {
       return $gapi.client.customerContract.workorder.customer.location.post.save(
