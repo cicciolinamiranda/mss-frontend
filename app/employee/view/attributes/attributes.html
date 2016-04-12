@@ -2,7 +2,6 @@
 <div class="panel">
 	<div ng-repeat = "attribute in $ctrl.attributesList.attributes">
 		<div class="panel">
-
 			<div class="row">
 			  <div class="col-md-4"><label>Attribute Type</label></div>
 			  <div class="col-md-4" ng-bind="attribute.type"></div>
@@ -24,5 +23,25 @@
 			  <div class="col-md-4" ng-bind="attribute.expiryDate"></div>
 			</div>
 		</div>
+	</div>
+	<div ng-show="$ctrl.attributesList.attribute.length  == null">
+		<div class="panel">
+			<div class="row">
+			  <div class="col-md-4"><label>Attribute Type</label></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Description</label></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Proficiency</label></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Issue Date</label></div>
+			</div>
+			<div class="row">
+			  <div class="col-md-4"><label>Expiry Date</label></div>
+			</div>
+		</div>
+	</div>
 	</div>
 </div>
