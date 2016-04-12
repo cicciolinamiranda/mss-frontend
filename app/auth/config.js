@@ -3,6 +3,6 @@ module.exports = function(ngModule) {
 };
 
 function config($gapiProvider) {
-  $gapiProvider.client_id = '111384564915-9jlqps7hudnapqpnkohck9nq6ehhpp7n.apps.googleusercontent.com';
+  $gapiProvider.client_id = '346709668681-m26ttgdpvu4gabup4g5pecpv2ftfq3d2.apps.googleusercontent.com';
   $gapiProvider.scopes = ["email", "profile"];
 }

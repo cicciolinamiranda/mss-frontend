@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './app/index',
@@ -16,6 +17,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en)$/)
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en)$/),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'app/index.html',
+      hash: true
+    })
   ]
 };
