@@ -13,20 +13,20 @@ function listService($q, $gapi, EMPLOYEE_GAPI_BASE, GAuth) {
     return deferred.resolve();
   });
 
-  this.list = function(params, pageNum) {
+  this.list = function(params) {
     console.log(params.q);
     if (params.q) console.log("*** THIS IS A SEARCH ***");
-    pageNum = typeof pageNum !== 'undefined' ?  pageNum - 1 : 0;
+    params.pageNum = typeof params.pageNum !== 'undefined' ?  params.pageNum - 1 : 0;
     var deferred2 = $q.defer();
-    if (cache[pageNum]) {
-      deferred2.resolve(cache[pageNum]);
+    if (cache[params.pageNum]) {
+      deferred2.resolve(cache[params.pageNum]);
     }
     else {
       loadApi.then(GAuth.protect(function() {
         return $gapi.client.employee.employees.list();
       })).then(function(data) {
-        cache[pageNum] = data.employees;
-        deferred2.resolve(cache[pageNum]);
+        cache[params.pageNum] = data.employees;
+        deferred2.resolve(cache[params.pageNum]);
       });
     }
     return deferred2.promise;
