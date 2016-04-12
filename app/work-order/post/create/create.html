@@ -138,10 +138,27 @@
         </div>
         <div class="form-group">
           <label for="healthAndSafety">Health and Safety Requirements</label>
-          <select name="healthAndSafety" class="form-control">
-            <option>Physical Exam</option>
-            <option>Drug Test</option>
-          </select>
+          <ui-select id="uniforms" ng-model="$ctrl.selectedHealthSafetyReq" theme="bootstrap"
+                     on-select="$ctrl.model.addToArray($ctrl.post.healthSafetyRequirements, $ctrl.selectedHealthSafetyReq)">
+            <ui-select-match placeholder="Select a Requirement...">
+              <span ng-bind="$ctrl.selectedHealthSafetyReq.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.model.healthSafetyRequirementsChoices | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.refreshHealthSafetyRequirements()"
+                               refresh-delay="5">
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <ul class="list-group" ng-show="$ctrl.post.healthSafetyRequirements">
+            <li class="list-group-item ss-selected-item" ng-repeat="hsReq in $ctrl.post.healthSafetyRequirements">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+              <span ng-bind="hsReq.name"></span>
+              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                      ng-click="$ctrl.model.removeFromArray($ctrl.post.healthSafetyRequirements, hsReq.id)">
+                <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+              </button>
+            </li>
+          </ul>
         </div>
         <div class="panel__heading">
           <div class="panel__title">Customer Preferences</div>
@@ -233,9 +250,51 @@
         </div>
         <div class="form-group">
           <label for="qualifications">Qualifications</label>
-          <select name="qualifications" class="form-control">
-            <option>College Graduate</option>
-          </select>
+          <ui-select id="uniforms" ng-model="$ctrl.model.selectedQualification" theme="bootstrap"
+                     on-select="$ctrl.model.addToArray($ctrl.post.preferences.qualifications, $ctrl.model.selectedQualification)">
+            <ui-select-match placeholder="Select a Qualification...">
+              <span ng-bind="$ctrl.model.selectedQualification.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.model.qualificationChoices | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.refreshQualifications()"
+                               refresh-delay="5">
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <ul class="list-group" ng-show="$ctrl.post.preferences.qualifications">
+            <li class="list-group-item ss-selected-item" ng-repeat="qualification in $ctrl.post.preferences.qualifications">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+              <span ng-bind="qualification.name"></span>
+              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                      ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.qualifications, qualification.id)">
+                <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="qualifications">Religions</label>
+          <ui-select id="uniforms" ng-model="$ctrl.model.selectedReligion" theme="bootstrap"
+                     on-select="$ctrl.model.addToArray($ctrl.post.preferences.religions, $ctrl.model.selectedReligion)">
+            <ui-select-match placeholder="Select a Religion...">
+              <span ng-bind="$ctrl.model.selectedReligion.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in ($ctrl.model.religionChoices | filter: $select.search) track by item.id"
+                               refresh="$ctrl.model.refreshReligions()"
+                               refresh-delay="5">
+              <span ng-bind="item.name"></span>
+            </ui-select-choices>
+          </ui-select>
+          <ul class="list-group" ng-show="$ctrl.post.preferences.religions">
+            <li class="list-group-item ss-selected-item" ng-repeat="religion in $ctrl.post.preferences.religions">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+              <span ng-bind="religion.name"></span>
+              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                      ng-click="$ctrl.model.removeFromArray($ctrl.post.preferences.religions, religion.id)">
+                <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+              </button>
+            </li>
+          </ul>
         </div>
         <div class="panel__heading">
           <div class="panel__title">Additional Constraints</div>

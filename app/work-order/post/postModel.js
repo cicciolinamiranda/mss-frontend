@@ -8,6 +8,7 @@ function PostModel(PostService) {
 
   function PostModel() {
     this.callInFrequencyChoices = setCallInFrequencyChoices();
+    this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
   }
 
@@ -19,6 +20,15 @@ function PostModel(PostService) {
     ];
 
     return callInFrequencyChoices;
+  }
+
+  function setPostCoverChoices(){
+    var postCover = [
+      {id: 'ONE_SIX_EIGHT', name: '168 HOURS'},
+      {id: 'TWENTY_FOUR_SEVEN', name: '24/7'}
+    ];
+
+    return postCover;
   }
 
   function setDefaultPost() {
@@ -40,7 +50,9 @@ function PostModel(PostService) {
       preferences: {
         trainings: [],
         languages: [],
-        physicalConditions: []
+        physicalConditions: [],
+        qualifications: [],
+        religions: []
       },
       licenses: [],
       postSkills: [],
@@ -54,6 +66,14 @@ function PostModel(PostService) {
     }
 
     return post;
+  }
+
+  function checkListIfNull(list) {
+    if(undefined == list)
+    {
+      list = [];
+    }
+    return list;
   }
 
   //customer preferences
@@ -77,28 +97,64 @@ function PostModel(PostService) {
   PostModel.prototype.postSkillChoices = [];
   PostModel.prototype.uniformChoices = [];
   PostModel.prototype.equipmentChoices = [];
+  PostModel.prototype.healthSafetyRequirementsChoices = [];
+  PostModel.prototype.qualificationChoices = [];
+  PostModel.prototype.religionChoices = [];
 
-  PostModel.getPostInDtoFormat = function (post) {
-    return {
-      customerLocationId: post.customerLocationId,
-      name: post.name,
-      identificationRequired: post.identificationRequired,
-      numberOfEmployees: post.numberOfEmployees,
-      startTimeStr: moment(post.startTime).format("HH:mm"),
-      endTimeStr: moment(post.endTime).format("HH:mm"),
-      hours: post.hours(),
-      chargeRate: post.chargeRate,
-      bookOn: post.bookOn,
-      bookOff: post.bookOff,
-      callIn: post.callIn,
-      notes: post.notes,
-      preferences: post.preferences,
-      licenses: post.licenses,
-      postSkills: post.postSkills,
-      uniforms: post.uniforms,
-      equipments: post.equipments
-    }
-  };
+  PostModel.prototype.selectedQualification;
+  PostModel.prototype.selectedReligion;
+
+  //json to dto
+  PostModel.transformPostJsonToDTO = function(post){
+    //id should be null during duplicate and create
+    var post = {
+      'id': post.id,
+      'customerLocationId': post.customerLocationId,
+      'name': post.name,
+      'isIdentificationRequired': post.identificationRequired,
+      'numberOfEmployees': post.numberOfEmployees,
+      'startTimeStr': moment(post.startTime).format("HH:mm"),
+      'endTimeStr': moment(post.endTime).format("HH:mm"),
+      'hours': post.hours,
+      'isBookOn': post.bookOn,
+      'isBookOff': post.bookOff,
+      'isCallIn': post.callIn,
+      'notes': post.notes,
+      'preferences': post.preferences,
+      'licenses':checkListIfNull(post.licenses),
+      'skills': checkListIfNull(post.skills),
+      'uniforms': checkListIfNull(post.uniforms),
+      'equipments': checkListIfNull(post.equipments),
+      'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
+      'preferences': {
+        'religions': post.preferences.religions,
+        'qualifications':post.preferences.qualifications,
+        'gender': post.preferences.gender,
+        'trainings': post.preferences.trainings,
+        'languages':post.preferences.languages,
+        'physicalConditions':post.preferences.physicalConditions,
+        'height': post.preferences.height
+      },
+      'postCover': post.postCover
+      // 'role': post.role, TODO: Uncomment once ok in backend
+      // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
+    };
+
+    return post;
+  }
+
+  PostModel.formatPostDtoToJson = function(dtoPost){
+    var post = dtoPost;
+    post.hours = moment(dtoPost.hours, "HH:mm").toDate();
+    post.skills = checkListIfNull(dtoPost.skills);
+    post.uniform = checkListIfNull(dtoPost.uniform);
+    post.equipments = checkListIfNull(dtoPost.equipments);
+    post.licenses = checkListIfNull(dtoPost.licenses);
+    post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
+    post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
+    post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
+    return post;
+  }
 
   PostModel.prototype.refreshTrainingSearch = function (keyword) {
     PostService.searchTrainings(keyword).then(function (response) {
@@ -160,6 +216,34 @@ function PostModel(PostService) {
     );
   };
 
+  PostModel.prototype.refreshHealthSafetyRequirements = function(){
+    PostService.getAllHealthSafetyRequirements().then(function (response) {
+      console.log(response);
+          PostModel.prototype.healthSafetyRequirementsChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshQualifications = function(){
+    PostService.getAllQualifications().then(function (response) {
+          PostModel.prototype.qualificationChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshReligions = function(){
+    PostService.getAllReligions().then(function (response) {
+          PostModel.prototype.religionChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
   PostModel.prototype.removeFromArray = function (array, id) {
     for (var i = 0; i < array.length; i++) {
       if (array[i].id === id) {
@@ -171,11 +255,11 @@ function PostModel(PostService) {
   PostModel.prototype.addToArray = function (array, item) {
     var newItem = angular.copy(item);
 
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].id === newItem.id) {
-        return;
+      for (var i = 0; i < array.length; i++) {
+        if (array[i].id === newItem.id) {
+          return;
+        }
       }
-    }
 
     array.push(newItem);
   };
