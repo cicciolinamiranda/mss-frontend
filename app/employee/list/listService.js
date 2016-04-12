@@ -2,7 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('EmployeeListSvc', listService);
 };
 
-function listService($q, $gapi, EMPLOYEE_GAPI_BASE) {
+function listService($q, $gapi, EMPLOYEE_GAPI_BASE, GAuth) {
   var cache = [];
   var deferred = $q.defer();
   var loadApi = deferred.promise;
@@ -20,9 +20,9 @@ function listService($q, $gapi, EMPLOYEE_GAPI_BASE) {
       deferred2.resolve(cache[pageNum]);
     }
     else {
-      loadApi.then(function() {
+      loadApi.then(GAuth.protect(function() {
         return $gapi.client.employee.employees.list();
-      }).then(function(data) {
+      })).then(function(data) {
         cache[pageNum] = data.employees;
         deferred2.resolve(cache[pageNum]);
       });

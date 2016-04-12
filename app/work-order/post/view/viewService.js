@@ -2,8 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('ViewPostSvc', viewPostService);
 };
 
-//TODO Replace with actual calls
-function viewPostService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
+function viewPostService($q, $gapi, WORKORDER_GAPI_BASE) {
   var _this = this;
   _this.getPostDetailsById = getPostDetailsById;
   var deferred = $q.defer();
@@ -25,9 +24,4 @@ function viewPostService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   }
 
-  function transformDTOtoJSON(data) {
-    return {
-
-    }
-  }
 }
