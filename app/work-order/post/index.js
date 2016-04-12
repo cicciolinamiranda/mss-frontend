@@ -4,7 +4,7 @@ require('angular-ui-router');
 require('ui-select');
 require('style!css!ui-select/dist/select.css');
 
-var ngApp = angular.module('employeeApp', [
+var ngApp = angular.module('postApp', [
   'eydis.gapi',
   'ui.router',
   'ui.select',

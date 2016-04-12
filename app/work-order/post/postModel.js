@@ -50,7 +50,9 @@ function PostModel(PostService) {
       preferences: {
         trainings: [],
         languages: [],
-        physicalConditions: []
+        physicalConditions: [],
+        qualifications: [],
+        religions: []
       },
       licenses: [],
       postSkills: [],
@@ -95,6 +97,12 @@ function PostModel(PostService) {
   PostModel.prototype.postSkillChoices = [];
   PostModel.prototype.uniformChoices = [];
   PostModel.prototype.equipmentChoices = [];
+  PostModel.prototype.healthSafetyRequirementsChoices = [];
+  PostModel.prototype.qualificationChoices = [];
+  PostModel.prototype.religionChoices = [];
+
+  PostModel.prototype.selectedQualification;
+  PostModel.prototype.selectedReligion;
 
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
@@ -116,20 +124,35 @@ function PostModel(PostService) {
       'licenses':checkListIfNull(post.licenses),
       'skills': checkListIfNull(post.skills),
       'uniforms': checkListIfNull(post.uniforms),
-      'equipments': post.equipments,
+      'equipments': checkListIfNull(post.equipments),
+      'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
-        // 'religions': post.preferences.religions, TODO: Uncomment once ok in backend
-        // 'qualifications':post.preferences.qualifications, TODO: Uncomment once ok in backend
-        // 'gender':post.preferences.gender, TODO: Uncomment once ok in backend
+        'religions': post.preferences.religions,
+        'qualifications':post.preferences.qualifications,
+        'gender': post.preferences.gender,
         'trainings': post.preferences.trainings,
         'languages':post.preferences.languages,
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
       'postCover': post.postCover
-      // 'role': post.role TODO: Uncomment once ok in backend
+      // 'role': post.role, TODO: Uncomment once ok in backend
+      // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
 
+    return post;
+  }
+
+  PostModel.formatPostDtoToJson = function(dtoPost){
+    var post = dtoPost;
+    post.hours = moment(dtoPost.hours, "HH:mm").toDate();
+    post.skills = checkListIfNull(dtoPost.skills);
+    post.uniform = checkListIfNull(dtoPost.uniform);
+    post.equipments = checkListIfNull(dtoPost.equipments);
+    post.licenses = checkListIfNull(dtoPost.licenses);
+    post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
+    post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
+    post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
     return post;
   }
 
@@ -193,6 +216,34 @@ function PostModel(PostService) {
     );
   };
 
+  PostModel.prototype.refreshHealthSafetyRequirements = function(){
+    PostService.getAllHealthSafetyRequirements().then(function (response) {
+      console.log(response);
+          PostModel.prototype.healthSafetyRequirementsChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshQualifications = function(){
+    PostService.getAllQualifications().then(function (response) {
+          PostModel.prototype.qualificationChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
+  PostModel.prototype.refreshReligions = function(){
+    PostService.getAllReligions().then(function (response) {
+          PostModel.prototype.religionChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
   PostModel.prototype.removeFromArray = function (array, id) {
     for (var i = 0; i < array.length; i++) {
       if (array[i].id === id) {
@@ -204,11 +255,11 @@ function PostModel(PostService) {
   PostModel.prototype.addToArray = function (array, item) {
     var newItem = angular.copy(item);
 
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].id === newItem.id) {
-        return;
+      for (var i = 0; i < array.length; i++) {
+        if (array[i].id === newItem.id) {
+          return;
+        }
       }
-    }
 
     array.push(newItem);
   };
