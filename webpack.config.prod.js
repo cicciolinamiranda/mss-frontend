@@ -24,7 +24,6 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new webpack.optimize.UglifyJsPlugin({compress: { warnings: false }}),
     new CopyWebpackPlugin([
-      // { from: 'app/index.html' },
       { from: 'app.yaml' },
       { from: 'app/static', to: 'static' },
     ]),
