@@ -15,8 +15,6 @@ function createPostService($q, $gapi, WORKORDER_GAPI_BASE) {
   });
 
   this.save = function(postDto) {
-    console.log('Post DTO',postDto);
-
     var deferred2 = $q.defer();
     loadApi.then(function() {
       return $gapi.client.customerContract.workorder.customer.location.post.save(

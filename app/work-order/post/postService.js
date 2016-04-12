@@ -1,4 +1,4 @@
-module.exports = function(ngModule) {
+module.exports = function (ngModule) {
   ngModule.service('PostService', postService);
 };
 
@@ -14,19 +14,18 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return deferred.resolve();
   });
 
-  _this.getGenderValues = function(){
+  _this.getGenderValues = function () {
     var def = $q.defer();
 
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.master.file.gender.list();
     }).then(function (data) {
-      console.log(data.items);
       def.resolve(data.items);
     });
     return def.promise;
-  }
+  };
 
-  _this.searchTrainings = function(keyword) {
+  _this.searchTrainings = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -36,9 +35,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  _this.searchLanguages = function(keyword) {
+  _this.searchLanguages = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -48,9 +47,9 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
 
-  _this.searchPhysicalConditions = function(keyword) {
+  _this.searchPhysicalConditions = function (keyword) {
     var def = $q.defer();
 
     loadApi.then(function () {
@@ -60,7 +59,91 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
 
     return def.promise;
-  }
+  };
+
+  _this.getAllLicenses = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.license.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllPostSkills = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.postskills.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllUniforms = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.uniform.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllEquipments = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.equipment.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllHealthSafetyRequirements = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.healthsafetyrequirement.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllReligions = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.religion.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getAllQualifications = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.qualification.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
 
   return _this;
 }

@@ -64,7 +64,7 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
-                <label>Booked</label>
+                <label>Book On?</label>
               </div>
               <div class="col-md-3 pull-right">
                 <span>{{$ctrl.post.bookOn}}</span>
@@ -75,10 +75,34 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-8">
-                <label>Call in</label>
+                <label>Book Off?</label>
               </div>
               <div class="col-md-4 pull-right">
+                <span>{{$ctrl.post.bookOff}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
+                <label>Call in?</label>
+              </div>
+              <div class="col-md-3 pull-right">
                 <span>{{$ctrl.post.callIn}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+          <div class="col-md-6" ng-show="$ctrl.post.callIn">
+            <div class="row">
+              <div class="col-md-8">
+                <label>Call-in Frequency</label>
+              </div>
+              <div class="col-md-4 pull-right">
+                <span>{{$ctrl.post.callInFrequency}}</span>
               </div>
             </div>
             <hr/>
@@ -307,8 +331,7 @@
                          <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
-                        <span ng-bind="item.name"></span> [ {{item.quantity}} ]
-
+                        <span ng-bind="item.name"></span>
                       </div>
                     </div>
                   </li>
