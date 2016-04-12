@@ -27,7 +27,7 @@
           </div>
           <div class="col-md-4" style="padding-top: 20px">
             <button type="button" class="btn btn-link" style="color: #080808;"
-            ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit">
+            ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit" ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" >
             <i class="fa fa-edit fa-2x"></i>
           </button>
           <button ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" type="button" class="btn btn-link" style="color: #080808;"
