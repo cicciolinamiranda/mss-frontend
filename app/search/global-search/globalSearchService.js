@@ -24,7 +24,7 @@ function searchService($state) {
 
   _this.search = function(searchTerm) {
     if (_selectedFilter == 'Employee') {
-      $state.go('employee.list', {q: searchTerm});
+      $state.go('employee.search', {searchTerm: searchTerm});
     }
   };
 }

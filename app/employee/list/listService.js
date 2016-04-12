@@ -13,7 +13,9 @@ function listService($q, $gapi, EMPLOYEE_GAPI_BASE, GAuth) {
     return deferred.resolve();
   });
 
-  this.list = function(pageNum) {
+  this.list = function(params, pageNum) {
+    console.log(params.q);
+    if (params.q) console.log("*** THIS IS A SEARCH ***");
     pageNum = typeof pageNum !== 'undefined' ?  pageNum - 1 : 0;
     var deferred2 = $q.defer();
     if (cache[pageNum]) {
