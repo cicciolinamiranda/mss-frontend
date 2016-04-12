@@ -133,7 +133,8 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       locationSurvey: response.locationSurvey,
       surveyReviewDate: transformJodaTimeToDate(response.locationSurveyDate),
       proofOfDuty: response.proofOfDuty,
-      methodOfRecording: response.methodOfRecording
+      methodOfRecording: response.methodOfRecording,
+      statusStr: response.statusStr
     };
     return customerLocation;
   }

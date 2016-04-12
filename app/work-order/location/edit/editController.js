@@ -71,8 +71,6 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
     _this.costTypeDefault = _this.model.costTypeDefault;
 
     getCustomerLocation($stateParams.id);
-
-
   }
 
   init();
@@ -203,6 +201,11 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
       }
       _this.selectedProofOfDuty = _this.location.proofOfDuty;
       checkStartEndDate (_this.location.barredEmployees);
+
+      if(_this.location.statusStr == 'ARCHIVE')
+      {
+          $state.go('location.view', {id: $stateParams.id});
+      }
     }, function (error) {
       _this.errMessage= error;
     });
