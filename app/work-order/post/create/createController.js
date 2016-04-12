@@ -15,6 +15,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.selectedPostSkill = [];
   _this.selectedUniform = [];
   _this.selectedEquipment = [];
+  _this.selectedHealthSafetyReq;
 
   function init() {
     _this.post = _this.model.post;

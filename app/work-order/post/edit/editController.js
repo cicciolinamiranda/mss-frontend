@@ -19,8 +19,11 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc,PostModel
   _this.selectedPhysicalCondition;
   _this.selectedLicense;
   _this.selectedPostSkill;
+  _this.selectedHealthSafetyReq;
+  // _this.selectedReligion;
+  // _this.selectedQualification;
 
-  _this.save = save;
+  _this.update = update;
 
   function init() {
     _this.callInFrequencyChoices = _this.postModel.callInFrequencyChoices;
@@ -31,26 +34,13 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc,PostModel
     });
 
     _this.model.getPostDetails(postId).then(function (response) {
-      _this.post =  response.result;
-
-        console.log(_this.post);
-      if(!_this.post.skills){
-        _this.post.skills = [];
-      }
-
-      if(!_this.post.uniforms){
-        _this.post.uniforms = [];
-      }
-
-
-    //  console.log(_this.post);
-      _this.post.hours = moment(_this.post.hours).format("HH:mm");
+      _this.post =  PostModel.formatPostDtoToJson(response.result);
     });
   }
 
   init();
 
-  function save(){
+  function update(){
     _this.model.editPost(transactionParam, _this.post);
   }
 }
