@@ -16,6 +16,11 @@ function routes($stateProvider) {
       template: '<employee-list/>'
     })
     .state({
+      name: 'employee.search',
+      url: '/search::searchTerm',
+      template: '<employee-list/>'
+    })
+    .state({
       name: 'employee.view',
       url: '/:employeeId',
       template: '<employee-view/>'
