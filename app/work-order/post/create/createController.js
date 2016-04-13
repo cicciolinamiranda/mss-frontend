@@ -39,7 +39,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       if(response == "Failed"){
         _this.errMessage = 'Unable to save Post Record';
       }
-      else if(response == "503"){
+      else if(response == "Duplicate"){
         _this.errMessage = 'Duplicate Post Name';
       }
       else{

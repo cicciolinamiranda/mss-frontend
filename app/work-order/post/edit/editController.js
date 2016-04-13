@@ -10,7 +10,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   //NOTE:
   //transactionParam = e == edit
   //transactionParam = d == duplicate
-  var transactionParam = $stateParams.transaction;
+  _this.transactionParam = $stateParams.transaction;
 
   _this.model = new EditPostModel();
   _this.postModel = new PostModel();
@@ -39,6 +39,6 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   init();
 
   function update(){
-    _this.model.editPost(transactionParam, _this.post);
+    _this.model.editPost(_this.transactionParam, _this.post);
   }
 }
