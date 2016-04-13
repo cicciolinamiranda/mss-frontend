@@ -27,9 +27,9 @@ function createPostService($q, $gapi, WORKORDER_GAPI_BASE) {
       console.log(JSON.stringify(data.error));
       if(data.error != undefined){
 
-          if(data.error.code == 503)
+          if(data.error.message == 'Duplicate found.')
           {
-            deferred2.resolve("503");
+            deferred2.resolve("Duplicate");
           }
           else{
             deferred2.resolve("Failed");
