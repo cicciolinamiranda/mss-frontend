@@ -1,28 +1,22 @@
 <h2>Personal Profile Attributes</h2>
 <div class="panel">
-	<div ng-repeat = "attribute in $ctrl.attributesList.attributes">
-		<div class="panel">
-
-			<div class="row">
-			  <div class="col-md-4"><label>Attribute Type</label></div>
-			  <div class="col-md-4" ng-bind="attribute.type"></div>
-			</div>
-			<div class="row">
-			  <div class="col-md-4"><label>Description</label></div>
-			  <div class="col-md-4" ng-bind="attribute.description"></div>
-			</div>
-			<div class="row">
-			  <div class="col-md-4"><label>Proficiency</label></div>
-			  <div class="col-md-4" ng-bind="attribute.proficiency"></div>
-			</div>
-			<div class="row">
-			  <div class="col-md-4"><label>Issue Date</label></div>
-			  <div class="col-md-4" ng-bind="attribute.issueDate"></div>
-			</div>
-			<div class="row">
-			  <div class="col-md-4"><label>Expiry Date</label></div>
-			  <div class="col-md-4" ng-bind="attribute.expiryDate"></div>
-			</div>
-		</div>
+	<table class="table table-striped">
+		<tr>
+			<th>Attribute Type</th>
+			<th>Description</th>
+			<th>Proficiency</th>
+			<th>Issue Date</th>
+			<th>Expiry Date</th>
+		</tr>
+		<tr ng-repeat = "attribute in $ctrl.attributesList.attributes">
+			<td ng-bind="attribute.type"></td>
+			<td ng-bind="attribute.description"></td>
+			<td ng-bind="attribute.proficiency"></td>
+			<td ng-bind="attribute.issueDate"></td>
+			<td ng-bind="attribute.expiryDate"></td>
+		</tr>
+	</table>
+	<div ng-show="$ctrl.attributesList.attributes.length == null">
+		<h3>There are no Personal Profile Attribute Records for this employee</h3>
 	</div>
 </div>

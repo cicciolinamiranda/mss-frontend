@@ -3,7 +3,7 @@ module.exports = editPostCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc,PostModel) {
+function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostModel) {
   var _this = this;
   var postId = $stateParams.id;
 
@@ -20,8 +20,6 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc,PostModel
   _this.selectedLicense;
   _this.selectedPostSkill;
   _this.selectedHealthSafetyReq;
-  // _this.selectedReligion;
-  // _this.selectedQualification;
 
   _this.update = update;
 
