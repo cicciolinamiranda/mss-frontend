@@ -1,46 +1,31 @@
 <h2>Pay Information</h2>
 <div class="panel">
-  <div ng-repeat="contractedHour in $ctrl.employeeContractedHours.employeeContractedHours">
-  	<div class="row">
-      <div class="col-md-4"><label>Contract Hour Threshold</label></div>
-      <div class="col-md-4" ng-bind="contractedHour.contractHourThreshold"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Contract Hour Period</label></div>
-      <div class="col-md-4" ng-bind="contractedHour.contractHourPeriod"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Contract Days</label></div>
-      <div class="col-md-4" ng-bind="contractedHour.contractDays"></div>
-    </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Contract Hour Threshold</th>
+      <th>Contract Hour Period </th>
+      <th>Contract Days</th>
+    </tr>
+    <tr ng-repeat="contractedHour in $ctrl.employeeContractedHours.employeeContractedHours">
+      <td ng-bind="contractedHour.contractHourThreshold"></td>
+      <td ng-bind="contractedHour.contractHourPeriod"></td>
+      <td ng-bind="contractedHour.contractDays"></td>
+    </tr>
+  </table>
+  <div ng-show="$ctrl.employeeContractedHours.employeeContractedHours.length == null">
+    <h3>No Records for Employee Contracted Hours/Period</h3>
   </div>
-  <div ng-show="$ctrl.employeeContractedHours.employeeContractedHours == null">
-    <div class="row">
-      <div class="col-md-4"><label>Contract Hour Threshold</label></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Contract Hour Period</label></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Contract Days</label></div>
-    </div>
-  </div>
-  <div ng-repeat = "payRates in $ctrl.employeePayRates.employeePayRates">
-    <div class="row">
-      <div class="col-md-4"><label>Rate</label></div>
-      <div class="col-md-4" ng-bind="payRates.rate"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Rate Currency</label></div>
-      <div class="col-md-4" ng-bind="payRates.rateCurrency"></div>
-    </div>
-  </div>
-  <div ng-show = "$ctrl.employeePayRates.employeePayRates == null">
-    <div class="row">
-      <div class="col-md-4"><label>Rate</label></div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"><label>Rate Currency</label></div>
-    </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Rate</th>
+      <th>Rate Currency</th>
+    </tr>
+    <tr ng-repeat = "payRates in $ctrl.employeePayRates.employeePayRates">
+      <td ng-bind="payRates.rate"></td>
+      <td ng-bind="payRates.rateCurrency"></td>
+    </tr>
+  </table>
+  <div ng-show="$ctrl.employeePayRates.employeePayRates.length == null">
+    <h3>No Records for Employee Pay Rates</h3>
   </div>
 </div>
