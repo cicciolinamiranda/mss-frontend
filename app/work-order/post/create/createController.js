@@ -16,6 +16,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.selectedUniform = [];
   _this.selectedEquipment = [];
   _this.selectedHealthSafetyReq;
+  _this.errMessage = "";
 
   function init() {
     _this.post = _this.model.post;
@@ -35,9 +36,16 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
 
   function save(){
     CreatePostSvc.save(PostModel.transformPostJsonToDTO(_this.post)).then(function(response){
-      var postId = response.id;
-      console.log('Post ID',postId);
-      $state.go('post.view', {id: postId});
+      if(response == "Failed"){
+        _this.errMessage = 'Unable to save Post Record';
+      }
+      else if(response == "503"){
+        _this.errMessage = 'Duplicate Post Name';
+      }
+      else{
+        var postId = response.id;
+        $state.go('post.view', {id: postId});
+      }
     }, function(error) {
       _this.errMessage = error;
     });
