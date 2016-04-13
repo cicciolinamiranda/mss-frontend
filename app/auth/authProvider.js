@@ -1,3 +1,4 @@
+var angular = require('angular');
 require('eydis-gapi');
 require('angular-ui-router');
 require('angular-cookies');

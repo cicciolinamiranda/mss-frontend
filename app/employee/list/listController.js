@@ -1,10 +1,10 @@
 module.exports = listCtrl;
 
-/*@ngInject*/ function listCtrl(EmployeeListSvc) {
+/*@ngInject*/ function listCtrl(EmployeeListSvc, $stateParams) {
   var _this = this;
 
   function init() {
-    EmployeeListSvc.list().then(function(employees){
+    EmployeeListSvc.list({q: $stateParams.searchTerm}).then(function(employees){
       _this.employees = employees;
     });
   }
