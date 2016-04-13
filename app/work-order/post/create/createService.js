@@ -21,7 +21,20 @@ function createPostService($q, $gapi, WORKORDER_GAPI_BASE) {
         postDto
       );
     }).then(function(data) {
-      deferred2.resolve(data);
+        deferred2.resolve(data);
+    },
+    function(data){
+      console.log(JSON.stringify(data.error));
+      if(data.error != undefined){
+
+          if(data.error.code == 503)
+          {
+            deferred2.resolve("503");
+          }
+          else{
+            deferred2.resolve("Failed");
+          }
+      }
     });
     return deferred2.promise;
   };
