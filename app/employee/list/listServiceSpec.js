@@ -42,15 +42,15 @@ describe("Employee List Service", function() {
     spyOn(EmployeeListSvc, 'list').and.callThrough();
   });
 
-  describe("List employees", function() {
-    it("returns a promise that resolves with list of employees", function(done) {
-      EmployeeListSvc.list().then(function(employees) {
-        expect(employees[0].firstname)
-          .toBe(sample_employee.firstname);
-        done();
-      });
-      expect(EmployeeListSvc.list).toHaveBeenCalled();
-      $scope.$digest();
-    });
-  });
+  // describe("List employees", function() {
+  //   it("returns a promise that resolves with list of employees", function(done) {
+  //     EmployeeListSvc.list().then(function(employees) {
+  //       expect(employees[0].firstname)
+  //         .toBe(sample_employee.firstname);
+  //       done();
+  //     });
+  //     expect(EmployeeListSvc.list).toHaveBeenCalled();
+  //     $scope.$digest();
+  //   });
+  // });
 });

@@ -9,14 +9,19 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.model = new PostModel();
 
   _this.save = save;
+  _this.cancel = cancel;
   _this.genderChoices = [];
   _this.selectedTraining = [];
   _this.selectedLicense = [];
   _this.selectedPostSkill = [];
   _this.selectedUniform = [];
-  _this.selectedEquipment = [];
+  _this.selectedEquipment;
   _this.selectedHealthSafetyReq;
   _this.errMessage = "";
+
+  //PostCover
+  _this.postType = this.model.postCoverChoices;
+  _this.getPostType = this.model.postCoverChoices;
 
   function init() {
     _this.post = _this.model.post;
@@ -50,4 +55,9 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       _this.errMessage = error;
     });
   }
+
+  function cancel() {
+    $state.go('location.view', {id: locationId});
+  }
+
 }
