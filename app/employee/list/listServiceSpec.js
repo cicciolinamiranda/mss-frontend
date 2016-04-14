@@ -11,7 +11,7 @@ describe("Employee List Service", function() {
     id: '123',
     firstname: 'Auntie',
     surname: 'Anne'
-  };  
+  };
 
   beforeEach(angular.mock.module(GAuth.name));
   beforeEach(angular.mock.module(component.name));
@@ -37,8 +37,8 @@ describe("Employee List Service", function() {
           client: {
             employee: {
               employees: {
-                list: function() {                 
-                  return $q.resolve({employees: [sample_employee]});  
+                list: function() {
+                  return $q.resolve({employees: [sample_employee]});
                 }
               }
             }
