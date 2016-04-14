@@ -29,7 +29,15 @@
         </div>
         <div class="form-group">
           <label for="role">Role</label>
-          <input type="text" class="form-control" name="postTitle" id="role" ng-model="$ctrl.post.role"/>
+          <ui-select id="postRole" ng-model="$ctrl.post.role" theme="bootstrap">
+            <ui-select-match placeholder="Select a role">
+              <span ng-bind="$ctrl.post.role.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in $ctrl.postRoleChoices" refresh="$ctrl.postRoleChoices"
+            refresh-delay="5" >
+            <span ng-bind="item.name"></span>
+          </ui-select-choices>
+        </ui-select>
         </div>
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
@@ -42,7 +50,7 @@
             <ui-select-match placeholder="Select a post cover">
               <span ng-bind="$ctrl.post.postCover.name"></span>
             </ui-select-match>
-            <ui-select-choices repeat="item in $ctrl.postType" refresh="$ctrl.getPostType"
+            <ui-select-choices repeat="item in $ctrl.postType" refresh="$ctrl.postType"
             refresh-delay="5" >
             <span ng-bind="item.name"></span>
           </ui-select-choices>
