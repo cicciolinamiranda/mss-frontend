@@ -15,9 +15,13 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.selectedLicense = [];
   _this.selectedPostSkill = [];
   _this.selectedUniform = [];
-  _this.selectedEquipment = [];
+  _this.selectedEquipment;
   _this.selectedHealthSafetyReq;
   _this.errMessage = "";
+
+  //PostCover
+  _this.postType = this.model.postCoverChoices;
+  _this.getPostType = this.model.postCoverChoices;
 
   function init() {
     _this.post = _this.model.post;
@@ -55,4 +59,5 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   function cancel() {
     $state.go('location.view', {id: locationId});
   }
+
 }

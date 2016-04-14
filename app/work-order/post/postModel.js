@@ -57,7 +57,8 @@ function PostModel(PostService) {
       licenses: [],
       postSkills: [],
       uniforms: [],
-      equipments: []
+      equipments: [],
+      postCover:'',
     };
 
     var callFrequencyChoices = setCallInFrequencyChoices();
@@ -135,7 +136,7 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': post.postCover
+      'postCover': post.postCover.id
       // 'role': post.role, TODO: Uncomment once ok in backend
       // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };

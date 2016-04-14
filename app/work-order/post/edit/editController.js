@@ -21,6 +21,10 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.selectedPostSkill;
   _this.selectedHealthSafetyReq;
 
+  //PostCover
+  _this.postType = this.postModel.postCoverChoices;
+  _this.getPostType = this.postModel.postCoverChoices;
+
   _this.update = update;
   _this.cancel = cancel;
 
