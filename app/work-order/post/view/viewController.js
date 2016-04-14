@@ -25,7 +25,6 @@ function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
           }
         }
       };
-
     });
   }
 }

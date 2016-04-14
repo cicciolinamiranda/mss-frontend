@@ -101,7 +101,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.customerContract.workorder.master.file.equipment.list();
+      return $gapi.client.customerContract.workorder.master.file.postequipment.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
