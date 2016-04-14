@@ -21,8 +21,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
 
   //PostCover
   _this.postType = this.model.postCoverChoices;
-  _this.getPostType = this.model.postCoverChoices;
-
+  _this.postRoleChoices = [];
   function init() {
     _this.post = _this.model.post;
     _this.post.customerLocationId = locationId;
@@ -35,6 +34,8 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
         _this.post.preferences.gender = _this.genderChoices[0];
       }
     });
+
+    getAllRoles();
   }
 
   init();
@@ -58,6 +59,12 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
 
   function cancel() {
     $state.go('location.view', {id: locationId});
+  }
+
+  function getAllRoles() {
+    _this.model.getAllRoles().then(function (response) {
+      _this.postRoleChoices = response;
+    });
   }
 
 }

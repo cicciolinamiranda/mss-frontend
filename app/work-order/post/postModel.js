@@ -59,6 +59,7 @@ function PostModel(PostService) {
       uniforms: [],
       equipments: [],
       postCover:'',
+      role:{}
     };
 
     var callFrequencyChoices = setCallInFrequencyChoices();
@@ -77,6 +78,11 @@ function PostModel(PostService) {
     return list;
   }
 
+  PostModel.prototype.getAllRoles = function () {
+    return PostService.getAllRoles().then(function (response) {
+      return response;
+    });
+  };
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -101,6 +107,7 @@ function PostModel(PostService) {
   PostModel.prototype.healthSafetyRequirementsChoices = [];
   PostModel.prototype.qualificationChoices = [];
   PostModel.prototype.religionChoices = [];
+  PostModel.prototype.rolesChoices = [];
 
   PostModel.prototype.selectedQualification;
   PostModel.prototype.selectedReligion;
@@ -136,11 +143,12 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': post.postCover.id
+      'postCover': post.postCover.id,
+      'role':post.role
       // 'role': post.role, TODO: Uncomment once ok in backend
       // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
-
+    console.log("to be save-->"+JSON.stringify(post));
     return post;
   }
 
@@ -154,6 +162,7 @@ function PostModel(PostService) {
     post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
+    post.postCoverId = dtoPost.postCover;
     return post;
   }
 
