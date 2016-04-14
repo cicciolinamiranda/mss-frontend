@@ -1,3 +1,8 @@
+<style>
+  .messageError {
+    color: red;
+  }
+</style>
 <div class="info-section" style="margin-top:10px;">
   <div class="info-section__header">
     <h1 class="dark">Create Post</h1>
@@ -8,13 +13,19 @@
 <div class="container">
   <div class="col-md-8">
     <div class="panel">
-      <form name="createPostForm">
+      <form name="createPostForm" ng-submit="$ctrl.save()">
         <div class="panel__heading">
           <div class="panel__title">Post Details</div>
         </div>
+        <div class="alert alert-danger" ng-show="$ctrl.errMessage">
+          {{$ctrl.errMessage}}
+        </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
-          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name"/>
+          <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name" required/>
+          <div ng-messages="createPostForm.postTitle.$error">
+            <div ng-message="required" class="messageError">This field is required</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="role">Role</label>
@@ -364,7 +375,7 @@
           <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
         </div>
         <div class="form-group">
-          <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+          <button type="submit" class="btn btn-primary">Save</button>
           <button type="button" class="btn btn-danger">Cancel</button>
         </div>
       </form>
