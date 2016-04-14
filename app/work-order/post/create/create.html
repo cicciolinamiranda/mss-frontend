@@ -42,7 +42,7 @@
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
           <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees"
-          ng-model="$ctrl.post.numberOfEmployees"/>
+          ng-model="$ctrl.post.numberOfEmployees" min="0"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -61,7 +61,7 @@
         <div class="panel__title">Requirements</div>
       </div>
       <div class="form-group">
-        <label for="isIdRequired">Employee ID required?</label>
+        <label for="isIdRequired">Identification required?</label>
         <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
         <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
       </div>
@@ -90,7 +90,7 @@
   </ul>
 </div>
 <div class="form-group">
-  <label for="equipments">Equipment</label>
+  <label for="equipments">Equipments</label>
   <ui-select id="equipments" ng-model="$ctrl.selectedEquipment" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.model.post.equipments, $ctrl.selectedEquipment)">
   <ui-select-match placeholder="Select an Equipment">
@@ -209,7 +209,7 @@
   </span>
 </div>
 <div class="form-group">
-  <label for="training">Training</label>
+  <label for="training">Trainings</label>
   <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.trainings, $ctrl.selectedTraining)">
   <ui-select-match placeholder="Search for trainings..">
@@ -233,7 +233,7 @@
 </ul>
 </div>
 <div class="form-group">
-  <label for="language">Language</label>
+  <label for="language">Languages</label>
   <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.languages, $ctrl.selectedLanguage)">
   <ui-select-match placeholder="Search for languages..">
@@ -352,7 +352,7 @@
 </div>
 <div class="form-group">
   <label for="chargeRate">Charge Rate</label>
-  <input type="number" class="form-control" name="chargeRate" id="chargeRate"/>
+  <input type="number" class="form-control" name="chargeRate" id="chargeRate" min="0"/>
 </div>
 <div class="form-group">
   <label for="startTime">Start Time</label>
