@@ -5,9 +5,9 @@ describe("Employee List Service", function() {
   // since $gapi already injects $q,
   // it will be implicitly injected to the service
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
   beforeEach(angular.mock.module(component.name));
   // mock $gapi to inject to EmployeeListSvc
@@ -45,8 +45,8 @@ describe("Employee List Service", function() {
   describe("List employees", function() {
     it("returns a promise that resolves with list of employees", function(done) {
       EmployeeListSvc.list().then(function(employees) {
-        expect(employees[0].firstname)
-          .toBe(sample_employee.firstname);
+        expect(employees[0].firstName)
+          .toBe(sample_employee.firstName);
         done();
       });
       expect(EmployeeListSvc.list).toHaveBeenCalled();
