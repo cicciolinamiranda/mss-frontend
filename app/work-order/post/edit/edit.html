@@ -84,13 +84,26 @@
             </ui-select-choices>
           </ui-select>
           <ul class="list-group" ng-show="$ctrl.post.equipments">
-            <li class="list-group-item ss-selected-item" ng-repeat="equipment in $ctrl.post.equipments">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-              <span ng-bind="equipment.name"></span>
-              <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-                      ng-click="$ctrl.postModel.removeFromArray($ctrl.post.equipments, equipment.id)">
-                <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-              </button>
+            <li class="list-group-item ss-selected-item" ng-repeat="equipment in $ctrl.post.equipments" ng-hide="equipment.deleted">
+              <div class="row">
+                <div class="col-md-8">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                  <span ng-bind="equipment.name"></span>
+                </div>
+                <div class="col-md-1">
+                  <label>Qty:</label>
+                </div>
+                <div class="col-md-2">
+                  <input type="number" class="form-control" name="eqipQty" id="eqipQty" size="5"
+                    ng-model="equipment.quantity"/>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                          ng-click="$ctrl.model.hideFromDisplay($ctrl.post.equipments, equipment.id)">
+                    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
         </div>

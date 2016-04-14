@@ -96,7 +96,7 @@ describe("Post Service", function() {
                         return $q.resolve({items: postskillsList});
                       }
                     },
-                    equipment:{
+                    postequipment:{
                       list: function(){
                         return $q.resolve({items: equipList});
                       }
