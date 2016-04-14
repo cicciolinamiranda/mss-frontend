@@ -78,11 +78,23 @@ function PostModel(PostService) {
     return list;
   }
 
+  function checkEquipmentQuantity(list){
+    if(list.length > 0){
+      for(i = 0; i < list.length; i++){
+        if(!list[i].quantity){
+          list[i].quantity = 0;
+        }
+      }
+    }
+    return list;
+  }
+
   PostModel.prototype.getAllRoles = function () {
     return PostService.getAllRoles().then(function (response) {
       return response;
     });
   };
+
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -132,7 +144,7 @@ function PostModel(PostService) {
       'licenses':checkListIfNull(post.licenses),
       'skills': checkListIfNull(post.skills),
       'uniforms': checkListIfNull(post.uniforms),
-      'equipments': checkListIfNull(post.equipments),
+      'equipments': checkEquipmentQuantity(checkListIfNull(post.equipments)),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
         'religions': post.preferences.religions,
@@ -148,7 +160,7 @@ function PostModel(PostService) {
       // 'role': post.role, TODO: Uncomment once ok in backend
       // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
-    console.log("to be save-->"+JSON.stringify(post));
+
     return post;
   }
 
@@ -228,7 +240,6 @@ function PostModel(PostService) {
 
   PostModel.prototype.refreshHealthSafetyRequirements = function(){
     PostService.getAllHealthSafetyRequirements().then(function (response) {
-      console.log(response);
           PostModel.prototype.healthSafetyRequirementsChoices = response;
         }, function (error) {
           _this.errMessage = error;
