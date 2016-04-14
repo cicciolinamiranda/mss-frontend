@@ -59,7 +59,7 @@ function PostModel(PostService) {
       uniforms: [],
       equipments: [],
       postCover:'',
-      role:{},
+      role:null,
       healthSafetyRequirements:[]
     };
 
