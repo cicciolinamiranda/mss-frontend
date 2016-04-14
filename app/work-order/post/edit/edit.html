@@ -30,7 +30,8 @@
         </div>
         <div class="form-group">
           <label for="employeesNeeded">Number of Employees</label>
-          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees" ng-model="$ctrl.post.numberOfEmployees"/>
+          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees"
+          min="0" ng-model="$ctrl.post.numberOfEmployees"/>
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
@@ -48,7 +49,7 @@
           <div class="panel__title">Requirements</div>
         </div>
         <div class="form-group">
-          <label for="isIdRequired">Employee ID required?</label>
+          <label for="isIdRequired">Identification required?</label>
           <input type="radio" name="isIdRequired" ng-value="true" ng-checked="$ctrl.post.identificationRequired"
             ng-model="$ctrl.post.isIdentificationRequired">Yes
           <input type="radio" name="isIdRequired" ng-value="false" ng-checked="!$ctrl.post.identificationRequired"
@@ -79,7 +80,7 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="equipments">Equipment</label>
+          <label for="equipments">Equipments</label>
           <ui-select id="equipments" ng-model="$ctrl.selectedEquipment" theme="bootstrap"
                      on-select="$ctrl.postModel.addToArray($ctrl.post.equipments, $ctrl.selectedEquipment)">
             <ui-select-match placeholder="Select an Equipment">
@@ -199,7 +200,7 @@
           </span>
         </div>
         <div class="form-group">
-          <label for="training">Training</label>
+          <label for="training">Trainings</label>
           <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
                 on-select="$ctrl.postModel.addToArray($ctrl.post.preferences.trainings, $ctrl.selectedTraining)">
                 <ui-select-match placeholder="Search for trainings..">
@@ -223,7 +224,7 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="language">Language</label>
+          <label for="language">Languages</label>
           <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
               on-select="$ctrl.postModel.addToArray($ctrl.post.preferences.languages, $ctrl.selectedLanguage)">
               <ui-select-match placeholder="Search for languages..">
@@ -247,7 +248,7 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="physicalCondition">Physical Condition</label>
+          <label for="physicalCondition">Physical Conditions</label>
           <ui-select ng-model="$ctrl.selectedPhysicalCondition" theme="bootstrap"
             on-select="$ctrl.postModel.addToArray($ctrl.post.preferences.physicalConditions, $ctrl.selectedPhysicalCondition)">
             <ui-select-match placeholder="Search for physical conditions..">
@@ -340,7 +341,7 @@
         </div>
         <div class="form-group">
           <label for="chargeRate">Charge Rate</label>
-          <input type="number" class="form-control" name="chargeRate" id="chargeRate" ng-model="$ctrl.post.chargeRate"/>
+          <input type="number" class="form-control" name="chargeRate" id="chargeRate" min="0" ng-model="$ctrl.post.chargeRate"/>
         </div>
         <div class="form-group">
           <label for="startTime">Start Time</label>

@@ -44,7 +44,7 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
-                <span>Post Covered</span>
+                <span>Post Cover Type</span>
               </div>
               <div class="col-md-3 pull-right">
                 <span>{{$ctrl.post.postCover}}</span>
@@ -134,7 +134,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <label>Skills</label>
+            <label>Skills Required</label>
             <div ng-switch="$ctrl.post.skills.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
@@ -158,7 +158,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label>Licenses</label>
+            <label>Licenses Required</label>
             <div ng-switch="$ctrl.post.licenses.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
@@ -239,7 +239,7 @@
         <!--physCondition/height-->
         <div class="row">
           <div class="col-md-6">
-            <label>Acceptable Heights</label>
+            <label>Height (cm)</label>
             <div ng-switch="$ctrl.post.preferences.height.length > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
@@ -395,6 +395,36 @@
           </div>
         </div>
         <!--health and safety/religion-->
+        <!--qualifications-->
+        <div class="row">
+          <div class="col-md-6">
+            <label>Qualifications</label>
+            <div ng-switch="$ctrl.post.preferences.qualifications.length > 0">
+              <div ng-switch-when="false">
+                <div class="alert alert-info" style="padding-left:20px">
+                  No data available.
+                </div>
+              </div>
+              <div ng-switch-default>
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.qualifications">
+                    <div class="row">
+                      <div class="col-md-1">
+                         <i class="fa fa-caret-right"></i>&nbsp;
+                      </div>
+                      <div class="col-md-8">
+                        <span ng-bind="item.name"></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+        <!--qualifications-->
         <!--billing-->
         <div class="row">
           <div class="col-md-12">
@@ -410,7 +440,7 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
-                <span>Charge Rates</span>
+                <span>Charge Rate</span>
               </div>
               <div class="col-md-3 pull-right">
                 <span ng-bind="$ctrl.post.chargeRates"></span>
