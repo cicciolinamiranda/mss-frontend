@@ -9,6 +9,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.model = new PostModel();
 
   _this.save = save;
+  _this.cancel = cancel;
   _this.genderChoices = [];
   _this.selectedTraining = [];
   _this.selectedLicense = [];
@@ -49,5 +50,9 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
     }, function(error) {
       _this.errMessage = error;
     });
+  }
+
+  function cancel() {
+    $state.go('location.view', {id: locationId});
   }
 }

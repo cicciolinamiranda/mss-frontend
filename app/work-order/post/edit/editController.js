@@ -22,6 +22,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.selectedHealthSafetyReq;
 
   _this.update = update;
+  _this.cancel = cancel;
 
   function init() {
     _this.callInFrequencyChoices = _this.postModel.callInFrequencyChoices;
@@ -40,5 +41,9 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
   function update(){
     _this.model.editPost(_this.transactionParam, _this.post);
+  }
+
+  function cancel() {
+    $state.go('post.view', {id: postId});
   }
 }
