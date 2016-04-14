@@ -105,7 +105,7 @@
         <div class="form-group">
           <label for="skills">Skills Required</label>
           <ui-select id="skills" ng-model="$ctrl.selectedPostSkill" theme="bootstrap"
-                     on-select="$ctrl.postModel.addToArray($ctrl.post.skills, $ctrl.selectedPostSkill)">
+                     on-select="$ctrl.postModel.addToArray($ctrl.post.postSkills, $ctrl.selectedPostSkill)">
             <ui-select-match placeholder="Select a Skill">
               <span ng-bind="$ctrl.selectedPostSkill.name"></span>
             </ui-select-match>
@@ -115,12 +115,12 @@
               <span ng-bind="item.name"></span>
             </ui-select-choices>
           </ui-select>
-          <ul class="list-group" ng-show="$ctrl.post.skills">
-            <li class="list-group-item ss-selected-item" ng-repeat="skill in $ctrl.post.skills">
+          <ul class="list-group" ng-show="$ctrl.post.postSkills">
+            <li class="list-group-item ss-selected-item" ng-repeat="skill in $ctrl.post.postSkills">
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
               <span ng-bind="skill.name"></span>
               <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-                      ng-click="$ctrl.postModel.removeFromArray($ctrl.post.skills, skill.id)">
+                      ng-click="$ctrl.postModel.removeFromArray($ctrl.post.postSkills, skill.id)">
                 <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
               </button>
             </li>

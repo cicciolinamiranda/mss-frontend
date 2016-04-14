@@ -59,7 +59,8 @@ function PostModel(PostService) {
       uniforms: [],
       equipments: [],
       postCover:'',
-      role:{}
+      role:{},
+      healthSafetyRequirements:[]
     };
 
     var callFrequencyChoices = setCallInFrequencyChoices();
@@ -115,6 +116,12 @@ function PostModel(PostService) {
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
     //id should be null during duplicate and create
+    var postCoverId="";
+    if(undefined != post.postCover)
+    {
+      postCoverId = post.postCover.id;
+    }
+    console.log("TO BE TRANSFORMED:----->"+JSON.stringify(post));
     var post = {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
@@ -130,7 +137,7 @@ function PostModel(PostService) {
       'notes': post.notes,
       'preferences': post.preferences,
       'licenses':checkListIfNull(post.licenses),
-      'skills': checkListIfNull(post.skills),
+      'skills': checkListIfNull(post.postSkills),
       'uniforms': checkListIfNull(post.uniforms),
       'equipments': checkListIfNull(post.equipments),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
@@ -143,7 +150,7 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': post.postCover.id,
+      'postCover': postCoverId,
       'role':post.role
       // 'role': post.role, TODO: Uncomment once ok in backend
       // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
@@ -155,7 +162,7 @@ function PostModel(PostService) {
   PostModel.formatPostDtoToJson = function(dtoPost){
     var post = dtoPost;
     post.hours = moment(dtoPost.hours, "HH:mm").toDate();
-    post.skills = checkListIfNull(dtoPost.skills);
+    post.postSkills = checkListIfNull(dtoPost.skills);
     post.uniform = checkListIfNull(dtoPost.uniform);
     post.equipments = checkListIfNull(dtoPost.equipments);
     post.licenses = checkListIfNull(dtoPost.licenses);
