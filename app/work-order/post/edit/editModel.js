@@ -11,7 +11,7 @@ function editPostModel($state, EditPostSvc, PostModel) {
   }
 
   EditPostModel.prototype.editPost = function(transaction, postDto){
-    console.log(postDto);
+
     if(transaction === 'd'){
       postDto.id = null;
 
