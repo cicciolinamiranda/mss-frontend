@@ -42,7 +42,7 @@ describe("Employee List Service", function() {
     spyOn(EmployeeListSvc, 'list').and.callThrough();
   });
 
-  describe("List employees", function() {
+  xdescribe("List employees", function() {
     it("returns a promise that resolves with list of employees", function(done) {
       EmployeeListSvc.list().then(function(employees) {
         expect(employees[0].firstName)

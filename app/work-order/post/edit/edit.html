@@ -355,11 +355,13 @@
         </div>
         <div class="form-group">
           <label for="startTime">Start Time</label>
-          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"/>
+          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"
+            ng-change="$ctrl.postModel.updateHours($ctrl.post)"/>
         </div>
         <div class="form-group">
           <label for="endTime">End Time</label>
-          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"/>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"
+            ng-change="$ctrl.postModel.updateHours($ctrl.post)"/>
         </div>
         <div class="form-group">
           <label for="hours">Hours</label>
@@ -367,13 +369,13 @@
         </div>
         <div class="form-group">
           <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" ng-value="true" ng-checked="$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">Yes
-          <input type="radio" name="bookOn" ng-value="false" ng-checked="!$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">No
+          <input type="radio" name="bookOn" ng-value="true" ng-checked="$ctrl.post.bookOn" ng-model="$ctrl.post.bookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-checked="!$ctrl.post.bookOn" ng-model="$ctrl.post.bookOn">No
         </div>
         <div class="form-group">
           <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" ng-value="true" ng-checked="$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">Yes
-          <input type="radio" name="bookOff" ng-value="false" ng-checked="!$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">No
+          <input type="radio" name="bookOff" ng-value="true" ng-checked="$ctrl.post.bookOff" ng-model="$ctrl.post.bookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-checked="!$ctrl.post.bookOff" ng-model="$ctrl.post.bookOff">No
         </div>
         <div class="form-group">
           <label for="callIn">Call in?</label>
