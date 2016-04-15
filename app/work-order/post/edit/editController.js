@@ -39,6 +39,16 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post =  PostModel.formatPostDtoToJson(response.result);
+
+      //needed to properly tick radio button
+      if(_this.genderChoices){
+        for(i = 0; i < _this.genderChoices.length; i++){
+          if(_this.genderChoices[i].id == _this.post.preferences.gender.id){
+            _this.post.preferences.gender = _this.genderChoices[i];
+          }
+        }
+      }
+
       var postCoverList = _this.postType;
       for (i = 0; i < postCoverList.length; i++) {
         if(postCoverList[i].id == _this.post.postCoverId) {

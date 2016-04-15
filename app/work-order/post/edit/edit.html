@@ -201,9 +201,10 @@
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
-          <span ng-repeat="genderChoice in $ctrl.genderChoices">
+          <span ng-repeat="genderChoice in $ctrl.genderChoices" >
             <input class="gender-radio" type="radio" name="gender" ng-value="genderChoice"
-              ng-checked="$ctrl.post.preferences.gender" ng-model="$ctrl.post.preferences.gender"/>
+              ng-model="$ctrl.post.preferences.gender"
+              />
             {{genderChoice.name}}
           </span>
         </div>
