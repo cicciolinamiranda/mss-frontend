@@ -382,10 +382,10 @@
   <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
   <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
   <label for="frequency"></label>
-  <select name="frequency" class="form-control"
+  <select ng-show="$ctrl.post.callIn" name="frequency" class="form-control"
   ng-model="$ctrl.post.callInFrequency"
-  ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
-</select>
+  ng-options="option.name for option in $ctrl.callInFrequencyChoices track by option.id">
+  </select>
 </div>
 <div class="form-group">
   <label for="allowances">Allowances</label>
