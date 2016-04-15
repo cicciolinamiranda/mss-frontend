@@ -30,5 +30,10 @@ function routes($stateProvider) {
     name: 'location.view',
     url: '/view/:id',
     template: '<location-view/>'
+  })
+  .state({
+    name: 'location.search',
+    url: '/search::searchTerm',
+    template: '<location-search/>'
   });
 }
