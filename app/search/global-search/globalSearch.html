@@ -1,7 +1,7 @@
-<form ng-submit="$ctrl.search()" class="navbar-form navbar-right">
+<form name="searchForm" ng-submit="$ctrl.search()" class="navbar-form navbar-right">
   <div class="search search--site">
     <div class="input-group">
-      <input type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" required/>
+      <input name="queryField" type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" ng-minlength="2" required/>
       <div class="input-group-wrapper">
         <div class="input-group-btn">
           <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{$ctrl.selectedFilter()}} <span class="caret"></span></button>
@@ -10,11 +10,15 @@
           </ul>
         </div>
       </div>
-        <div class="input-group__addon">
-            <div class="input-group-btn" ng-click="$ctrl.search()">
-            <i class="input__icon material-icons">search</i>
-          </div>
-        </div>
+      <div class="input-group__addon">
+        <div class="input-group-btn" ng-click="$ctrl.search()">
+        <i class="input__icon material-icons">search</i>
+      </div>
+      </div>
+    </div>
+    <!-- error messages -->
+    <div ng-messages="searchForm.queryField.$error">
+      <div ng-message="minlength">Your field is too short</div>
     </div>
   </div>
 </form>
