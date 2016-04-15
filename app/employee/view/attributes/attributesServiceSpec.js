@@ -5,9 +5,9 @@ describe("Attributes Service", function() {
   // since $gapi already injects $q,
   // it will be implicitly injected to the service
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
   var sample_attrib = {
     type: 'Skill',

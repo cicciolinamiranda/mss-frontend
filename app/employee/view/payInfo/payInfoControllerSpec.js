@@ -3,9 +3,9 @@ var component = require('./index');
 describe("Pay Info Controller", function() {
   var $controller, $q, $rootScope;
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
   var sample_contractedHours = {
     contractHourPeriod: 'Weekly',
@@ -44,7 +44,7 @@ describe("Pay Info Controller", function() {
     it("should contain list of pay info", function() {
       var controller = $controller(require('./payInfoController'), {
         PayInfoSvc: mockPayInfoSvc
-      }, { employee: sample_employee.id });
+      }, { employee: sample_employee.personGUID });
       $rootScope.$digest();
       expect(controller.employeeContractedHours.employeeContractedHours[0].contractHourThreshold)
         .toEqual(sample_contractedHours.contractHourThreshold);

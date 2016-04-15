@@ -1,32 +1,40 @@
 <h2>Employee View</h2>
 <div class="panel">
   <div class="row" >
-    <div class="col-md-4"><label>ID</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.id"></div>
+    <div class="col-md-4"><label>Employee ID</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.personGUID"></div>
   </div>
   <div class="row">
-    <div class="col-md-4"><label>Surname</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.surname"></div>
+    <div class="col-md-4"><label>Salutation</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.salutation"></div>
   </div>
   <div class="row">
    <div class="col-md-4"><label>First Name</label></div>
-   <div class="col-md-4" ng-bind="$ctrl.employee.firstname"></div>
+   <div class="col-md-4" ng-bind="$ctrl.employee.firstName"></div>
   </div>
   <div class="row">
-    <div class="col-md-4"><label>Title</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.title"></div>
+   <div class="col-md-4"><label>Middle Name</label></div>
+   <div class="col-md-4" ng-bind="$ctrl.employee.middleName"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Last Name</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.lastName"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Known As</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.knownAs"></div>
   </div>
   <div class="row">
     <div class="col-md-4"><label>Date Of Birth</label></div>
     <div class="col-md-4" ng-bind="$ctrl.employee.dateOfBirth"></div>
   </div>
   <div class="row">
-    <div class="col-md-4"><label>Mobile Number</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.mobileNumber"></div>
+    <div class="col-md-4"><label>Mobile Phone Number</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.mobilePhoneNumber"></div>
   </div>
   <div class="row">
-   <div class="col-md-4"><label>Landline Number</label></div>
-   <div class="col-md-4" ng-bind="$ctrl.employee.landlineNumber"></div>
+   <div class="col-md-4"><label>Work Phone Number</label></div>
+   <div class="col-md-4" ng-bind="$ctrl.employee.workPhoneNumber"></div>
   </div>
   <div class="row">
     <div class="col-md-4"><label>Emergency Contact Number</label></div>
@@ -34,7 +42,7 @@
   </div>
   <div class="row">
     <div class="col-md-4"><label>E-mail Address</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.emailAddress"></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.workEmail"></div>
   </div>
   <div class="row">
     <div class="col-md-4"><label>Address Line 1</div>
@@ -54,18 +62,18 @@
   </div>
   <div class="row">
     <div class="col-md-4"><label>State / Province / Region / County</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.state"></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.region"></div>
   </div>
    <div class="row">
    <div class="col-md-4"><label>Country</label></div>
    <div class="col-md-4" ng-bind="$ctrl.employee.country"></div>
   </div>
    <div class="row">
-    <div class="col-md-4"><label>Zip / Postcode</label></div>
-    <div class="col-md-4" ng-bind="$ctrl.employee.postCode"></div>
+    <div class="col-md-4"><label>Postal Code</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.employee.postalCode"></div>
   </div>
    <div class="row">
-    <div class="col-md-4"><label>Geo Location</label></div>
+    <div class="col-md-4"><label>Geolocation</label></div>
     <div class="col-md-4">&lt;{{$ctrl.employee.geoLocation.latitude}}, {{$ctrl.employee.geoLocation.longitude}}&gt;</div>
   </div>
    <div class="row">
@@ -105,7 +113,7 @@
     <div class="col-md-4" ng-bind="$ctrl.employee.rank"></div>
   </div>
   <hr />
-  
+
 </div>
 <pay-info employee="$ctrl.employeeId"></pay-info>
 <licences-view employee="$ctrl.employeeId"></licences-view>
