@@ -136,9 +136,9 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'role':post.role
+      'role':post.role,
+      'chargeRate': post.chargeRate
     };
-
     if(post.postCover){
       postDTO.postCover = post.postCover.id;
     }
