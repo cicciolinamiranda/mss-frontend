@@ -1,7 +1,8 @@
-<form ng-submit="$ctrl.search()" class="navbar-form navbar-right">
+<form name="globalSearchForm" ng-submit="$ctrl.search()" class="navbar-form navbar-right">
   <div class="search search--site">
+    
     <div class="input-group">
-      <input type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" required/>
+      <input type="text" class="search__control" name="searchTerm" ng-model="$ctrl.searchTerm" placeholder="Search the system" ng-minlength="2" required/>
       <div class="input-group-wrapper">
         <div class="input-group-btn">
           <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{$ctrl.selectedFilter()}} <span class="caret"></span></button>
@@ -14,7 +15,10 @@
             <div class="input-group-btn" ng-click="$ctrl.search()">
             <i class="input__icon material-icons">search</i>
           </div>
-        </div>
+        </div>      
     </div>
+  </div>
+  <div ng-messages="globalSearchForm.searchTerm.$error">
+    <div ng-message="minlength">Must have more than 1 character</div>
   </div>
 </form>
