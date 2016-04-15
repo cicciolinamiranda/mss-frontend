@@ -28,8 +28,6 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.cancel = cancel;
 
   function init() {
-    _this.callInFrequencyChoices = _this.postModel.callInFrequencyChoices;
-
     getAllRoles();
 
     _this.postModel.getGenderChoices().then(function (response) {
@@ -52,6 +50,15 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
           }
         }
       }
+
+      _this.postModel.getCallInFrequencyChoices().then(function (response) {
+        _this.callInFrequencyChoices = response;
+        for(i = 0; i < _this.callInFrequencyChoices.length; i++){
+          if(_this.callInFrequencyChoices[i].id == _this.post.callInFrequency.id){
+            _this.post.callInFrequency = _this.callInFrequencyChoices[i];
+          }
+        }
+      });
     });
   }
 
