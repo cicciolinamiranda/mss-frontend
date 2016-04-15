@@ -28,9 +28,7 @@ function PostModel(PostService) {
       numberOfEmployees: 1,
       startTime: moment("09:00", "HH:mm").toDate(),
       endTime: moment("17:00", "HH:mm").toDate(),
-      hours: function () {
-        return moment(endTime).diff(moment(startTime), 'hours');
-      },
+      hours: moment(moment("17:00", "HH:mm").toDate()).diff(moment(moment("09:00", "HH:mm").toDate()), 'hours'),
       chargeRate: 0,
       bookOn: true,
       bookOff: true,
@@ -117,8 +115,8 @@ function PostModel(PostService) {
       'name': post.name,
       'isIdentificationRequired': post.identificationRequired,
       'numberOfEmployees': post.numberOfEmployees,
-      'startTimeStr': moment(post.startTime).format("HH:mm"),
-      'endTimeStr': moment(post.endTime).format("HH:mm"),
+      'startTime': moment(post.startTime).format("HH:mm"),
+      'endTime': moment(post.endTime).format("HH:mm"),
       'hours': post.hours,
       'bookOn': post.bookOn,
       'bookOff': post.bookOff,
@@ -141,6 +139,7 @@ function PostModel(PostService) {
       },
       'role':post.role
     };
+
     if(post.postCover){
       postDTO.postCover = post.postCover.id;
     }
@@ -149,11 +148,12 @@ function PostModel(PostService) {
     }
 
     return postDTO;
+
   }
 
   PostModel.formatPostDtoToJson = function(dtoPost){
     var post = dtoPost;
-    post.hours = moment(dtoPost.hours, "HH:mm").toDate();
+    post.hours = moment(moment(dtoPost.endTime, "HH:mm").toDate()).diff(moment(moment(dtoPost.startTime, "HH:mm").toDate()), 'hours');
     post.postSkills = checkListIfNull(dtoPost.skills);
     post.uniform = checkListIfNull(dtoPost.uniform);
     post.equipments = checkListIfNull(dtoPost.equipments);
@@ -162,6 +162,8 @@ function PostModel(PostService) {
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
     post.postCoverId = dtoPost.postCover;
+    post.startTime = moment(dtoPost.startTime, "HH:mm").toDate();
+    post.endTime = moment(dtoPost.endTime, "HH:mm").toDate();
     return post;
   }
 
@@ -270,6 +272,10 @@ function PostModel(PostService) {
       }
 
     array.push(newItem);
+  };
+
+  PostModel.prototype.updateHours = function (post) {
+    post.hours = moment(post.endTime).diff(moment(post.startTime), 'hours');
   };
 
   return PostModel;
