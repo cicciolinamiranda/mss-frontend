@@ -22,7 +22,6 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.selectedHealthSafetyReq;
 
   //PostCover
-  _this.postType = this.postModel.postCoverChoices;
   _this.postRoleChoices = [];
 
   _this.update = update;
@@ -39,10 +38,9 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post =  PostModel.formatPostDtoToJson(response.result);
-      var postCoverList = _this.postType;
-      for (i = 0; i < postCoverList.length; i++) {
-        if(postCoverList[i].id == _this.post.postCoverId) {
-          _this.post.postCover = _this.postType[i];
+      for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
+        if(_this.postModel.postCoverChoices[i].id == _this.post.postCoverId) {
+          _this.post.postCover = _this.postModel.postCoverChoices[i];
         }
       }
     });

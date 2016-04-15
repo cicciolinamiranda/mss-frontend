@@ -43,16 +43,11 @@
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
-          <ui-select id="postCover" ng-model="$ctrl.post.postCover" theme="bootstrap">
-            <ui-select-match placeholder="Select a post cover">
-              <span ng-bind="$ctrl.post.postCover.name"></span>
-            </ui-select-match>
-            <ui-select-choices repeat="item in $ctrl.postType" refresh="$ctrl.postType"
-            refresh-delay="5" >
-            <span class="cover-option" ng-bind="item.name"></span>
-          </ui-select-choices>
-        </ui-select>
-        </div>
+          <select id="postCover" name="postCover" class="form-control pc-choices"
+          ng-model="$ctrl.post.postCover"
+          ng-options="option.name for option in $ctrl.postModel.postCoverChoices track by option.id">
+        </select>
+      </div>
         <div class="panel__heading">
           <div class="panel__title">Requirements</div>
         </div>
