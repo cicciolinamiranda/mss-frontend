@@ -23,7 +23,15 @@ describe("Create Post", function() {
               {id: 2, name: 'Male'},
               {id: 3, name: 'Female'}
             ]});
+
+            this.getAllRoles = function(){
+              return $q.resolve({items: [
+                {id: 1, name: 'Guard'},
+                {id: 2, name: 'Manager'},
+                {id: 3, name: 'Supervisor'}
+              ]});
           };
+
           this.post= {
               customerLocationId: undefined,
               name: '',

@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
 
 function listService($q, $gapi, EMPLOYEE_GAPI_BASE, GAuth) {
   var cache = [];
+  var searchCache = {};
   var deferred = $q.defer();
   var loadApi = deferred.promise;
 
@@ -14,19 +15,27 @@ function listService($q, $gapi, EMPLOYEE_GAPI_BASE, GAuth) {
   });
 
   this.list = function(params) {
-    console.log(params.q);
-    if (params.q) console.log("*** THIS IS A SEARCH ***");
-    params.pageNum = typeof params.pageNum !== 'undefined' ?  params.pageNum - 1 : 0;
     var deferred2 = $q.defer();
-    if (cache[params.pageNum]) {
-      deferred2.resolve(cache[params.pageNum]);
+    var localCache;
+
+    var searchTerm = params.q;
+    if (searchTerm) {
+      if (!searchCache.hasOwnProperty(searchTerm))
+        searchCache[searchTerm] = [];
+      localCache = searchCache[searchTerm];
+    }
+    else localCache = cache;
+
+    var pageNum = typeof params.pageNum !== 'undefined' ?  params.pageNum - 1 : 0;
+    if (localCache[pageNum]) {
+      deferred2.resolve(localCache[pageNum]);
     }
     else {
       loadApi.then(GAuth.protect(function() {
-        return $gapi.client.employee.employees.list();
+        return $gapi.client.employee.employees.list({q: searchTerm});
       })).then(function(data) {
-        cache[params.pageNum] = data.employees;
-        deferred2.resolve(cache[params.pageNum]);
+        localCache[pageNum] = data.employees;
+        deferred2.resolve(localCache[pageNum]);
       });
     }
     return deferred2.promise;

@@ -11,6 +11,7 @@ function editPostModel($state, EditPostSvc, PostModel) {
   }
 
   EditPostModel.prototype.editPost = function(transaction, postDto){
+    console.log(postDto);
     if(transaction === 'd'){
       postDto.id = null;
 
@@ -36,6 +37,17 @@ function editPostModel($state, EditPostSvc, PostModel) {
     return EditPostSvc.getPostDetailsById(id).then(function (response) {
       return response;
     });
+  }
+
+  EditPostModel.prototype.hideFromDisplay = function(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+          array[i].deleted = true;
+        }
+
+      }
+    }
   }
 
   return EditPostModel;

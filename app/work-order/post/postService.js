@@ -101,7 +101,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     var def = $q.defer();
 
     loadApi.then(function () {
-      return $gapi.client.customerContract.workorder.master.file.equipment.list();
+      return $gapi.client.customerContract.workorder.master.file.postequipment.list();
     }).then(function (data) {
       def.resolve(data.items);
     });
@@ -142,6 +142,29 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
       def.resolve(data.items);
     });
 
+    return def.promise;
+  };
+
+  _this.getAllRoles = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.role.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+
+  _this.getCallInFrequencies = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.callfrequency.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
     return def.promise;
   };
 

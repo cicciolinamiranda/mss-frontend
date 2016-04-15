@@ -21,11 +21,17 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.selectedPostSkill;
   _this.selectedHealthSafetyReq;
 
+  //PostCover
+  _this.postType = this.postModel.postCoverChoices;
+  _this.postRoleChoices = [];
+
   _this.update = update;
+  _this.cancel = cancel;
 
   function init() {
     _this.callInFrequencyChoices = _this.postModel.callInFrequencyChoices;
-    _this.postCoverChoices = _this.postModel.postCoverChoices;
+
+    getAllRoles();
 
     _this.postModel.getGenderChoices().then(function (response) {
       _this.genderChoices = response;
@@ -33,6 +39,12 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post =  PostModel.formatPostDtoToJson(response.result);
+      var postCoverList = _this.postType;
+      for (i = 0; i < postCoverList.length; i++) {
+        if(postCoverList[i].id == _this.post.postCoverId) {
+          _this.post.postCover = _this.postType[i];
+        }
+      }
     });
   }
 
@@ -40,5 +52,15 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
   function update(){
     _this.model.editPost(_this.transactionParam, _this.post);
+  }
+
+  function cancel() {
+    $state.go('post.view', {id: postId});
+  }
+
+  function getAllRoles() {
+    _this.postModel.getAllRoles().then(function (response) {
+      _this.postRoleChoices = response;
+    });
   }
 }
