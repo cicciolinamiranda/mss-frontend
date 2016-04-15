@@ -21,11 +21,12 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.errMessage = "";
 
   //PostCover
-  _this.postType = this.model.postCoverChoices;
   _this.postRoleChoices = [];
+
   function init() {
     _this.post = _this.model.post;
     _this.post.customerLocationId = locationId;
+    _this.post.postCover = _this.model.postCoverChoices[0] || '';
 
     _this.model.getGenderChoices().then(function (response) {
       _this.genderChoices = response;

@@ -39,7 +39,8 @@ function PostModel(PostService) {
         languages: [],
         physicalConditions: [],
         qualifications: [],
-        religions: []
+        religions: [],
+        height: 170
       },
       licenses: [],
       postSkills: [],
