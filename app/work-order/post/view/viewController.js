@@ -25,8 +25,6 @@ function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
           }
         }
       };
-
-      console.log(_this.post);
     });
   }
 }

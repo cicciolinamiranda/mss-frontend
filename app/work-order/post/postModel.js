@@ -7,19 +7,8 @@ function PostModel(PostService) {
   var _this = this;
 
   function PostModel() {
-    this.callInFrequencyChoices = setCallInFrequencyChoices();
     this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
-  }
-
-  function setCallInFrequencyChoices() {
-    var callInFrequencyChoices = [
-      {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
-      {id: 'EVERY_1_HR', name: 'Every 1 hr'},
-      {id: 'EVERY_2_HR', name: 'Every 2 hrs'}
-    ];
-
-    return callInFrequencyChoices;
   }
 
   function setPostCoverChoices(){
@@ -57,13 +46,11 @@ function PostModel(PostService) {
       licenses: [],
       postSkills: [],
       uniforms: [],
-      equipments: []
+      equipments: [],
+      postCover:'',
+      role:null,
+      healthSafetyRequirements:[]
     };
-
-    var callFrequencyChoices = setCallInFrequencyChoices();
-    if (callFrequencyChoices && callFrequencyChoices.length > 0) {
-      post.callInFrequency = callFrequencyChoices[0];
-    }
 
     return post;
   }
@@ -76,6 +63,29 @@ function PostModel(PostService) {
     return list;
   }
 
+  function checkEquipmentQuantity(list){
+    if(list.length > 0){
+      for(i = 0; i < list.length; i++){
+        if(!list[i].quantity){
+          list[i].quantity = 0;
+        }
+      }
+    }
+    return list;
+  }
+
+  PostModel.prototype.getAllRoles = function () {
+    return PostService.getAllRoles().then(function (response) {
+      return response;
+    });
+  };
+
+  PostModel.prototype.getCallInFrequencyChoices = function () {
+    return PostService.getCallInFrequencies().then(function (response) {
+      return response;
+    });
+  };
+
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -83,13 +93,9 @@ function PostModel(PostService) {
     });
   };
 
-  //custpref:trainings
+  //Customer Preferences
   PostModel.prototype.trainingChoices = [];
-
-  //custpref:languages
   PostModel.prototype.languageChoices = [];
-
-  //custpref:physical conditions
   PostModel.prototype.physicalConditionChoices = [];
 
   // list components
@@ -100,14 +106,11 @@ function PostModel(PostService) {
   PostModel.prototype.healthSafetyRequirementsChoices = [];
   PostModel.prototype.qualificationChoices = [];
   PostModel.prototype.religionChoices = [];
-
-  PostModel.prototype.selectedQualification;
-  PostModel.prototype.selectedReligion;
+  PostModel.prototype.rolesChoices = [];
 
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
-    //id should be null during duplicate and create
-    var post = {
+    var postDTO = {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
       'name': post.name,
@@ -116,15 +119,15 @@ function PostModel(PostService) {
       'startTimeStr': moment(post.startTime).format("HH:mm"),
       'endTimeStr': moment(post.endTime).format("HH:mm"),
       'hours': post.hours,
-      'isBookOn': post.bookOn,
-      'isBookOff': post.bookOff,
-      'isCallIn': post.callIn,
+      'bookOn': post.bookOn,
+      'bookOff': post.bookOff,
+      'callIn': post.callIn,
       'notes': post.notes,
       'preferences': post.preferences,
       'licenses':checkListIfNull(post.licenses),
-      'skills': checkListIfNull(post.skills),
+      'skills': checkListIfNull(post.postSkills),
       'uniforms': checkListIfNull(post.uniforms),
-      'equipments': checkListIfNull(post.equipments),
+      'equipments': checkEquipmentQuantity(checkListIfNull(post.equipments)),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
         'religions': post.preferences.religions,
@@ -135,24 +138,29 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': post.postCover
-      // 'role': post.role, TODO: Uncomment once ok in backend
-      // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
+      'role':post.role
     };
+    if(post.postCover){
+      postDTO.postCover = post.postCover.id;
+    }
+    if(post.callIn && post.callInFrequency){
+      postDTO.callInFrequency = post.callInFrequency;
+    }
 
-    return post;
+    return postDTO;
   }
 
   PostModel.formatPostDtoToJson = function(dtoPost){
     var post = dtoPost;
     post.hours = moment(dtoPost.hours, "HH:mm").toDate();
-    post.skills = checkListIfNull(dtoPost.skills);
+    post.postSkills = checkListIfNull(dtoPost.skills);
     post.uniform = checkListIfNull(dtoPost.uniform);
     post.equipments = checkListIfNull(dtoPost.equipments);
     post.licenses = checkListIfNull(dtoPost.licenses);
     post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
+    post.postCoverId = dtoPost.postCover;
     return post;
   }
 
@@ -218,7 +226,6 @@ function PostModel(PostService) {
 
   PostModel.prototype.refreshHealthSafetyRequirements = function(){
     PostService.getAllHealthSafetyRequirements().then(function (response) {
-      console.log(response);
           PostModel.prototype.healthSafetyRequirementsChoices = response;
         }, function (error) {
           _this.errMessage = error;
