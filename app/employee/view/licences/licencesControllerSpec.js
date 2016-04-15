@@ -3,9 +3,9 @@ var component = require('./index');
 describe("License Controller", function() {
   var $controller, $q, $rootScope;
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
   var sample_license = {
     category: 'Fresh Talent',
@@ -35,7 +35,7 @@ describe("License Controller", function() {
     it("should contain list of licenses", function() {
       var controller = $controller(require('./licencesController'), {
         LicencesSvc: mockLicencesSvc
-      }, { employee: sample_employee.id });
+      }, { employee: sample_employee.personGUID });
       $rootScope.$digest();
       expect(controller.licences.licences[0].licenceNumber).toEqual(sample_license.licenceNumber);
     });
