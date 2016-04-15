@@ -7,19 +7,8 @@ function PostModel(PostService) {
   var _this = this;
 
   function PostModel() {
-    this.callInFrequencyChoices = setCallInFrequencyChoices();
     this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
-  }
-
-  function setCallInFrequencyChoices() {
-    var callInFrequencyChoices = [
-      {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
-      {id: 'EVERY_1_HR', name: 'Every 1 hr'},
-      {id: 'EVERY_2_HR', name: 'Every 2 hrs'}
-    ];
-
-    return callInFrequencyChoices;
   }
 
   function setPostCoverChoices(){
@@ -61,11 +50,6 @@ function PostModel(PostService) {
       healthSafetyRequirements:[]
     };
 
-    var callFrequencyChoices = setCallInFrequencyChoices();
-    if (callFrequencyChoices && callFrequencyChoices.length > 0) {
-      post.callInFrequency = callFrequencyChoices[0];
-    }
-
     return post;
   }
 
@@ -94,6 +78,12 @@ function PostModel(PostService) {
     });
   };
 
+  PostModel.prototype.getCallInFrequencyChoices = function () {
+    return PostService.getCallInFrequencies().then(function (response) {
+      return response;
+    });
+  };
+
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -101,13 +91,9 @@ function PostModel(PostService) {
     });
   };
 
-  //custpref:trainings
+  //Customer Preferences
   PostModel.prototype.trainingChoices = [];
-
-  //custpref:languages
   PostModel.prototype.languageChoices = [];
-
-  //custpref:physical conditions
   PostModel.prototype.physicalConditionChoices = [];
 
   // list components
@@ -120,19 +106,9 @@ function PostModel(PostService) {
   PostModel.prototype.religionChoices = [];
   PostModel.prototype.rolesChoices = [];
 
-  PostModel.prototype.selectedQualification;
-  PostModel.prototype.selectedReligion;
-
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
-    //id should be null during duplicate and create
-    var postCoverId="";
-    if(undefined != post.postCover)
-    {
-      postCoverId = post.postCover.id;
-    }
-    console.log("TO BE TRANSFORMED:----->"+JSON.stringify(post));
-    var post = {
+    var postDTO = {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
       'name': post.name,
@@ -141,9 +117,9 @@ function PostModel(PostService) {
       'startTime': moment(post.startTime).format("HH:mm"),
       'endTime': moment(post.endTime).format("HH:mm"),
       'hours': post.hours,
-      'isBookOn': post.bookOn,
-      'isBookOff': post.bookOff,
-      'isCallIn': post.callIn,
+      'bookOn': post.bookOn,
+      'bookOff': post.bookOff,
+      'callIn': post.callIn,
       'notes': post.notes,
       'preferences': post.preferences,
       'licenses':checkListIfNull(post.licenses),
@@ -160,14 +136,18 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': postCoverId,
       'role':post.role
-      // 'role': post.role, TODO: Uncomment once ok in backend
-      // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
-console.log("POST EDIT");
-console.log(post);
-    return post;
+
+    if(post.postCover){
+      postDTO.postCover = post.postCover.id;
+    }
+    if(post.callIn && post.callInFrequency){
+      postDTO.callInFrequency = post.callInFrequency;
+    }
+
+    return postDTO;
+
   }
 
   PostModel.formatPostDtoToJson = function(dtoPost){

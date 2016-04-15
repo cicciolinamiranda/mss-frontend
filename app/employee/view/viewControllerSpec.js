@@ -3,9 +3,9 @@ var component = require('./index');
 describe("Employee View Controller", function() {
   var $controller, $q, $rootScope;
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
   var mockEmployeeViewSvc = {
     get: function(id) {
@@ -28,10 +28,10 @@ describe("Employee View Controller", function() {
     it("contains a list of employees resolved by the service", function() {
       var controller = $controller(require('./viewController'), {
         EmployeeViewSvc: mockEmployeeViewSvc,
-        $stateParams: {employeeId: sample_employee.id}
+        $stateParams: {employeeId: sample_employee.personGUID}
       });
       $rootScope.$digest();
-      expect(controller.employee.firstname).toEqual(sample_employee.firstname);
+      expect(controller.employee.firstName).toEqual(sample_employee.firstName);
     });
   });
 });

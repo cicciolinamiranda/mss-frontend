@@ -8,9 +8,9 @@ describe("Employee View Component", function() {
     contractDays: '5'
   };
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
 
   beforeEach(angular.mock.module(component.name));
@@ -49,7 +49,7 @@ describe("Employee View Component", function() {
         return gapi;
       });
       $provide.value('$stateParams', {
-        employeeId: sample_employee.id
+        employeeId: sample_employee.personGUID
       });
     });
   });
