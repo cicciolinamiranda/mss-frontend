@@ -12,7 +12,7 @@ function editPostModel($state, EditPostSvc, PostModel) {
   EditPostModel.prototype.selectedPostAllowances;
   EditPostModel.prototype.postAllowancesChoices = [];
   EditPostModel.prototype.editPost = function(transaction, postDto){
-    console.log(postDto);
+
     if(transaction === 'd'){
       postDto.id = null;
 

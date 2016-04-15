@@ -7,19 +7,8 @@ function PostModel(PostService) {
   var _this = this;
 
   function PostModel() {
-    this.callInFrequencyChoices = setCallInFrequencyChoices();
     this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
-  }
-
-  function setCallInFrequencyChoices() {
-    var callInFrequencyChoices = [
-      {id: 'EVERY_30_MIN', name: 'Every 30 mins'},
-      {id: 'EVERY_1_HR', name: 'Every 1 hr'},
-      {id: 'EVERY_2_HR', name: 'Every 2 hrs'}
-    ];
-
-    return callInFrequencyChoices;
   }
 
   function setPostCoverChoices(){
@@ -39,9 +28,7 @@ function PostModel(PostService) {
       numberOfEmployees: 1,
       startTime: moment("09:00", "HH:mm").toDate(),
       endTime: moment("17:00", "HH:mm").toDate(),
-      hours: function () {
-        return moment(endTime).diff(moment(startTime), 'hours');
-      },
+      hours: moment(moment("17:00", "HH:mm").toDate()).diff(moment(moment("09:00", "HH:mm").toDate()), 'hours'),
       chargeRate: 0,
       bookOn: true,
       bookOff: true,
@@ -52,7 +39,8 @@ function PostModel(PostService) {
         languages: [],
         physicalConditions: [],
         qualifications: [],
-        religions: []
+        religions: [],
+        height: 170
       },
       licenses: [],
       postSkills: [],
@@ -63,11 +51,6 @@ function PostModel(PostService) {
       healthSafetyRequirements:[],
       allowances:[]
     };
-
-    var callFrequencyChoices = setCallInFrequencyChoices();
-    if (callFrequencyChoices && callFrequencyChoices.length > 0) {
-      post.callInFrequency = callFrequencyChoices[0];
-    }
 
     return post;
   }
@@ -97,6 +80,12 @@ function PostModel(PostService) {
     });
   };
 
+  PostModel.prototype.getCallInFrequencyChoices = function () {
+    return PostService.getCallInFrequencies().then(function (response) {
+      return response;
+    });
+  };
+
   //customer preferences
   PostModel.prototype.getGenderChoices = function () {
     return PostService.getGenderValues().then(function (response) {
@@ -104,13 +93,9 @@ function PostModel(PostService) {
     });
   };
 
-  //custpref:trainings
+  //Customer Preferences
   PostModel.prototype.trainingChoices = [];
-
-  //custpref:languages
   PostModel.prototype.languageChoices = [];
-
-  //custpref:physical conditions
   PostModel.prototype.physicalConditionChoices = [];
 
   // list components
@@ -124,30 +109,21 @@ function PostModel(PostService) {
   PostModel.prototype.rolesChoices = [];
   PostModel.prototype.postAllowancesChoices = [];
 
-  PostModel.prototype.selectedQualification;
-  PostModel.prototype.selectedReligion;
   PostModel.prototype.selectedPostAllowances;
-
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
-    //id should be null during duplicate and create
-    var postCoverId="";
-    if(undefined != post.postCover)
-    {
-      postCoverId = post.postCover.id;
-    }
-    var post = {
+    var postDTO = {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
       'name': post.name,
       'isIdentificationRequired': post.identificationRequired,
       'numberOfEmployees': post.numberOfEmployees,
-      'startTimeStr': moment(post.startTime).format("HH:mm"),
-      'endTimeStr': moment(post.endTime).format("HH:mm"),
+      'startTime': moment(post.startTime).format("HH:mm"),
+      'endTime': moment(post.endTime).format("HH:mm"),
       'hours': post.hours,
-      'isBookOn': post.bookOn,
-      'isBookOff': post.bookOff,
-      'isCallIn': post.callIn,
+      'bookOn': post.bookOn,
+      'bookOff': post.bookOff,
+      'callIn': post.callIn,
       'notes': post.notes,
       'preferences': post.preferences,
       'licenses':checkListIfNull(post.licenses),
@@ -164,19 +140,24 @@ function PostModel(PostService) {
         'physicalConditions':post.preferences.physicalConditions,
         'height': post.preferences.height
       },
-      'postCover': postCoverId,
       'role':post.role,
+      'chargeRate': post.chargeRate,
       'allowances':post.allowances
-      // 'role': post.role, TODO: Uncomment once ok in backend
-      // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
+    if(post.postCover){
+      postDTO.postCover = post.postCover.id;
+    }
+    if(post.callIn && post.callInFrequency){
+      postDTO.callInFrequency = post.callInFrequency;
+    }
 
-    return post;
+    return postDTO;
+
   }
 
   PostModel.formatPostDtoToJson = function(dtoPost){
     var post = dtoPost;
-    post.hours = moment(dtoPost.hours, "HH:mm").toDate();
+    post.hours = moment(moment(dtoPost.endTime, "HH:mm").toDate()).diff(moment(moment(dtoPost.startTime, "HH:mm").toDate()), 'hours');
     post.postSkills = checkListIfNull(dtoPost.skills);
     post.uniform = checkListIfNull(dtoPost.uniform);
     post.equipments = checkListIfNull(dtoPost.equipments);
@@ -186,6 +167,8 @@ function PostModel(PostService) {
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
     post.postCoverId = dtoPost.postCover;
     post.allowances = checkListIfNull(dtoPost.allowances);
+    post.startTime = moment(dtoPost.startTime, "HH:mm").toDate();
+    post.endTime = moment(dtoPost.endTime, "HH:mm").toDate();
     return post;
   }
 
@@ -306,6 +289,21 @@ function PostModel(PostService) {
     array.push(newItem);
   };
 
+  PostModel.prototype.hideFromDisplay = function(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+          array[i].deleted = true;
+        }
+
+      }
+    }
+  };
+
+  PostModel.prototype.updateHours = function (post) {
+    post.hours = moment(post.endTime).diff(moment(post.startTime), 'hours');
+  };
+  
   PostModel.prototype.addToEditArray = function (array, item) {
     var newItem = angular.copy(item);
     newItem.deleted = false;
@@ -321,16 +319,6 @@ function PostModel(PostService) {
     }
   };
 
-  PostModel.prototype.hideFromDisplay = function(array, id){
-    for(i= 0; i < array.length; i++){
-      if(array[i].id === id){
-        if(undefined !== array[i].deleted) {
-          array[i].deleted = true;
-        }
-
-      }
-    }
-  };
 
   return PostModel;
 }
