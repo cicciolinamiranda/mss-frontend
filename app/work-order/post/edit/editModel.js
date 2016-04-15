@@ -9,8 +9,6 @@ function editPostModel($state, EditPostSvc, PostModel) {
   function EditPostModel() {
   }
   EditPostModel.prototype.errMessage = "";
-  EditPostModel.prototype.selectedPostAllowances;
-  EditPostModel.prototype.postAllowancesChoices = [];
   EditPostModel.prototype.editPost = function(transaction, postDto){
 
     if(transaction === 'd'){
