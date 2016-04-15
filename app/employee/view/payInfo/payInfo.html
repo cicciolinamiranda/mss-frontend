@@ -20,12 +20,12 @@
       <th>Rate</th>
       <th>Rate Currency</th>
     </tr>
-    <tr ng-repeat = "payRates in $ctrl.employeePayRates.employeePayRates">
+    <tr ng-repeat="payRates in $ctrl.employeePayRates.employeePayRates">
       <td ng-bind="payRates.rate"></td>
       <td ng-bind="payRates.rateCurrency"></td>
     </tr>
   </table>
-  <div ng-show="$ctrl.employeePayRates.employeePayRates.length == null">
-    <h3>No Records for Employee Pay Rates</h3>
+  <div ng-hide="!!$ctrl.employeePayRates.employeePayRates.length">
+    <h3>No records found</h3>
   </div>
 </div>
