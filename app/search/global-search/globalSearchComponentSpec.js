@@ -27,7 +27,7 @@ describe("Global Search Component", function() {
     $rootScope = _$rootScope_;
   }));
 
-  it("accepts a search item with less than 2 characters", function() {
+  it("shows a message for a search item with less than 2 characters", function() {
     $rootScope.model = { searchTerm: null };
     var globalSearch = $compile('<global-search></global-search>')($rootScope);
     console.log(globalSearch.html());
