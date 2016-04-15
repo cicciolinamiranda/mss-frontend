@@ -28,8 +28,6 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.cancel = cancel;
 
   function init() {
-    _this.callInFrequencyChoices = _this.postModel.callInFrequencyChoices;
-
     getAllRoles();
 
     _this.postModel.getGenderChoices().then(function (response) {
@@ -38,6 +36,8 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post = PostModel.formatPostDtoToJson(response.result);
+      console.log("post",_this.post);
+
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
         if(_this.postModel.postCoverChoices[i].id == _this.post.postCoverId) {
@@ -52,6 +52,15 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
           }
         }
       }
+
+      _this.postModel.getCallInFrequencyChoices().then(function (response) {
+        _this.callInFrequencyChoices = response;
+        for(i = 0; i < _this.callInFrequencyChoices.length; i++){
+          if(_this.callInFrequencyChoices[i].id == _this.post.callInFrequency.id){
+            _this.post.callInFrequency = _this.callInFrequencyChoices[i];
+          }
+        }
+      });
     });
   }
 
