@@ -134,6 +134,19 @@
         </div>
         <div class="row">
           <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
+                <label>Minimum Height (cm)</label>
+              </div>
+              <div class="col-md-3 pull-right">
+                <span>{{$ctrl.post.preferences.height}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             <label>Skills Required</label>
             <div ng-switch="$ctrl.post.skills.length > 0">
               <div ng-switch-when="false">
@@ -236,32 +249,8 @@
           </div>
         </div>
         <!--training/language-->
-        <!--physCondition/height-->
+        <!--physCondition-->
         <div class="row">
-          <div class="col-md-6">
-            <label>Height (cm)</label>
-            <div ng-switch="$ctrl.post.preferences.height.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.height">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
           <div class="col-md-6">
             <label>Physical Conditions</label>
             <div ng-switch="$ctrl.post.preferences.physicalConditions.length > 0">
