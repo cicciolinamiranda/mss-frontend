@@ -37,10 +37,19 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
     });
 
     _this.model.getPostDetails(postId).then(function (response) {
-      _this.post =  PostModel.formatPostDtoToJson(response.result);
+      _this.post = PostModel.formatPostDtoToJson(response.result);
+
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
         if(_this.postModel.postCoverChoices[i].id == _this.post.postCoverId) {
           _this.post.postCover = _this.postModel.postCoverChoices[i];
+        }
+      }
+      //needed to properly tick radio button
+      if(_this.genderChoices){
+        for(i = 0; i < _this.genderChoices.length; i++){
+          if(_this.genderChoices[i].id == _this.post.preferences.gender.id){
+            _this.post.preferences.gender = _this.genderChoices[i];
+          }
         }
       }
     });
