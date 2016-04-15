@@ -25,6 +25,8 @@ function searchService($state) {
   _this.search = function(searchTerm) {
     if (_selectedFilter == 'Employee') {
       $state.go('employee.search', {searchTerm: searchTerm});
+    }else if(_selectedFilter == 'Location') {
+      $state.go('location.search', {searchTerm: searchTerm});
     }
   };
 }
