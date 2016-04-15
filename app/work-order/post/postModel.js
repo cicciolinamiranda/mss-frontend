@@ -60,7 +60,8 @@ function PostModel(PostService) {
       equipments: [],
       postCover:'',
       role:null,
-      healthSafetyRequirements:[]
+      healthSafetyRequirements:[],
+      allowances:[]
     };
 
     var callFrequencyChoices = setCallInFrequencyChoices();
@@ -121,9 +122,11 @@ function PostModel(PostService) {
   PostModel.prototype.qualificationChoices = [];
   PostModel.prototype.religionChoices = [];
   PostModel.prototype.rolesChoices = [];
+  PostModel.prototype.postAllowancesChoices = [];
 
   PostModel.prototype.selectedQualification;
   PostModel.prototype.selectedReligion;
+  PostModel.prototype.selectedPostAllowances;
 
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
@@ -133,7 +136,6 @@ function PostModel(PostService) {
     {
       postCoverId = post.postCover.id;
     }
-    console.log("TO BE TRANSFORMED:----->"+JSON.stringify(post));
     var post = {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
@@ -163,7 +165,8 @@ function PostModel(PostService) {
         'height': post.preferences.height
       },
       'postCover': postCoverId,
-      'role':post.role
+      'role':post.role,
+      'allowances':post.allowances
       // 'role': post.role, TODO: Uncomment once ok in backend
       // 'callInFrequency' : post.callInFrequency, TODO: Uncomment once ok in backend
     };
@@ -182,6 +185,7 @@ function PostModel(PostService) {
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
     post.postCoverId = dtoPost.postCover;
+    post.allowances = checkListIfNull(dtoPost.allowances);
     return post;
   }
 
@@ -272,6 +276,16 @@ function PostModel(PostService) {
     );
   }
 
+
+  PostModel.prototype.refreshPostAllowances = function(){
+    PostService.getPostAllowances().then(function (response) {
+          PostModel.prototype.postAllowancesChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
   PostModel.prototype.removeFromArray = function (array, id) {
     for (var i = 0; i < array.length; i++) {
       if (array[i].id === id) {
@@ -290,6 +304,32 @@ function PostModel(PostService) {
       }
 
     array.push(newItem);
+  };
+
+  PostModel.prototype.addToEditArray = function (array, item) {
+    var newItem = angular.copy(item);
+    newItem.deleted = false;
+    if(array){
+
+      for(i = 0; i < array.length; i++){
+        if(array[i].id === newItem.id){
+          return;
+        }
+      }
+
+      array.push(newItem);
+    }
+  };
+
+  PostModel.prototype.hideFromDisplay = function(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+          array[i].deleted = true;
+        }
+
+      }
+    }
   };
 
   return PostModel;

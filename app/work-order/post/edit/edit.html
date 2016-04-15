@@ -17,6 +17,9 @@
         <div class="panel__heading">
           <div class="panel__title">Post Details</div>
         </div>
+        <div class="alert alert-danger" ng-show="$ctrl.model.errMessage">
+          {{$ctrl.model.errMessage}}
+        </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
           <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name" required/>
@@ -385,10 +388,35 @@
         </div>
         <div class="form-group">
           <label for="allowances">Allowances</label>
-          <select name="allowances" class="form-control">
-            <option>Travel Allowance</option>
-            <option>Others</option>
-          </select>
+          <ui-select id="allowances" ng-model="$ctrl.postModel.selectedPostAllowances" theme="bootstrap"
+          on-select="$ctrl.postModel.addToEditArray($ctrl.post.allowances, $ctrl.postModel.selectedPostAllowances)">
+          <ui-select-match placeholder="Select an Allowance...">
+            <span ng-bind="$ctrl.postModel.selectedPostAllowances.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="item in ($ctrl.postModel.postAllowancesChoices | filter: $select.search) track by item.id"
+          refresh="$ctrl.postModel.refreshPostAllowances()"
+          refresh-delay="5">
+          <span ng-bind="item.name"></span>
+        </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.post.allowances">
+          <li class="list-group-item ss-selected-item" ng-repeat="allowance in $ctrl.post.allowances" ng-hide="allowance.deleted">
+            <span ng-bind="allowance.name"></span>
+            <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+            ng-click="$ctrl.model.hideFromDisplay($ctrl.post.allowances, allowance.id)">
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </button>
+          <label class="text-muted pull-right">
+            <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
+          </label>
+          <div class="col-md-2">
+            <label>Amount:</label>
+          </div>
+          <div class="col-md-2">
+            <input type="float" class="form-control" name="eqipQty" id="eqipQty" size="5"
+              ng-model="allowance.amount"/>
+        </li>
+        </ul>
         </div>
         <div class="panel__heading">
           <div class="panel__title">Other Information</div>
