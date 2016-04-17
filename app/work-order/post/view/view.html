@@ -240,7 +240,7 @@
         <div class="row">
           <div class="col-md-6">
             <label>Height (cm)</label>
-            <div ng-switch="$ctrl.post.preferences.height.length > 0">
+            <div ng-switch="$ctrl.post.preferences.height > 0">
               <div ng-switch-when="false">
                 <div class="alert alert-info" style="padding-left:20px">
                   No data available.
@@ -248,13 +248,13 @@
               </div>
               <div ng-switch-default>
                 <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.height">
+                  <li class="list-group-item">
                     <div class="row">
                       <div class="col-md-1">
                          <i class="fa fa-caret-right"></i>&nbsp;
                       </div>
                       <div class="col-md-8">
-                        <span ng-bind="item"></span>
+                        <span ng-bind="$ctrl.post.preferences.height"></span>
                       </div>
                     </div>
                   </li>
@@ -465,6 +465,10 @@
                       </div>
                       <div class="col-md-8">
                         <span ng-bind="item.name"></span>
+                      </div>
+                      <div class="col-md-8">
+                        Amount: <span ng-bind="item.amount"></span></br>
+                          <span><input type="checkbox" ng-model="item.billed" disabled/>&nbsp;Billed</span>
                       </div>
                     </div>
                   </li>

@@ -154,7 +154,6 @@ function PostModel(PostService) {
     if(post.duplicateForm){
       postDTO.duplicateForm = post.duplicateForm;
     }
-    console.log(JSON.stringify(postDTO));
     return postDTO;
 
   }
@@ -163,12 +162,15 @@ function PostModel(PostService) {
     var post = dtoPost;
     post.hours = moment(moment(dtoPost.endTime, "HH:mm").toDate()).diff(moment(moment(dtoPost.startTime, "HH:mm").toDate()), 'hours');
     post.postSkills = checkListIfNull(dtoPost.skills);
-    post.uniform = checkListIfNull(dtoPost.uniform);
+    post.uniforms = checkListIfNull(dtoPost.uniforms);
     post.equipments = checkListIfNull(dtoPost.equipments);
     post.licenses = checkListIfNull(dtoPost.licenses);
     post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
+    post.preferences.trainings = checkListIfNull(dtoPost.preferences.trainings);
+    post.preferences.physicalConditions = checkListIfNull(dtoPost.preferences.physicalConditions);
+    post.preferences.languages = checkListIfNull(dtoPost.preferences.languages);
     post.postCoverId = dtoPost.postCover;
     post.allowances = checkListIfNull(dtoPost.allowances);
     post.startTime = moment(dtoPost.startTime, "HH:mm").toDate();

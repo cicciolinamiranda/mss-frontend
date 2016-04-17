@@ -408,14 +408,14 @@
                 <span ng-bind="allowance.name"></span>
               </div>
               <div class="col-md-1">
-                <label>Amount:</label>
+                <label>Amount:  </label>
                 <label class="text-muted">
                   <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
                 </label>
               </div>
               <div class="col-md-2">
                 <input type="number" class="form-control" name="allowanceAmount" id="allowanceAmount" size="5"
-                  ng-model="allowance.amount"/>
+                  ng-model="allowance.amount" step="0.01"/>
               </div>
               <div class="col-md-1">
                 <button type="button" class="btn btn-link" style="color: #080808; float: right;"
