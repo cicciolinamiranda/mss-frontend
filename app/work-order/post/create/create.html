@@ -397,22 +397,29 @@
   <span ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
-<ul class="list-group" ng-show="$ctrl.post.allowances">
+<ul class="list-group" ng-show="$ctrl.model.post.allowances">
   <li class="list-group-item ss-selected-item" ng-repeat="allowance in $ctrl.post.allowances">
-    <span ng-bind="allowance.name"></span>
-    <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-    ng-click="$ctrl.model.removeFromArray($ctrl.post.allowances, allowance.id)">
-    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-  </button>
-  <label class="text-muted pull-right">
-    <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
-  </label>
-  <div class="col-md-1">
-    <label>Amount:</label>
-  </div>
-  <div class="col-md-2">
-    <input type="float" class="form-control" name="eqipQty" id="eqipQty" size="5"
-      ng-model="allowance.amount"/>
+    <div class="row">
+      <div class="col-md-8">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+        <span ng-bind="allowance.name"></span>
+      </div>
+      <div class="col-md-2">
+        <label>Amount:  </label>
+        <label class="text-muted">
+          <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
+        </label>
+      </div>
+      <div class="col-md-3">
+        <input type="number" class="form-control" name="eqipQty" id="eqipQty" size="5"
+          ng-model="allowance.amount"/>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+        ng-click="$ctrl.model.removeFromArray($ctrl.post.allowances, allowance.id)">
+        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </li>
 </ul>

@@ -20,6 +20,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   _this.selectedLicense;
   _this.selectedPostSkill;
   _this.selectedHealthSafetyReq;
+  _this.selectedUniform;
 
   //PostCover
   _this.postRoleChoices = [];

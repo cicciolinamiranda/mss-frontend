@@ -13,7 +13,7 @@ function editPostModel($state, EditPostSvc, PostModel) {
 
     if(transaction === 'd'){
       postDto.id = null;
-
+      postDto.duplicateForm = true;
       EditPostSvc.save(PostModel.transformPostJsonToDTO(postDto)).then(function(response){
         if(response == "Failed"){
             EditPostModel.prototype.errMessage = 'Unable to save Post Record';

@@ -129,7 +129,7 @@ function PostModel(PostService) {
       'licenses':checkListIfNull(post.licenses),
       'skills': checkListIfNull(post.postSkills),
       'uniforms': checkListIfNull(post.uniforms),
-      'equipments': checkEquipmentQuantity(checkListIfNull(post.equipments)),
+      'equipments': checkEquipmentQuantity(post.equipments),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
         'religions': post.preferences.religions,
@@ -151,6 +151,10 @@ function PostModel(PostService) {
       postDTO.callInFrequency = post.callInFrequency;
     }
 
+    if(post.duplicateForm){
+      postDTO.duplicateForm = post.duplicateForm;
+    }
+    console.log(JSON.stringify(postDTO));
     return postDTO;
 
   }
@@ -303,7 +307,7 @@ function PostModel(PostService) {
   PostModel.prototype.updateHours = function (post) {
     post.hours = moment(post.endTime).diff(moment(post.startTime), 'hours');
   };
-  
+
   PostModel.prototype.addToEditArray = function (array, item) {
     var newItem = angular.copy(item);
     newItem.deleted = false;
