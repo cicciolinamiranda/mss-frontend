@@ -30,6 +30,10 @@ function createPostService($q, $gapi, WORKORDER_GAPI_BASE) {
           {
             deferred2.resolve("Duplicate");
           }
+          else if(data.error.message == "Post name is required")
+          {
+            deferred2.resolve("Post name is required");
+          }
           else{
             deferred2.resolve("Failed");
           }

@@ -45,6 +45,10 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
           {
             deferred2.resolve("Duplicate");
           }
+          else if(data.error.message == "Post name is required")
+          {
+            deferred2.resolve("Required Name");
+          }
           else{
             deferred2.resolve("Failed");
           }
@@ -69,6 +73,10 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
           if(data.error.message == "Post name is already used.")
           {
             deferred2.resolve("Duplicate");
+          }
+          else if(data.error.message == "Post name is required")
+          {
+            deferred2.resolve("Post name is required");
           }
           else{
             deferred2.resolve("Failed");

@@ -55,6 +55,9 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       else if(response == "Duplicate"){
         _this.errMessage = 'Duplicate Post Name';
       }
+      else if(response == "Post name is required"){
+        _this.errMessage = "Post name is required";
+      }
       else{
         var postId = response.id;
         $state.go('post.view', {id: postId});
