@@ -116,7 +116,7 @@ function PostModel(PostService) {
       'id': post.id,
       'customerLocationId': post.customerLocationId,
       'name': post.name,
-      'isIdentificationRequired': post.identificationRequired,
+      'identificationRequired': post.identificationRequired,
       'numberOfEmployees': post.numberOfEmployees,
       'startTime': moment(post.startTime).format("HH:mm"),
       'endTime': moment(post.endTime).format("HH:mm"),

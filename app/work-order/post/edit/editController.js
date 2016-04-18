@@ -37,7 +37,10 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post = PostModel.formatPostDtoToJson(response.result);
-      _this.post.name += "-copy";
+
+      if(_this.transactionParam  === 'd'){
+        _this.post.name += " (Copy)";
+      }
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
         if(_this.postModel.postCoverChoices[i].id == _this.post.postCoverId) {

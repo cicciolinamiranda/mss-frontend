@@ -56,10 +56,8 @@
         </div>
         <div class="form-group">
           <label for="isIdRequired">Identification required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-checked="$ctrl.post.identificationRequired"
-            ng-model="$ctrl.post.isIdentificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-checked="!$ctrl.post.identificationRequired"
-            ng-model="$ctrl.post.isIdentificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -280,7 +278,7 @@
         </div>
         <div class="form-group">
           <label for="height">Height (cm)</label>
-          <input type="number" class="form-control" name="height" id="height" ng-model="$ctrl.post.preferences.height" />
+          <input type="number" class="form-control" name="height" min="0" id="height" ng-model="$ctrl.post.preferences.height" />
         </div>
         <div class="form-group">
           <label for="qualifications">Qualifications</label>
