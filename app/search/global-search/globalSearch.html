@@ -1,7 +1,7 @@
 <form name="searchForm" ng-submit="$ctrl.search()" class="navbar-form navbar-right">
   <div class="search search--site">
     <div class="input-group">
-      <input name="queryField" type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" ng-minlength="2" required/>
+      <input name="queryField" type="text" class="search__control" ng-model="$ctrl.searchTerm" placeholder="Search the system" ng-minlength="2" />
       <div class="input-group-wrapper">
         <div class="input-group-btn">
           <button type="button" class="btn btn--filter dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{$ctrl.selectedFilter()}} <span class="caret"></span></button>
@@ -18,6 +18,7 @@
     </div>
     <!-- error messages -->
     <div ng-messages="searchForm.queryField.$error">
+      <div ng-show="$ctrl.emptyError">Please enter a keyword</div>
       <div ng-message="minlength">Please enter at least 2 characters</div>
     </div>
   </div>

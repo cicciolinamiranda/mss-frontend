@@ -8,6 +8,12 @@ function globalSearchCtrl(SearchService) {
   _this.selectedFilter = SearchService.selectedFilter;
   _this.selectFilter = SearchService.selectFilter;
 
-  _this.search = function() { SearchService.search(_this.searchTerm) };
+  _this.search = function() {
+    if(_this.searchTerm == "") {
+      _this.emptyError = true;
+    }
+    else _this.emptyError = false;
+    SearchService.search(_this.searchTerm)
+  };
   _this.searchTerm = '';
 }
