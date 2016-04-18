@@ -15,520 +15,514 @@
               <h3>{{$ctrl.post.name}}</h3>
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-link pull-right" style="color: #080808;"
-                ng-click="$ctrl.model.editPost('e', $ctrl.post.id)" title="Edit">
-                <i class="fa fa-edit fa-2x"></i>
-              </button>
               <button type="button" class="btn btn-link pull-right" style="color: #080808;"
-              ng-click="$ctrl.model.editPost('d', $ctrl.post.id)" title="Duplicate">
-                <i class="fa fa-plus-circle fa-2x"></i>
-              </button>
-            </div>
+              ng-click="$ctrl.model.editPost('e', $ctrl.post.id)" title="Edit">
+              <i class="fa fa-edit fa-2x"></i>
+            </button>
+            <button type="button" class="btn btn-link pull-right" style="color: #080808;"
+            ng-click="$ctrl.model.editPost('d', $ctrl.post.id)" title="Duplicate">
+            <i class="fa fa-plus-circle fa-2x"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="panel__heading">
+      <div class="panel__title"></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Role</label>
+          </div>
+          <div class="col-md-4 pull-right">
+            <span>{{$ctrl.post.role.name}}</span>
           </div>
         </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Number of Employees</label>
+          </div>
+          <div class="col-md-4 pull-right">
+            <span>{{$ctrl.post.numberOfEmployees}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-9">
+            <span>Post Cover Type</span>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.postCover}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="panel__heading">
+      <div class="panel__title">Requirements</div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-9">
+            <label>Identification Required</label>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.identificationRequired ? 'Yes' : 'No'}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Skills Required</label>
+        <div ng-switch="$ctrl.post.skills.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.skills">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Licenses Required</label>
+        <div ng-switch="$ctrl.post.licenses.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.licenses">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Uniforms</label>
+        <div ng-switch="$ctrl.post.uniforms.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.uniforms">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Equipments</label>
+        <div ng-switch="$ctrl.post.equipments.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.equipments">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span> [ {{item.quantity}} ]
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Health And Safety Requirements</label>
+        <div ng-switch="$ctrl.post.healthSafetyRequirements.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.healthSafetyRequirements">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--uniform/equipment-->
+    <div class="panel__heading">
+      <div class="panel__title">Customer Preferences</div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Gender</label>
+          </div>
+          <div class="col-md-4 pull-right">
+            <span>{{$ctrl.post.preferences.gender.name}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-9">
+            <label>Minimum Height (cm)</label>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.preferences.height}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <!--trainings/languages-->
+    <div class="row">
+      <div class="col-md-6">
+        <label>Trainings</label>
+        <div ng-switch="$ctrl.post.preferences.trainings.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.trainings">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Languages</label>
+        <div ng-switch="$ctrl.post.preferences.languages.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.languages">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--training/language-->
+    <!--physCondition-->
+    <div class="row">
+      <div class="col-md-6">
+        <label>Physical Conditions</label>
+        <div ng-switch="$ctrl.post.preferences.physicalConditions.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.physicalConditions">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Qualifications</label>
+        <div ng-switch="$ctrl.post.preferences.qualifications.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.qualifications">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Religions</label>
+        <div ng-switch="$ctrl.post.preferences.religions.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.religions">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <!--qualifications-->
+    <!--billing-->
+    <div class="row">
+      <div class="col-md-12">
         <div class="panel__heading">
-          <div class="panel__title"></div>
+          <div class="panel__title">Shift Information and Billing</div>
         </div>
-        <br/>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6">
         <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Number of Employees</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.numberOfEmployees}}</span>
-              </div>
-            </div>
-            <hr/>
+          <div class="col-md-9">
+            <label>Book On?</label>
           </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Post Cover Type</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.postCover}}</span>
-              </div>
-            </div>
-            <hr/>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.bookOn ? 'Yes' : 'No'}}</span>
           </div>
         </div>
-
+        <hr/>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Book Off?</label>
+          </div>
+          <div class="col-md-4 pull-right">
+            <span>{{$ctrl.post.bookOff ? 'Yes' : 'No'}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-9">
+            <label>Call in?</label>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.callIn ? 'Yes' : 'No'}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="col-md-6" ng-show="$ctrl.post.callIn">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Call-in Frequency</label>
+          </div>
+          <div class="col-md-4 pull-right">
+            <span>{{$ctrl.post.callInFrequency.name}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-9">
+            <label>Charge Rate</label>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span ng-bind="$ctrl.post.chargeRate"></span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Allowances</label>
+        <div ng-switch="$ctrl.post.allowances.length > 0">
+          <div ng-switch-when="false">
+            <div class="alert alert-info" style="padding-left:20px">
+              No data available.
+            </div>
+          </div>
+          <div ng-switch-default>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in $ctrl.post.allowances">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="fa fa-caret-right"></i>&nbsp;
+                  </div>
+                  <div class="col-md-8">
+                    <span ng-bind="item.name"></span>
+                  </div>
+                  <div class="col-md-8">
+                    Amount: <span ng-bind="item.amount"></span></br>
+                    <span><input type="checkbox" ng-model="item.billed" disabled/>&nbsp;Billed</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--billing-->
+    <!--notes-->
+    <div class="row">
+      <div class="col-md-12">
         <div class="panel__heading">
-            <div class="panel__title">
-              <h4>{{$ctrl.post.role.name}}</h3>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <label>Book On?</label>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.bookOn}}</span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-8">
-                <label>Book Off?</label>
-              </div>
-              <div class="col-md-4 pull-right">
-                <span>{{$ctrl.post.bookOff}}</span>
-              </div>
-            </div>
-            <hr/>
+          <div class="panel__title">
+            <h4><i class="fa fa-file-text-o"></i> Notes</h4>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <label>Call in?</label>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.callIn}}</span>
+          <div ng-switch="$ctrl.post.notes">
+            <div ng-switch-when="false">
+              <div class="alert alert-info" style="padding-left:20px">
+                No data available.
               </div>
             </div>
-            <hr/>
+            <div ng-switch-default>
+              <span style="padding-left:20px" ng-bind="$ctrl.post.notes"></span>
+            </div>
           </div>
-          <div class="col-md-6" ng-show="$ctrl.post.callIn">
-            <div class="row">
-              <div class="col-md-8">
-                <label>Call-in Frequency</label>
-              </div>
-              <div class="col-md-4 pull-right">
-                 <span>{{$ctrl.post.callInFrequency.name}}</span>
-              </div>
-            </div>
-            <hr/>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <!--notes-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel__heading">
+          <div class="panel__title">
+            <h4> <i class="fa fa-refresh"></i> Shift Pattern</h4>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <label>Identification Required</label>
+          <div class="col-md-4">
+            <a href="">
+              <div class="panel text-center" style="padding:90px 0px;">
+                <i class="fa fa-picture-o fa-5x"></i>
               </div>
-              <div class="col-md-3 pull-right">
-                <span>{{$ctrl.post.identificationRequired}}</span>
-              </div>
-            </div>
-            <hr/>
+            </a>
           </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-8">
-                <label>Gender</label>
+          <div class="col-md-4">
+            <a href="">
+              <div class="panel text-center" style="padding:90px 0px;">
+                <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
               </div>
-              <div class="col-md-4 pull-right">
-                <span>{{$ctrl.post.preferences.gender.name}}</span>
-              </div>
-            </div>
-            <hr/>
+            </a>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <label>Skills Required</label>
-            <div ng-switch="$ctrl.post.skills.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.skills">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label>Licenses Required</label>
-            <div ng-switch="$ctrl.post.licenses.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.licenses">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <!--trainings/languages-->
-        <div class="row">
-          <div class="col-md-6">
-            <label>Trainings</label>
-            <div ng-switch="$ctrl.post.preferences.trainings.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.trainings">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label>Languages</label>
-            <div ng-switch="$ctrl.post.preferences.languages.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.languages">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <!--training/language-->
-        <!--physCondition/height-->
-        <div class="row">
-          <div class="col-md-6">
-            <label>Height (cm)</label>
-            <div ng-switch="$ctrl.post.preferences.height > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="$ctrl.post.preferences.height"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label>Physical Conditions</label>
-            <div ng-switch="$ctrl.post.preferences.physicalConditions.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.physicalConditions">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <!--physCondition/height-->
-        <!--uniform/equipment-->
-        <div class="row">
-          <div class="col-md-6">
-            <label>Uniforms</label>
-            <div ng-switch="$ctrl.post.uniforms.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.uniforms">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label>Equipments</label>
-            <div ng-switch="$ctrl.post.equipments.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.equipments">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span> [ {{item.quantity}} ]
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <!--uniform/equipment-->
-        <!--health and safety/religion-->
-        <div class="row">
-          <div class="col-md-6">
-            <label>Health And Safety Requirements</label>
-            <div ng-switch="$ctrl.post.healthSafetyRequirements.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.healthSafetyRequirements">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label>Religions</label>
-            <div ng-switch="$ctrl.post.preferences.religions.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.religions">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <hr/>
-          </div>
-        </div>
-        <!--health and safety/religion-->
-        <!--qualifications-->
-        <div class="row">
-          <div class="col-md-6">
-            <label>Qualifications</label>
-            <div ng-switch="$ctrl.post.preferences.qualifications.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.preferences.qualifications">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-          </div>
-        </div>
-        <!--qualifications-->
-        <!--billing-->
-        <div class="row">
-          <div class="col-md-12">
-              <div class="panel__heading">
-                <div class="panel__title">
-                  <h4><i class="fa fa-money"></i> Billing</h4>
-                </div>
-              </div>
-          </div>
-        </div>
-        <br/>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-9">
-                <span>Charge Rate</span>
-              </div>
-              <div class="col-md-3 pull-right">
-                <span ng-bind="$ctrl.post.chargeRate"></span>
-              </div>
-            </div>
-            <hr/>
-          </div>
-          <div class="col-md-6">
-            <label>Allowances</label>
-            <div ng-switch="$ctrl.post.allowances.length > 0">
-              <div ng-switch-when="false">
-                <div class="alert alert-info" style="padding-left:20px">
-                  No data available.
-                </div>
-              </div>
-              <div ng-switch-default>
-                <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="item in $ctrl.post.allowances">
-                    <div class="row">
-                      <div class="col-md-1">
-                         <i class="fa fa-caret-right"></i>&nbsp;
-                      </div>
-                      <div class="col-md-8">
-                        <span ng-bind="item.name"></span>
-                      </div>
-                      <div class="col-md-8">
-                        Amount: <span ng-bind="item.amount"></span></br>
-                          <span><input type="checkbox" ng-model="item.billed" disabled/>&nbsp;Billed</span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--billing-->
-        <!--notes-->
-        <div class="row">
-          <div class="col-md-12">
-              <div class="panel__heading">
-                <div class="panel__title">
-                  <h4><i class="fa fa-file-text-o"></i> Notes</h4>
-                </div>
-              </div>
-            <div class="row">
-              <div ng-switch="$ctrl.post.notes">
-                <div ng-switch-when="false">
-                  <div class="alert alert-info" style="padding-left:20px">
-                    No data available.
-                  </div>
-                </div>
-                <div ng-switch-default>
-                  <span style="padding-left:20px" ng-bind="$ctrl.post.notes"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br/>
-        <br/>
-        <!--notes-->
-        <div class="row">
-          <div class="col-md-12">
-              <div class="panel__heading">
-                <div class="panel__title">
-                  <h4> <i class="fa fa-refresh"></i> Shift Pattern</h4>
-                </div>
-              </div>
-            <div class="row">
-              <div class="col-md-4">
-                <a href="">
-                  <div class="panel text-center" style="padding:90px 0px;">
-                    <i class="fa fa-picture-o fa-5x"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-4">
-                <a href="">
-                  <div class="panel text-center" style="padding:90px 0px;">
-                    <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
   </form>
 </div>
 </div>
