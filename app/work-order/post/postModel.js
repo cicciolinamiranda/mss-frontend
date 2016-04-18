@@ -48,7 +48,8 @@ function PostModel(PostService) {
       equipments: [],
       postCover:'',
       role:null,
-      healthSafetyRequirements:[]
+      healthSafetyRequirements:[],
+      allowances:[]
     };
 
     return post;
@@ -106,7 +107,9 @@ function PostModel(PostService) {
   PostModel.prototype.qualificationChoices = [];
   PostModel.prototype.religionChoices = [];
   PostModel.prototype.rolesChoices = [];
+  PostModel.prototype.postAllowancesChoices = [];
 
+  PostModel.prototype.selectedPostAllowances;
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
     var postDTO = {
@@ -126,7 +129,7 @@ function PostModel(PostService) {
       'licenses':checkListIfNull(post.licenses),
       'skills': checkListIfNull(post.postSkills),
       'uniforms': checkListIfNull(post.uniforms),
-      'equipments': checkEquipmentQuantity(checkListIfNull(post.equipments)),
+      'equipments': checkEquipmentQuantity(post.equipments),
       'healthSafetyRequirements': checkListIfNull(post.healthSafetyRequirements),
       'preferences': {
         'religions': post.preferences.religions,
@@ -138,7 +141,8 @@ function PostModel(PostService) {
         'height': post.preferences.height
       },
       'role':post.role,
-      'chargeRate': post.chargeRate
+      'chargeRate': post.chargeRate,
+      'allowances':post.allowances
     };
     if(post.postCover){
       postDTO.postCover = post.postCover.id;
@@ -147,6 +151,9 @@ function PostModel(PostService) {
       postDTO.callInFrequency = post.callInFrequency;
     }
 
+    if(post.duplicateForm){
+      postDTO.duplicateForm = post.duplicateForm;
+    }
     return postDTO;
 
   }
@@ -155,13 +162,17 @@ function PostModel(PostService) {
     var post = dtoPost;
     post.hours = moment(moment(dtoPost.endTime, "HH:mm").toDate()).diff(moment(moment(dtoPost.startTime, "HH:mm").toDate()), 'hours');
     post.postSkills = checkListIfNull(dtoPost.skills);
-    post.uniform = checkListIfNull(dtoPost.uniform);
+    post.uniforms = checkListIfNull(dtoPost.uniforms);
     post.equipments = checkListIfNull(dtoPost.equipments);
     post.licenses = checkListIfNull(dtoPost.licenses);
     post.healthSafetyRequirements = checkListIfNull(dtoPost.healthSafetyRequirements);
     post.preferences.religions = checkListIfNull(dtoPost.preferences.religions);
     post.preferences.qualifications = checkListIfNull(dtoPost.preferences.qualifications);
+    post.preferences.trainings = checkListIfNull(dtoPost.preferences.trainings);
+    post.preferences.physicalConditions = checkListIfNull(dtoPost.preferences.physicalConditions);
+    post.preferences.languages = checkListIfNull(dtoPost.preferences.languages);
     post.postCoverId = dtoPost.postCover;
+    post.allowances = checkListIfNull(dtoPost.allowances);
     post.startTime = moment(dtoPost.startTime, "HH:mm").toDate();
     post.endTime = moment(dtoPost.endTime, "HH:mm").toDate();
     return post;
@@ -254,6 +265,16 @@ function PostModel(PostService) {
     );
   }
 
+
+  PostModel.prototype.refreshPostAllowances = function(){
+    PostService.getPostAllowances().then(function (response) {
+          PostModel.prototype.postAllowancesChoices = response;
+        }, function (error) {
+          _this.errMessage = error;
+        }
+    );
+  }
+
   PostModel.prototype.removeFromArray = function (array, id) {
     for (var i = 0; i < array.length; i++) {
       if (array[i].id === id) {
@@ -274,9 +295,36 @@ function PostModel(PostService) {
     array.push(newItem);
   };
 
+  PostModel.prototype.hideFromDisplay = function(array, id){
+    for(i= 0; i < array.length; i++){
+      if(array[i].id === id){
+        if(undefined !== array[i].deleted) {
+          array[i].deleted = true;
+        }
+
+      }
+    }
+  };
+
   PostModel.prototype.updateHours = function (post) {
     post.hours = moment(post.endTime).diff(moment(post.startTime), 'hours');
   };
+
+  PostModel.prototype.addToEditArray = function (array, item) {
+    var newItem = angular.copy(item);
+    newItem.deleted = false;
+    if(array){
+
+      for(i = 0; i < array.length; i++){
+        if(array[i].id === newItem.id){
+          return;
+        }
+      }
+
+      array.push(newItem);
+    }
+  };
+
 
   return PostModel;
 }

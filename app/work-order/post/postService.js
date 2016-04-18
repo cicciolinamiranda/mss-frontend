@@ -157,6 +157,18 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     return def.promise;
   };
 
+  _this.getPostAllowances = function () {
+    var def = $q.defer();
+
+    loadApi.then(function () {
+      return $gapi.client.customerContract.workorder.master.file.postallowances.list();
+    }).then(function (data) {
+      def.resolve(data.items);
+    });
+
+    return def.promise;
+  };
+  
   _this.getCallInFrequencies = function () {
     var def = $q.defer();
 
@@ -167,6 +179,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
     });
     return def.promise;
   };
+
 
   return _this;
 }

@@ -386,10 +386,43 @@
 </div>
 <div class="form-group">
   <label for="allowances">Allowances</label>
-  <select name="allowances" class="form-control">
-    <option>Travel Allowance</option>
-    <option>Others</option>
-  </select>
+  <ui-select id="allowances" ng-model="$ctrl.model.selectedPostAllowances" theme="bootstrap"
+  on-select="$ctrl.model.addToArray($ctrl.post.allowances, $ctrl.model.selectedPostAllowances)">
+  <ui-select-match placeholder="Select an Allowance...">
+    <span ng-bind="$ctrl.model.selectedPostAllowances.name"></span>
+  </ui-select-match>
+  <ui-select-choices repeat="item in ($ctrl.model.postAllowancesChoices | filter: $select.search) track by item.id"
+  refresh="$ctrl.model.refreshPostAllowances()"
+  refresh-delay="5">
+  <span ng-bind="item.name"></span>
+</ui-select-choices>
+</ui-select>
+<ul class="list-group" ng-show="$ctrl.model.post.allowances">
+  <li class="list-group-item ss-selected-item" ng-repeat="allowance in $ctrl.post.allowances">
+    <div class="row">
+      <div class="col-md-8">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+        <span ng-bind="allowance.name"></span>
+      </div>
+      <div class="col-md-2">
+        <label>Amount:  </label>
+        <label class="text-muted">
+          <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
+        </label>
+      </div>
+      <div class="col-md-3">
+        <input type="number" class="form-control" name="eqipQty" id="eqipQty" size="5"
+          ng-model="allowance.amount" step="0.01"/>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+        ng-click="$ctrl.model.removeFromArray($ctrl.post.allowances, allowance.id)">
+        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</li>
+</ul>
 </div>
 <div class="panel__heading">
   <div class="panel__title">Other Information</div>
