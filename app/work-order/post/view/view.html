@@ -433,7 +433,7 @@
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-9">
-            <label>Charge Rate</label>
+            <span>Charge Rate</span>
           </div>
           <div class="col-md-3 pull-right">
             <span ng-bind="$ctrl.post.chargeRate"></span>
@@ -442,6 +442,43 @@
         <hr/>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-9">
+            <label>Start Time</label>
+          </div>
+          <div class="col-md-3 pull-right">
+            <span>{{$ctrl.post.startTime}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-8">
+            <label>End Time</label>
+          </div>
+          <div class="col-md-3 pull-right">
+             <span>{{$ctrl.post.endTime}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-8">
+            <label>Hours</label>
+          </div>
+          <div class="col-md-3 pull-right">
+             <span>{{$ctrl.post.hours}}</span>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-6">
         <label>Allowances</label>
@@ -456,14 +493,14 @@
               <li class="list-group-item" ng-repeat="item in $ctrl.post.allowances">
                 <div class="row">
                   <div class="col-md-1">
-                    <i class="fa fa-caret-right"></i>&nbsp;
+                     <i class="fa fa-caret-right"></i>&nbsp;
                   </div>
                   <div class="col-md-8">
                     <span ng-bind="item.name"></span>
                   </div>
                   <div class="col-md-8">
                     Amount: <span ng-bind="item.amount"></span></br>
-                    <span><input type="checkbox" ng-model="item.billed" disabled/>&nbsp;Billed</span>
+                      <span><input type="checkbox" ng-model="item.billed" disabled/>&nbsp;Billed</span>
                   </div>
                 </div>
               </li>
