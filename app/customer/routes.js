@@ -19,5 +19,10 @@ function routes($stateProvider) {
       name: 'customer.view',
       url: '/:customerNumber',
       template: '<customer-view/>'
+    })
+    .state({
+      name: 'customer.search',
+      url: '/search::searchTerm',
+      template: '<customer-search/>'
     });
 }

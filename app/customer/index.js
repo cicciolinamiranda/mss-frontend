@@ -8,6 +8,7 @@ var ngApp = angular.module('customerApp', [
   // app components
   require('./list/index').name,
   require('./view/index').name,
+  require('./search/index').name,
   require('../contact/list/index').name
 ]);
 
