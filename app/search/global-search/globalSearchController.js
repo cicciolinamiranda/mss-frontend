@@ -9,11 +9,20 @@ function globalSearchCtrl(SearchService) {
   _this.selectFilter = SearchService.selectFilter;
 
   _this.search = function() {
-    if(_this.searchTerm == "") {
+    console.log("searchTerm:"+_this.searchTerm);
+    if(_this.searchTerm == '') {
       _this.emptyError = true;
+      _this.minLengthError = false;
     }
-    else _this.emptyError = false;
-    SearchService.search(_this.searchTerm)
+    else{
+      _this.emptyError = false;
+      if (_this.searchTerm.length < 2) _this.minLengthError = true;
+      else{
+        _this.minLengthError = false;
+        SearchService.search(_this.searchTerm);
+      }
+    }
+
   };
   _this.searchTerm = '';
 }
