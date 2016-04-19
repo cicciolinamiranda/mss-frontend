@@ -18,7 +18,7 @@
     </div>
     <!-- error messages -->
     <div ng-messages="searchForm.queryField.$error">
-      <div ng-message="required" ng-show="$ctrl.emptyError && searchForm.queryField.$dirty">Please enter a keyword</div>
+      <div ng-message="required" ng-show="$ctrl.emptyError || searchForm.queryField.$dirty">Please enter a keyword</div>
       <div ng-message="minlength">Please enter at least 2 characters</div>
     </div>
   </div>
