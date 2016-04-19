@@ -1,0 +1,49 @@
+
+<h2>Contract View</h2>
+<div class="panel">
+  <div class="row">
+    <div class="col-md-4"><label>Customer Number</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.customer.customerNumber"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Customer Name</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.customer.customerName"></div>
+  </div>
+  <div class="row">
+   <div class="col-md-4"><label>Contract Number</label></div>
+   <div class="col-md-4" ng-bind="$ctrl.contract.number"></div>
+  </div>
+  <div class="row" >
+    <div class="col-md-4"><label>Contract Name</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.name"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Title</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.title"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Start Date</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.startDateStr"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>End Date</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.endDateStr"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Review Date</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.reviewDateStr"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>Signed Date</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.signedDateStr"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"><label>WEF Date</label></div>
+    <div class="col-md-4" ng-bind="$ctrl.contract.wefDateStr"></div>
+  </div>
+  <hr />
+</div>
+<div class="col-md-4">
+    <a ui-sref="contract.list" class="btn btn-default" role="button">Back</a>
+</div>
+
