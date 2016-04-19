@@ -380,7 +380,7 @@
           <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
           <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
           <label for="frequency"></label>
-          <select name="frequency" class="form-control cif-choices"
+          <select ng-show="$ctrl.post.callIn" name="frequency" class="form-control cif-choices"
            ng-model="$ctrl.post.callInFrequency"
            ng-options="option.name for option in $ctrl.callInFrequencyChoices track by option.id">
           </select>
@@ -395,7 +395,7 @@
           <ui-select-choices repeat="item in ($ctrl.postModel.postAllowancesChoices | filter: $select.search) track by item.id"
           refresh="$ctrl.postModel.refreshPostAllowances()"
           refresh-delay="5">
-          <span ng-bind="item.name"></span>
+          <span class="postallowances-option" ng-bind="item.name"></span>
         </ui-select-choices>
         </ui-select>
         <ul class="list-group" ng-show="$ctrl.post.allowances">
@@ -433,8 +433,8 @@
           <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="post_saveButton">Save</button>
+          <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()" id="post_cancelButton">Cancel</button>
         </div>
       </form>
     </div>
