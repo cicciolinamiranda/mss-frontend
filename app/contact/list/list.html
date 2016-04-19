@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+<h3>Contacts</h3>
+  <div>
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>Customer Number</th>
+              <th>Customer Name</th>
+              <th>Duns Number</th>
+              <th>Payment Method</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Country</th>
+              <th>Country Code</th>
+              <th>Zip Code</th>
+            </tr>
+        </thead>
+        <tr class="clickable" ng-repeat="contact in $ctrl.contacts" ui-sref="contact.view({id: contact.customerNumber})">
+            <!-- <td ng-bind="contract.customerNumber || '-'"></td> -->
+            <td ng-bind="contact.number || '-'"></td>
+            <td ng-bind="contact.name || '-'"></td>
+            <td ng-bind="contact.title || '-'"></td>
+            <td ng-bind="contact.startDate || '-'"></td>
+            <td ng-bind="contact.endDate || '-'"></td>
+            <td ng-bind="contact.reviewDate || '-'"></td>
+            <td ng-bind="contact.signedDate || '-'"></td>
+            <td ng-bind="contact.wefDate || '-'"></td>
+        </tr>
+      </table>
+  </div>
+</div>

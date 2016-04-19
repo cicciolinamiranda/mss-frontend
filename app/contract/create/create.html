@@ -1,0 +1,165 @@
+<style>
+  .messageError {
+    color: red;
+  }
+</style>
+
+<div class="info-section" style="margin-top:10px;">
+  <div class="info-section__header">
+    <h1 class="dark">Create Contract</h1>
+    <h1>&nbsp;</h1>
+  </div>
+</div><!-- /info-section-->
+<div class="container">
+  <div class="col-md-12">
+    <div class="panel">
+      <form name="createContractForm" novalidate>
+        <div class="alert alert-danger" ng-show="$ctrl.errMessage">
+          {{$ctrl.errMessage}}
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Account Number:</label>
+            <span ng-bind="$ctrl.contract.accountNumber"></span>
+          </div>
+        </div>
+        <div class="row" id="contractNumberDiv" style="display: block">
+          <div class="col-md-3">
+            <label for="contractNumber">Contract Number:</label>
+            <input id="contractNumber" name="contractNumber" ng-model="$ctrl.contract.number" type="text" placeholder="Contract Number" class="form-control" pattern="[0-9]*"
+            required>
+            <div ng-messages="createContractForm.contract.$error">
+              <div ng-message="required" class="messageError">This field is required</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+              <label for="contractName">Contract Name:</label>
+              <input id="contractName" name="contractName" ng-model="$ctrl.contract.name" type="text" placeholder="Contract Name" class="form-control"
+              required>
+              <div ng-messages="createContractForm.contract.$error">
+                <div ng-message="required" class="messageError">This field is required</div>
+              </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group col-md-6">
+              <label for="startDate">Start Date</label>
+              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.contract.startDate" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="endDate">End Date</label>
+              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.contract.endDate"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: block">
+          <div class="col-md-3">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Title" ng-model="$ctrl.contract.title"/>
+          </div>
+          <div class="col-md-3">
+            <label for="signedDate">Signed Date</label>
+            <input type="date" class="form-control" name="signedDate" id="signedDate"
+            ng-model="$ctrl.contract.signedDate"/>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group col-md-6">
+              <label for="value">Value</label>
+              <input type="currency" class="form-control" name="value" id="value" pattern="[0-9]*"
+              ng-model="$ctrl.contract.value"/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="wefDate">WEF Date</label>
+              <input type="date" class="form-control" name="wefDate" id="wefDate"
+              ng-model="$ctrl.contract.wefDate"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: block">
+          <div class="col-md-3">
+            <label for="limitsOfLiability">Limits of Liability</label>
+            <select class="form-control" ng-options="c.id as c.name for c in $ctrl.limitsOfLiabilityChoices"
+              ng-init="$ctrl.contract.limitsOfLiability = $ctrl.limitsOfLiabilityDefault"
+              ng-model="$ctrl.contract.limitsOfLiability"
+              required>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="standardPaymentTerms">Standard Payment Terms</label>
+            <select class="form-control" ng-options="d.id as d.name for d in $ctrl.standardPaymentTermsChoices"
+              ng-init="$ctrl.contract.standardPaymentTerms = $ctrl.standardPaymentTermsDefault"
+              ng-model="$ctrl.contract.standardPaymentTerms"
+              required>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group col-md-6">
+              <label for="manualContactNumber">Manual Contact Number</label>
+              <input type="text" class="form-control" name="manualContactNumber" id="manualContactNumber"
+              ng-model="$ctrl.contract.manualContactNumber"/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="customerSigningAuthority">Customer Signing Authority</label>
+              <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
+              ng-init="$ctrl.contract.customerSigningAuthority"
+              ng-model="$ctrl.contract.customerSigningAuthority"
+              required>
+            </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" style="display: block">
+          <div class="col-md-3">
+            <label for="designationAuthority">Designation Authority</label>
+            <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
+              ng-init="$ctrl.contract.designationAuthority"
+              ng-model="$ctrl.contract.designationAuthority"
+              required>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="wefDate">LOI Date</label>
+            <input type="date" class="form-control" name="wefDate" id="wefDate"
+              ng-model="$ctrl.contract.loiDate"/>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group col-md-6">
+              <label for="loiStartDate">LOI Start Date</label>
+              <input type="date" class="form-control" name="loiStartDate" id="startDate" ng-model="$ctrl.contract.loiStartDate" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="loiEndDate">LOI End Date</label>
+              <input type="date" class="form-control" name="loiEndDate" id="loiEndDate" ng-model="$ctrl.contract.loiEndDate"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="issuingAuthority">Issuing Authority</label>
+            <div class="input-group">
+              <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
+              ng-init="$ctrl.contract.issuingAuthority"
+              ng-model="$ctrl.contract.issuingAuthority"
+              required>
+            </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <hr />
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.saveContract()"
+      ng-disabled="createContractForm.$invalid">Save</button>
+    <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewContract($ctrl.contract.accountNumber)">Cancel</button>
+  </div>
+</div>
+</form>
+</div>
+</div>
+</div>
