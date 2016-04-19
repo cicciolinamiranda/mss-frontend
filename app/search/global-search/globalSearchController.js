@@ -10,17 +10,12 @@ function globalSearchCtrl(SearchService) {
 
   _this.search = function() {
     console.log("searchTerm:"+_this.searchTerm);
-    if(_this.searchTerm == '') {
+    if(_this.searchTerm == '' || _this.searchTerm == undefined) {
       _this.emptyError = true;
-      _this.minLengthError = false;
     }
     else{
       _this.emptyError = false;
-      if (_this.searchTerm.length < 2) _this.minLengthError = true;
-      else{
-        _this.minLengthError = false;
-        SearchService.search(_this.searchTerm);
-      }
+      SearchService.search(_this.searchTerm);
     }
 
   };
