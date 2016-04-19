@@ -20,6 +20,9 @@ $script.ready('reqLibs0', function() {
     require('./auth/index').name,
     require('./employee/index').name,
     require('./work-order/index').name,
+    require('./customer/index').name,
+    require('./contract/index').name,
+    require('./contact/index').name,
     require('./search/index').name,
 
     // 3rd-party libs
