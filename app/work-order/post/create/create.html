@@ -389,12 +389,12 @@
   <ui-select id="allowances" ng-model="$ctrl.model.selectedPostAllowances" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.allowances, $ctrl.model.selectedPostAllowances)">
   <ui-select-match placeholder="Select an Allowance...">
-    <span class="postallowances-option" ng-bind="$ctrl.model.selectedPostAllowances.name"></span>
+    <span ng-bind="$ctrl.model.selectedPostAllowances.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.postAllowancesChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshPostAllowances()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="postallowances-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.model.post.allowances">
