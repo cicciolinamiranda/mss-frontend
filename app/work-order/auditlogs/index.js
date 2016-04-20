@@ -9,9 +9,7 @@ var ngApp = angular.module('auditlogsApp', [
   require('./view/index').name,
   require('./list/index').name
 ]);
-//require('./auditlogsModel')(ngApp);
-//require('./auditlogsService')(ngApp);
-require('./config')(ngApp);
-require('./routes')(ngApp);
+require('./auditlogsModel')(ngApp);
+require('./auditlogsService')(ngApp);
 
 module.exports = ngApp;
