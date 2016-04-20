@@ -1,17 +1,22 @@
 var component = require('./index');
 
 describe("Employee List Component", function('GAuth') {
-  var $compile, $rootScope;  
+  var $compile, $rootScope;
   var sample_employees = [
     {
       id: '123',
       firstName: 'Auntie',
-      surname: 'Anne'
+      lastName: 'Anne'
     },
     {
       id: '124',
+      firstName: 'Auntie',
+      lastName: 'Walkman'
+    },
+    {
+      id: '125',
       firstName: 'John',
-      surname: 'Walkman'
+      lastName: 'Canes'
     }
   ];
   
@@ -37,7 +42,14 @@ describe("Employee List Component", function('GAuth') {
           client: {
             employee: {
               employees: {
-                list: function() {
+                list: function(params) {
+                  if (params.q.lower() == 'auntie') {
+                    sample_employees.map(function(item) {
+                      return item.firstName.lower().startsWith(params.q.lower()) || 
+                        item.lastName.lower().startsWith(params.q.lower()) || 
+                        item.id.lower().startsWith(params.q.lower());
+                    });
+                  }
                   return $q.resolve({employees: sample_employees});
                 }
               }
@@ -58,6 +70,6 @@ describe("Employee List Component", function('GAuth') {
     $rootScope.$digest();
     expect(element.html()).toContain("Auntie");
     expect(element.html()).toContain("Walkman");
-    expect(element.html()).not.toContain("Mark");
-  });
+    expect(element.html()).not.toContain("Canes");
+  }); 
 });
