@@ -3,7 +3,7 @@ module.exports = createContractCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createContractCtrl(CreateContractService, ContractModel, $state, $stateParams) {
+function createContractCtrl(CreateContractService, fileUpload, ContractModel, $state, $stateParams) {
   var _this = this;
   _this.contract = {};
   _this.model = new ContractModel();
