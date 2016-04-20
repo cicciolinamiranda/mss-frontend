@@ -1,0 +1,37 @@
+<style>
+  .clickable{
+    cursor: pointer;
+  }
+</style>
+<div class="container">
+  <h2>Search Results for <span class="text-danger">{{$ctrl.query}}</span></h3>
+    <div class="row" ng-show="$ctrl.customers.length > 0">
+      <div class="col-md-12">
+        <h3 class="page-header">Customer</h3>
+        <div class="list-group">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer Code</th>
+                    <th>Customer Name</th>
+                    <th>Address Line 1</th>
+                    <th>City</th>
+                    <th>TBC</th>
+                </tr>
+            </thead>
+            <tr class=" clickable" ng-repeat="customer_ in $ctrl.customers" ui-sref="customer.view({customerNumber:customer_.customerNumber})">
+                <td ng-bind="customer_.customerCode"></td>
+                <td ng-bind="customer_.customerName"></td>
+                <td ng-bind="customer_.addressLine1"></td>
+                <td ng-bind="customer_.city"></td>
+                <td ng-bind="customer_.tbc"></td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="$ctrl.customers.length < 1">
+      <h4>No customer results found for <span class="text-danger">{{$ctrl.query}}</span></h4>
+    </div>
+  </div>
