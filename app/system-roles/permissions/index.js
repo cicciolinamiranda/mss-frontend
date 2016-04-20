@@ -1,7 +1,7 @@
 var angular = require('angular');
 require('eydis-gapi');
 
-var ngApp = angular.module('permissionApp', [
+var ngApp = angular.module('permissionsApp', [
   'eydis.gapi'
 ]);
 
