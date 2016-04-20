@@ -3,8 +3,7 @@ module.exports = resultsCtrl;
 /*@ngInject*/
 function resultsCtrl($stateParams, contractSearchSvc) {
   var _this = this;
-  console.log($stateParams);
-  _this.query = $stateParams.q;
+  _this.query = $stateParams.searchTerm;
   _this.searchResults = [];
 
   function init(){

@@ -17,7 +17,7 @@ function routes($stateProvider) {
     })
     .state({
       name: 'customer.view',
-      url: '/:customerNumber',
+      url: '/view/:customerNumber',
       template: '<customer-view/>'
     })
     .state({
