@@ -8,9 +8,9 @@ describe("Employee List Service", function() {
   // it will be implicitly injected to the service
   var FILTER_ALL = { q:"" };
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
 
   beforeEach(angular.mock.module(GAuth.name));

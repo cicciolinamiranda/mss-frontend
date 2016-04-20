@@ -4,12 +4,12 @@ describe("Employee Lookup Service", function() {
   var EmployeeLookupSvc, $scope;
   var employees = [
     {
-      id: '123',
+      personGUID: '123',
       firstname: 'John',
       surname: 'Doe'
     },
     {
-      id: '456',
+      personGUID: '456',
       firstname: 'Peter',
       surname: 'Parker'
     },

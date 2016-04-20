@@ -1,0 +1,23 @@
+<style>
+  .clickable{
+    cursor: pointer;
+  }
+</style>
+<div class="container">
+  <h2>Search Results for <span class="text-danger">{{$ctrl.query}}</span></h3>
+    <div class="row" ng-show="$ctrl.contracts.length > 0">
+      <div class="col-md-12">
+        <h3 class="page-header">Contracts</h3>
+        <div class="list-group">
+          <div ng-repeat="contract_ in $ctrl.contracts" class="list-group-item clickable" ui-sref="contract.view({id:contract_.number})">
+            <small class="text-muted">{{contract_.number}}</small>
+            <h4>{{contract_.name}}</h4>
+            <h5 class="text-danger">{{contract_.title}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="$ctrl.contracts.length < 1">
+      <h4>No contract results found for <span class="text-danger">{{$ctrl.query}}</span></h4>
+    </div>
+  </div>
