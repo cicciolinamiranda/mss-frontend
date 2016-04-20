@@ -1,17 +1,16 @@
 var component = require('./index');
-var GAuth = require("../../auth/authProvider.js");
 
-describe("Employee List Component", function() {
+describe("Employee List Component", function('GAuth') {
   var $compile, $rootScope;  
   var sample_employees = [
     {
       id: '123',
-      firstname: 'Auntie',
+      firstName: 'Auntie',
       surname: 'Anne'
     },
     {
       id: '124',
-      firstname: 'John',
+      firstName: 'John',
       surname: 'Walkman'
     }
   ];
