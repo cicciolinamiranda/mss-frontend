@@ -19,7 +19,7 @@ function viewCustomerCtrl($q, CustomerViewService, ListContactService, $statePar
   }
 
   function getCustomerContracts(customerId){
-    CustomerViewService.getCustomerContracts(_this.customerId).then(function(contracts){
+    CustomerViewService.getCustomerContracts(customerId).then(function(contracts){
       angular.extend(_this.customerContracts = contracts);
     });
   }
