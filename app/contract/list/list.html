@@ -27,5 +27,8 @@
             <td ng-bind="contract.wefDateStr || '-'"></td>
         </tr>
       </table>
+      <div ng-hide="!!$ctrl.contracts.length">
+        <h3>No records found</h3>
+      </div>
   </div>
 </div>

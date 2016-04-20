@@ -27,5 +27,8 @@
             <td ng-bind="contact.wefDate || '-'"></td>
         </tr>
       </table>
+      <div ng-hide="!!$ctrl.contacts.length">
+        <h3>No records found</h3>
+      </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ module.exports = viewContractCtrl;
 function viewContractCtrl(ViewContractService, $state, $stateParams) {
   var _this = this;
   _this.contractNumber = $stateParams.contractNumber;
-  _this.goToViewLocation = goToViewLocation;
+  _this.goToViewCustomer = goToViewCustomer;
 
   function init(){
     ViewContractService.get(_this.contractNumber).then(function(contract){
@@ -16,7 +16,8 @@ function viewContractCtrl(ViewContractService, $state, $stateParams) {
 
   init();
 
-  function goToViewLocation(id){
-    $state.go('contract.view', {contractNumber: id});
+  function goToViewCustomer(customerNumber){
+    $state.go('customer.view', {customerNumber: customerNumber});
+
   }
 }
