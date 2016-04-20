@@ -1,6 +1,6 @@
 module.exports = function(ngModule) {
   ngModule.component('roleView', {
-    template: require(''),
+    // template: require(''),
     controller: require('./rolesController')
   });
 };

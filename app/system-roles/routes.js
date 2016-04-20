@@ -10,4 +10,10 @@ function routes($stateProvider) {
       abstract: true,
       template: '<role-view/>'
     })
+    .state({
+      name: 'permission',
+      url: '/permissions',
+      abstract: true,
+      template: '<permissions-view/>'
+    })
 }
