@@ -35,71 +35,65 @@
             </ui-select-match>
             <ui-select-choices repeat="item in $ctrl.postRoleChoices" refresh="$ctrl.postRoleChoices"
             refresh-delay="5" >
-            <span ng-bind="item.name"></span>
+            <span class="role-option" ng-bind="item.name"></span>
           </ui-select-choices>
         </ui-select>
-        </div>
-        <div class="form-group">
-          <label for="employeesNeeded">Number of Employees</label>
-          <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees"
-          ng-model="$ctrl.post.numberOfEmployees"/>
-        </div>
-        <div class="form-group">
-          <label for="postCoverType">Post Cover Type</label>
-          <ui-select id="postCover" ng-model="$ctrl.post.postCover" theme="bootstrap">
-            <ui-select-match placeholder="Select a post cover">
-              <span ng-bind="$ctrl.post.postCover.name"></span>
-            </ui-select-match>
-            <ui-select-choices repeat="item in $ctrl.postType" refresh="$ctrl.postType"
-            refresh-delay="5" >
-            <span ng-bind="item.name"></span>
-          </ui-select-choices>
-        </ui-select>
-
-      </div>
-      <div class="panel__heading">
-        <div class="panel__title">Requirements</div>
       </div>
       <div class="form-group">
-        <label for="isIdRequired">Employee ID required?</label>
-        <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
-        <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
+        <label for="employeesNeeded">Number of Employees</label>
+        <input type="number" class="form-control" name="numberOfEmployees" id="numberOfEmployees"
+        ng-model="$ctrl.post.numberOfEmployees" min="0"/>
       </div>
       <div class="form-group">
-        <label for="licenses">Licenses Required</label>
-        <ui-select id="licenses" ng-model="$ctrl.selectedLicense" theme="bootstrap"
-        on-select="$ctrl.model.addToArray($ctrl.model.post.licenses, $ctrl.selectedLicense)">
-        <ui-select-match placeholder="Select a License">
-          <span ng-bind="$ctrl.selectedLicense.name"></span>
-        </ui-select-match>
-        <ui-select-choices repeat="item in ($ctrl.model.licenseChoices | filter: $select.search) track by item.id"
-        refresh="$ctrl.model.refreshLicenses()"
-        refresh-delay="5">
-        <span ng-bind="item.name"></span>
-      </ui-select-choices>
-    </ui-select>
-    <ul class="list-group" ng-show="$ctrl.model.post.licenses">
-      <li class="list-group-item ss-selected-item" ng-repeat="license in $ctrl.model.post.licenses">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-        <span ng-bind="license.name"></span>
-        <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-        ng-click="$ctrl.model.removeFromArray($ctrl.model.post.licenses, license.id)">
-        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-      </button>
-    </li>
-  </ul>
+        <label for="postCoverType">Post Cover Type</label>
+        <select id="postCover" name="postCover" class="form-control pc-choices"
+        ng-model="$ctrl.post.postCover"
+        ng-options="option.name for option in $ctrl.model.postCoverChoices track by option.id">
+      </select>
+    </div>
+    <div class="panel__heading">
+      <div class="panel__title">Requirements</div>
+    </div>
+    <div class="form-group">
+      <label for="isIdRequired">Identification required?</label>
+      <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
+      <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
+    </div>
+    <div class="form-group">
+      <label for="licenses">Licenses Required</label>
+      <ui-select id="licenses" ng-model="$ctrl.selectedLicense" theme="bootstrap"
+      on-select="$ctrl.model.addToArray($ctrl.model.post.licenses, $ctrl.selectedLicense)">
+      <ui-select-match placeholder="Search for Licenses..">
+        <span ng-bind="$ctrl.selectedLicense.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in ($ctrl.model.licenseChoices | filter: $select.search) track by item.id"
+      refresh="$ctrl.model.refreshLicenses()"
+      refresh-delay="5">
+      <span class="license-option" ng-bind="item.name"></span>
+    </ui-select-choices>
+  </ui-select>
+  <ul class="list-group" ng-show="$ctrl.model.post.licenses">
+    <li class="list-group-item ss-selected-item" ng-repeat="license in $ctrl.model.post.licenses">
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+      <span ng-bind="license.name"></span>
+      <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+      ng-click="$ctrl.model.removeFromArray($ctrl.model.post.licenses, license.id)">
+      <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+    </button>
+  </li>
+</ul>
 </div>
 <div class="form-group">
-  <label for="equipments">Equipment</label>
+  <label for="equipments">Equipments</label>
   <ui-select id="equipments" ng-model="$ctrl.selectedEquipment" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.model.post.equipments, $ctrl.selectedEquipment)">
-  <ui-select-match placeholder="Select an Equipment">
+  <ui-select-match placeholder="Search for Equipments..">
     <span ng-bind="$ctrl.selectedEquipment.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.equipmentChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshEquipments()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="eq-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.model.post.equipments">
@@ -114,15 +108,15 @@
       </div>
       <div class="col-md-2">
         <input type="number" class="form-control" name="eqipQty" id="eqipQty" size="5"
-          ng-model="equipment.quantity"/>
+        ng-model="equipment.quantity"/>
       </div>
       <div class="col-md-1">
         <button type="button" class="btn btn-link" style="color: #080808; float: right;"
-          ng-click="$ctrl.model.removeFromArray($ctrl.model.post.equipments, equipment.id)">
-          <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-        </button>
-      </div>
+        ng-click="$ctrl.model.removeFromArray($ctrl.model.post.equipments, equipment.id)">
+        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+      </button>
     </div>
+  </div>
 </li>
 </ul>
 </div>
@@ -130,13 +124,13 @@
   <label for="skills">Skills Required</label>
   <ui-select id="skills" ng-model="$ctrl.selectedPostSkill" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.model.post.postSkills, $ctrl.selectedPostSkill)">
-  <ui-select-match placeholder="Select a Skill..">
+  <ui-select-match placeholder="Search for Skills..">
     <span ng-bind="$ctrl.selectedPostSkill.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.postSkillChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshPostSkills()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="skills-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.model.post.postSkills">
@@ -154,13 +148,13 @@
   <label for="uniforms">Uniforms</label>
   <ui-select id="uniforms" ng-model="$ctrl.selectedUniform" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.model.post.uniforms, $ctrl.selectedUniform)">
-  <ui-select-match placeholder="Select a Uniform">
+  <ui-select-match placeholder="Search for Uniforms..">
     <span ng-bind="$ctrl.selectedUniform.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.uniformChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshUniforms()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="uniform-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.model.post.uniforms">
@@ -178,13 +172,13 @@
   <label for="healthAndSafety">Health and Safety Requirements</label>
   <ui-select id="uniforms" ng-model="$ctrl.selectedHealthSafetyReq" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.healthSafetyRequirements, $ctrl.selectedHealthSafetyReq)">
-  <ui-select-match placeholder="Select a Requirement...">
+  <ui-select-match placeholder="Search for Requirements..">
     <span ng-bind="$ctrl.selectedHealthSafetyReq.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.healthSafetyRequirementsChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshHealthSafetyRequirements()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span  class="hs-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.post.healthSafetyRequirements">
@@ -204,12 +198,12 @@
 <div class="form-group">
   <label for="gender">Gender</label>
   <span ng-repeat="genderChoice in $ctrl.genderChoices">
-    <input type="radio" name="gender" ng-value="genderChoice" ng-model="$ctrl.post.preferences.gender"/>
+    <input class="gender-radio" type="radio" name="gender" ng-value="genderChoice" ng-model="$ctrl.post.preferences.gender"/>
     {{genderChoice.name}}
   </span>
 </div>
 <div class="form-group">
-  <label for="training">Training</label>
+  <label for="training">Trainings</label>
   <ui-select ng-model="$ctrl.selectedTraining" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.trainings, $ctrl.selectedTraining)">
   <ui-select-match placeholder="Search for trainings..">
@@ -233,7 +227,7 @@
 </ul>
 </div>
 <div class="form-group">
-  <label for="language">Language</label>
+  <label for="language">Languages</label>
   <ui-select ng-model="$ctrl.selectedLanguage" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.languages, $ctrl.selectedLanguage)">
   <ui-select-match placeholder="Search for languages..">
@@ -284,19 +278,19 @@
 </div>
 <div class="form-group">
   <label for="height">Height (cm)</label>
-  <input type="number" class="form-control" name="height" id="height"/>
+  <input type="number" class="form-control" name="height" min="0" id="height" ng-model="$ctrl.post.preferences.height"/>
 </div>
 <div class="form-group">
   <label for="qualifications">Qualifications</label>
   <ui-select id="uniforms" ng-model="$ctrl.model.selectedQualification" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.qualifications, $ctrl.model.selectedQualification)">
-  <ui-select-match placeholder="Select a Qualification...">
+  <ui-select-match placeholder="Search for Qualifications..">
     <span ng-bind="$ctrl.model.selectedQualification.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.qualificationChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshQualifications()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="qual-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.post.preferences.qualifications">
@@ -314,13 +308,13 @@
   <label for="qualifications">Religions</label>
   <ui-select id="uniforms" ng-model="$ctrl.model.selectedReligion" theme="bootstrap"
   on-select="$ctrl.model.addToArray($ctrl.post.preferences.religions, $ctrl.model.selectedReligion)">
-  <ui-select-match placeholder="Select a Religion...">
+  <ui-select-match placeholder="Search for Religions..">
     <span ng-bind="$ctrl.model.selectedReligion.name"></span>
   </ui-select-match>
   <ui-select-choices repeat="item in ($ctrl.model.religionChoices | filter: $select.search) track by item.id"
   refresh="$ctrl.model.refreshReligions()"
   refresh-delay="5">
-  <span ng-bind="item.name"></span>
+  <span class="religion-option" ng-bind="item.name"></span>
 </ui-select-choices>
 </ui-select>
 <ul class="list-group" ng-show="$ctrl.post.preferences.religions">
@@ -334,38 +328,41 @@
 </li>
 </ul>
 </div>
+<!--
 <div class="panel__heading">
-  <div class="panel__title">Additional Constraints</div>
+<div class="panel__title">Additional Constraints</div>
 </div>
 <div class="form-group">
-  <label for="softConstraints">Soft Constraints</label>
-  <select name="softConstraints" class="form-control">
-  </select>
+<label for="softConstraints">Soft Constraints</label>
+<select name="softConstraints" class="form-control">
+</select>
 </div>
 <div class="form-group">
-  <label for="hardConstraints">Hard Constraints</label>
-  <select name="hardConstraints" class="form-control">
-  </select>
-</div>
+<label for="hardConstraints">Hard Constraints</label>
+<select name="hardConstraints" class="form-control">
+</select>
+</div>-->
 <div class="panel__heading">
   <div class="panel__title">Shift Information and Billing</div>
 </div>
 <div class="form-group">
   <label for="chargeRate">Charge Rate</label>
-  <input type="number" class="form-control" name="chargeRate" id="chargeRate"/>
+  <input type="number" class="form-control" name="chargeRate" id="chargeRate"
+    ng-model="$ctrl.post.chargeRate" min="0" step="any"/>
 </div>
 <div class="form-group">
   <label for="startTime">Start Time</label>
   <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"
-  required/>
+  required ng-change="$ctrl.model.updateHours($ctrl.post)"/>
 </div>
 <div class="form-group">
   <label for="endTime">End Time</label>
-  <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime" required/>
+  <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"
+  ng-change="$ctrl.model.updateHours($ctrl.post)" required/>
 </div>
 <div class="form-group">
   <label for="hours">Hours</label>
-  <input type="text" class="form-control" name="hours" id="hours" ng-value="$ctrl.post.hours()" readonly/>
+  <input type="text" class="form-control" name="hours" id="hours" ng-value="$ctrl.post.hours" readonly/>
 </div>
 <div class="form-group">
   <label for="bookOnd">Book on?</label>
@@ -382,17 +379,50 @@
   <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
   <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
   <label for="frequency"></label>
-  <select name="frequency" class="form-control"
+  <select ng-show="$ctrl.post.callIn" name="frequency" class="form-control cif-choices"
   ng-model="$ctrl.post.callInFrequency"
-  ng-options="option.name for option in $ctrl.model.callInFrequencyChoices track by option.id">
+  ng-options="option.name for option in $ctrl.callInFrequencyChoices track by option.id">
 </select>
 </div>
 <div class="form-group">
   <label for="allowances">Allowances</label>
-  <select name="allowances" class="form-control">
-    <option>Travel Allowance</option>
-    <option>Others</option>
-  </select>
+  <ui-select id="allowances" ng-model="$ctrl.model.selectedPostAllowances" theme="bootstrap"
+  on-select="$ctrl.model.addToArray($ctrl.post.allowances, $ctrl.model.selectedPostAllowances)">
+  <ui-select-match placeholder="Select an Allowance...">
+    <span ng-bind="$ctrl.model.selectedPostAllowances.name"></span>
+  </ui-select-match>
+  <ui-select-choices repeat="item in ($ctrl.model.postAllowancesChoices | filter: $select.search) track by item.id"
+  refresh="$ctrl.model.refreshPostAllowances()"
+  refresh-delay="5">
+  <span class="postallowances-option" ng-bind="item.name"></span>
+</ui-select-choices>
+</ui-select>
+<ul class="list-group" ng-show="$ctrl.model.post.allowances">
+  <li class="list-group-item ss-selected-item" ng-repeat="allowance in $ctrl.post.allowances">
+    <div class="row">
+      <div class="col-md-8">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+        <span ng-bind="allowance.name"></span>
+      </div>
+      <div class="col-md-2">
+        <label>Amount:  </label>
+        <label class="text-muted">
+          <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
+        </label>
+      </div>
+      <div class="col-md-3">
+        <input type="number" class="form-control" name="eqipQty" id="eqipQty" size="5"
+          ng-model="allowance.amount" step="0.01"/>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+        ng-click="$ctrl.model.removeFromArray($ctrl.post.allowances, allowance.id)">
+        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</li>
+</ul>
 </div>
 <div class="panel__heading">
   <div class="panel__title">Other Information</div>
@@ -402,8 +432,8 @@
   <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
 </div>
 <div class="form-group">
-  <button type="submit" class="btn btn-primary">Save</button>
-  <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()">Cancel</button>
+  <button type="submit" class="btn btn-primary" id="post_saveButton">Save</button>
+  <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()" id="post_cancelButton">Cancel</button>
 </div>
 </form>
 </div>

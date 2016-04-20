@@ -36,6 +36,23 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
       );
     }).then(function(data) {
       deferred2.resolve(data);
+    },
+    function(data){
+      console.log(JSON.stringify(data.error));
+      if(data.error != undefined){
+
+          if(data.error.message == "Post name is already used.")
+          {
+            deferred2.resolve("Duplicate");
+          }
+          else if(data.error.message == "Post name is required")
+          {
+            deferred2.resolve("Required Name");
+          }
+          else{
+            deferred2.resolve("Failed");
+          }
+      }
     });
     return deferred2.promise;
   };
@@ -48,6 +65,23 @@ function editPostService($q, $gapi, WORKORDER_GAPI_BASE) {
       );
     }).then(function(data) {
       deferred2.resolve(data);
+    },
+    function(data){
+      console.log(JSON.stringify(data.error));
+      if(data.error != undefined){
+
+          if(data.error.message == "Post name is already used.")
+          {
+            deferred2.resolve("Duplicate");
+          }
+          else if(data.error.message == "Post name is required")
+          {
+            deferred2.resolve("Post name is required");
+          }
+          else{
+            deferred2.resolve("Failed");
+          }
+      }
     });
     return deferred2.promise;
   };

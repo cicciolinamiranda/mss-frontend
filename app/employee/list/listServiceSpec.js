@@ -1,24 +1,21 @@
 var component = require('./index');
 
-var GAuth = require("../../auth/authProvider.js");
-
-describe("Employee List Service", function() {
+describe("Employee List Service", function('GAuth') {
   var EmployeeListSvc, $scope;
   // since $gapi already injects $q,
   // it will be implicitly injected to the service
   var FILTER_ALL = { q:"" };
   var sample_employee = {
-    id: '123',
-    firstname: 'Auntie',
-    surname: 'Anne'
+    personGUID: '123',
+    firstName: 'Auntie',
+    lastName: 'Anne'
   };
 
   beforeEach(angular.mock.module(GAuth.name));
   beforeEach(angular.mock.module(component.name));
   // mock $gapi to inject to EmployeeListSvc
   beforeEach(function() {
-    angular.mock.module(function($provide) {
-      
+    angular.mock.module(function($provide) {      
       $provide.service('GAuth', function () {
         return {
           protect: function(f) {
@@ -26,7 +23,6 @@ describe("Employee List Service", function() {
           }
         };        
       });
-
       $provide.constant('EMPLOYEE_GAPI_BASE', '');
       $provide.service('$gapi', function($q) {
         var gapi = {
@@ -61,9 +57,9 @@ describe("Employee List Service", function() {
 
   describe("List employees", function() {
     it("returns a promise that resolves with list of employees", function(done) {
-        EmployeeListSvc.list(FILTER_ALL).then(function(employees) {
-        expect(employees[0].firstname)
-          .toBe(sample_employee.firstname);
+      EmployeeListSvc.list(FILTER_ALL).then(function(employees) {
+        expect(employees[0].firstName)
+          .toBe(sample_employee.firstName);
         done();
       });
       expect(EmployeeListSvc.list).toHaveBeenCalled();

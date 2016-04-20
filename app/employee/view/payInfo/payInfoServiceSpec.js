@@ -3,14 +3,14 @@ var component = require('./index');
 describe("Pay Info Service", function() {
   var PayInfoSvc, $rootScope;
   var sample_contractedHours = {
-    id: '123',
+    personGUID: '123',
     contractHourPeriod: 'Weekly',
     contractHourThreshold: '40',
     contractDays: '5'
   };
 
   var sample_payRate = {
-    id: '123',
+    personGUID: '123',
     rateCurrency: 'USD',
     rate: '91.10235'
   }
