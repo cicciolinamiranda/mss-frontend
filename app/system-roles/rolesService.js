@@ -21,6 +21,7 @@ function rolesService($q, $gapi, ROLES_GAPI_BASE) {
     else {
       cache[id] = {};
       loadApi.then(function() {
+        //temporary api call
         return $gapi.client.systemRoles.roles.getList();
       }).then(function(data) {
         angular.extend(cache[id], data);

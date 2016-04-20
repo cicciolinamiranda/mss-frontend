@@ -4,7 +4,7 @@ module.exports = rolesCtrl;
   var _this = this;
 
   function init() {
-   RolesSvc.get().then(function(roles){
+   RolesSvc.getList().then(function(roles){
     _this.roles = roles;
    });
   }

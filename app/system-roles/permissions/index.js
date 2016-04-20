@@ -5,7 +5,7 @@ var ngApp = angular.module('permissionApp', [
   'eydis.gapi'
 ]);
 
-// require('./permissionService')(ngApp);
-// require('./permissionComponent')(ngApp);
+require('./permissionService')(ngApp);
+require('./permissionComponent')(ngApp);
 
 module.exports = ngApp;
