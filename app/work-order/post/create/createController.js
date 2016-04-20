@@ -21,11 +21,12 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   _this.errMessage = "";
 
   //PostCover
-  _this.postType = this.model.postCoverChoices;
   _this.postRoleChoices = [];
+
   function init() {
     _this.post = _this.model.post;
     _this.post.customerLocationId = locationId;
+    _this.post.postCover = _this.model.postCoverChoices[0] || '';
 
     _this.model.getGenderChoices().then(function (response) {
       _this.genderChoices = response;
@@ -53,6 +54,9 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       }
       else if(response == "Duplicate"){
         _this.errMessage = 'Duplicate Post Name';
+      }
+      else if(response == "Post name is required"){
+        _this.errMessage = "Post name is required";
       }
       else{
         var postId = response.id;

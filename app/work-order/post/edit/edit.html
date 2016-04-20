@@ -17,6 +17,9 @@
         <div class="panel__heading">
           <div class="panel__title">Post Details</div>
         </div>
+        <div class="alert alert-danger" ng-show="$ctrl.model.errMessage">
+          {{$ctrl.model.errMessage}}
+        </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
           <input type="text" class="form-control" name="postTitle" id="postTitle" ng-model="$ctrl.post.name" required/>
@@ -43,25 +46,18 @@
         </div>
         <div class="form-group">
           <label for="postCoverType">Post Cover Type</label>
-          <ui-select id="postCover" ng-model="$ctrl.post.postCover" theme="bootstrap">
-            <ui-select-match placeholder="Select a post cover">
-              <span ng-bind="$ctrl.post.postCover.name"></span>
-            </ui-select-match>
-            <ui-select-choices repeat="item in $ctrl.postType" refresh="$ctrl.postType"
-            refresh-delay="5" >
-            <span class="cover-option" ng-bind="item.name"></span>
-          </ui-select-choices>
-        </ui-select>
-        </div>
+          <select id="postCover" name="postCover" class="form-control pc-choices"
+          ng-model="$ctrl.post.postCover"
+          ng-options="option.name for option in $ctrl.postModel.postCoverChoices track by option.id">
+        </select>
+      </div>
         <div class="panel__heading">
           <div class="panel__title">Requirements</div>
         </div>
         <div class="form-group">
           <label for="isIdRequired">Identification required?</label>
-          <input type="radio" name="isIdRequired" ng-value="true" ng-checked="$ctrl.post.identificationRequired"
-            ng-model="$ctrl.post.isIdentificationRequired">Yes
-          <input type="radio" name="isIdRequired" ng-value="false" ng-checked="!$ctrl.post.identificationRequired"
-            ng-model="$ctrl.post.isIdentificationRequired">No
+          <input type="radio" name="isIdRequired" ng-value="true" ng-model="$ctrl.post.identificationRequired">Yes
+          <input type="radio" name="isIdRequired" ng-value="false" ng-model="$ctrl.post.identificationRequired">No
         </div>
         <div class="form-group">
           <label for="licenses">Licenses Required</label>
@@ -201,9 +197,10 @@
         </div>
         <div class="form-group">
           <label for="gender">Gender</label>
-          <span ng-repeat="genderChoice in $ctrl.genderChoices">
+          <span ng-repeat="genderChoice in $ctrl.genderChoices" >
             <input class="gender-radio" type="radio" name="gender" ng-value="genderChoice"
-              ng-checked="$ctrl.post.preferences.gender" ng-model="$ctrl.post.preferences.gender"/>
+              ng-model="$ctrl.post.preferences.gender"
+              />
             {{genderChoice.name}}
           </span>
         </div>
@@ -281,7 +278,7 @@
         </div>
         <div class="form-group">
           <label for="height">Height (cm)</label>
-          <input type="number" class="form-control" name="height" id="height" ng-model="$ctrl.post.preferences.height" />
+          <input type="number" class="form-control" name="height" min="0" id="height" ng-model="$ctrl.post.preferences.height" />
         </div>
         <div class="form-group">
           <label for="qualifications">Qualifications</label>
@@ -351,15 +348,18 @@
         </div>
         <div class="form-group">
           <label for="chargeRate">Charge Rate</label>
-          <input type="number" class="form-control" name="chargeRate" id="chargeRate" min="0" ng-model="$ctrl.post.chargeRate"/>
+          <input type="number" class="form-control" name="chargeRate" id="chargeRate" min="0"
+            step="any" ng-model="$ctrl.post.chargeRate"/>
         </div>
         <div class="form-group">
           <label for="startTime">Start Time</label>
-          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"/>
+          <input type="time" class="form-control" name="startTime" id="startTime" ng-model="$ctrl.post.startTime"
+            ng-change="$ctrl.postModel.updateHours($ctrl.post)"/>
         </div>
         <div class="form-group">
           <label for="endTime">End Time</label>
-          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"/>
+          <input type="time" class="form-control" name="endTime" id="endTime" ng-model="$ctrl.post.endTime"
+            ng-change="$ctrl.postModel.updateHours($ctrl.post)"/>
         </div>
         <div class="form-group">
           <label for="hours">Hours</label>
@@ -367,30 +367,63 @@
         </div>
         <div class="form-group">
           <label for="bookOnd">Book on?</label>
-          <input type="radio" name="bookOn" ng-value="true" ng-checked="$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">Yes
-          <input type="radio" name="bookOn" ng-value="false" ng-checked="!$ctrl.post.bookOn" ng-model="$ctrl.post.isBookOn">No
+          <input type="radio" name="bookOn" ng-value="true" ng-checked="$ctrl.post.bookOn" ng-model="$ctrl.post.bookOn">Yes
+          <input type="radio" name="bookOn" ng-value="false" ng-checked="!$ctrl.post.bookOn" ng-model="$ctrl.post.bookOn">No
         </div>
         <div class="form-group">
           <label for="bookOff">Book off?</label>
-          <input type="radio" name="bookOff" ng-value="true" ng-checked="$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">Yes
-          <input type="radio" name="bookOff" ng-value="false" ng-checked="!$ctrl.post.bookOff" ng-model="$ctrl.post.isBookOff">No
+          <input type="radio" name="bookOff" ng-value="true" ng-checked="$ctrl.post.bookOff" ng-model="$ctrl.post.bookOff">Yes
+          <input type="radio" name="bookOff" ng-value="false" ng-checked="!$ctrl.post.bookOff" ng-model="$ctrl.post.bookOff">No
         </div>
         <div class="form-group">
           <label for="callIn">Call in?</label>
           <input type="radio" name="callIn" ng-value="true" ng-model="$ctrl.post.callIn">Yes
           <input type="radio" name="callIn" ng-value="false" ng-model="$ctrl.post.callIn">No
           <label for="frequency"></label>
-          <select name="frequency" class="form-control cif-choices"
+          <select ng-show="$ctrl.post.callIn" name="frequency" class="form-control cif-choices"
            ng-model="$ctrl.post.callInFrequency"
            ng-options="option.name for option in $ctrl.callInFrequencyChoices track by option.id">
           </select>
         </div>
         <div class="form-group">
           <label for="allowances">Allowances</label>
-          <select name="allowances" class="form-control">
-            <option>Travel Allowance</option>
-            <option>Others</option>
-          </select>
+          <ui-select id="allowances" ng-model="$ctrl.postModel.selectedPostAllowances" theme="bootstrap"
+          on-select="$ctrl.postModel.addToEditArray($ctrl.post.allowances, $ctrl.postModel.selectedPostAllowances)">
+          <ui-select-match placeholder="Select an Allowance...">
+            <span ng-bind="$ctrl.postModel.selectedPostAllowances.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="item in ($ctrl.postModel.postAllowancesChoices | filter: $select.search) track by item.id"
+          refresh="$ctrl.postModel.refreshPostAllowances()"
+          refresh-delay="5">
+          <span class="postallowances-option" ng-bind="item.name"></span>
+        </ui-select-choices>
+        </ui-select>
+        <ul class="list-group" ng-show="$ctrl.post.allowances">
+          <li class="list-group-item ss-selected-item" ng-repeat="allowance in $ctrl.post.allowances" ng-hide="allowance.deleted">
+            <div class="row">
+              <div class="col-md-8">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
+                <span ng-bind="allowance.name"></span>
+              </div>
+              <div class="col-md-1">
+                <label>Amount:  </label>
+                <label class="text-muted">
+                  <input type="checkbox" ng-model="allowance.billed"> Billed&nbsp;
+                </label>
+              </div>
+              <div class="col-md-2">
+                <input type="number" class="form-control" name="allowanceAmount" id="allowanceAmount" size="5"
+                  ng-model="allowance.amount" step="0.01"/>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-link" style="color: #080808; float: right;"
+                        ng-click="$ctrl.model.hideFromDisplay($ctrl.post.allowances, allowance.id)">
+                  <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
         </div>
         <div class="panel__heading">
           <div class="panel__title">Other Information</div>
@@ -400,8 +433,8 @@
           <textarea name="notes" class="form-control" rows="3" ng-model="$ctrl.post.notes"></textarea>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="post_saveButton">Save</button>
+          <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()" id="post_cancelButton">Cancel</button>
         </div>
       </form>
     </div>

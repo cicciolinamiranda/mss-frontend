@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+<h3>Contracts</h3>
+  <div>
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <!-- <th>Customer Number</th> -->
+              <th>Contract Number</th>
+              <th>Contract Name</th>
+              <th>Title</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Review Date</th>
+              <th>Signed Date</th>
+              <th>WEF Date</th>
+            </tr>
+        </thead>
+        <tr class="clickable" ng-repeat="contract in $ctrl.contracts" ui-sref="contract.view({contractNumber: contract.number})">
+            <!-- <td ng-bind="contract.customerNumber || '-'"></td> -->
+            <td ng-bind="contract.number || '-'"></td>
+            <td ng-bind="contract.name || '-'"></td>
+            <td ng-bind="contract.title || '-'"></td>
+            <td ng-bind="contract.startDateStr || '-'"></td>
+            <td ng-bind="contract.endDateStr || '-'"></td>
+            <td ng-bind="contract.reviewDateStr || '-'"></td>
+            <td ng-bind="contract.signedDateStr || '-'"></td>
+            <td ng-bind="contract.wefDateStr || '-'"></td>
+        </tr>
+      </table>
+  </div>
+</div>
