@@ -58,8 +58,8 @@ describe("Employee List Service", function('GAuth') {
   describe("List employees", function() {
     it("returns a promise that resolves with list of employees", function(done) {
       EmployeeListSvc.list(FILTER_ALL).then(function(employees) {
-        expect(employees[0].firstname)
-          .toBe(sample_employee.firstname);
+        expect(employees[0].firstName)
+          .toBe(sample_employee.firstName);
         done();
       });
       expect(EmployeeListSvc.list).toHaveBeenCalled();
