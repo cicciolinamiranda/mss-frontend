@@ -1,6 +1,6 @@
 module.exports = function(ngModule) {
   ngModule.component('permissionsView', {
-    // template: require(''),
+    template: require('permissions.html'),
     controller: require('./permissionsController')
   });
 };
