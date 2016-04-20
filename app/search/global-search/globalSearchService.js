@@ -9,7 +9,9 @@ function searchService($state) {
     'Everything',
     'Employee',
     'Location',
-    'People'
+    'People',
+    'Customer',
+    'Contract'
   ];
 
   var _selectedFilter = _this.filters[0];
@@ -27,6 +29,10 @@ function searchService($state) {
       $state.go('employee.search', {searchTerm: searchTerm});
     }else if(_selectedFilter == 'Location') {
       $state.go('location.search', {searchTerm: searchTerm});
+    }else if(_selectedFilter == 'Customer') {
+      $state.go('customer.search', {searchTerm: searchTerm});
+    }else if(_selectedFilter == 'Contract') {
+      $state.go('contract.search', {searchTerm: searchTerm});
     }
   };
 }

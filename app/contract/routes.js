@@ -24,5 +24,10 @@ function routes($stateProvider) {
       name: 'contract.view',
       url: '/view/:contractNumber',
       template: '<contract-view/>'
+    })
+    .state({
+      name: 'contract.search',
+      url: '/search::searchTerm',
+      template: '<contract-search/>'
     });
 }
