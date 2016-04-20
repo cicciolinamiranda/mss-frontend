@@ -15,7 +15,6 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
   _this.customerNumber = $stateParams.customerNumber;
 
   _this.saveContract = saveContract;
-  _this.getContactList = getContactList;
   _this.goToViewContract = goToViewContract;
 
   function init(){
@@ -44,8 +43,6 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
-
-    getContactList();
   }
 
   init();
@@ -59,19 +56,12 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     });
   }
 
-  function getContactList(){
-    _this.contactChoices = [
-      {
-        id: 'richmond',
-        name: 'Rich'
-      }
-    ];
-    /*CreateContractService.getContactList().then(function (response) {
-      _this.contactChoices = response;
-
-    }, function (error) {
+  function initContract(){
+    CreateContractService.init().then(function (response){
+      _this.init = response;
+    }, function (error){
       _this.errMessage = error;
-    });*/
+    });
   }
 
   function goToViewContract(){

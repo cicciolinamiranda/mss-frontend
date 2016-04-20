@@ -42,6 +42,16 @@ function createContractService($http, $q, $gapi, GAPI_BASE) {
     return _this.contractDetails;
   }
 
+  _this.init = function () {
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.customerContract.contract.init();
+    }).then(function (data) {
+      deferred2.resolve(data);
+    });
+    return deferred2.promise;
+  };
+
   _this.save = function (contractDetails) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
