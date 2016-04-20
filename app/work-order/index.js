@@ -13,7 +13,8 @@ var ngApp = angular.module('locationApp', [
   require('./location/edit/index').name,
   require('./location/search/index').name,
   require('./post/index').name,
-  require('./view/index').name
+  require('./view/index').name,
+  require('./auditlogs/index').name
 ]);
 require('./location/locationModel')(ngApp);
 require('./config')(ngApp);
