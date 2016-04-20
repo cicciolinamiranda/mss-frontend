@@ -8,7 +8,7 @@
 			<th>Issue Date</th>
 			<th>Expiry Date</th>
 		</tr>
-		<tr ng-repeat = "attribute in $ctrl.attributesList.attributes">
+		<tr ng-repeat="attribute in $ctrl.attributesList.attributes">
 			<td ng-bind="attribute.type"></td>
 			<td ng-bind="attribute.description"></td>
 			<td ng-bind="attribute.proficiency"></td>
@@ -16,7 +16,7 @@
 			<td ng-bind="attribute.expiryDate"></td>
 		</tr>
 	</table>
-	<div ng-show="$ctrl.attributesList.attributes.length == null">
-		<h3>There are no Personal Profile Attribute Records for this employee</h3>
+	<div ng-hide="!!$ctrl.attributesList.attributes.length">
+		<h3>No records found</h3>
 	</div>
 </div>
