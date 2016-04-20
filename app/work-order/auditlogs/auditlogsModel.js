@@ -3,7 +3,7 @@ module.exports = function (ngModule) {
 };
 var moment = require('moment');
 
-function AuditlogsModel(AuditlogsService) {
+function AuditlogsModel(AuditLogsService) {
   var _this = this;
 
   function AuditlogsModel() {

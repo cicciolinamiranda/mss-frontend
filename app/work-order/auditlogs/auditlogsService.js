@@ -1,8 +1,8 @@
 module.exports = function (ngModule) {
-  ngModule.service('AuditLogsService', postService);
+  ngModule.service('AuditLogsService', auditlogsService);
 };
 
-function postService($q,$http, AUDITLOGS_GAPI_BASE) {
+function auditlogsService($q,$http, AUDITLOGS_GAPI_BASE) {
   var _this = this;
 
 
