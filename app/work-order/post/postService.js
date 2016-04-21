@@ -2,11 +2,27 @@ module.exports = function (ngModule) {
   ngModule.service('PostService', postService);
 };
 
-function postService($q, $gapi, WORKORDER_GAPI_BASE) {
+function postService($q, $gapi, $http, WORKORDER_GAPI_BASE) {
   var _this = this;
 
   var deferred = $q.defer();
   var loadApi = deferred.promise;
+
+  _this.uploadImage = uploadImage;
+
+  function uploadImage(imageFile){
+    var formData = new FormData();
+    formData.append('file', imageFile);
+
+    return $http({
+        method: 'POST',
+        url: 'http://localhost:8080/upload/post/image',
+        headers: {'Content-Type': undefined},
+        data : formData,
+        transformRequest: angular.identity
+    });
+  }
+
 
   $gapi.loaded.then(function () {
     return $gapi.load('customerContract', 'v1', WORKORDER_GAPI_BASE);
@@ -168,7 +184,7 @@ function postService($q, $gapi, WORKORDER_GAPI_BASE) {
 
     return def.promise;
   };
-  
+
   _this.getCallInFrequencies = function () {
     var def = $q.defer();
 

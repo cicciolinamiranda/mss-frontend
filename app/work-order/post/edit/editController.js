@@ -3,7 +3,7 @@ module.exports = editPostCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostModel) {
+function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostModel, $scope) {
   var _this = this;
   var postId = $stateParams.id;
 
@@ -70,7 +70,18 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   init();
 
   function update(){
-    _this.model.editPost(_this.transactionParam, _this.post);
+    if(_this.post.image){
+      _this.postModel.uploadImage(_this.post.image).then(
+        function(response){
+          _this.post.imageUrl = response.data.imageUrl;
+          _this.model.editPost(_this.transactionParam, _this.post);
+        },
+        function(error){
+          _this.model.errMessage = error.statusText;
+        });
+    }else{
+      _this.model.editPost(_this.transactionParam, _this.post);
+    }
   }
 
   function cancel() {
@@ -82,4 +93,12 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
       _this.postRoleChoices = response;
     });
   }
+
+  $scope.setFile = function(element) {
+      $scope.$apply(function($scope) {
+        if(element.files && element.files.length > 0){
+          _this.post.image = element.files[0];
+        }
+      });
+  };
 }

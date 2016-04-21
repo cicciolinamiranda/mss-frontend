@@ -153,7 +153,8 @@ describe("Edit Post", function() {
                       return {
                       };
                   }
-              }
+              },
+        $scope: $rootScope.$new()
       });
       $rootScope.$digest();
       expect(controller.postModel).toBeDefined();

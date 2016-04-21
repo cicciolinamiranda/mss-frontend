@@ -142,7 +142,8 @@ function PostModel(PostService) {
       },
       'role':post.role,
       'chargeRate': post.chargeRate,
-      'allowances':post.allowances
+      'allowances':post.allowances,
+      'imageUrl': post.imageUrl
     };
     if(post.postCover){
       postDTO.postCover = post.postCover.id;
@@ -273,6 +274,12 @@ function PostModel(PostService) {
           _this.errMessage = error;
         }
     );
+  }
+
+  PostModel.prototype.uploadImage = function(imageFile){
+    return PostService.uploadImage(imageFile).then(function (response) {
+      return response;
+    });
   }
 
   PostModel.prototype.removeFromArray = function (array, id) {

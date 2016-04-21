@@ -51,6 +51,11 @@
         ng-options="option.name for option in $ctrl.model.postCoverChoices track by option.id">
       </select>
     </div>
+    <div class="form-group">
+      <label for="postImage">Image</label>
+      <input type="file" class="form-control"
+                id="postImage" name='postImage' onchange="angular.element(this).scope().setFile(this)"/>
+    </div>
     <div class="panel__heading">
       <div class="panel__title">Requirements</div>
     </div>
