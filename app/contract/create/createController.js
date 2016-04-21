@@ -78,7 +78,6 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function initContract(){
     CreateContractService.init().then(function (response) {
-      console.log(response);
       _this.contract.id = response.id;
     }, function (error) {
       _this.errMessage = error;
