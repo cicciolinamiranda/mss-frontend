@@ -5,39 +5,40 @@
   </div>
 </div><!-- /info-section-->
 <div class="container">
-  <div class="col-md-8">
-    <div class="panel">
-      <form name="viewLocationForm">
-        <div class="row">
-          <div ng-switch="$ctrl.cloc.address">
-            <div ng-switch-when="false">
-              <div class="alert alert-info" style="padding-left:20px">
-                No data available.
+  <div class="row">
+    <div class="col-md-8">
+      <div class="panel">
+        <form name="viewLocationForm">
+          <div class="row">
+            <div ng-switch="$ctrl.cloc.address">
+              <div ng-switch-when="false">
+                <div class="alert alert-info" style="padding-left:20px">
+                  No data available.
+                </div>
+              </div>
+              <div ng-switch-default>
+                <img ng-src="{{$ctrl.mapSource}}">
               </div>
             </div>
-            <div ng-switch-default>
-              <img ng-src="{{$ctrl.mapSource}}">
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <h4 id="locationId">{{$ctrl.cloc.id}}</h4>
+              <a href="#"><h3>Dell Ireland</h3></a>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            <h4 id="locationId">{{$ctrl.cloc.id}}</h4>
-            <a href="#"><h3>Dell Ireland</h3></a>
-          </div>
-          <div class="col-md-4" style="padding-top: 20px">
-            <button type="button" class="btn btn-link" style="color: #080808;"
-            ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit" ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" >
-            <i class="fa fa-edit fa-2x"></i>
+            <div class="col-md-4" style="padding-top: 20px">
+              <button type="button" class="btn btn-link" style="color: #080808;"
+              ng-click="$ctrl.editLocation($ctrl.cloc.id)" title="Edit" ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" >
+              <i class="fa fa-edit fa-2x"></i>
+            </button>
+            <button ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" type="button" class="btn btn-link" style="color: #080808;"
+            ng-click="$ctrl.updateStatus($ctrl.cloc.id,'ARCHIVE')" title="Archive">
+            <i class="fa fa-archive fa-2x"></i>
           </button>
-          <button ng-show="$ctrl.cloc.statusStr == 'IN_PROGRESS'" type="button" class="btn btn-link" style="color: #080808;"
-          ng-click="$ctrl.updateStatus($ctrl.cloc.id,'ARCHIVE')" title="Archive">
-          <i class="fa fa-archive fa-2x"></i>
+          <button ng-show="$ctrl.cloc.statusStr == 'ARCHIVE'" type="button" class="btn btn-link" style="color: #080808;"
+          ng-click="$ctrl.updateStatus($ctrl.cloc.id,'IN_PROGRESS')" title="Unarchive">
+          <i class="fa fa-folder-open fa-2x"></i>
         </button>
-        <button ng-show="$ctrl.cloc.statusStr == 'ARCHIVE'" type="button" class="btn btn-link" style="color: #080808;"
-        ng-click="$ctrl.updateStatus($ctrl.cloc.id,'IN_PROGRESS')" title="Unarchive">
-        <i class="fa fa-folder-open fa-2x"></i>
-      </button>
       </div>
     </div>
     <div class ="row">
@@ -205,113 +206,114 @@
           <div ng-switch-default>
             <ul class="list-group">
               <li class="list-group-item" ng-repeat="skill in $ctrl.cloc.skills"
-                style="height: 40px">
-                <div class="row">
-                  <div class="col-md-1">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-                  </div>
-                  <div class="col-md-8">
-                    <span ng-bind="skill.name"></span>
-                  </div>
+              style="height: 40px">
+              <div class="row">
+                <div class="col-md-1">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
                 </div>
-              </li>
-            </ul>
-          </div>
+                <div class="col-md-8">
+                  <span ng-bind="skill.name"></span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <label> Personal Protective Equipment </label>
-        <div ng-switch="$ctrl.protectiveEquipList.length > 0">
-          <div ng-switch-when="false">
-            <div class="alert alert-info" style="padding-left:20px">
-              No data available.
-            </div>
-          </div>
-          <div ng-switch-default>
-            <ul class="list-group" ng-show="$ctrl.protectiveEquipList">
-              <li class="list-group-item" ng-repeat="equip in $ctrl.protectiveEquipList">
-                <div class="row">
-                  <div class="col-md-1">
-                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
-                  </div>
-                  <div class="col-md-6">
-                    <span ng-bind="equip.name"></span>
-                  </div>
-                  <div class="col-md-5">
-                    <strong><span ng-bind="equip.costType"></span></strong>
-                  </div>
-                </div>
-              </li>
-            </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label> Personal Protective Equipment </label>
+      <div ng-switch="$ctrl.protectiveEquipList.length > 0">
+        <div ng-switch-when="false">
+          <div class="alert alert-info" style="padding-left:20px">
+            No data available.
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <label>Mode of Transport</label>
-        <div ng-switch="$ctrl.modeOfTransportList.length > 0">
-          <div ng-switch-when="false">
-            <div class="alert alert-info" style="padding-left:20px">
-              No data available.
-            </div>
-          </div>
-          <div ng-switch-default>
-            <ul class="list-group" ng-show="$ctrl.modeOfTransportList">
-              <li class="list-group-item" ng-repeat="mot in $ctrl.modeOfTransportList">
-                <div class="row">
-                  <div class="col-md-1">
-                    <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-                  </div>
-                  <div class="col-md-6">
-                    <span ng-bind="mot.name"></span>
-                  </div>
-                  <div class="col-md-5">
-                    <strong><span ng-bind="mot.costType"></span></strong>
-                  </div>
+        <div ng-switch-default>
+          <ul class="list-group" ng-show="$ctrl.protectiveEquipList">
+            <li class="list-group-item" ng-repeat="equip in $ctrl.protectiveEquipList">
+              <div class="row">
+                <div class="col-md-1">
+                  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;
                 </div>
-              </li>
-            </ul>
-          </div>
+                <div class="col-md-6">
+                  <span ng-bind="equip.name"></span>
+                </div>
+                <div class="col-md-5">
+                  <strong><span ng-bind="equip.costType"></span></strong>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <hr/>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="page-header">
-          <h4>Posts</h4>
+    <div class="col-md-6">
+      <label>Mode of Transport</label>
+      <div ng-switch="$ctrl.modeOfTransportList.length > 0">
+        <div ng-switch-when="false">
+          <div class="alert alert-info" style="padding-left:20px">
+            No data available.
+          </div>
         </div>
-        <div class="row">
+        <div ng-switch-default>
+          <ul class="list-group" ng-show="$ctrl.modeOfTransportList">
+            <li class="list-group-item" ng-repeat="mot in $ctrl.modeOfTransportList">
+              <div class="row">
+                <div class="col-md-1">
+                  <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+                </div>
+                <div class="col-md-6">
+                  <span ng-bind="mot.name"></span>
+                </div>
+                <div class="col-md-5">
+                  <strong><span ng-bind="mot.costType"></span></strong>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h4>Posts</h4>
+      </div>
+      <div class="row">
 
 
-    <ul class="list-inline">
-      <li ng-repeat="post in $ctrl.postLists" ng-click="$ctrl.goToViewPost(post.id)">
-        <a href="" ng-click="$ctrl.goToViewPost(post.id)">
-          <div class="panel text-center">
-            <i class="fa fa-picture-o fa-5x"></i>
-            <h3>{{post.name}}</h3>
-            Some details you should know<br/>
-            <strong>24 Hours</strong>
-        </div>
-      </a>
-      </li>
-        <!-- <li>
-          <div class="col-md-10">
+        <ul class="list-inline">
+          <li ng-repeat="post in $ctrl.postLists" ng-click="$ctrl.goToViewPost(post.id)">
+            <a href="" ng-click="$ctrl.goToViewPost(post.id)">
+              <div class="panel text-center">
+                <i class="fa fa-picture-o fa-5x"></i>
+                <h3>{{post.name}}</h3>
+                Some details you should know<br/>
+                <strong>24 Hours</strong>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div class="col-md-4">
+          <a href="" ng-click="$ctrl.goToCreatePost()">
+            <div class="panel text-center" style="padding:90px 0px;">
               <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
-              <h3>&nbsp;</h3>
-        </div>
-        </li> -->
-    </ul>
-    <div class="col-md-4">
-      <a href="" ng-click="$ctrl.goToCreatePost()">
-        <div class="panel text-center" style="padding:90px 0px;">
-          <i class="glyphicon glyphicon-plus-sign" style="font-size:40px;"></i>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </form>
+</div>
+</div>
+<div class="col-md-4">
+  <div class="panel">
+    <auditlogs-list object-type="$ctrl.objectType"></auditlogs-list>
   </div>
 </div>
-</div>
-</form>
 </div>
 </div>

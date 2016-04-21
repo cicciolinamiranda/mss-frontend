@@ -22,6 +22,9 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
   _this.goToCreatePost = goToCreatePost;
   _this.postLists;
 
+
+  //auditlogs
+  _this.objectType = "CUSTOMER_LOCATION";
   function init() {
 
     ViewLocationSvc.getLocationDetails(_this.locId).then(function(response){

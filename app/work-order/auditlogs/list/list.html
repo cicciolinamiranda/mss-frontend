@@ -1,26 +1,47 @@
-<table class="table">
+<table class="table table-hover" ng-show="$ctrl.auditlogsList.length > 0">
   <thead>
     <tr>
       <th>Changed by</th>
       <th>Change Description</th>
       <th>Date</th>
+      <th><th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Lewis Rogers</td>
-      <td>Change made to front desk post.</td>
-      <td>13/05/1979</td>
-    </tr>
-    <tr>
-      <td>Calvin Kent</td>
-      <td>Change made to front desk post.</td>
-      <td>16/05/1979</td>
-    </tr>
-    <tr>
-      <td>Tan Kent</td>
-      <td>Edited duplicate record</td>
-      <td>17/05/1979</td>
+    <tr ng-repeat="auditlog in $ctrl.auditlogsList">
+      <td>{{auditlog.createdBy}}</td>
+      <td>
+        {{auditlog.body.fieldName}}
+      </br>
+        <!-- <label>Old Value</label>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in auditlog.body.oldValue">
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fa fa-caret-right"></i>&nbsp;
+              </div>
+              <div class="col-md-8">
+                <span ng-bind="item"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <label>New Value</label>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in auditlog.body.newValue">
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fa fa-caret-right"></i>&nbsp;
+              </div>
+              <div class="col-md-8">
+                <span ng-bind="item"></span>
+              </div>
+            </div>
+          </li>
+        </ul> -->
+      </td>
+      <td>{{auditlog.createdDateStr}}</td>
     </tr>
   </tbody>
 </table>

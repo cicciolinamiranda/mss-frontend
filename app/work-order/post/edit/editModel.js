@@ -30,7 +30,6 @@ function editPostModel($state, EditPostSvc, PostModel) {
     }else{
 
       EditPostSvc.update(PostModel.transformPostJsonToDTO(postDto)).then(function(response){
-        console.log("UPDAAATE POST-->"+JSON.stringify(response));
         if(response == "Failed"){
           EditPostModel.prototype.errMessage = 'Unable to save Post Record';
         }
