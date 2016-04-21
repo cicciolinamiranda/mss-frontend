@@ -8,40 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="auditlog in $ctrl.auditlogsList">
+    <tr ng-repeat="auditlog in $ctrl.auditlogsList" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
       <td>{{auditlog.createdBy}}</td>
       <td>
         {{auditlog.body.fieldName}}
       </br>
-        <!-- <label>Old Value</label>
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="item in auditlog.body.oldValue">
-            <div class="row">
-              <div class="col-md-1">
-                <i class="fa fa-caret-right"></i>&nbsp;
-              </div>
-              <div class="col-md-8">
-                <span ng-bind="item"></span>
-              </div>
-            </div>
-          </li>
-        </ul>
-
-        <label>New Value</label>
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="item in auditlog.body.newValue">
-            <div class="row">
-              <div class="col-md-1">
-                <i class="fa fa-caret-right"></i>&nbsp;
-              </div>
-              <div class="col-md-8">
-                <span ng-bind="item"></span>
-              </div>
-            </div>
-          </li>
-        </ul> -->
       </td>
       <td>{{auditlog.createdDateStr}}</td>
+      <div class="modal fade" id="viewAuditlogsModal" tabindex="-1" role="dialog" aria-labelledby="viewAuditlogsModal">
+        <auditlogs-view auditlog="$ctrl.model.auditlog" ></auditlogs-view>
+      </div>
     </tr>
   </tbody>
 </table>

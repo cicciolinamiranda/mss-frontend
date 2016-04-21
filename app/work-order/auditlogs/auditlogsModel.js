@@ -4,11 +4,10 @@ module.exports = function (ngModule) {
 var moment = require('moment');
 
 function AuditlogsModel(AuditLogsService) {
-  var _this = this;
-
   function AuditlogsModel() {
   }
 
+  AuditlogsModel.prototype.auditlog = {};
   AuditlogsModel.prototype.getAuditLogs = function () {
     return AuditLogsService.getAuditLogs().then(function (response) {
       return AuditlogsModel.formatDtoToJson(response);
@@ -21,7 +20,6 @@ function AuditlogsModel(AuditLogsService) {
     for(i=0;i<json.length;i++) {
       json[i].createdDateStr = AuditlogsModel.transformJodaTimeToDateString(json[i].createdDate);
     }
-    console.log("auditlogs service-->"+JSON.stringify(json));
     return json;
   }
 

@@ -9,7 +9,8 @@ function listAuditlogsCtrl(AuditlogsModel) {
 
   //auditlogs
   _this.auditlogsList = [];
-
+  _this.auditlog = {};
+  _this.viewAuditlogDetails = viewAuditlogDetails;
   function init() {
     getAuditLogs();
   }
@@ -22,9 +23,11 @@ function listAuditlogsCtrl(AuditlogsModel) {
         if(response[i].objectType == _this.objectType) {
           _this.auditlogsList.push(response[i]);
         }
-
-        console.log("CONTROLLER--> "+JSON.stringify(_this.auditlogsList));
     }
     });
+  }
+
+  function viewAuditlogDetails(auditlog) {
+    _this.model.auditlog = auditlog;
   }
 }
