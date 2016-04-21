@@ -8,6 +8,8 @@ function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
   _this.postModel = new PostModel();
   _this.post;
 
+  //auditlogs trigger
+  _this.objectType = "POST";
   function init() {
     getPostDetails();
   }
