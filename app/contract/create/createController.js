@@ -61,11 +61,9 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
   }
 
   function initContract(){
-    console.log("initializing contract...");
     CreateContractService.init().then(function (response) {
       console.log(response);
       _this.contract.id = response.id;
-      goToViewContract();
     }, function (error) {
       _this.errMessage = error;
     });
