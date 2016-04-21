@@ -121,13 +121,8 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     var importfile = fileItem;
     CreateContractService.upload(_this.contract.id, fileItem)
       .then(function(item){
-        if(item.data.upload_url===undefined){
-          fileItem.remove();
-          _this.uploader.disabled = self.queue.length === 0;
-        }
-        else{
-          importfile.url = item.data.upload_url;
-        }
+        fileItem.remove();
+        _this.uploader.disabled = self.queue.length === 0;
     },function(e){
       console.warn('Error!', e.data.error);
     });
