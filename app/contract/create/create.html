@@ -43,11 +43,11 @@
           <div class="col-md-5">
             <div class="form-group col-md-6">
               <label for="startDate">Start Date</label>
-              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.contract.startDate" required/>
+              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.contract.startDate" ng-change="$ctrl.dateRangeChanged()" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="endDate">End Date</label>
-              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.contract.endDate"/>
+              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.contract.endDate" ng-change="$ctrl.dateRangeChanged()" />
             </div>
           </div>
         </div>

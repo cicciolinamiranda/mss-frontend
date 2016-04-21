@@ -22,6 +22,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
+  _this.dateRangeChanged = dateRangeChanged;
 
   function init(){
     _this.contract.id = null;
@@ -63,6 +64,10 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   init();
 
   function saveContract(){
+    if (_this.errMessage != ""){
+      alert("Please address remaining errors.");
+      return;
+    }
     CreateContractService.save(_this.contract).then(function (response) {
       _this.contractId = response.id;
       goToViewContract();
@@ -187,5 +192,16 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function goToViewContract(){
     $state.go('customer.view', {customerNumber:_this.customerNumber});
+  }
+
+  function dateRangeChanged(){
+    // console.log(moment(_this.contract.startDate).toDate() > moment(_this.contract.endDate).toDate());
+    if (moment(_this.contract.startDate).toDate() <= moment(_this.contract.endDate).toDate()){
+      // console.log("Good");
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid Date Range";
+    }
   }
 }
