@@ -11,6 +11,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.uploader = new FileUploader();
   _this.uploader.onAfterAddingFile = onAfterAddingFile;
   _this.uploader.onCompleteAll = onCompleteAll;
+
   _this.errMessage;
   _this.contactChoices;
 
@@ -42,6 +43,10 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     _this.contract.loiStartDate = moment().toDate();
     _this.contract.loiEndDate = moment().toDate();
     _this.contract.issuingAuthority = "";
+    _this.contract.skills = null;
+    _this.contract.skills_mandatory = "false";
+    _this.contract.liscense = null;
+    _this.contract.liscense_mandatory = "false";
 
     _this.limitsOfLiabilityChoices = _this.model.limitsOfLiabilityChoices;
     _this.limitsOfLiabilityDefault = _this.model.limitsOfLiabilityDefault;
@@ -51,6 +56,8 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
     getContacts(_this.contract.accountNumber);
     initContract();
+    getSkills();
+    getLiscenses();
   }
 
   init();
@@ -135,12 +142,47 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
       }, 500);
   };
 
+
   function composeName(contact) {
     return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
   }
 
   function camelCase(string){
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function getSkills(){
+    _this.skillsList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
+  function getLiscenses(){
+    _this.licenseList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
   }
 
   function goToViewContract(){
