@@ -87,7 +87,6 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function getContacts(accountNumber){
     CreateContractService.getContactList(accountNumber).then(function (response){
-      console.log('getContactList::', response);
 
       angular.forEach(response, function(value, key) {
         value['name'] = composeName(value);
@@ -120,8 +119,8 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   function onAfterAddingFile(fileItem) {
     var self = this;
     console.info('onAfterAddingFile', fileItem);
-    // var importfile = fileItem;
-    /*CreateContractService.upload()
+    var importfile = fileItem;
+    CreateContractService.upload(_this.contract.id, fileItem)
       .then(function(item){
         if(item.data.upload_url===undefined){
           fileItem.remove();
@@ -131,9 +130,8 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
           importfile.url = item.data.upload_url;
         }
     },function(e){
-      console.warn('failed');
-      swal("Error!", e.data.error, "error");
-    });*/
+      console.warn('Error!', e.data.error);
+    });
   };
 
   function onCompleteAll() {
