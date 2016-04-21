@@ -148,18 +148,8 @@
           </div>
           <div class="col-md-3">
             <label for="issuingAuthority">Upload Files</label>
-            <button type="file" ngf-select="$ctrl.uploadFiles($ctrl.file, $ctrl.invalidFiles)"
-            accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-                Select File</button>
-              <br><br>
-              File:
-              <div style="font:smaller">{{$ctrl.uploadedfile.name}} {{$ctrl.errFile.name}} {{$ctrl.errFile.error}} {{$ctrl.errFile.errorParam}}
-                  <span class="progress" ng-show="$ctrl.uploadedfile.progress >= 0">
-                      <div style="width:{{$ctrl.uploadedfile.progress}}%"
-                           ng-bind="$ctrl.uploadedfile.progress + '%'"></div>
-                  </span>
-              </div>
-              {{errorMsg}}
+            <input type="file" name="file-5[]" id="file-5" nv-file-select=""
+            uploader="upload.model.uploader" multiple="" accept=".pdf">
           </div>
         </div>
 
