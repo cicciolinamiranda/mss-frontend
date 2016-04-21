@@ -76,7 +76,6 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     name: 'extFilter',
     fn: function(item /*{File|FileLikeObject}*/, options) {
       var mime_type = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
-      var checkExt = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.pdf|.doc|.docx|.PDF|.DOC|.DOCX)$/;
       if(item.type == mime_type[0] || item.type == mime_type[1]){
         _this.uploader.disabled = false;
       }else{
