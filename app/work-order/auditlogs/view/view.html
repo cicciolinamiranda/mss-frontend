@@ -5,44 +5,125 @@
       <h4 class="modal-title">Audit Logs Details</h4>
     </div>
     <div class="modal-body">
+
+      <div class="panel__heading">
+        <div class="panel__title"></div>
+      </div>
+      <br/>
       <div class="row">
-        <div class="col-md-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Revision Number</th>
-                <th>Changed by</th>
-                <th>Change Description</th>
-                <th>Field Name</th>
-                <th>Old Value</th>
-                <th>New Value</th>
-                <th>IP</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <!-- <tbody>
-            <tr>
-            <td>Lewis Rogers</td>
-            <td>Change made to front desk post.</td>
-            <td>13/05/1979</td>
-          </tr>
-          <tr>
-          <td>Calvin Kent</td>
-          <td>Change made to front desk post.</td>
-          <td>16/05/1979</td>
-        </tr>
-        <tr>
-        <td>Tan Kent</td>
-        <td>Edited duplicate record</td>
-        <td>17/05/1979</td>
-      </tr>
-    </tbody> -->
-  </table>
-</div>
-</div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal" id="closeAuditLogsViewBtn">Close</button>
-</div>
-</div><!-- /.modal-content -->
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Revision Number</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.revisionNumber}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Changed By</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.createdBy}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Category</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.objectType}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Field Name</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.body.fieldName}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Changes</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <label>Old Value</label>
+              <ul>
+                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.oldValue">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <span ng-bind="item"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <label>New Value</label>
+              <ul>
+                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.newValue">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <span ng-bind="item"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>IP Address</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.ipAddress}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Date</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.createdDateStr}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="closeAuditLogsViewBtn">Close</button>
+    </div>
+  </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

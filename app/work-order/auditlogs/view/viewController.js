@@ -1,6 +1,8 @@
-module.exports = viewPostCtrl;
+module.exports = viewAuditlogsCtrl;
 var moment = require('moment');
 /*@ngInject*/
-function viewPostCtrl() {
+function viewAuditlogsCtrl(AuditlogsModel) {
+var _this = this;
+_this.model = new AuditlogsModel();
 
 }
