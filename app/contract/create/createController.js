@@ -11,7 +11,9 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.uploader = new FileUploader();
   _this.uploader.onAfterAddingFile = onAfterAddingFile;
   _this.uploader.onCompleteAll = onCompleteAll;
-  _this.errMessage = "";
+
+  _this.errMessage;
+  _this.contactChoices;
 
   _this.customerId = $stateParams.customerId;
   _this.contract.customer = { id: _this.customerId };
@@ -20,6 +22,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
+  _this.dateRangeChanged = dateRangeChanged;
 
   function init(){
     _this.contract.id = null;
@@ -52,9 +55,8 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
-
+    getContacts(_this.contract.accountNumber);
     initContract();
-    // getContactList();
     getSkills();
     getLiscenses();
   }
@@ -62,6 +64,10 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   init();
 
   function saveContract(){
+    if (_this.errMessage != ""){
+      alert("Please address remaining errors.");
+      return;
+    }
     CreateContractService.save(_this.contract).then(function (response) {
       _this.contractId = response.id;
       goToViewContract();
@@ -75,6 +81,20 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
       console.log(response);
       _this.contract.id = response.id;
     }, function (error) {
+      _this.errMessage = error;
+    });
+  }
+
+  function getContacts(accountNumber){
+    CreateContractService.getContactList(accountNumber).then(function (response){
+      console.log('getContactList::', response);
+
+      angular.forEach(response, function(value, key) {
+        value['name'] = composeName(value);
+      }, response);
+
+      _this.contactChoices = response;
+    }, function(error){
       _this.errMessage = error;
     });
   }
@@ -127,6 +147,15 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
       }, 500);
   };
 
+
+  function composeName(contact) {
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+  }
+
+  function camelCase(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   function getSkills(){
     _this.skillsList = [
       {
@@ -163,5 +192,16 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function goToViewContract(){
     $state.go('customer.view', {customerNumber:_this.customerNumber});
+  }
+
+  function dateRangeChanged(){
+    // console.log(moment(_this.contract.startDate).toDate() > moment(_this.contract.endDate).toDate());
+    if (moment(_this.contract.startDate).toDate() <= moment(_this.contract.endDate).toDate()){
+      // console.log("Good");
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid Date Range";
+    }
   }
 }

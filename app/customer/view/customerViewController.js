@@ -29,8 +29,13 @@ function viewCustomerCtrl($q, CustomerViewService, ListContactService, $statePar
       angular.extend(_this.contacts, contacts);
     });
   }
+
   function composeName(contact) {
-    return contact.salutation + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+  }
+
+  function camelCase(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 init();
