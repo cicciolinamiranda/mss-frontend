@@ -19,6 +19,7 @@ function createContractCtrl(CreateContractService, fileUpload, ContractModel, $s
   _this.goToViewContract = goToViewContract;
 
   function init(){
+    _this.contract.id = null;
     _this.contract.number = null;
     _this.contract.name = null;
     _this.contract.startDate = moment().toDate();
@@ -44,6 +45,8 @@ function createContractCtrl(CreateContractService, fileUpload, ContractModel, $s
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
+
+    initContract();
   }
 
   init();
@@ -61,6 +64,12 @@ function createContractCtrl(CreateContractService, fileUpload, ContractModel, $s
     CreateContractService.init().then(function (response){
       _this.init = response;
     }, function (error){
+    console.log("initializing contract...");
+    CreateContractService.init().then(function (response) {
+      console.log(response);
+      _this.contract.id = response.id;
+      goToViewContract();
+    }, function (error) {
       _this.errMessage = error;
     });
   }
