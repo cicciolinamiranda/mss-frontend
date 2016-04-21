@@ -11,7 +11,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.uploader = new FileUploader();
   _this.uploader.onAfterAddingFile = onAfterAddingFile;
   _this.uploader.onCompleteAll = onCompleteAll;
-  _this.errMessage;
+  _this.errMessage = "";
 
   _this.customerId = $stateParams.customerId;
   _this.contract.customer = { id: _this.customerId };
@@ -41,6 +41,10 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     _this.contract.loiStartDate = moment().toDate();
     _this.contract.loiEndDate = moment().toDate();
     _this.contract.issuingAuthority = "";
+    _this.contract.skills = null;
+    _this.contract.skills_mandatory = "false";
+    _this.contract.liscense = null;
+    _this.contract.liscense_mandatory = "false";
 
     _this.limitsOfLiabilityChoices = _this.model.limitsOfLiabilityChoices;
     _this.limitsOfLiabilityDefault = _this.model.limitsOfLiabilityDefault;
@@ -50,6 +54,9 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
 
     initContract();
+    // getContactList();
+    getSkills();
+    getLiscenses();
   }
 
   init();
@@ -119,6 +126,40 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
         self.clearQueue();
       }, 500);
   };
+
+  function getSkills(){
+    _this.skillsList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
+  function getLiscenses(){
+    _this.licenseList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
 
   function goToViewContract(){
     $state.go('customer.view', {customerNumber:_this.customerNumber});
