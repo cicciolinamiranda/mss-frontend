@@ -64,7 +64,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   init();
 
   function saveContract(){
-    if (_this.errMessage === ""){
+    if (_this.errMessage != ""){
       alert("Please address remaining errors.");
       return;
     }
