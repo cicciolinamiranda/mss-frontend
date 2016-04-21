@@ -8,11 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="auditlog in $ctrl.auditlogsList" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
+    <tr ng-repeat="auditlog in $ctrl.auditlogsList | limitTo:10" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
       <td>{{auditlog.createdBy}}</td>
       <td>
-        {{auditlog.body.fieldName}}
-      </br>
+        <ul class="list-unstyled">
+          <li ng-repeat="item in auditlog.body">
+            <div class="row">
+                <span>{{item.fieldName}}</span>
+            </div>
+          </li>
+        </ul>
       </td>
       <td>{{auditlog.createdDateStr}}</td>
       <div class="modal fade" id="viewAuditlogsModal" tabindex="-1" role="dialog" aria-labelledby="viewAuditlogsModal">

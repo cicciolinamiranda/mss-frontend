@@ -49,14 +49,17 @@
           <hr/>
         </div>
       </div>
+
+      <label>Changes</label>
+      <div ng-repeat="item in $ctrl.auditlog.body">
       <div class="row">
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-8">
-              <label>Field Name</label>
+              <label>Field Name {{$index+1}}</label>
             </div>
             <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.body.fieldName}}</span>
+              <span>{{item.fieldName}}</span>
             </div>
           </div>
           <hr/>
@@ -65,16 +68,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="row">
-            <div class="col-md-8">
-              <label>Changes</label>
-            </div>
             <div class="col-md-4 pull-right">
               <label>Old Value</label>
               <ul>
-                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.oldValue">
+                <li class="list-group" ng-repeat="value in item.oldValue">
                   <div class="row">
                     <div class="col-md-12">
-                      <span ng-bind="item"></span>
+                      <span ng-bind="value"></span>
                     </div>
                   </div>
                 </li>
@@ -82,10 +82,10 @@
 
               <label>New Value</label>
               <ul>
-                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.newValue">
+                <li class="list-group" ng-repeat="value in item.newValue">
                   <div class="row">
                     <div class="col-md-12">
-                      <span ng-bind="item"></span>
+                      <span ng-bind="value"></span>
                     </div>
                   </div>
                 </li>
@@ -95,6 +95,8 @@
           <hr/>
         </div>
       </div>
+    </div>
+
       <div class="row">
         <div class="col-md-6">
           <div class="row">
