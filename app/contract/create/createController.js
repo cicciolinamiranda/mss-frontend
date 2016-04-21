@@ -19,6 +19,7 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
   _this.goToViewContract = goToViewContract;
 
   function init(){
+    _this.contract.id = null;
     _this.contract.number = null;
     _this.contract.name = null;
     _this.contract.startDate = moment().toDate();
@@ -44,7 +45,7 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
-
+    initContract();
     getContactList();
   }
 
@@ -53,6 +54,17 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
   function saveContract(){
     CreateContractService.save(_this.contract).then(function (response) {
       _this.contractId = response.id;
+      goToViewContract();
+    }, function (error) {
+      _this.errMessage = error;
+    });
+  }
+
+  function initContract(){
+    console.log("initializing contract...");
+    CreateContractService.init().then(function (response) {
+      console.log(response);
+      _this.contract.id = response.id;
       goToViewContract();
     }, function (error) {
       _this.errMessage = error;
