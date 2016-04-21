@@ -138,16 +138,61 @@
         </div>
 
         <div class="row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-2">
             <label for="issuingAuthority">Issuing Authority</label>
             <div class="input-group">
               <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
               ng-init="$ctrl.contract.issuingAuthority"
               ng-model="$ctrl.contract.issuingAuthority"
               required>
-            </select>
+              </select>
             </div>
           </div>
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="skills">Skills</label>
+                <div class="input-group">
+                  <select name="skills" class="form-control" ng-options="d.id as d.name for d in $ctrl.skillsList"
+                  ng-init="$ctrl.contract.skills"
+                  ng-model="$ctrl.contract.skills"
+                  required>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="skill_mandatory">Skill Mandatory?</label><br/>
+                <select name="skill_mandatory" ng-model="$ctrl.contact.skills_mandatory" class="form-control">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select><br>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="license">License</label>
+                <div class="input-group">
+                  <select name="license" class="form-control" ng-options="d.id as d.name for d in $ctrl.licenseList"
+                  ng-init="$ctrl.contract.license"
+                  ng-model="$ctrl.contract.license"
+                  required>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="license_mandatory">License Mandatory?</label><br/>
+                <select name="license_mandatory" ng-model="$ctrl.contact.license_mandatory" class="form-control">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select><br>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 

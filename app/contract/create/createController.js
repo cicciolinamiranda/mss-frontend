@@ -38,6 +38,10 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     _this.contract.loiStartDate = moment().toDate();
     _this.contract.loiEndDate = moment().toDate();
     _this.contract.issuingAuthority = "";
+    _this.contract.skills = null;
+    _this.contract.skills_mandatory = "false";
+    _this.contract.liscense = null;
+    _this.contract.liscense_mandatory = "false";
 
     _this.limitsOfLiabilityChoices = _this.model.limitsOfLiabilityChoices;
     _this.limitsOfLiabilityDefault = _this.model.limitsOfLiabilityDefault;
@@ -47,6 +51,8 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
 
     initContract();
     getContactList();
+    getSkills();
+    getLiscenses();
   }
 
   init();
@@ -82,6 +88,40 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     }, function (error) {
       _this.errMessage = error;
     });*/
+  }
+
+  function getSkills(){
+    _this.skillsList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
+  function getLiscenses(){
+    _this.licenseList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
   }
 
   function goToViewContract(){
