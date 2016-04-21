@@ -121,14 +121,14 @@
             </select>
           </div>
           <div class="col-md-3">
-            <label for="wefDate">LOI Date</label>
-            <input type="date" class="form-control" name="wefDate" id="wefDate"
+            <label for="loiDate">LOI Date</label>
+            <input type="date" class="form-control" name="loiDate" id="loiDate"
               ng-model="$ctrl.contract.loiDate"/>
           </div>
           <div class="col-md-5">
             <div class="form-group col-md-6">
               <label for="loiStartDate">LOI Start Date</label>
-              <input type="date" class="form-control" name="loiStartDate" id="startDate" ng-model="$ctrl.contract.loiStartDate" required/>
+              <input type="date" class="form-control" name="loiStartDate" id="loiStartDate" ng-model="$ctrl.contract.loiStartDate" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="loiEndDate">LOI End Date</label>
@@ -150,7 +150,7 @@
           </div>
           <div class="col-md-3">
             <label for="skill_mandatory">Skill Mandatory?</label><br/>
-            <select name="skill_mandatory" ng-model="$ctrl.contact.skills_mandatory" class="form-control">
+            <select name="skill_mandatory" ng-model="$ctrl.contract.skills_mandatory" class="form-control">
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select><br>
@@ -169,7 +169,7 @@
             </div>
             <div class="col-md-6">
               <label for="license_mandatory">License Mandatory?</label><br/>
-              <select name="license_mandatory" ng-model="$ctrl.contact.license_mandatory" class="form-control">
+              <select name="license_mandatory" ng-model="$ctrl.contract.license_mandatory" class="form-control">
                 <option value="true">Yes</option>
                 <option value="false">No</option>
               </select><br>
