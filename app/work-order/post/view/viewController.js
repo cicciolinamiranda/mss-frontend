@@ -3,7 +3,7 @@ var moment = require('moment');
 /*@ngInject*/
 function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
   var _this = this;
-  var postId = $stateParams.id;
+  _this.postId = $stateParams.id;
   _this.model = ViewPostModel;
   _this.postModel = new PostModel();
   _this.post;
@@ -17,7 +17,7 @@ function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
   init();
 
   function getPostDetails() {
-    _this.model.getPostDetails(postId).then(function (response) {
+    _this.model.getPostDetails(_this.postId).then(function (response) {
       _this.post =  response.result;
       _this.post.hours = moment(moment(_this.post.endTime, "HH:mm").toDate()).diff(moment(moment(_this.post.startTime, "HH:mm").toDate()), 'hours');
       if(_this.postModel.postCoverChoices && _this.postModel.postCoverChoices.length > 0){

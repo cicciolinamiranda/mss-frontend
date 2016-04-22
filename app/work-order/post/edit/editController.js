@@ -38,8 +38,14 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
     _this.model.getPostDetails(postId).then(function (response) {
       _this.post = PostModel.formatPostDtoToJson(response.result);
 
+      //comments
+      _this.post.reasonForChange ="";
+      _this.objectType = "POST";
+      _this.saveOrUpdate = "E";
       if(_this.transactionParam  === 'd'){
         _this.post.name += " (Copy)";
+        //comments
+        _this.saveOrUpdate = "D";
       }
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
@@ -70,7 +76,8 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   init();
 
   function update(){
-    _this.model.editPost(_this.transactionParam, _this.post);
+    // _this.model.editPost(_this.transactionParam, _this.post);
+    $('#reasonForChangeModal').modal('show');
   }
 
   function cancel() {

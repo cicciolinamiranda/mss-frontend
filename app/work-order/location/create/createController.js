@@ -74,6 +74,11 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
     _this.location.proofOfDuty = {};
     _this.location.methodOfRecording = {};
 
+    //comments
+    _this.location.reasonForChange ="";
+    _this.saveOrUpdate = "S";
+    _this.objectType = "CUSTOMER_LOCATION";
+
     _this.costTypeChoices = _this.model.costTypeChoices;
     _this.costTypeDefault = _this.model.costTypeDefault;
   }
