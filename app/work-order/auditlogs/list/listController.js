@@ -19,7 +19,7 @@ function listAuditlogsCtrl(AuditlogsModel) {
   init();
   function getAuditLogs() {
     _this.model.getAuditLogs(_this.objectType, _this.objectId).then(function (response) {
-      _this.auditlogsList = response;
+      _this.auditlog = response;
       console.log(_this.auditlogsList);
     });
   }
