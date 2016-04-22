@@ -1,7 +1,6 @@
 var angular = require('angular');
 require('eydis-gapi');
 require('angular-ui-router');
-
 var ngApp = angular.module('locationApp', [
   'eydis.gapi',
   'ui.router',
@@ -14,7 +13,8 @@ var ngApp = angular.module('locationApp', [
   require('./location/search/index').name,
   require('./post/index').name,
   require('./view/index').name,
-  require('./auditlogs/index').name
+  require('./auditlogs/index').name,
+  require('./reasonForChange/index').name
 ]);
 require('./location/locationModel')(ngApp);
 require('./config')(ngApp);
