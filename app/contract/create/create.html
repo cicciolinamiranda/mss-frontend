@@ -128,11 +128,11 @@
           <div class="col-md-5">
             <div class="form-group col-md-6">
               <label for="loiStartDate">LOI Start Date</label>
-              <input type="date" class="form-control" name="loiStartDate" id="loiStartDate" ng-model="$ctrl.contract.loiStartDate" required/>
+              <input type="date" class="form-control" name="loiStartDate" id="loiStartDate" ng-model="$ctrl.contract.loiStartDate" ng-change="$ctrl.validateLoiEndDate()" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="loiEndDate">LOI End Date</label>
-              <input type="date" class="form-control" name="loiEndDate" id="loiEndDate" ng-model="$ctrl.contract.loiEndDate" ng-change="$ctrl.validateLoiEndDate()"/>
+              <input type="date" class="form-control" name="loiEndDate" id="loiEndDate" ng-model="$ctrl.contract.loiEndDate" ng-change="$ctrl.validateLoiEndDate()" required/>
             </div>
           </div>
         </div>

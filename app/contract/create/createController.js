@@ -199,11 +199,11 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   }
 
   function validateLoiEndDate(){
-    if (moment(_this.contract.loiStartDate).toDate() < moment(_this.contract.loiEndDate).toDate()){
+    if (moment(_this.contract.loiStartDate).toDate() <= moment(_this.contract.loiEndDate).toDate() ){
       _this.errMessage = "";
     }
     else{
-      _this.errMessage = "Invalid LOI end date (must be greater than contract LOI start date)!";
+      _this.errMessage = "Invalid LOI Date Range (LOI start date must be greater than contract LOI end date)!";
     }
   }
 }
