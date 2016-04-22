@@ -9,12 +9,12 @@
   </thead>
   <tbody>
     <tr ng-repeat="auditlog in $ctrl.auditlogsList" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
-      <td>{{auditlog.createdBy}}</td>
+      <td>{{auditlog.revised_by}}</td>
       <td>
-        {{auditlog.body.fieldName}}
+        {{auditlog.action}}
       </br>
       </td>
-      <td>{{auditlog.createdDateStr}}</td>
+      <td>{{auditlog.revision_date}}</td>
       <div class="modal fade" id="viewAuditlogsModal" tabindex="-1" role="dialog" aria-labelledby="viewAuditlogsModal">
         <auditlogs-view auditlog="$ctrl.model.auditlog" ></auditlogs-view>
       </div>

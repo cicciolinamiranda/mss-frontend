@@ -9,7 +9,7 @@ function viewPostCtrl(ViewPostModel, PostModel, $state, $stateParams) {
   _this.post;
 
   //auditlogs trigger
-  _this.objectType = "POST";
+  _this.objectType = "post";
   function init() {
     getPostDetails();
   }
