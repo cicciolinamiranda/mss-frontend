@@ -6,7 +6,6 @@ module.exports = listAuditlogsCtrl;
 function listAuditlogsCtrl(AuditlogsModel) {
   var _this = this;
   _this.model = new AuditlogsModel();
-  _this.objectId = 2;
 
   //auditlogs
   _this.auditlogsList = [];
@@ -18,9 +17,10 @@ function listAuditlogsCtrl(AuditlogsModel) {
 
   init();
   function getAuditLogs() {
+    console.log("OBJECT ID: "+_this.objectId);
     _this.model.getAuditLogs(_this.objectType, _this.objectId).then(function (response) {
       _this.auditlog = response;
-      console.log(_this.auditlogsList);
+      console.log(JSON.stringify(_this.auditlog));
     });
   }
 
