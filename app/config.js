@@ -8,5 +8,5 @@ function config($httpProvider, GAuthProvider) {
   GAuthProvider.authUrl = 'http://localhost:8081/login/google';
   GAuthProvider.destinationStateOnSuccess = 'employee.list';
   GAuthProvider.destinationStateOnError = 'auth.error';
-  GAuthProvider.bypassLogin = true;
+  GAuthProvider.bypassLogin = false;
 }
