@@ -23,6 +23,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
   _this.dateRangeChanged = dateRangeChanged;
+  _this.validateLoiEndDate = validateLoiEndDate;
 
   function init(){
     _this.contract.id = null;
@@ -194,6 +195,15 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     }
     else{
       _this.errMessage = "Invalid Date Range";
+    }
+  }
+
+  function validateLoiEndDate(){
+    if (moment(_this.contract.loiStartDate).toDate() < moment(_this.contract.loiEndDate).toDate()){
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid LOI end date (must be greater than contract LOI start date)!";
     }
   }
 }
