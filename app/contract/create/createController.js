@@ -11,7 +11,9 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.uploader = new FileUploader();
   _this.uploader.onAfterAddingFile = onAfterAddingFile;
   _this.uploader.onCompleteAll = onCompleteAll;
+
   _this.errMessage;
+  _this.contactChoices;
 
   _this.customerId = $stateParams.customerId;
   _this.contract.customer = { id: _this.customerId };
@@ -20,6 +22,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
+  _this.dateRangeChanged = dateRangeChanged;
 
   function init(){
     _this.contract.id = null;
@@ -41,6 +44,10 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     _this.contract.loiStartDate = moment().toDate();
     _this.contract.loiEndDate = moment().toDate();
     _this.contract.issuingAuthority = "";
+    _this.contract.skills = null;
+    _this.contract.skills_mandatory = "false";
+    _this.contract.liscense = null;
+    _this.contract.liscense_mandatory = "false";
 
     _this.limitsOfLiabilityChoices = _this.model.limitsOfLiabilityChoices;
     _this.limitsOfLiabilityDefault = _this.model.limitsOfLiabilityDefault;
@@ -48,13 +55,19 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
-
+    getContacts(_this.contract.accountNumber);
     initContract();
+    getSkills();
+    getLiscenses();
   }
 
   init();
 
   function saveContract(){
+    if (_this.errMessage != ""){
+      alert("Please address remaining errors.");
+      return;
+    }
     CreateContractService.save(_this.contract).then(function (response) {
       _this.contractId = response.id;
       goToViewContract();
@@ -65,9 +78,21 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function initContract(){
     CreateContractService.init().then(function (response) {
-      console.log(response);
       _this.contract.id = response.id;
     }, function (error) {
+      _this.errMessage = error;
+    });
+  }
+
+  function getContacts(accountNumber){
+    CreateContractService.getContactList(accountNumber).then(function (response){
+
+      angular.forEach(response, function(value, key) {
+        value['name'] = composeName(value);
+      }, response);
+
+      _this.contactChoices = response;
+    }, function(error){
       _this.errMessage = error;
     });
   }
@@ -93,20 +118,14 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   function onAfterAddingFile(fileItem) {
     var self = this;
     console.info('onAfterAddingFile', fileItem);
-    // var importfile = fileItem;
-    /*CreateContractService.upload()
+    var importfile = fileItem;
+    CreateContractService.upload(_this.contract.id, fileItem)
       .then(function(item){
-        if(item.data.upload_url===undefined){
-          fileItem.remove();
-          _this.uploader.disabled = self.queue.length === 0;
-        }
-        else{
-          importfile.url = item.data.upload_url;
-        }
+        fileItem.remove();
+        _this.uploader.disabled = self.queue.length === 0;
     },function(e){
-      console.warn('failed');
-      swal("Error!", e.data.error, "error");
-    });*/
+      console.warn('Error!', e.data.error);
+    });
   };
 
   function onCompleteAll() {
@@ -120,7 +139,61 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
       }, 500);
   };
 
+
+  function composeName(contact) {
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+  }
+
+  function camelCase(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function getSkills(){
+    _this.skillsList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
+  function getLiscenses(){
+    _this.licenseList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
   function goToViewContract(){
     $state.go('customer.view', {customerNumber:_this.customerNumber});
+  }
+
+  function dateRangeChanged(){
+    // console.log(moment(_this.contract.startDate).toDate() > moment(_this.contract.endDate).toDate());
+    if (moment(_this.contract.startDate).toDate() <= moment(_this.contract.endDate).toDate()){
+      // console.log("Good");
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid Date Range";
+    }
   }
 }
