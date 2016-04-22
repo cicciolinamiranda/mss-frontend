@@ -162,7 +162,8 @@ function PostModel(PostService,CreatePostSvc,$state) {
       },
       'role':post.role,
       'chargeRate': post.chargeRate,
-      'allowances':post.allowances
+      'allowances':post.allowances,
+      'reasonForChange':post.reasonForChange
     };
     if(post.postCover){
       postDTO.postCover = post.postCover.id;
