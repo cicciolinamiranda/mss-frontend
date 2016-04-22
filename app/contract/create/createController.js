@@ -23,7 +23,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
   _this.dateRangeChanged = dateRangeChanged;
-  _this.validateLoiDate = validateLoiDate;
+  _this.validateLoiEndDate = validateLoiEndDate;
 
   function init(){
     _this.contract.id = null;
@@ -198,12 +198,12 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     }
   }
 
-  function validateLoiDate(){
-    if (moment(_this.contract.startDate).toDate() < moment(_this.contract.loiDate).toDate()){
+  function validateLoiEndDate(){
+    if (moment(_this.contract.loiStartDate).toDate() < moment(_this.contract.loiEndDate).toDate()){
       _this.errMessage = "";
     }
     else{
-      _this.errMessage = "Invalid LOI Date!";
+      _this.errMessage = "Invalid LOI end date (must be greater than contract LOI start date)!";
     }
   }
 }
