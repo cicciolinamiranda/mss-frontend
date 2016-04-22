@@ -110,7 +110,8 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
-      'statusStr': 'IN_PROGRESS'
+      'statusStr': 'IN_PROGRESS',
+      'reasonForChange':json.reasonForChange
     };
     return _this.customerDetails;
   }

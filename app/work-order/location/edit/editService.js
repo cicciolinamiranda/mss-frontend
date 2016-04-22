@@ -177,7 +177,8 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       'endDateStr': formatMomentDateThatMustBeNull(json.endDate),
       'statusStr': 'IN_PROGRESS',
       'proofOfDuty': json.proofOfDuty,
-      'methodOfRecording': json.methodOfRecording
+      'methodOfRecording': json.methodOfRecording,
+      'reasonForChange':json.reasonForChange
     };  console.log("to be save---->"+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
