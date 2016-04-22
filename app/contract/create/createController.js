@@ -65,7 +65,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   init();
 
   function saveContract(){
-    if (_this.errMessage != ""){
+    if (_this.errMessage != "" && _this.errMessage != undefined){
       alert("Please address remaining errors.");
       return;
     }
@@ -142,7 +142,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
 
   function composeName(contact) {
-    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.lastName;
   }
 
   function camelCase(string){
