@@ -178,8 +178,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       'statusStr': 'IN_PROGRESS',
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording
-    };
-
+    };  console.log("to be save---->"+JSON.stringify(_this.customerDetails));
     return _this.customerDetails;
   }
 

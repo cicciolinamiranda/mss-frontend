@@ -13,10 +13,6 @@
       <h4 class="modal-title">Audit Logs Details</h4>
     </div>
     <div class="modal-body">
-      <div class="panel__heading">
-        <div class="panel__title"></div>
-      </div>
-      <br/>
       <div class="row">
         <div class="col-md-6">
           <div class="row">
@@ -56,6 +52,9 @@
           <hr/>
         </div>
       </div>
+
+      <label>Changes</label>
+      <div ng-repeat="item in $ctrl.auditlog.body">
       <div class="row">
         <div class="col-md-12">
           <div class="row">
@@ -97,6 +96,8 @@
           <hr/>
         </div>
       </div>
+    </div>
+
       <div class="row">
         <div class="col-md-6">
           <div class="row">

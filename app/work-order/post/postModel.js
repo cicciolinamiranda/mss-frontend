@@ -3,9 +3,9 @@ module.exports = function (ngModule) {
 };
 var moment = require('moment');
 
-function PostModel(PostService) {
+function PostModel(PostService,CreatePostSvc,$state) {
   var _this = this;
-
+      _this.errMessage = "";
   function PostModel() {
     this.postCoverChoices = setPostCoverChoices();
     this.post = setDefaultPost();
@@ -93,6 +93,26 @@ function PostModel(PostService) {
     });
   };
 
+  PostModel.prototype.save = function(post) {
+    CreatePostSvc.save(PostModel.transformPostJsonToDTO(post)).then(function(response){
+      if(response == "Failed"){
+        _this.errMessage = 'Unable to save Post Record';
+      }
+      else if(response == "Duplicate"){
+        _this.errMessage = 'Duplicate Post Name';
+      }
+      else if(response == "Post name is required"){
+        _this.errMessage = "Post name is required";
+      }
+      else{
+        var postId = response.id;
+        $state.go('post.view', {id: postId});
+      }
+    }, function(error) {
+      _this.errMessage = error;
+    });
+  };
+
   //Customer Preferences
   PostModel.prototype.trainingChoices = [];
   PostModel.prototype.languageChoices = [];
@@ -108,7 +128,7 @@ function PostModel(PostService) {
   PostModel.prototype.religionChoices = [];
   PostModel.prototype.rolesChoices = [];
   PostModel.prototype.postAllowancesChoices = [];
-
+  PostModel.prototype.errMessage = "";
   PostModel.prototype.selectedPostAllowances;
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
