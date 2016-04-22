@@ -123,7 +123,7 @@
           <div class="col-md-3">
             <label for="loiDate">LOI Date</label>
             <input type="date" class="form-control" name="loiDate" id="loiDate"
-              ng-model="$ctrl.contract.loiDate"/>
+              ng-model="$ctrl.contract.loiDate" ng-change="$ctrl.validateLoiDate()"/>
           </div>
           <div class="col-md-5">
             <div class="form-group col-md-6">
