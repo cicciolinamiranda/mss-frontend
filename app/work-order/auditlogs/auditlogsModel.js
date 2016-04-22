@@ -8,8 +8,8 @@ function AuditlogsModel(AuditLogsService) {
   }
 
   AuditlogsModel.prototype.auditlog = {};
-  AuditlogsModel.prototype.getAuditLogs = function () {
-    return AuditLogsService.getAuditLogs().then(function (response) {
+  AuditlogsModel.prototype.getAuditLogs = function (objectId, objectType) {
+    return AuditLogsService.getAuditLogs(objectId,objectType).then(function (response) {
       return AuditlogsModel.formatDtoToJson(response);
     });
   };
@@ -18,17 +18,23 @@ function AuditlogsModel(AuditLogsService) {
     var json = dtoList;
 
     for(i=0;i<json.length;i++) {
-      json[i].createdDateStr = AuditlogsModel.transformJodaTimeToDateString(json[i].createdDate);
+      if(json[i].body){
+        try
+        {
+          json[i].body = JSON.parse(json[i].body);
+        }
+        catch(e)
+        {
+          json[i].body = [];
+        }
+      }
+      json[i].revision_date = AuditlogsModel.transformJodaTimeToDateString(json[i].revision_date);
     }
     return json;
   }
 
-  AuditlogsModel.transformJodaTimeToDateString = function(jodatime) {
-    var date = "";
-      if(undefined !== jodatime) {
-        date = jodatime.monthOfYear+"/"+jodatime.dayOfMonth+"/"+jodatime.year;
-      }
-    return date;
+  AuditlogsModel.transformJodaTimeToDateString = function(datetime) {
+    return moment(datetime).format('MM/DD/YYYY h:mm a');
   }
 
   return AuditlogsModel;

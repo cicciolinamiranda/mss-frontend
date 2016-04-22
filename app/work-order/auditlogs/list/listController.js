@@ -6,10 +6,11 @@ module.exports = listAuditlogsCtrl;
 function listAuditlogsCtrl(AuditlogsModel) {
   var _this = this;
   _this.model = new AuditlogsModel();
+  _this.objectId = 2;
 
   //auditlogs
   _this.auditlogsList = [];
-  _this.auditlog = {};
+  _this.auditlog = {}; //TODO: DO NOT NG-REPEAT MODALS :(
   _this.viewAuditlogDetails = viewAuditlogDetails;
   function init() {
     getAuditLogs();
@@ -17,13 +18,9 @@ function listAuditlogsCtrl(AuditlogsModel) {
 
   init();
   function getAuditLogs() {
-    _this.model.getAuditLogs().then(function (response) {
-      for(i=0; i < response.length; i++){
-
-        if(response[i].objectType == _this.objectType) {
-          _this.auditlogsList.push(response[i]);
-        }
-    }
+    _this.model.getAuditLogs(_this.objectType, _this.objectId).then(function (response) {
+      _this.auditlogsList = response;
+      console.log(_this.auditlogsList);
     });
   }
 

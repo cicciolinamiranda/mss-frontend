@@ -1,3 +1,11 @@
+<style>
+.table-small td{
+  max-width:100px;
+}
+.table-small span {
+  word-wrap: break-word;
+}
+</style>
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -5,7 +13,6 @@
       <h4 class="modal-title">Audit Logs Details</h4>
     </div>
     <div class="modal-body">
-
       <div class="panel__heading">
         <div class="panel__title"></div>
       </div>
@@ -17,7 +24,20 @@
               <label>Revision Number</label>
             </div>
             <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.revisionNumber}}</span>
+              <span>{{$ctrl.auditlog.revision_no}}</span>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+              <label>Action</label>
+            </div>
+            <div class="col-md-4 pull-right">
+              <span>{{$ctrl.auditlog.action}}</span>
             </div>
           </div>
           <hr/>
@@ -30,66 +50,48 @@
               <label>Changed By</label>
             </div>
             <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.createdBy}}</span>
+              <span>{{$ctrl.auditlog.revised_by}}</span>
             </div>
           </div>
           <hr/>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="row">
-            <div class="col-md-8">
-              <label>Category</label>
-            </div>
-            <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.objectType}}</span>
-            </div>
-          </div>
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="row">
-            <div class="col-md-8">
-              <label>Field Name</label>
-            </div>
-            <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.body.fieldName}}</span>
-            </div>
-          </div>
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <label>Changes</label>
             </div>
-            <div class="col-md-4 pull-right">
-              <label>Old Value</label>
-              <ul>
-                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.oldValue">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <span ng-bind="item"></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-
-              <label>New Value</label>
-              <ul>
-                <li class="list-group" ng-repeat="item in $ctrl.auditlog.body.newValue">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <span ng-bind="item"></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-small">
+                <col width="20">
+                <col width="40">
+                <col width="40">
+                <thead ng-if="$ctrl.auditlog.body.length > 0">
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Old Value</th>
+                    <th>New Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="bodyItem in $ctrl.auditlog.body">
+                    <td>{{bodyItem.fieldName}}</td>
+                    <td>
+                      <span ng-repeat="listItem in bodyItem.oldValue">
+                        {{listItem}}
+                      </span>
+                    </td>
+                    <td>
+                      <span ng-repeat="listItem in bodyItem.newValue">
+                        {{listItem}}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <hr/>
@@ -102,7 +104,7 @@
               <label>IP Address</label>
             </div>
             <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.ipAddress}}</span>
+              <span>{{$ctrl.auditlog.ip_address}}</span>
             </div>
           </div>
           <hr/>
@@ -115,7 +117,7 @@
               <label>Date</label>
             </div>
             <div class="col-md-4 pull-right">
-              <span>{{$ctrl.auditlog.createdDateStr}}</span>
+              <span>{{$ctrl.auditlog.revision_date}}</span>
             </div>
           </div>
           <hr/>
