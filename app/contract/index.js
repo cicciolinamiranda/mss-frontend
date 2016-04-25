@@ -10,6 +10,7 @@ var ngApp = angular.module('contractApp', [
   require('./view/index').name,
   require('./create/index').name,
   require('./search/index').name,
+  require('../viewer/index').name
 ]);
 
 require('./contractModel')(ngApp);

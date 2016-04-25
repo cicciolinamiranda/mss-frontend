@@ -6,10 +6,56 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.0/css/ngDialog.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.0/css/ngDialog-theme-default.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.0/css/ngDialog-theme-plain.min.css">
+
   <link rel="stylesheet" href="static/css/jquery-ui.min.css" />
   <link rel="stylesheet" href="static/css/main.css" />
+  <style type="text/css">
+    /*File Viewer MODAL*/
+    .ngdialog-content{
+      width: 718px !important;
+      height: 607px !important;
+    }
+    .ngdialog.ngdialog-theme-default {
+      padding-top: 38px !important;
+    }
+  </style>
 </head>
 <body>
+  <script type="text/ng-template" id="viewFileDialog">
+    <div class="ngdialog-message">
+      <h3 ng-bind="ngDialogData.filename"></h3>
+      <file-viewer src='ngDialogData.path'></file-viewer>
+    </div>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('Cancel')">Cancel</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary"
+      _target="self"
+      download="{{ngDialogData.path}}">Download</button>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="firstDialogId">
+    <div class="ngdialog-message">
+        <h3>ngDialog template</h3>
+        <p ng-show="theme">Test content for <code>{{theme}}</code></p>
+        <p ng-show="ngDialogId">Dialog Id: <code>{{ngDialogId}}</code></p>
+        <p class="data-passed-through" ng-show="ngDialogData.path">Data passed through: <code>{{ngDialogData.path}}</code></p>
+        <p ng-show="dialogModel.message">Scope passed through: <code>{{dialogModel.message}}</code></p>
+        <p>Close this dialog: <button class="inline close-this-dialog" ng-click="closeThisDialog()">Close</button></p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-secondary"
+            ng-dialog="secondDialogId"
+            ng-dialog-class="ngdialog-theme-default"
+            ng-dialog-controller="SecondModalCtrl"
+            ng-dialog-close-previous>Close and open</button>
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="openSecond()">Open next</button>
+    </div>
+  </script>
+
   <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
       <div class="navbar-header">

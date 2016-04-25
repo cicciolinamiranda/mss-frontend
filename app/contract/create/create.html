@@ -11,9 +11,9 @@
   </div>
 </div><!-- /info-section-->
 <div class="container">
-  <div class="col-md-12">
-    <div class="panel">
-      <form name="createContractForm" novalidate>
+  <form name="createContractForm" novalidate>
+    <div class="col-md-12">
+      <div class="panel">
         <div class="alert alert-danger" ng-show="$ctrl.errMessage">
           {{$ctrl.errMessage}}
         </div>
@@ -187,10 +187,40 @@
             </select>
           </div>
           <div class="col-md-3">
+            <label for="reviewDate">Review Date</label>
+            <input type="date" class="form-control" name="reviewDate" id="reviewDate"
+            ng-model="$ctrl.contract.reviewDate"/>
+          </div>
+        </div>
+        <br/>
+        <div class="row" style="display: block">
+          <div class="col-md-3">
             <label for="fileUpload">File Upload</label>
             <input type="file" name="file-5[]" id="file-5" nv-file-select=""
             ngf-pattern="'.pdf,.doc, .docx'"
             uploader="$ctrl.uploader" multiple="" accept=".pdf,.doc,.docx">
+          </div>
+        </div>
+        <br/>
+        <div class="row" style="display: block">
+          <div class="col-md-13">
+            <div class="row">
+              <div class="col-md-2">File</div>
+              <div class="col-md-2">View</div>
+              <div class="col-md-2">Download</div>
+            </div>
+            <div class="row" ng-repeat="file in $ctrl.files">
+              <div class="col-md-2">
+                  <span ng-bind="file.name"></span>
+              </div>
+              <div class="col-md-2">
+                <!-- <button type="button" ng-click="$ctrl.viewFileModal(file)">VIEW</button> -->
+                <a target="_blank" ng-href="{{file.url}}">VIEW</a>
+              </div>
+              <div class="col-md-2">
+                  <a _target="self" ng-href="{{file.url}}"  download="{{file.name}}" ng-bind="file.name"></a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -203,8 +233,8 @@
           </div>
         </div>
         <br/>
-      </form>
-    </div>
+      </div>
 
-  </div>
+    </div>
+  </form>
 </div>
