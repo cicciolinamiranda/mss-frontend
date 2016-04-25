@@ -218,12 +218,13 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
   }
 
   function updateCustomerLocation() {
-    EditLocationSvc.update(_this.location).then(function (response) {
-      _this.customerLocationId = response.id
-      goToViewLocation();
-    }, function (error) {
-      _this.errMessage= error;
-    });
+    $('#reasonForChangeModal_editCustLoc').modal('show');
+    // EditLocationSvc.update(_this.location).then(function (response) {
+    //   _this.customerLocationId = response.id
+    //   goToViewLocation();
+    // }, function (error) {
+    //   _this.errMessage= error;
+    // });
   }
 
   function getProofOfDuties(){

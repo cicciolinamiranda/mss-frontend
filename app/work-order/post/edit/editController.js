@@ -46,6 +46,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
         _this.post.name += " (Copy)";
         //comments
         _this.saveOrUpdate = "D";
+        _this.post.reasonForChange ="Duplicated post";
       }
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
@@ -77,7 +78,13 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
   function update(){
     // _this.model.editPost(_this.transactionParam, _this.post);
-    $('#reasonForChangeModal').modal('show');
+
+    if(_this.transactionParam == "d"){
+      _this.model.editPost(_this.transactionParam, _this.post);
+    }
+    else{
+    $('#reasonForChangeModal_editPost').modal('show');
+    }
   }
 
   function cancel() {
