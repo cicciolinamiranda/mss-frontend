@@ -56,6 +56,11 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
 
   _this.customerLocationId = '';
 
+  //comments
+  _this.location.reasonForChange ="Created new Customer Location";
+  _this.saveOrUpdate = "S";
+  _this.objectType = "CUSTOMER_LOCATION";
+
   function init() {
     _this.location.workOrderId = $stateParams.workOrderId;
     _this.location.startDate = moment().toDate();
@@ -73,11 +78,6 @@ function createCtrl(FileUploader, CreateLocationSvc, LocationModel, $state, $sta
     _this.location.siteContactDetails = [];
     _this.location.proofOfDuty = {};
     _this.location.methodOfRecording = {};
-
-    //comments
-    _this.location.reasonForChange ="";
-    _this.saveOrUpdate = "S";
-    _this.objectType = "CUSTOMER_LOCATION";
 
     _this.costTypeChoices = _this.model.costTypeChoices;
     _this.costTypeDefault = _this.model.costTypeDefault;

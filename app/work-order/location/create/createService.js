@@ -33,8 +33,6 @@ function createLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   this.save = function (customerLocationDetails) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
-      console.log(transformJsonToDTO(customerLocationDetails));
-
       return $gapi.client.customerContract.workorder.customer.location.save(
         transformJsonToDTO(customerLocationDetails)
       );

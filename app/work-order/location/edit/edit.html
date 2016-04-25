@@ -352,9 +352,8 @@
 <div class="row">
   <div class="col-md-12 text-right">
     <hr />
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reasonForChangeModal"
-      ng-disabled="editLocationForm.$invalid && $ctrl.disableSave">Save</button>
-
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.updateCustomerLocation()"
+      ng-disabled="$ctrl.disableSave">Save</button>
     <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewLocation()">Cancel</button>
   </div>
 </div>
@@ -365,6 +364,6 @@
 <div class="modal fade" id="employeeLookupModal" tabindex="-1" role="dialog" aria-labelledby="employeeLookup">
   <employee-lookup on-employee-select="$ctrl.addBarredEmployee(employee)" check-selected="$ctrl.checkBarredSelected(id)"></employee-lookup>
 </div>
-<div class="modal fade" id="reasonForChangeModal" tabindex="-1" role="dialog" aria-labelledby="reasonForChangeModal">
+<div class="modal fade" id="reasonForChangeModal_editCustLoc" tabindex="-1" role="dialog" aria-labelledby="reasonForChangeModal_editCustLoc">
 <reason-for-change to-be-saved="$ctrl.location" save-or-update="$ctrl.saveOrUpdate" object-type="$ctrl.objectType"></reason-for-change>
 </div>

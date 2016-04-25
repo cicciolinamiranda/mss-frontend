@@ -1,0 +1,16 @@
+<h2>Roles</h2>
+<div class="panel">
+	<table class="table table-striped">
+		<tr>
+			<th>Role Number/ID</th>
+			<th>Role Name</th>
+		</tr>
+		<tr ng-repeat="role in $ctrl.roles">
+			<td ng-bind="role.id"></td>
+			<td ng-bind="role.role"></td>
+		</tr>
+	</table>
+	<div ng-hide="!!$ctrl.roles.length">
+	<h3>No records found</h3>
+	</div>
+</div>
