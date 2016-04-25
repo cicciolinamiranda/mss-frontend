@@ -8,12 +8,12 @@ function routes($stateProvider) {
       name: 'role',
       url: '/roles',
       abstract: true,
-      template: '<role-view/>'
+      template: '<role-list/>'
     })
     .state({
       name: 'permission',
-      url: '/permissions',
+      url: '/permission',
       abstract: true,
-      template: '<permissions-view/>'
+      template: '<role-view/>'
     })
 }

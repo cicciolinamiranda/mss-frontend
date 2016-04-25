@@ -24,7 +24,7 @@ $script.ready('reqLibs0', function() {
     require('./contract/index').name,
     require('./contact/index').name,
     require('./search/index').name,
-    require('./system-roles/index').name,
+    require('./system-role/index').name,
     // 3rd-party libs
     require('angular-ui-router')
   ]);
