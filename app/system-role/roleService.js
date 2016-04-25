@@ -22,7 +22,7 @@ function rolesService($q, $gapi, ROLES_GAPI_BASE) {
       cache[id] = {};
       loadApi.then(function() {
         //temporary api call
-        return $gapi.client.systemRoles.roles.getList();
+        return $gapi.client.Employee.systemRole.getAllSystemRole();
       }).then(function(data) {
         angular.extend(cache[id], data);
         deferred2.resolve(cache[id]);
