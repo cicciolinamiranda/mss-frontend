@@ -128,7 +128,7 @@ function PostModel(PostService,CreatePostSvc,$state) {
   PostModel.prototype.religionChoices = [];
   PostModel.prototype.rolesChoices = [];
   PostModel.prototype.postAllowancesChoices = [];
-  PostModel.prototype.errMessage = "";
+
   PostModel.prototype.selectedPostAllowances;
   //json to dto
   PostModel.transformPostJsonToDTO = function(post){
@@ -163,6 +163,7 @@ function PostModel(PostService,CreatePostSvc,$state) {
       'role':post.role,
       'chargeRate': post.chargeRate,
       'allowances':post.allowances,
+      'imageUrl': post.imageUrl,
       'reasonForChange':post.reasonForChange
     };
     if(post.postCover){
@@ -294,6 +295,12 @@ function PostModel(PostService,CreatePostSvc,$state) {
           _this.errMessage = error;
         }
     );
+  }
+
+  PostModel.prototype.uploadImage = function(imageFile){
+    return PostService.uploadImage(imageFile).then(function (response) {
+      return response;
+    });
   }
 
   PostModel.prototype.removeFromArray = function (array, id) {

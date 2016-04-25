@@ -27,7 +27,17 @@ function reasonForChangeCtrl(LocationModel,PostModel,EditPostModel,CreatePostSvc
           _this.postModel.save(_this.toBeSaved);
       }
       else if(_this.saveOrUpdate == "E") {
-          _this.editPostModel.editPost("e", _this.toBeSaved);
+         _this.editPostModel.editPost("e", _this.toBeSaved);
+          // TODO: Uncomment once backend for image upload is OK
+          // if(_this.toBeSaved.image){
+          //   _this.postModel.uploadImage(_this.toBeSaved.image).then(
+          //     function(response){
+          //       _this.toBeSaved.imageUrl = response.data.imageUrl;
+          //       _this.editPostModel.editPost("e", _this.toBeSaved);
+          //     });
+          // }else{
+          //   _this.editPostModel.editPost("e", _this.toBeSaved);
+          // }
       }
       else if(_this.saveOrUpdate == "D") {
           _this.editPostModel.editPost("d", _this.toBeSaved);
