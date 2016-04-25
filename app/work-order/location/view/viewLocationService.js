@@ -38,7 +38,7 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.customer.location.update_status(
-        {'id' : id, 'status':status}
+        {'id' : id, 'status':status, 'reasonForChange':"Archived"}
       );
     }).then(function (data) {
       def.resolve(data);
