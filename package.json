@@ -4,7 +4,7 @@
   "description": "Frontend for Employee operational data",
   "main": "app/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot",
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base app --inline --hot --port 8081",
     "test": "./node_modules/.bin/karma start --single-run",
     "tdd": "./node_modules/.bin/karma start",
     "build": "./node_modules/.bin/webpack --config webpack.config.prod.js --content-base app"
@@ -48,6 +48,7 @@
     "angular-ui-router": "^0.2.18",
     "eydis-gapi": "git+https://github.com/yowmamasita/Eydis-GAPI.git",
     "moment": "^2.12.0",
+    "ng-dialog": "^0.6.0",
     "ngmap": "^1.17.0",
     "scriptjs": "^2.5.8",
     "ui-select": "^0.16.1"

@@ -4,6 +4,7 @@ require('ui-select');
 require('style!css!ui-select/dist/select.css');
 require('angular-sanitize');
 require('angular-messages');
+require('ng-dialog');
 
 
 var ngApp = angular.module('contractCreateApp', [
@@ -11,7 +12,8 @@ var ngApp = angular.module('contractCreateApp', [
   'ngSanitize',
   'ui.select',
   'ngMessages',
-  'eydis.gapi'
+  'eydis.gapi',
+  'ngDialog'
 ]);
 
 require('./createService')(ngApp);
