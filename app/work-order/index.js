@@ -14,7 +14,8 @@ var ngApp = angular.module('locationApp', [
   require('./post/index').name,
   require('./view/index').name,
   require('./auditlogs/index').name,
-  require('./reasonForChange/index').name
+  require('./reasonForChange/index').name,
+  require('./shiftPattern/index').name
 ]);
 require('./location/locationModel')(ngApp);
 require('./config')(ngApp);
