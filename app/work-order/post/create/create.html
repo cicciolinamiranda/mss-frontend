@@ -18,7 +18,7 @@
           <div class="panel__title">Post Details</div>
         </div>
         <div class="alert alert-danger" ng-show="$ctrl.errMessage">
-          {{$ctrl.errMessage}}
+          {{$ctrl.model.errMessage}}
         </div>
         <div class="form-group">
           <label for="postTitle">Post Title</label>
@@ -443,4 +443,7 @@
 </form>
 </div>
 </div>
+</div>
+<div class="modal fade" id="reasonForChangeModal" tabindex="-1" role="dialog" aria-labelledby="reasonForChange">
+<reason-for-change to-be-saved="$ctrl.post" save-or-update="$ctrl.saveOrUpdate" object-type="$ctrl.objectType"></reason-for-change>
 </div>

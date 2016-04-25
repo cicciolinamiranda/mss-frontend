@@ -61,11 +61,17 @@ function editCtrl(FileUploader, EditLocationSvc, LocationModel, $stateParams,$st
 
   _this.customerLocationId = '';
 
+
   function init() {
     //this will be removed once the mapping on the service is completed
     _this.location.startDate = moment().toDate();
     _this.location.surveyReviewDate = moment().toDate();
     _this.location.floorPlanUploader = new FileUploader();
+
+    //comments
+    _this.location.reasonForChange ="";
+    _this.saveOrUpdate = "U";
+    _this.objectType = "CUSTOMER_LOCATION";
 
     _this.costTypeChoices = _this.model.costTypeChoices;
     _this.costTypeDefault = _this.model.costTypeDefault;

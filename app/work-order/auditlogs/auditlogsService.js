@@ -4,17 +4,16 @@ module.exports = function (ngModule) {
 
 function auditlogsService($q,$http, AUDITLOGS_GAPI_BASE) {
   var _this = this;
-  var apiUrl = AUDITLOGS_GAPI_BASE + '/auditlogs';
+  var apiUrl = AUDITLOGS_GAPI_BASE + 'reports/v1/auditlog/';
 
-  _this.getAuditLogs = function() {
+  _this.getAuditLogs = function(objectType, objectId) {
     return $http({
-      url: apiUrl,
+      url: apiUrl + objectType + "/list/" + objectId,
       method: "GET"
-      //params: {q: query}
     }).then(function(response) {
       return response.data;
     },function(error) {
-      var errorMessage = "Error: Unable to connect to the employee search service. Please try again later.";
+      var errorMessage = "Error: Unable to connect to the audit log service. Please try again later.";
       return $q.reject(errorMessage);
     });
   };

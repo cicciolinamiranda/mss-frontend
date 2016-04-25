@@ -23,6 +23,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.saveContract = saveContract;
   _this.goToViewContract = goToViewContract;
   _this.dateRangeChanged = dateRangeChanged;
+  _this.validateLoiEndDate = validateLoiEndDate;
 
   function init(){
     _this.contract.id = null;
@@ -64,7 +65,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   init();
 
   function saveContract(){
-    if (_this.errMessage != ""){
+    if (_this.errMessage != "" && _this.errMessage != undefined){
       alert("Please address remaining errors.");
       return;
     }
@@ -78,7 +79,6 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function initContract(){
     CreateContractService.init().then(function (response) {
-      console.log(response);
       _this.contract.id = response.id;
     }, function (error) {
       _this.errMessage = error;
@@ -87,7 +87,6 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
   function getContacts(accountNumber){
     CreateContractService.getContactList(accountNumber).then(function (response){
-      console.log('getContactList::', response);
 
       angular.forEach(response, function(value, key) {
         value['name'] = composeName(value);
@@ -120,20 +119,14 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   function onAfterAddingFile(fileItem) {
     var self = this;
     console.info('onAfterAddingFile', fileItem);
-    // var importfile = fileItem;
-    /*CreateContractService.upload()
+    var importfile = fileItem;
+    CreateContractService.upload(_this.contract.id, fileItem)
       .then(function(item){
-        if(item.data.upload_url===undefined){
-          fileItem.remove();
-          _this.uploader.disabled = self.queue.length === 0;
-        }
-        else{
-          importfile.url = item.data.upload_url;
-        }
+        fileItem.remove();
+        _this.uploader.disabled = self.queue.length === 0;
     },function(e){
-      console.warn('failed');
-      swal("Error!", e.data.error, "error");
-    });*/
+      console.warn('Error!', e.data.error);
+    });
   };
 
   function onCompleteAll() {
@@ -149,7 +142,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
 
 
   function composeName(contact) {
-    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.middleName + " " + contact.lastName;
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.lastName;
   }
 
   function camelCase(string){
@@ -202,6 +195,15 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     }
     else{
       _this.errMessage = "Invalid Date Range";
+    }
+  }
+
+  function validateLoiEndDate(){
+    if (moment(_this.contract.loiStartDate).toDate() <= moment(_this.contract.loiEndDate).toDate() ){
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid LOI Date Range (LOI start date must be greater than contract LOI end date)!";
     }
   }
 }

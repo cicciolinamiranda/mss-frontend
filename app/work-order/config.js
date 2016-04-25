@@ -7,5 +7,5 @@ module.exports = function(ngModule) {
   ngModule.constant('WORKORDER_GAPI_BASE','https://smp-dot-customer-contracts-dot-javelin-dev.appspot.com/_ah/api');
   ngModule.constant('WORKORDER_UPLOAD_BASE','https://smp-dot-customer-contracts-dot-javelin-dev.appspot.com/');
   ngModule.constant('MOCK_BASE','https://mss3-mockend-dot-cs-development-playground.appspot.com/');
-  ngModule.constant('AUDITLOGS_GAPI_BASE','https://mss3-mockend-dot-cs-development-playground.appspot.com/');//TODO: MUST BE CHANGE ONCE BQ ENDPOINT FOR PULL IS ALREADY AVAILABLE
+  ngModule.constant('AUDITLOGS_GAPI_BASE','https://reports-dot-javelin-dev.appspot.com/');
 };

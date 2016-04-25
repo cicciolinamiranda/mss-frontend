@@ -3,7 +3,8 @@ module.exports = function(ngModule) {
     template: require('./list.html'),
     controller: require('./listController'),
     bindings:{
-      objectType:'='
+      objectType:'=',
+      objectId:'='
     }
   });
 };

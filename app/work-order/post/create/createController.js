@@ -40,6 +40,11 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
       if(_this.callInFrequencyChoices && _this.callInFrequencyChoices.length > 0){
         _this.post.callInFrequency = _this.callInFrequencyChoices[0];
       }
+
+      //comments
+      _this.post.reasonForChange ="";
+      _this.saveOrUpdate = "S";
+      _this.objectType = "POST";
     });
 
     getAllRoles();
@@ -81,6 +86,25 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
     }, function(error) {
       _this.errMessage = error;
     });
+
+    $('#reasonForChangeModal').modal('show');
+    // CreatePostSvc.save(PostModel.transformPostJsonToDTO(_this.post)).then(function(response){
+    //   if(response == "Failed"){
+    //     _this.errMessage = 'Unable to save Post Record';
+    //   }
+    //   else if(response == "Duplicate"){
+    //     _this.errMessage = 'Duplicate Post Name';
+    //   }
+    //   else if(response == "Post name is required"){
+    //     _this.errMessage = "Post name is required";
+    //   }
+    //   else{
+    //     var postId = response.id;
+    //     $state.go('post.view', {id: postId});
+    //   }
+    // }, function(error) {
+    //   _this.errMessage = error;
+    // });
   }
 
   function cancel() {

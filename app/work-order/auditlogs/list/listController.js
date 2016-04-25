@@ -9,7 +9,7 @@ function listAuditlogsCtrl(AuditlogsModel) {
 
   //auditlogs
   _this.auditlogsList = [];
-  _this.auditlog = {};
+  _this.auditlog = {}; //TODO: DO NOT NG-REPEAT MODALS :(
   _this.viewAuditlogDetails = viewAuditlogDetails;
   function init() {
     getAuditLogs();
@@ -17,13 +17,10 @@ function listAuditlogsCtrl(AuditlogsModel) {
 
   init();
   function getAuditLogs() {
-    _this.model.getAuditLogs().then(function (response) {
-      for(i=0; i < response.length; i++){
-
-        if(response[i].objectType == _this.objectType) {
-          _this.auditlogsList.push(response[i]);
-        }
-    }
+    console.log("OBJECT ID: "+_this.objectId);
+    _this.model.getAuditLogs(_this.objectType, _this.objectId).then(function (response) {
+      _this.auditlog = response;
+      console.log(JSON.stringify(_this.auditlog));
     });
   }
 
