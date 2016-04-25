@@ -3,10 +3,10 @@ module.exports = createContractCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createContractCtrl(CreateContractService, FileUploader, ContractModel, $state, $stateParams) {
+function createContractCtrl(CreateContractService, FileUploader, ngDialog, ContractModel, $state, $stateParams) {
   var _this = this;
   _this.contract = {};
-  _this.files = {};
+  _this.files = [];
   _this.model = new ContractModel();
   _this.uploader = new FileUploader();
   _this.uploader.onAfterAddingFile = onAfterAddingFile;
@@ -24,6 +24,7 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
   _this.goToViewContract = goToViewContract;
   _this.dateRangeChanged = dateRangeChanged;
   _this.validateLoiEndDate = validateLoiEndDate;
+  _this.viewFileModal = viewFileModal;
 
   function init(){
     _this.contract.id = null;
@@ -60,9 +61,23 @@ function createContractCtrl(CreateContractService, FileUploader, ContractModel, 
     initContract();
     getSkills();
     getLiscenses();
+
+    _this.files = [
+      {
+        name:'BigQuery3--BigQueryAPI.pdf',
+        url: '_files/BigQuery3--BigQueryAPI.pdf'
+      }
+    ];
   }
 
   init();
+
+  function viewFileModal(file){
+    var new_dialog = ngDialog.open({
+      id: 'viewFileModal',
+      template: 'viewFileDialog',
+      data: { path: file.url, filename: file.name } });
+  }
 
   function saveContract(){
     if (_this.errMessage != "" && _this.errMessage != undefined){
