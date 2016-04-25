@@ -2,7 +2,7 @@ module.exports = function (ngModule) {
   ngModule.service('PostService', postService);
 };
 
-function postService($q, $gapi, $http, WORKORDER_GAPI_BASE) {
+function postService($q, $gapi, $http, WORKORDER_GAPI_BASE, WORKORDER_UPLOAD_BASE) {
   var _this = this;
 
   var deferred = $q.defer();
@@ -16,7 +16,7 @@ function postService($q, $gapi, $http, WORKORDER_GAPI_BASE) {
 
     return $http({
         method: 'POST',
-        url: 'http://localhost:8080/upload/post/image',
+        url: WORKORDER_UPLOAD_BASE + 'upload/post/image',
         headers: {'Content-Type': undefined},
         data : formData,
         transformRequest: angular.identity

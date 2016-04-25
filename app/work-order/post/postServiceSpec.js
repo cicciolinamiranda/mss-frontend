@@ -55,6 +55,7 @@ describe("Post Service", function() {
   beforeEach(function() {
     angular.mock.module(function($provide) {
       $provide.constant('WORKORDER_GAPI_BASE', '');
+      $provide.constant('WORKORDER_UPLOAD_BASE', '');
       $provide.service('$gapi', function($q) {
         var gapi = {
           loaded: $q.resolve(),
