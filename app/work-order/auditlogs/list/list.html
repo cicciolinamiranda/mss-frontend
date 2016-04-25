@@ -11,13 +11,7 @@
     <tr ng-repeat="auditlog in $ctrl.auditlog | limitTo:10" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
       <td>{{auditlog.revised_by}}</td>
       <td>
-        {{auditlog.action}}
-          <li ng-repeat="item in auditlog.body">
-            <div class="row">
-                <span>{{item.fieldName}}</span>
-            </div>
-          </li>
-        </ul>
+        {{auditlog.reason}}
       </td>
       <td>{{auditlog.revision_date}}</td>
       <div class="modal fade" id="viewAuditlogsModal" tabindex="-1" role="dialog" aria-labelledby="viewAuditlogsModal">
