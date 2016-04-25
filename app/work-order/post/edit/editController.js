@@ -46,6 +46,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
         _this.post.name += " (Copy)";
         //comments
         _this.saveOrUpdate = "D";
+        _this.post.reasonForChange ="Duplicated post";
       }
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {

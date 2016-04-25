@@ -42,7 +42,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       }
 
       //comments
-      _this.post.reasonForChange ="";
+      _this.post.reasonForChange ="Created New Post";
       _this.saveOrUpdate = "S";
       _this.objectType = "POST";
     });
