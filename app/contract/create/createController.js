@@ -3,11 +3,17 @@ module.exports = createContractCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createContractCtrl(CreateContractService, ContractModel, $state, $stateParams) {
+function createContractCtrl(CreateContractService, FileUploader, ContractModel, $state, $stateParams) {
   var _this = this;
   _this.contract = {};
+  _this.files = {};
   _this.model = new ContractModel();
+  _this.uploader = new FileUploader();
+  _this.uploader.onAfterAddingFile = onAfterAddingFile;
+  _this.uploader.onCompleteAll = onCompleteAll;
+
   _this.errMessage;
+  _this.contactChoices;
 
   _this.customerId = $stateParams.customerId;
   _this.contract.customer = { id: _this.customerId };
@@ -15,10 +21,12 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
   _this.customerNumber = $stateParams.customerNumber;
 
   _this.saveContract = saveContract;
-  _this.getContactList = getContactList;
   _this.goToViewContract = goToViewContract;
+  _this.dateRangeChanged = dateRangeChanged;
+  _this.validateLoiEndDate = validateLoiEndDate;
 
   function init(){
+    _this.contract.id = null;
     _this.contract.number = null;
     _this.contract.name = null;
     _this.contract.startDate = moment().toDate();
@@ -37,6 +45,10 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     _this.contract.loiStartDate = moment().toDate();
     _this.contract.loiEndDate = moment().toDate();
     _this.contract.issuingAuthority = "";
+    _this.contract.skills = null;
+    _this.contract.skills_mandatory = "false";
+    _this.contract.liscense = null;
+    _this.contract.liscense_mandatory = "false";
 
     _this.limitsOfLiabilityChoices = _this.model.limitsOfLiabilityChoices;
     _this.limitsOfLiabilityDefault = _this.model.limitsOfLiabilityDefault;
@@ -44,13 +56,19 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     _this.standardPaymentTermsChoices = _this.model.standardPaymentTermsChoices;
     _this.standardPaymentTermsDefault = _this.model.standardPaymentTermsDefault;
 
-
-    getContactList();
+    getContacts(_this.contract.accountNumber);
+    initContract();
+    getSkills();
+    getLiscenses();
   }
 
   init();
 
   function saveContract(){
+    if (_this.errMessage != "" && _this.errMessage != undefined){
+      alert("Please address remaining errors.");
+      return;
+    }
     CreateContractService.save(_this.contract).then(function (response) {
       _this.contractId = response.id;
       goToViewContract();
@@ -59,22 +77,133 @@ function createContractCtrl(CreateContractService, ContractModel, $state, $state
     });
   }
 
-  function getContactList(){
-    _this.contactChoices = [
-      {
-        id: 'richmond',
-        name: 'Rich'
-      }
-    ];
-    /*CreateContractService.getContactList().then(function (response) {
-      _this.contactChoices = response;
-
+  function initContract(){
+    CreateContractService.init().then(function (response) {
+      _this.contract.id = response.id;
     }, function (error) {
       _this.errMessage = error;
-    });*/
+    });
+  }
+
+  function getContacts(accountNumber){
+    CreateContractService.getContactList(accountNumber).then(function (response){
+
+      angular.forEach(response, function(value, key) {
+        value['name'] = composeName(value);
+      }, response);
+
+      _this.contactChoices = response;
+    }, function(error){
+      _this.errMessage = error;
+    });
+  }
+
+  _this.uploader.filters.push({
+    name: 'extFilter',
+    fn: function(item /*{File|FileLikeObject}*/, options) {
+      var mime_type = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+      if(item.type == mime_type[0] || item.type == mime_type[1]){
+        _this.uploader.disabled = false;
+      }else{
+        _this.uploader.disabled = true;
+      }
+
+      if(_this.uploader.disabled){
+        console.warn("Error!", "Uploaded file format is invalid.", "error");
+      }else{
+        return item;
+      }
+    }
+  });
+
+  function onAfterAddingFile(fileItem) {
+    var self = this;
+    console.info('onAfterAddingFile', fileItem);
+    var importfile = fileItem;
+    CreateContractService.upload(_this.contract.id, fileItem)
+      .then(function(item){
+        fileItem.remove();
+        _this.uploader.disabled = self.queue.length === 0;
+    },function(e){
+      console.warn('Error!', e.data.error);
+    });
+  };
+
+  function onCompleteAll() {
+    var self = this;
+      console.info('onCompleteAll');
+      $timeout(function () {
+        var toast = self.queue.length===1 ? "file": "files";
+        console.log("Success!", "CSV "+ toast + " has been uploaded and being processed by the server", "success")
+        _this.uploader.disabled = true;
+        self.clearQueue();
+      }, 500);
+  };
+
+
+  function composeName(contact) {
+    return camelCase(contact.salutation) + " " + contact.firstName + " " + contact.lastName;
+  }
+
+  function camelCase(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function getSkills(){
+    _this.skillsList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
+  }
+
+  function getLiscenses(){
+    _this.licenseList = [
+      {
+        id: '001',
+        name: 'Machines'
+      },
+      {
+        id: '002',
+        name: 'Cyber Security'
+      },
+      {
+        id: '003',
+        name: 'K-9 Units'
+      }
+    ];
   }
 
   function goToViewContract(){
     $state.go('customer.view', {customerNumber:_this.customerNumber});
+  }
+
+  function dateRangeChanged(){
+    // console.log(moment(_this.contract.startDate).toDate() > moment(_this.contract.endDate).toDate());
+    if (moment(_this.contract.startDate).toDate() <= moment(_this.contract.endDate).toDate()){
+      // console.log("Good");
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid Date Range";
+    }
+  }
+
+  function validateLoiEndDate(){
+    if (moment(_this.contract.loiStartDate).toDate() <= moment(_this.contract.loiEndDate).toDate() ){
+      _this.errMessage = "";
+    }
+    else{
+      _this.errMessage = "Invalid LOI Date Range (LOI start date must be greater than contract LOI end date)!";
+    }
   }
 }

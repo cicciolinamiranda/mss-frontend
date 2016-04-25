@@ -19,6 +19,7 @@ function customerViewService($http, $q, $gapi, GAPI_BASE) {
 
   this.get = function(customerNumber) {
     var deferred2 = $q.defer();
+    cache = {};
     if (cache.hasOwnProperty(customerNumber) && cache[customerNumber].hasOwnProperty('details')) {
       deferred2.resolve(cache[customerNumber].details);
     } else {
@@ -38,6 +39,7 @@ function customerViewService($http, $q, $gapi, GAPI_BASE) {
   this.getCustomerContracts = function(customerId) {
     var deferred2 = $q.defer();
     //pageNum = typeof pageNum !== undefined ?  pageNum - 1 : 0;
+    cache = {};
     if (cache.hasOwnProperty(customerId) && cache[customerId].hasOwnProperty('contracts')) {
       deferred2.resolve(cache[customerId].contracts);
     } else {

@@ -1,26 +1,22 @@
-<table class="table">
+<table class="table table-hover" ng-show="$ctrl.auditlog.length > 0">
   <thead>
     <tr>
       <th>Changed by</th>
       <th>Change Description</th>
       <th>Date</th>
+      <th><th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Lewis Rogers</td>
-      <td>Change made to front desk post.</td>
-      <td>13/05/1979</td>
-    </tr>
-    <tr>
-      <td>Calvin Kent</td>
-      <td>Change made to front desk post.</td>
-      <td>16/05/1979</td>
-    </tr>
-    <tr>
-      <td>Tan Kent</td>
-      <td>Edited duplicate record</td>
-      <td>17/05/1979</td>
+    <tr ng-repeat="auditlog in $ctrl.auditlog | limitTo:10" data-toggle="modal" data-target="#viewAuditlogsModal" ng-click="$ctrl.viewAuditlogDetails(auditlog)">
+      <td>{{auditlog.revised_by}}</td>
+      <td>
+        {{auditlog.reason}}
+      </td>
+      <td>{{auditlog.revision_date}}</td>
+      <div class="modal fade" id="viewAuditlogsModal" tabindex="-1" role="dialog" aria-labelledby="viewAuditlogsModal">
+        <auditlogs-view auditlog="$ctrl.model.auditlog" ></auditlogs-view>
+      </div>
     </tr>
   </tbody>
 </table>

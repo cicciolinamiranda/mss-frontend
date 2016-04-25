@@ -17,6 +17,9 @@ function editPostModel($state, EditPostSvc, PostModel) {
         if(response == "Failed"){
             EditPostModel.prototype.errMessage = 'Unable to save Post Record';
         }
+        else if(response == "Post name is required"){
+          EditPostModel.prototype.errMessage = "Post name is required";
+        }
         else if(response == "Duplicate"){
           EditPostModel.prototype.errMessage = 'Duplicate Post Name';
         }
@@ -30,11 +33,10 @@ function editPostModel($state, EditPostSvc, PostModel) {
     }else{
 
       EditPostSvc.update(PostModel.transformPostJsonToDTO(postDto)).then(function(response){
-        console.log("UPDAAATE POST-->"+JSON.stringify(response));
         if(response == "Failed"){
           EditPostModel.prototype.errMessage = 'Unable to save Post Record';
         }
-        else if(response == "Duplicate"){
+        else if(response == "Post name is required"){
           EditPostModel.prototype.errMessage = "Post name is required";
         }
         else if(response == "Duplicate"){

@@ -43,11 +43,11 @@
           <div class="col-md-5">
             <div class="form-group col-md-6">
               <label for="startDate">Start Date</label>
-              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.contract.startDate" required/>
+              <input type="date" class="form-control" name="startDate" id="startDate" ng-model="$ctrl.contract.startDate" ng-change="$ctrl.dateRangeChanged()" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="endDate">End Date</label>
-              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.contract.endDate"/>
+              <input type="date" class="form-control" name="endDate" id="endDate" ng-model="$ctrl.contract.endDate" ng-change="$ctrl.dateRangeChanged()" />
             </div>
           </div>
         </div>
@@ -121,45 +121,90 @@
             </select>
           </div>
           <div class="col-md-3">
-            <label for="wefDate">LOI Date</label>
-            <input type="date" class="form-control" name="wefDate" id="wefDate"
+            <label for="loiDate">LOI Date</label>
+            <input type="date" class="form-control" name="loiDate" id="loiDate"
               ng-model="$ctrl.contract.loiDate"/>
           </div>
           <div class="col-md-5">
             <div class="form-group col-md-6">
               <label for="loiStartDate">LOI Start Date</label>
-              <input type="date" class="form-control" name="loiStartDate" id="startDate" ng-model="$ctrl.contract.loiStartDate" required/>
+              <input type="date" class="form-control" name="loiStartDate" id="loiStartDate" ng-model="$ctrl.contract.loiStartDate" ng-change="$ctrl.validateLoiEndDate()" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="loiEndDate">LOI End Date</label>
-              <input type="date" class="form-control" name="loiEndDate" id="loiEndDate" ng-model="$ctrl.contract.loiEndDate"/>
+              <input type="date" class="form-control" name="loiEndDate" id="loiEndDate" ng-model="$ctrl.contract.loiEndDate" ng-change="$ctrl.validateLoiEndDate()" required/>
             </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: block">
+          <div class="col-md-3">
+            <label for="skills">Skills</label>
+            <div class="input-group">
+              <select name="skills" class="form-control" ng-options="d.id as d.name for d in $ctrl.skillsList"
+              ng-init="$ctrl.contract.skills"
+              ng-model="$ctrl.contract.skills"
+              required>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="skill_mandatory">Skill Mandatory?</label><br/>
+            <select name="skill_mandatory" ng-model="$ctrl.contract.skills_mandatory" class="form-control">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select><br>
+          </div>
+
+          <div class="col-md-5">
+            <div class="col-md-6">
+              <label for="license">License</label>
+              <div class="input-group">
+                <select name="license" class="form-control" ng-options="d.id as d.name for d in $ctrl.licenseList"
+                ng-init="$ctrl.contract.license"
+                ng-model="$ctrl.contract.license"
+                required>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="license_mandatory">License Mandatory?</label><br/>
+              <select name="license_mandatory" ng-model="$ctrl.contract.license_mandatory" class="form-control">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select><br>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: block">
+          <div class="col-md-3">
+            <label for="issuingAuthority">Issuing Authority</label>
+            <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
+            ng-init="$ctrl.contract.issuingAuthority"
+            ng-model="$ctrl.contract.issuingAuthority"
+            required>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="fileUpload">File Upload</label>
+            <input type="file" name="file-5[]" id="file-5" nv-file-select=""
+            ngf-pattern="'.pdf,.doc, .docx'"
+            uploader="$ctrl.uploader" multiple="" accept=".pdf,.doc,.docx">
           </div>
         </div>
 
         <div class="row">
-          <div class="form-group col-md-12">
-            <label for="issuingAuthority">Issuing Authority</label>
-            <div class="input-group">
-              <select class="form-control" ng-options="d.id as d.name for d in $ctrl.contactChoices"
-              ng-init="$ctrl.contract.issuingAuthority"
-              ng-model="$ctrl.contract.issuingAuthority"
-              required>
-            </select>
-            </div>
+          <div class="col-md-12 text-right">
+            <hr />
+            <button type="button" class="btn btn-primary" ng-click="$ctrl.saveContract()"
+              ng-disabled="createContractForm.$invalid">Save</button>
+            <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewContract($ctrl.contract.accountNumber)">Cancel</button>
           </div>
         </div>
-      </div>
+        <br/>
+      </form>
+    </div>
 
-<div class="row">
-  <div class="col-md-12 text-right">
-    <hr />
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.saveContract()"
-      ng-disabled="createContractForm.$invalid">Save</button>
-    <button type="button" class="btn btn-danger" ng-click="$ctrl.goToViewContract($ctrl.contract.accountNumber)">Cancel</button>
   </div>
-</div>
-</form>
-</div>
-</div>
 </div>

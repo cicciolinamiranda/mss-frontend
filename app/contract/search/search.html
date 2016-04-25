@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <h3 class="page-header">Contracts</h3>
         <div class="list-group">
-          <div ng-repeat="contract_ in $ctrl.contracts" class="list-group-item clickable" ui-sref="contract.view({id:contract_.number})">
+          <div ng-repeat="contract_ in $ctrl.contracts" class="list-group-item clickable" ui-sref="contract.view({contractNumber:contract_.number})">
             <small class="text-muted">{{contract_.number}}</small>
             <h4>{{contract_.name}}</h4>
             <h5 class="text-danger">{{contract_.title}}</h5>

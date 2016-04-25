@@ -42,6 +42,26 @@ function createContractService($http, $q, $gapi, GAPI_BASE) {
     return _this.contractDetails;
   }
 
+  _this.init = function () {
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.customerContract.contract.init();
+    }).then(function (data) {
+      deferred2.resolve(data);
+    });
+    return deferred2.promise;
+  };
+
+  _this.upload = function (contractId, file) {
+    var deferred2 = $q.defer();
+    loadApi.then(function () {
+      return $gapi.client.customerContract.contract.upload({contractId: contractId, file: file});
+    }).then(function (data) {
+      deferred2.resolve(data);
+    });
+    return deferred2.promise;
+  };
+
   _this.save = function (contractDetails) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
@@ -52,10 +72,10 @@ function createContractService($http, $q, $gapi, GAPI_BASE) {
     return deferred2.promise;
   };
 
-  _this.getContactList = function () {
+  _this.getContactList = function (accountNumber) {
     var deferred2 = $q.defer();
     loadApi.then(function () {
-      return $gapi.client.customerContract.contact.list();
+      return $gapi.client.customerContract.contact.getByAccountNumber({accountNumber: accountNumber});
     }).then(function (data) {
       deferred2.resolve(data.items);
     });
