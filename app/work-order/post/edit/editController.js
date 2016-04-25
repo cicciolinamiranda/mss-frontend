@@ -77,7 +77,13 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
 
   function update(){
     // _this.model.editPost(_this.transactionParam, _this.post);
+
+    if(_this.transactionParam == "d"){
+      _this.model.editPost(_this.transactionParam, _this.post);
+    }
+    else{
     $('#reasonForChangeModal').modal('show');
+    }
   }
 
   function cancel() {
