@@ -124,10 +124,10 @@ function createCtrl(ViewLocationSvc, LocationModel, $state, $stateParams) {
 
     ViewLocationSvc.updateStatus(id,status)
       .then(function(response){
-        _this.postLists = response;
+        $state.reload();
     });
 
-    $state.reload();
+
   }
 
   function editLocation(id){

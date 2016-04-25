@@ -179,7 +179,7 @@ function editLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
       'proofOfDuty': json.proofOfDuty,
       'methodOfRecording': json.methodOfRecording,
       'reasonForChange':json.reasonForChange
-    };  console.log("to be save---->"+JSON.stringify(_this.customerDetails));
+    }; 
     return _this.customerDetails;
   }
 

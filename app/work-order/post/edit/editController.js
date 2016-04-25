@@ -83,7 +83,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
       _this.model.editPost(_this.transactionParam, _this.post);
     }
     else{
-    $('#reasonForChangeModal').modal('show');
+    $('#reasonForChangeModal_editPost').modal('show');
     }
   }
 

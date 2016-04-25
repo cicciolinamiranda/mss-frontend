@@ -10,8 +10,6 @@ function reasonForChangeCtrl(LocationModel,PostModel,EditPostModel,CreatePostSvc
   _this.editPostModel = new EditPostModel();
 
   _this.submit = function () {
-    console.log(_this.objectType);
-    console.log(_this.saveOrUpdate);
     if(_this.objectType == "CUSTOMER_LOCATION")
     {
       if(_this.saveOrUpdate == "S") {
@@ -20,7 +18,7 @@ function reasonForChangeCtrl(LocationModel,PostModel,EditPostModel,CreatePostSvc
       else if (_this.saveOrUpdate == "U"){
         _this.locationModel.update(_this.toBeSaved);
       }
-
+      $('#reasonForChangeModal_editCustLoc').modal('hide');
     }
     else if(_this.objectType == "POST")
     {
@@ -34,7 +32,7 @@ function reasonForChangeCtrl(LocationModel,PostModel,EditPostModel,CreatePostSvc
       else if(_this.saveOrUpdate == "D") {
           _this.editPostModel.editPost("d", _this.toBeSaved);
       }
+      $('#reasonForChangeModal_editPost').modal('hide');
     }
-     $('#reasonForChangeModal').modal('hide');
   };
 }
