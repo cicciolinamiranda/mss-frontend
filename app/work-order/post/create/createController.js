@@ -42,7 +42,7 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
       }
 
       //comments
-      _this.post.reasonForChange ="";
+      _this.post.reasonForChange ="Created New Post";
       _this.saveOrUpdate = "S";
       _this.objectType = "POST";
     });
@@ -53,19 +53,21 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
   init();
 
   function save(){
+    proceedWithSave(_this.post);
+    //TODO: Uncomment once backend for image upload is OK
     //check image to be uploaded first
-    if(_this.post.image){
-      _this.model.uploadImage(_this.post.image).then(
-        function(response){
-          _this.post.imageUrl = response.data.imageUrl;
-          proceedWithSave(_this.post);
-        },
-        function(error){
-          _this.errMessage = error.statusText;
-        });
-    }else{
-      proceedWithSave(_this.post);
-    }
+    // if(_this.post.image){
+    //   _this.model.uploadImage(_this.post.image).then(
+    //     function(response){
+    //       _this.post.imageUrl = response.data.imageUrl;
+    //       proceedWithSave(_this.post);
+    //     },
+    //     function(error){
+    //       _this.errMessage = error.statusText;
+    //     });
+    // }else{
+    //   proceedWithSave(_this.post);
+    // }
   }
 
   function proceedWithSave(post){
@@ -86,25 +88,6 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
     }, function(error) {
       _this.errMessage = error;
     });
-
-    $('#reasonForChangeModal').modal('show');
-    // CreatePostSvc.save(PostModel.transformPostJsonToDTO(_this.post)).then(function(response){
-    //   if(response == "Failed"){
-    //     _this.errMessage = 'Unable to save Post Record';
-    //   }
-    //   else if(response == "Duplicate"){
-    //     _this.errMessage = 'Duplicate Post Name';
-    //   }
-    //   else if(response == "Post name is required"){
-    //     _this.errMessage = "Post name is required";
-    //   }
-    //   else{
-    //     var postId = response.id;
-    //     $state.go('post.view', {id: postId});
-    //   }
-    // }, function(error) {
-    //   _this.errMessage = error;
-    // });
   }
 
   function cancel() {

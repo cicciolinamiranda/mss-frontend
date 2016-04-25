@@ -46,6 +46,7 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
         _this.post.name += " (Copy)";
         //comments
         _this.saveOrUpdate = "D";
+        _this.post.reasonForChange ="Duplicated post";
       }
 
       for (i = 0; i < _this.postModel.postCoverChoices.length; i++) {
@@ -76,21 +77,26 @@ function editPostCtrl($state, $stateParams, EditPostModel, EditPostSvc, PostMode
   init();
 
   function update(){
-    if(_this.post.image){
-      _this.postModel.uploadImage(_this.post.image).then(
-        function(response){
-          _this.post.imageUrl = response.data.imageUrl;
-          _this.model.editPost(_this.transactionParam, _this.post);
-        },
-        function(error){
-          _this.model.errMessage = error.statusText;
-        });
-    }else{
-      _this.model.editPost(_this.transactionParam, _this.post);
-    }
 
-    // _this.model.editPost(_this.transactionParam, _this.post);
-    $('#reasonForChangeModal').modal('show');
+    if(_this.transactionParam == "d"){
+      _this.model.editPost(_this.transactionParam, _this.post);
+      //TODO: Uncomment once backend for image upload is OK
+      // if(_this.post.image){
+      //   _this.postModel.uploadImage(_this.post.image).then(
+      //     function(response){
+      //       _this.post.imageUrl = response.data.imageUrl;
+      //       _this.model.editPost(_this.transactionParam, _this.post);
+      //     },
+      //     function(error){
+      //       _this.model.errMessage = error.statusText;
+      //     });
+      // }else{
+      //   _this.model.editPost(_this.transactionParam, _this.post);
+      // }
+    }
+    else{
+      $('#reasonForChangeModal_editPost').modal('show');
+    }
   }
 
   function cancel() {

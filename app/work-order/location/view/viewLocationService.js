@@ -2,7 +2,7 @@ module.exports = function(ngModule) {
   ngModule.service('ViewLocationSvc', viewLocationService);
 };
 
-function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
+function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE,$state) {
 
   var _this = this;
 
@@ -36,9 +36,16 @@ function viewLocationService($http, $q, $gapi, WORKORDER_GAPI_BASE) {
   function updateStatus(id,status) {
     var def = $q.defer();
     var deferred2 = $q.defer();
+    var reasonForChange = "";
+    if(status == 'IN_PROGRESS') {
+      reasonForChange = "Unarchive Customer Location "+id;
+    }
+    else if(status == 'ARCHIVE') {
+      reasonForChange = "Archive Customer Location "+id;
+    }
     loadApi.then(function () {
       return $gapi.client.customerContract.workorder.customer.location.update_status(
-        {'id' : id, 'status':status}
+        {'id' : id, 'status':status, 'reasonForChange':reasonForChange}
       );
     }).then(function (data) {
       def.resolve(data);
