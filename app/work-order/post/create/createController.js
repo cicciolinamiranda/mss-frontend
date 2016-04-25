@@ -3,7 +3,7 @@ module.exports = createCtrl;
 var moment = require('moment');
 
 /*@ngInject*/
-function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
+function createCtrl($state, $stateParams, PostModel, CreatePostSvc, $scope) {
   var _this = this;
   var locationId = $stateParams.locationId;
   _this.model = new PostModel();
@@ -53,6 +53,24 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
   init();
 
   function save(){
+    proceedWithSave(_this.post);
+    //TODO: Uncomment once backend for image upload is OK
+    //check image to be uploaded first
+    // if(_this.post.image){
+    //   _this.model.uploadImage(_this.post.image).then(
+    //     function(response){
+    //       _this.post.imageUrl = response.data.imageUrl;
+    //       proceedWithSave(_this.post);
+    //     },
+    //     function(error){
+    //       _this.errMessage = error.statusText;
+    //     });
+    // }else{
+    //   proceedWithSave(_this.post);
+    // }
+  }
+
+  function proceedWithSave(post){
     CreatePostSvc.save(PostModel.transformPostJsonToDTO(_this.post)).then(function(response){
       if(response == "Failed"){
         _this.errMessage = 'Unable to save Post Record';
@@ -81,5 +99,13 @@ function createCtrl($state, $stateParams, PostModel, CreatePostSvc) {
       _this.postRoleChoices = response;
     });
   }
+
+  $scope.setFile = function(element) {
+      $scope.$apply(function($scope) {
+        if(element.files && element.files.length > 0){
+          _this.post.image = element.files[0];
+        }
+      });
+  };
 
 }
